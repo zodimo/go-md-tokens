@@ -36,8 +36,9 @@ var (
 		"md.sys.shape.corner.none":   "0px",
 	}
 
-	cssPropRegex = regexp.MustCompile(`([^:\s]+)\s*:\s*([^;\n]+);`)
-	aliasRegex   = regexp.MustCompile(`\{([^}]+)\}`)
+	cssPropRegex     = regexp.MustCompile(`([^:\s]+)\s*:\s*([^;\n]+);`)
+	aliasRegex       = regexp.MustCompile(`\{([^}]+)\}`)
+	varFallbackRegex = regexp.MustCompile(`var\(--md-[^,)]+,\s*([^)]+)\)`)
 )
 
 func main() {
@@ -89,6 +90,8 @@ func main() {
 			allTokens[fmt.Sprintf("md.sys.color.%s", kebabKey)] = hexVal
 		}
 
+		customColorsSass := buildSassColorMap(schemeColors)
+
 		for _, comp := range components {
 			filename := fmt.Sprintf("_md-comp-%s.scss", comp)
 			localFilePath := filepath.Join(localComponentDir, filename)
@@ -106,15 +109,33 @@ func main() {
 			fileUrl := (&url.URL{Scheme: "file", Path: absFilePath}).String()
 
 			sassBridgeCode := fmt.Sprintf(`
-@use 'sass:meta';
+@use 'sass:map';
 @use '%s' as compModule;
+@use 'md-sys-elevation' as sysElevation;
+@use 'md-sys-shape' as sysShape;
+@use 'md-sys-state' as sysState;
+@use 'md-sys-typescale' as sysTypescale;
+
+$customColors: (
+%s
+);
+
+$customDeps: (
+  'md-sys-color': $customColors,
+  'md-sys-elevation': sysElevation.values(),
+  'md-sys-shape': sysShape.values($exclude-custom-properties: true),
+  'md-sys-state': sysState.values(),
+  'md-sys-typescale': sysTypescale.values($exclude-custom-properties: true),
+);
+
+$tokens: compModule.values($deps: $customDeps, $exclude-custom-properties: true);
 
 .token-dump-%s {
-	@each $key, $value in meta.module-variables('compModule') {
-		#{$key}: #{$value};
-	}
+  @each $key, $value in $tokens {
+    --#{$key}: #{$value};
+  }
 }
-`, fileUrl, comp)
+`, fileUrl, customColorsSass, comp)
 
 			res, err := transpiler.Execute(godartsass.Args{
 				Source:       sassBridgeCode,
@@ -129,14 +150,11 @@ func main() {
 			matches := cssPropRegex.FindAllStringSubmatch(res.CSS, -1)
 
 			for _, match := range matches {
-				property := strings.TrimSpace(match[1])
+				property := strings.TrimPrefix(strings.TrimSpace(match[1]), "--")
 				value := strings.TrimSpace(match[2])
+				value = varFallbackRegex.ReplaceAllString(value, "$1")
 
-				value = replaceVar(value, "color")
-				value = replaceVar(value, "shape")
-				value = replaceVar(value, "typescale")
-
-				if strings.Contains(value, "(") || strings.Contains(value, "$") || strings.Contains(value, "values-light") {
+				if strings.Contains(value, "$") || strings.Contains(value, "values-light") {
 					continue
 				}
 
@@ -202,9 +220,23 @@ func normalize(s string) string {
 	return s
 }
 
-func replaceVar(value, tokenType string) string {
-	re := regexp.MustCompile(fmt.Sprintf(`var\(--md-sys-%s-([^,)]+)[^)]*\)`, tokenType))
-	return re.ReplaceAllString(value, fmt.Sprintf("{md.sys.%s.$1}", tokenType))
+func buildSassColorMap(schemeColors map[string]string) string {
+	var b strings.Builder
+	keys := make([]string, 0, len(schemeColors))
+	for k := range schemeColors {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	for i, k := range keys {
+		v := schemeColors[k]
+		kebabKey := camelToKebab(k)
+		if i > 0 {
+			b.WriteString(",\n")
+		}
+		b.WriteString(fmt.Sprintf("  '%s': %s", kebabKey, v))
+	}
+	return b.String()
 }
 
 func resolveAliases(allTokens map[string]string) map[string]string {
