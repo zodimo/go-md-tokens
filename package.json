@@ -1,0 +1,14 @@
+{
+  "name": "go-gen-m3",
+  "version": "1.0.0",
+  "description": "# links - https://m3.material.io/foundations/design-tokens/overview - https://styledictionary.com/ - https://tr.designtokens.org/format/",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.101.0"
+  }
+}
