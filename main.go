@@ -1,5 +1,7 @@
 package main
 
+//go:generate go run .
+
 import (
 	"encoding/json"
 	"fmt"
@@ -12,6 +14,8 @@ import (
 	"strings"
 
 	"github.com/bep/godartsass/v2"
+	"github.com/xeipuuv/gojsonschema"
+	"github.com/zodimo/go-gen-m3/pkg/m3tokens"
 )
 
 const (
@@ -62,6 +66,43 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	log.Println("Extracting token schema from SCSS...")
+	schema, err := m3tokens.BuildSchema(transpiler, localComponentDir)
+	if err != nil {
+		log.Fatalf("Failed to extract schema: %v", err)
+	}
+
+	schemaJSON, err := json.MarshalIndent(schema, "", "  ")
+	if err != nil {
+		log.Fatalf("Failed to serialize schema: %v", err)
+	}
+	schemaPath := "pkg/m3tokens/schema.json"
+	if err := os.WriteFile(schemaPath, schemaJSON, 0644); err != nil {
+		log.Fatalf("Failed to write schema: %v", err)
+	}
+
+	absSchemaDefPath, _ := filepath.Abs("pkg/m3tokens/schema-def.json")
+	schemaLoader := gojsonschema.NewReferenceLoader("file://" + absSchemaDefPath)
+	documentLoader := gojsonschema.NewStringLoader(string(schemaJSON))
+	result, err := gojsonschema.Validate(schemaLoader, documentLoader)
+	if err != nil {
+		log.Fatalf("Schema validation error: %v", err)
+	}
+	if !result.Valid() {
+		for _, desc := range result.Errors() {
+			log.Printf("- %s\n", desc)
+		}
+		log.Fatal("Extracted schema does not match schema-def.json")
+	}
+	log.Println("Schema extracted and validated successfully!")
+
+	log.Println("Generating typed token system...")
+	if err := m3tokens.Generate(schema, "pkg/m3tokens"); err != nil {
+		log.Fatalf("Code generation failed: %v", err)
+	}
+	log.Println("Typed token system generated successfully!")
+
 
 	absDir, err := filepath.Abs(localComponentDir)
 	if err != nil {

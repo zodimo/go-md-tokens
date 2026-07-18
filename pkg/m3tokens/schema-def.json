@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "M3 Token Schema",
+  "type": "object",
+  "properties": {
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "supportedTokens": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "unsupportedTokens": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "renamedTokens": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
+          "dependencies": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "statePrefixes": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["name", "supportedTokens", "dependencies"]
+      }
+    },
+    "systemModules": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": { "type": "string" }
+      }
+    }
+  },
+  "required": ["components", "systemModules"]
+}
