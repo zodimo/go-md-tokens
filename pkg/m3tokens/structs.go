@@ -119,11 +119,11 @@ type CheckboxTokens struct {
 	Disabled         *CheckboxDisabledOverlay
 	Focus            *CheckboxFocusOverlay
 	Hover            *CheckboxHoverOverlay
+	Pressed          *CheckboxPressedOverlay
 	Selected         *CheckboxSelectedOverlay
 	SelectedDisabled *CheckboxSelectedDisabledOverlay
 	SelectedFocus    *CheckboxSelectedFocusOverlay
 	SelectedHover    *CheckboxSelectedHoverOverlay
-	Pressed          *CheckboxPressedOverlay
 	SelectedPressed  *CheckboxSelectedPressedOverlay
 }
 
@@ -143,6 +143,13 @@ type CheckboxHoverOverlay struct {
 	OutlineWidth      *string `m3:"hover-outline-width"`
 	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+}
+
+type CheckboxPressedOverlay struct {
+	OutlineColor      *string `m3:"pressed-outline-color"`
+	OutlineWidth      *string `m3:"pressed-outline-width"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
 type CheckboxSelectedOverlay struct {
@@ -166,13 +173,6 @@ type CheckboxSelectedHoverOverlay struct {
 	IconColor         *string `m3:"selected-hover-icon-color"`
 	StateLayerColor   *string `m3:"selected-hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
-}
-
-type CheckboxPressedOverlay struct {
-	OutlineColor      *string `m3:"pressed-outline-color"`
-	OutlineWidth      *string `m3:"pressed-outline-width"`
-	StateLayerColor   *string `m3:"pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
 type CheckboxSelectedPressedOverlay struct {
@@ -286,10 +286,20 @@ type ElevatedButtonTokens struct {
 		LeadingSpace  string `m3:"with-trailing-icon-leading-space"`
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
+	Disabled *ElevatedButtonDisabledOverlay
 	Focus    *ElevatedButtonFocusOverlay
 	Hover    *ElevatedButtonHoverOverlay
 	Pressed  *ElevatedButtonPressedOverlay
-	Disabled *ElevatedButtonDisabledOverlay
+}
+
+type ElevatedButtonDisabledOverlay struct {
+	ContainerColor     *string `m3:"disabled-container-color"`
+	ContainerElevation *string `m3:"disabled-container-elevation"`
+	ContainerOpacity   *string `m3:"disabled-container-opacity"`
+	IconColor          *string `m3:"disabled-icon-color"`
+	IconOpacity        *string `m3:"disabled-icon-opacity"`
+	LabelTextColor     *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity   *string `m3:"disabled-label-text-opacity"`
 }
 
 type ElevatedButtonFocusOverlay struct {
@@ -312,16 +322,6 @@ type ElevatedButtonPressedOverlay struct {
 	LabelTextColor     *string `m3:"pressed-label-text-color"`
 	StateLayerColor    *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity  *string `m3:"pressed-state-layer-opacity"`
-}
-
-type ElevatedButtonDisabledOverlay struct {
-	ContainerColor     *string `m3:"disabled-container-color"`
-	ContainerElevation *string `m3:"disabled-container-elevation"`
-	ContainerOpacity   *string `m3:"disabled-container-opacity"`
-	IconColor          *string `m3:"disabled-icon-color"`
-	IconOpacity        *string `m3:"disabled-icon-opacity"`
-	LabelTextColor     *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity   *string `m3:"disabled-label-text-opacity"`
 }
 
 type ElevatedCardTokens struct {
@@ -386,9 +386,14 @@ type FabBrandedTokens struct {
 		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
+	Focus   *FabBrandedFocusOverlay
 	Hover   *FabBrandedHoverOverlay
 	Pressed *FabBrandedPressedOverlay
-	Focus   *FabBrandedFocusOverlay
+}
+
+type FabBrandedFocusOverlay struct {
+	ContainerElevation *string `m3:"focus-container-elevation"`
+	LabelTextColor     *string `m3:"focus-label-text-color"`
 }
 
 type FabBrandedHoverOverlay struct {
@@ -403,11 +408,6 @@ type FabBrandedPressedOverlay struct {
 	LabelTextColor     *string `m3:"pressed-label-text-color"`
 	StateLayerColor    *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity  *string `m3:"pressed-state-layer-opacity"`
-}
-
-type FabBrandedFocusOverlay struct {
-	ContainerElevation *string `m3:"focus-container-elevation"`
-	LabelTextColor     *string `m3:"focus-label-text-color"`
 }
 
 type FabTokens struct {
@@ -701,19 +701,24 @@ type FilledFieldTokens struct {
 	WithTrailingContent struct {
 		TrailingSpace string `m3:"with-trailing-content-trailing-space"`
 	}
-	Disabled         *FilledFieldDisabledOverlay
-	ErrorActive      *FilledFieldErrorActiveOverlay
-	Error            *FilledFieldErrorOverlay
-	ErrorFocus       *FilledFieldErrorFocusOverlay
-	ErrorHoverActive *FilledFieldErrorHoverActiveOverlay
-	FocusActive      *FilledFieldFocusActiveOverlay
 	Active           *FilledFieldActiveOverlay
+	Disabled         *FilledFieldDisabledOverlay
 	DisabledActive   *FilledFieldDisabledActiveOverlay
+	Error            *FilledFieldErrorOverlay
+	ErrorActive      *FilledFieldErrorActiveOverlay
+	ErrorFocus       *FilledFieldErrorFocusOverlay
 	ErrorFocusActive *FilledFieldErrorFocusActiveOverlay
 	ErrorHover       *FilledFieldErrorHoverOverlay
+	ErrorHoverActive *FilledFieldErrorHoverActiveOverlay
 	Focus            *FilledFieldFocusOverlay
-	HoverActive      *FilledFieldHoverActiveOverlay
+	FocusActive      *FilledFieldFocusActiveOverlay
 	Hover            *FilledFieldHoverOverlay
+	HoverActive      *FilledFieldHoverActiveOverlay
+}
+
+type FilledFieldActiveOverlay struct {
+	IndicatorColor  *string `m3:"active-indicator-color"`
+	IndicatorHeight *string `m3:"active-indicator-height"`
 }
 
 type FilledFieldDisabledOverlay struct {
@@ -731,8 +736,10 @@ type FilledFieldDisabledOverlay struct {
 	TrailingContentOpacity *string `m3:"disabled-trailing-content-opacity"`
 }
 
-type FilledFieldErrorActiveOverlay struct {
-	IndicatorColor *string `m3:"error-active-indicator-color"`
+type FilledFieldDisabledActiveOverlay struct {
+	IndicatorColor   *string `m3:"disabled-active-indicator-color"`
+	IndicatorHeight  *string `m3:"disabled-active-indicator-height"`
+	IndicatorOpacity *string `m3:"disabled-active-indicator-opacity"`
 }
 
 type FilledFieldErrorOverlay struct {
@@ -743,32 +750,16 @@ type FilledFieldErrorOverlay struct {
 	TrailingContentColor *string `m3:"error-trailing-content-color"`
 }
 
+type FilledFieldErrorActiveOverlay struct {
+	IndicatorColor *string `m3:"error-active-indicator-color"`
+}
+
 type FilledFieldErrorFocusOverlay struct {
 	ContentColor         *string `m3:"error-focus-content-color"`
 	LabelTextColor       *string `m3:"error-focus-label-text-color"`
 	LeadingContentColor  *string `m3:"error-focus-leading-content-color"`
 	SupportingTextColor  *string `m3:"error-focus-supporting-text-color"`
 	TrailingContentColor *string `m3:"error-focus-trailing-content-color"`
-}
-
-type FilledFieldErrorHoverActiveOverlay struct {
-	IndicatorColor *string `m3:"error-hover-active-indicator-color"`
-}
-
-type FilledFieldFocusActiveOverlay struct {
-	IndicatorColor  *string `m3:"focus-active-indicator-color"`
-	IndicatorHeight *string `m3:"focus-active-indicator-height"`
-}
-
-type FilledFieldActiveOverlay struct {
-	IndicatorColor  *string `m3:"active-indicator-color"`
-	IndicatorHeight *string `m3:"active-indicator-height"`
-}
-
-type FilledFieldDisabledActiveOverlay struct {
-	IndicatorColor   *string `m3:"disabled-active-indicator-color"`
-	IndicatorHeight  *string `m3:"disabled-active-indicator-height"`
-	IndicatorOpacity *string `m3:"disabled-active-indicator-opacity"`
 }
 
 type FilledFieldErrorFocusActiveOverlay struct {
@@ -785,6 +776,10 @@ type FilledFieldErrorHoverOverlay struct {
 	TrailingContentColor *string `m3:"error-hover-trailing-content-color"`
 }
 
+type FilledFieldErrorHoverActiveOverlay struct {
+	IndicatorColor *string `m3:"error-hover-active-indicator-color"`
+}
+
 type FilledFieldFocusOverlay struct {
 	ContentColor         *string `m3:"focus-content-color"`
 	LabelTextColor       *string `m3:"focus-label-text-color"`
@@ -793,9 +788,9 @@ type FilledFieldFocusOverlay struct {
 	TrailingContentColor *string `m3:"focus-trailing-content-color"`
 }
 
-type FilledFieldHoverActiveOverlay struct {
-	IndicatorColor  *string `m3:"hover-active-indicator-color"`
-	IndicatorHeight *string `m3:"hover-active-indicator-height"`
+type FilledFieldFocusActiveOverlay struct {
+	IndicatorColor  *string `m3:"focus-active-indicator-color"`
+	IndicatorHeight *string `m3:"focus-active-indicator-height"`
 }
 
 type FilledFieldHoverOverlay struct {
@@ -806,6 +801,11 @@ type FilledFieldHoverOverlay struct {
 	StateLayerOpacity    *string `m3:"hover-state-layer-opacity"`
 	SupportingTextColor  *string `m3:"hover-supporting-text-color"`
 	TrailingContentColor *string `m3:"hover-trailing-content-color"`
+}
+
+type FilledFieldHoverActiveOverlay struct {
+	IndicatorColor  *string `m3:"hover-active-indicator-color"`
+	IndicatorHeight *string `m3:"hover-active-indicator-height"`
 }
 
 type FilledIconButtonTokens struct {
@@ -832,47 +832,19 @@ type FilledIconButtonTokens struct {
 	Unselected struct {
 		ContainerColor string `m3:"unselected-container-color"`
 	}
-	Hover                 *FilledIconButtonHoverOverlay
-	ToggleFocus           *FilledIconButtonToggleFocusOverlay
-	ToggleHover           *FilledIconButtonToggleHoverOverlay
-	Toggle                *FilledIconButtonToggleOverlay
-	ToggleSelected        *FilledIconButtonToggleSelectedOverlay
-	ToggleSelectedPressed *FilledIconButtonToggleSelectedPressedOverlay
 	Disabled              *FilledIconButtonDisabledOverlay
 	Focus                 *FilledIconButtonFocusOverlay
+	Hover                 *FilledIconButtonHoverOverlay
 	Pressed               *FilledIconButtonPressedOverlay
 	Selected              *FilledIconButtonSelectedOverlay
+	Toggle                *FilledIconButtonToggleOverlay
+	ToggleFocus           *FilledIconButtonToggleFocusOverlay
+	ToggleHover           *FilledIconButtonToggleHoverOverlay
 	TogglePressed         *FilledIconButtonTogglePressedOverlay
+	ToggleSelected        *FilledIconButtonToggleSelectedOverlay
 	ToggleSelectedFocus   *FilledIconButtonToggleSelectedFocusOverlay
 	ToggleSelectedHover   *FilledIconButtonToggleSelectedHoverOverlay
-}
-
-type FilledIconButtonHoverOverlay struct {
-	IconColor         *string `m3:"hover-icon-color"`
-	StateLayerColor   *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
-}
-
-type FilledIconButtonToggleFocusOverlay struct {
-	IconColor *string `m3:"toggle-focus-icon-color"`
-}
-
-type FilledIconButtonToggleHoverOverlay struct {
-	IconColor       *string `m3:"toggle-hover-icon-color"`
-	StateLayerColor *string `m3:"toggle-hover-state-layer-color"`
-}
-
-type FilledIconButtonToggleOverlay struct {
-	IconColor *string `m3:"toggle-icon-color"`
-}
-
-type FilledIconButtonToggleSelectedOverlay struct {
-	IconColor *string `m3:"toggle-selected-icon-color"`
-}
-
-type FilledIconButtonToggleSelectedPressedOverlay struct {
-	IconColor       *string `m3:"toggle-selected-pressed-icon-color"`
-	StateLayerColor *string `m3:"toggle-selected-pressed-state-layer-color"`
+	ToggleSelectedPressed *FilledIconButtonToggleSelectedPressedOverlay
 }
 
 type FilledIconButtonDisabledOverlay struct {
@@ -886,6 +858,12 @@ type FilledIconButtonFocusOverlay struct {
 	IconColor *string `m3:"focus-icon-color"`
 }
 
+type FilledIconButtonHoverOverlay struct {
+	IconColor         *string `m3:"hover-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+}
+
 type FilledIconButtonPressedOverlay struct {
 	IconColor         *string `m3:"pressed-icon-color"`
 	StateLayerColor   *string `m3:"pressed-state-layer-color"`
@@ -896,9 +874,26 @@ type FilledIconButtonSelectedOverlay struct {
 	ContainerColor *string `m3:"selected-container-color"`
 }
 
+type FilledIconButtonToggleOverlay struct {
+	IconColor *string `m3:"toggle-icon-color"`
+}
+
+type FilledIconButtonToggleFocusOverlay struct {
+	IconColor *string `m3:"toggle-focus-icon-color"`
+}
+
+type FilledIconButtonToggleHoverOverlay struct {
+	IconColor       *string `m3:"toggle-hover-icon-color"`
+	StateLayerColor *string `m3:"toggle-hover-state-layer-color"`
+}
+
 type FilledIconButtonTogglePressedOverlay struct {
 	IconColor       *string `m3:"toggle-pressed-icon-color"`
 	StateLayerColor *string `m3:"toggle-pressed-state-layer-color"`
+}
+
+type FilledIconButtonToggleSelectedOverlay struct {
+	IconColor *string `m3:"toggle-selected-icon-color"`
 }
 
 type FilledIconButtonToggleSelectedFocusOverlay struct {
@@ -908,6 +903,11 @@ type FilledIconButtonToggleSelectedFocusOverlay struct {
 type FilledIconButtonToggleSelectedHoverOverlay struct {
 	IconColor       *string `m3:"toggle-selected-hover-icon-color"`
 	StateLayerColor *string `m3:"toggle-selected-hover-state-layer-color"`
+}
+
+type FilledIconButtonToggleSelectedPressedOverlay struct {
+	IconColor       *string `m3:"toggle-selected-pressed-icon-color"`
+	StateLayerColor *string `m3:"toggle-selected-pressed-state-layer-color"`
 }
 
 type FilledSelectTokens struct {
@@ -1083,81 +1083,24 @@ type FilledTextFieldTokens struct {
 	WithTrailingIcon struct {
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
-	Focus            *FilledTextFieldFocusOverlay
 	Active           *FilledTextFieldActiveOverlay
-	ErrorActive      *FilledTextFieldErrorActiveOverlay
-	ErrorHover       *FilledTextFieldErrorHoverOverlay
-	Error            *FilledTextFieldErrorOverlay
-	FocusActive      *FilledTextFieldFocusActiveOverlay
-	HoverActive      *FilledTextFieldHoverActiveOverlay
-	Hover            *FilledTextFieldHoverOverlay
-	DisabledActive   *FilledTextFieldDisabledActiveOverlay
 	Disabled         *FilledTextFieldDisabledOverlay
-	ErrorFocusActive *FilledTextFieldErrorFocusActiveOverlay
+	DisabledActive   *FilledTextFieldDisabledActiveOverlay
+	Error            *FilledTextFieldErrorOverlay
+	ErrorActive      *FilledTextFieldErrorActiveOverlay
 	ErrorFocus       *FilledTextFieldErrorFocusOverlay
+	ErrorFocusActive *FilledTextFieldErrorFocusActiveOverlay
+	ErrorHover       *FilledTextFieldErrorHoverOverlay
 	ErrorHoverActive *FilledTextFieldErrorHoverActiveOverlay
-}
-
-type FilledTextFieldFocusOverlay struct {
-	CaretColor          *string `m3:"focus-caret-color"`
-	InputTextColor      *string `m3:"focus-input-text-color"`
-	LabelTextColor      *string `m3:"focus-label-text-color"`
-	LeadingIconColor    *string `m3:"focus-leading-icon-color"`
-	SupportingTextColor *string `m3:"focus-supporting-text-color"`
-	TrailingIconColor   *string `m3:"focus-trailing-icon-color"`
+	Focus            *FilledTextFieldFocusOverlay
+	FocusActive      *FilledTextFieldFocusActiveOverlay
+	Hover            *FilledTextFieldHoverOverlay
+	HoverActive      *FilledTextFieldHoverActiveOverlay
 }
 
 type FilledTextFieldActiveOverlay struct {
 	IndicatorColor  *string `m3:"active-indicator-color"`
 	IndicatorHeight *string `m3:"active-indicator-height"`
-}
-
-type FilledTextFieldErrorActiveOverlay struct {
-	IndicatorColor *string `m3:"error-active-indicator-color"`
-}
-
-type FilledTextFieldErrorHoverOverlay struct {
-	InputTextColor      *string `m3:"error-hover-input-text-color"`
-	LabelTextColor      *string `m3:"error-hover-label-text-color"`
-	LeadingIconColor    *string `m3:"error-hover-leading-icon-color"`
-	StateLayerColor     *string `m3:"error-hover-state-layer-color"`
-	StateLayerOpacity   *string `m3:"error-hover-state-layer-opacity"`
-	SupportingTextColor *string `m3:"error-hover-supporting-text-color"`
-	TrailingIconColor   *string `m3:"error-hover-trailing-icon-color"`
-}
-
-type FilledTextFieldErrorOverlay struct {
-	InputTextColor      *string `m3:"error-input-text-color"`
-	LabelTextColor      *string `m3:"error-label-text-color"`
-	LeadingIconColor    *string `m3:"error-leading-icon-color"`
-	SupportingTextColor *string `m3:"error-supporting-text-color"`
-	TrailingIconColor   *string `m3:"error-trailing-icon-color"`
-}
-
-type FilledTextFieldFocusActiveOverlay struct {
-	IndicatorColor  *string `m3:"focus-active-indicator-color"`
-	IndicatorHeight *string `m3:"focus-active-indicator-height"`
-}
-
-type FilledTextFieldHoverActiveOverlay struct {
-	IndicatorColor  *string `m3:"hover-active-indicator-color"`
-	IndicatorHeight *string `m3:"hover-active-indicator-height"`
-}
-
-type FilledTextFieldHoverOverlay struct {
-	InputTextColor      *string `m3:"hover-input-text-color"`
-	LabelTextColor      *string `m3:"hover-label-text-color"`
-	LeadingIconColor    *string `m3:"hover-leading-icon-color"`
-	StateLayerColor     *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity   *string `m3:"hover-state-layer-opacity"`
-	SupportingTextColor *string `m3:"hover-supporting-text-color"`
-	TrailingIconColor   *string `m3:"hover-trailing-icon-color"`
-}
-
-type FilledTextFieldDisabledActiveOverlay struct {
-	IndicatorColor   *string `m3:"disabled-active-indicator-color"`
-	IndicatorHeight  *string `m3:"disabled-active-indicator-height"`
-	IndicatorOpacity *string `m3:"disabled-active-indicator-opacity"`
 }
 
 type FilledTextFieldDisabledOverlay struct {
@@ -1175,8 +1118,22 @@ type FilledTextFieldDisabledOverlay struct {
 	TrailingIconOpacity   *string `m3:"disabled-trailing-icon-opacity"`
 }
 
-type FilledTextFieldErrorFocusActiveOverlay struct {
-	IndicatorColor *string `m3:"error-focus-active-indicator-color"`
+type FilledTextFieldDisabledActiveOverlay struct {
+	IndicatorColor   *string `m3:"disabled-active-indicator-color"`
+	IndicatorHeight  *string `m3:"disabled-active-indicator-height"`
+	IndicatorOpacity *string `m3:"disabled-active-indicator-opacity"`
+}
+
+type FilledTextFieldErrorOverlay struct {
+	InputTextColor      *string `m3:"error-input-text-color"`
+	LabelTextColor      *string `m3:"error-label-text-color"`
+	LeadingIconColor    *string `m3:"error-leading-icon-color"`
+	SupportingTextColor *string `m3:"error-supporting-text-color"`
+	TrailingIconColor   *string `m3:"error-trailing-icon-color"`
+}
+
+type FilledTextFieldErrorActiveOverlay struct {
+	IndicatorColor *string `m3:"error-active-indicator-color"`
 }
 
 type FilledTextFieldErrorFocusOverlay struct {
@@ -1188,8 +1145,51 @@ type FilledTextFieldErrorFocusOverlay struct {
 	TrailingIconColor   *string `m3:"error-focus-trailing-icon-color"`
 }
 
+type FilledTextFieldErrorFocusActiveOverlay struct {
+	IndicatorColor *string `m3:"error-focus-active-indicator-color"`
+}
+
+type FilledTextFieldErrorHoverOverlay struct {
+	InputTextColor      *string `m3:"error-hover-input-text-color"`
+	LabelTextColor      *string `m3:"error-hover-label-text-color"`
+	LeadingIconColor    *string `m3:"error-hover-leading-icon-color"`
+	StateLayerColor     *string `m3:"error-hover-state-layer-color"`
+	StateLayerOpacity   *string `m3:"error-hover-state-layer-opacity"`
+	SupportingTextColor *string `m3:"error-hover-supporting-text-color"`
+	TrailingIconColor   *string `m3:"error-hover-trailing-icon-color"`
+}
+
 type FilledTextFieldErrorHoverActiveOverlay struct {
 	IndicatorColor *string `m3:"error-hover-active-indicator-color"`
+}
+
+type FilledTextFieldFocusOverlay struct {
+	CaretColor          *string `m3:"focus-caret-color"`
+	InputTextColor      *string `m3:"focus-input-text-color"`
+	LabelTextColor      *string `m3:"focus-label-text-color"`
+	LeadingIconColor    *string `m3:"focus-leading-icon-color"`
+	SupportingTextColor *string `m3:"focus-supporting-text-color"`
+	TrailingIconColor   *string `m3:"focus-trailing-icon-color"`
+}
+
+type FilledTextFieldFocusActiveOverlay struct {
+	IndicatorColor  *string `m3:"focus-active-indicator-color"`
+	IndicatorHeight *string `m3:"focus-active-indicator-height"`
+}
+
+type FilledTextFieldHoverOverlay struct {
+	InputTextColor      *string `m3:"hover-input-text-color"`
+	LabelTextColor      *string `m3:"hover-label-text-color"`
+	LeadingIconColor    *string `m3:"hover-leading-icon-color"`
+	StateLayerColor     *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity   *string `m3:"hover-state-layer-opacity"`
+	SupportingTextColor *string `m3:"hover-supporting-text-color"`
+	TrailingIconColor   *string `m3:"hover-trailing-icon-color"`
+}
+
+type FilledTextFieldHoverActiveOverlay struct {
+	IndicatorColor  *string `m3:"hover-active-indicator-color"`
+	IndicatorHeight *string `m3:"hover-active-indicator-height"`
 }
 
 type FilledTonalButtonTokens struct {
@@ -1302,14 +1302,14 @@ type FilledTonalIconButtonTokens struct {
 	Focus                 *FilledTonalIconButtonFocusOverlay
 	Hover                 *FilledTonalIconButtonHoverOverlay
 	Pressed               *FilledTonalIconButtonPressedOverlay
-	TogglePressed         *FilledTonalIconButtonTogglePressedOverlay
-	ToggleSelectedHover   *FilledTonalIconButtonToggleSelectedHoverOverlay
 	Selected              *FilledTonalIconButtonSelectedOverlay
+	Toggle                *FilledTonalIconButtonToggleOverlay
 	ToggleFocus           *FilledTonalIconButtonToggleFocusOverlay
 	ToggleHover           *FilledTonalIconButtonToggleHoverOverlay
-	Toggle                *FilledTonalIconButtonToggleOverlay
-	ToggleSelectedFocus   *FilledTonalIconButtonToggleSelectedFocusOverlay
+	TogglePressed         *FilledTonalIconButtonTogglePressedOverlay
 	ToggleSelected        *FilledTonalIconButtonToggleSelectedOverlay
+	ToggleSelectedFocus   *FilledTonalIconButtonToggleSelectedFocusOverlay
+	ToggleSelectedHover   *FilledTonalIconButtonToggleSelectedHoverOverlay
 	ToggleSelectedPressed *FilledTonalIconButtonToggleSelectedPressedOverlay
 }
 
@@ -1336,18 +1336,12 @@ type FilledTonalIconButtonPressedOverlay struct {
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
-type FilledTonalIconButtonTogglePressedOverlay struct {
-	IconColor       *string `m3:"toggle-pressed-icon-color"`
-	StateLayerColor *string `m3:"toggle-pressed-state-layer-color"`
-}
-
-type FilledTonalIconButtonToggleSelectedHoverOverlay struct {
-	IconColor       *string `m3:"toggle-selected-hover-icon-color"`
-	StateLayerColor *string `m3:"toggle-selected-hover-state-layer-color"`
-}
-
 type FilledTonalIconButtonSelectedOverlay struct {
 	ContainerColor *string `m3:"selected-container-color"`
+}
+
+type FilledTonalIconButtonToggleOverlay struct {
+	IconColor *string `m3:"toggle-icon-color"`
 }
 
 type FilledTonalIconButtonToggleFocusOverlay struct {
@@ -1359,16 +1353,22 @@ type FilledTonalIconButtonToggleHoverOverlay struct {
 	StateLayerColor *string `m3:"toggle-hover-state-layer-color"`
 }
 
-type FilledTonalIconButtonToggleOverlay struct {
-	IconColor *string `m3:"toggle-icon-color"`
+type FilledTonalIconButtonTogglePressedOverlay struct {
+	IconColor       *string `m3:"toggle-pressed-icon-color"`
+	StateLayerColor *string `m3:"toggle-pressed-state-layer-color"`
+}
+
+type FilledTonalIconButtonToggleSelectedOverlay struct {
+	IconColor *string `m3:"toggle-selected-icon-color"`
 }
 
 type FilledTonalIconButtonToggleSelectedFocusOverlay struct {
 	IconColor *string `m3:"toggle-selected-focus-icon-color"`
 }
 
-type FilledTonalIconButtonToggleSelectedOverlay struct {
-	IconColor *string `m3:"toggle-selected-icon-color"`
+type FilledTonalIconButtonToggleSelectedHoverOverlay struct {
+	IconColor       *string `m3:"toggle-selected-hover-icon-color"`
+	StateLayerColor *string `m3:"toggle-selected-hover-state-layer-color"`
 }
 
 type FilledTonalIconButtonToggleSelectedPressedOverlay struct {
@@ -1441,11 +1441,11 @@ type FilterChipTokens struct {
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
 	Disabled         *FilterChipDisabledOverlay
-	Hover            *FilterChipHoverOverlay
-	Selected         *FilterChipSelectedOverlay
 	DisabledSelected *FilterChipDisabledSelectedOverlay
 	Focus            *FilterChipFocusOverlay
+	Hover            *FilterChipHoverOverlay
 	Pressed          *FilterChipPressedOverlay
+	Selected         *FilterChipSelectedOverlay
 	SelectedFocus    *FilterChipSelectedFocusOverlay
 	SelectedHover    *FilterChipSelectedHoverOverlay
 	SelectedPressed  *FilterChipSelectedPressedOverlay
@@ -1462,22 +1462,6 @@ type FilterChipDisabledOverlay struct {
 	TrailingIconOpacity *string `m3:"disabled-trailing-icon-opacity"`
 }
 
-type FilterChipHoverOverlay struct {
-	LabelTextColor    *string `m3:"hover-label-text-color"`
-	LeadingIconColor  *string `m3:"hover-leading-icon-color"`
-	StateLayerColor   *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
-	TrailingIconColor *string `m3:"hover-trailing-icon-color"`
-}
-
-type FilterChipSelectedOverlay struct {
-	ContainerColor    *string `m3:"selected-container-color"`
-	LabelTextColor    *string `m3:"selected-label-text-color"`
-	LeadingIconColor  *string `m3:"selected-leading-icon-color"`
-	OutlineWidth      *string `m3:"selected-outline-width"`
-	TrailingIconColor *string `m3:"selected-trailing-icon-color"`
-}
-
 type FilterChipDisabledSelectedOverlay struct {
 	ContainerColor   *string `m3:"disabled-selected-container-color"`
 	ContainerOpacity *string `m3:"disabled-selected-container-opacity"`
@@ -1490,12 +1474,28 @@ type FilterChipFocusOverlay struct {
 	TrailingIconColor *string `m3:"focus-trailing-icon-color"`
 }
 
+type FilterChipHoverOverlay struct {
+	LabelTextColor    *string `m3:"hover-label-text-color"`
+	LeadingIconColor  *string `m3:"hover-leading-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+	TrailingIconColor *string `m3:"hover-trailing-icon-color"`
+}
+
 type FilterChipPressedOverlay struct {
 	LabelTextColor    *string `m3:"pressed-label-text-color"`
 	LeadingIconColor  *string `m3:"pressed-leading-icon-color"`
 	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 	TrailingIconColor *string `m3:"pressed-trailing-icon-color"`
+}
+
+type FilterChipSelectedOverlay struct {
+	ContainerColor    *string `m3:"selected-container-color"`
+	LabelTextColor    *string `m3:"selected-label-text-color"`
+	LeadingIconColor  *string `m3:"selected-leading-icon-color"`
+	OutlineWidth      *string `m3:"selected-outline-width"`
+	TrailingIconColor *string `m3:"selected-trailing-icon-color"`
 }
 
 type FilterChipSelectedFocusOverlay struct {
@@ -1563,45 +1563,23 @@ type IconButtonTokens struct {
 		Shape   string `m3:"state-layer-shape"`
 		Width   string `m3:"state-layer-width"`
 	}
-	Selected        *IconButtonSelectedOverlay
-	SelectedPressed *IconButtonSelectedPressedOverlay
-	Focus           *IconButtonFocusOverlay
-	Pressed         *IconButtonPressedOverlay
-	SelectedHover   *IconButtonSelectedHoverOverlay
 	Disabled        *IconButtonDisabledOverlay
+	Focus           *IconButtonFocusOverlay
 	Hover           *IconButtonHoverOverlay
+	Pressed         *IconButtonPressedOverlay
+	Selected        *IconButtonSelectedOverlay
 	SelectedFocus   *IconButtonSelectedFocusOverlay
-}
-
-type IconButtonSelectedOverlay struct {
-	IconColor *string `m3:"selected-icon-color"`
-}
-
-type IconButtonSelectedPressedOverlay struct {
-	IconColor         *string `m3:"selected-pressed-icon-color"`
-	StateLayerColor   *string `m3:"selected-pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
-}
-
-type IconButtonFocusOverlay struct {
-	IconColor *string `m3:"focus-icon-color"`
-}
-
-type IconButtonPressedOverlay struct {
-	IconColor         *string `m3:"pressed-icon-color"`
-	StateLayerColor   *string `m3:"pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
-}
-
-type IconButtonSelectedHoverOverlay struct {
-	IconColor         *string `m3:"selected-hover-icon-color"`
-	StateLayerColor   *string `m3:"selected-hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
+	SelectedHover   *IconButtonSelectedHoverOverlay
+	SelectedPressed *IconButtonSelectedPressedOverlay
 }
 
 type IconButtonDisabledOverlay struct {
 	IconColor   *string `m3:"disabled-icon-color"`
 	IconOpacity *string `m3:"disabled-icon-opacity"`
+}
+
+type IconButtonFocusOverlay struct {
+	IconColor *string `m3:"focus-icon-color"`
 }
 
 type IconButtonHoverOverlay struct {
@@ -1610,8 +1588,30 @@ type IconButtonHoverOverlay struct {
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
+type IconButtonPressedOverlay struct {
+	IconColor         *string `m3:"pressed-icon-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
+}
+
+type IconButtonSelectedOverlay struct {
+	IconColor *string `m3:"selected-icon-color"`
+}
+
 type IconButtonSelectedFocusOverlay struct {
 	IconColor *string `m3:"selected-focus-icon-color"`
+}
+
+type IconButtonSelectedHoverOverlay struct {
+	IconColor         *string `m3:"selected-hover-icon-color"`
+	StateLayerColor   *string `m3:"selected-hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
+}
+
+type IconButtonSelectedPressedOverlay struct {
+	IconColor         *string `m3:"selected-pressed-icon-color"`
+	StateLayerColor   *string `m3:"selected-pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
 }
 
 type IconTokens struct {
@@ -1680,15 +1680,27 @@ type InputChipTokens struct {
 	WithTrailingIcon struct {
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
+	Disabled         *InputChipDisabledOverlay
 	DisabledSelected *InputChipDisabledSelectedOverlay
 	Focus            *InputChipFocusOverlay
+	Hover            *InputChipHoverOverlay
 	Pressed          *InputChipPressedOverlay
 	Selected         *InputChipSelectedOverlay
+	SelectedFocus    *InputChipSelectedFocusOverlay
 	SelectedHover    *InputChipSelectedHoverOverlay
 	SelectedPressed  *InputChipSelectedPressedOverlay
-	Disabled         *InputChipDisabledOverlay
-	Hover            *InputChipHoverOverlay
-	SelectedFocus    *InputChipSelectedFocusOverlay
+}
+
+type InputChipDisabledOverlay struct {
+	AvatarOpacity       *string `m3:"disabled-avatar-opacity"`
+	LabelTextColor      *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity    *string `m3:"disabled-label-text-opacity"`
+	LeadingIconColor    *string `m3:"disabled-leading-icon-color"`
+	LeadingIconOpacity  *string `m3:"disabled-leading-icon-opacity"`
+	OutlineColor        *string `m3:"disabled-outline-color"`
+	OutlineOpacity      *string `m3:"disabled-outline-opacity"`
+	TrailingIconColor   *string `m3:"disabled-trailing-icon-color"`
+	TrailingIconOpacity *string `m3:"disabled-trailing-icon-opacity"`
 }
 
 type InputChipDisabledSelectedOverlay struct {
@@ -1701,6 +1713,14 @@ type InputChipFocusOverlay struct {
 	LeadingIconColor  *string `m3:"focus-leading-icon-color"`
 	OutlineColor      *string `m3:"focus-outline-color"`
 	TrailingIconColor *string `m3:"focus-trailing-icon-color"`
+}
+
+type InputChipHoverOverlay struct {
+	LabelTextColor    *string `m3:"hover-label-text-color"`
+	LeadingIconColor  *string `m3:"hover-leading-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+	TrailingIconColor *string `m3:"hover-trailing-icon-color"`
 }
 
 type InputChipPressedOverlay struct {
@@ -1719,6 +1739,12 @@ type InputChipSelectedOverlay struct {
 	TrailingIconColor *string `m3:"selected-trailing-icon-color"`
 }
 
+type InputChipSelectedFocusOverlay struct {
+	LabelTextColor    *string `m3:"selected-focus-label-text-color"`
+	LeadingIconColor  *string `m3:"selected-focus-leading-icon-color"`
+	TrailingIconColor *string `m3:"selected-focus-trailing-icon-color"`
+}
+
 type InputChipSelectedHoverOverlay struct {
 	LabelTextColor    *string `m3:"selected-hover-label-text-color"`
 	LeadingIconColor  *string `m3:"selected-hover-leading-icon-color"`
@@ -1733,32 +1759,6 @@ type InputChipSelectedPressedOverlay struct {
 	StateLayerColor   *string `m3:"selected-pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
 	TrailingIconColor *string `m3:"selected-pressed-trailing-icon-color"`
-}
-
-type InputChipDisabledOverlay struct {
-	AvatarOpacity       *string `m3:"disabled-avatar-opacity"`
-	LabelTextColor      *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity    *string `m3:"disabled-label-text-opacity"`
-	LeadingIconColor    *string `m3:"disabled-leading-icon-color"`
-	LeadingIconOpacity  *string `m3:"disabled-leading-icon-opacity"`
-	OutlineColor        *string `m3:"disabled-outline-color"`
-	OutlineOpacity      *string `m3:"disabled-outline-opacity"`
-	TrailingIconColor   *string `m3:"disabled-trailing-icon-color"`
-	TrailingIconOpacity *string `m3:"disabled-trailing-icon-opacity"`
-}
-
-type InputChipHoverOverlay struct {
-	LabelTextColor    *string `m3:"hover-label-text-color"`
-	LeadingIconColor  *string `m3:"hover-leading-icon-color"`
-	StateLayerColor   *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
-	TrailingIconColor *string `m3:"hover-trailing-icon-color"`
-}
-
-type InputChipSelectedFocusOverlay struct {
-	LabelTextColor    *string `m3:"selected-focus-label-text-color"`
-	LeadingIconColor  *string `m3:"selected-focus-leading-icon-color"`
-	TrailingIconColor *string `m3:"selected-focus-trailing-icon-color"`
 }
 
 type ItemTokens struct {
@@ -2247,15 +2247,22 @@ type OutlinedIconButtonTokens struct {
 		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
+	Disabled         *OutlinedIconButtonDisabledOverlay
 	DisabledSelected *OutlinedIconButtonDisabledSelectedOverlay
 	Focus            *OutlinedIconButtonFocusOverlay
 	Hover            *OutlinedIconButtonHoverOverlay
 	Pressed          *OutlinedIconButtonPressedOverlay
-	SelectedHover    *OutlinedIconButtonSelectedHoverOverlay
 	Selected         *OutlinedIconButtonSelectedOverlay
 	SelectedFocus    *OutlinedIconButtonSelectedFocusOverlay
+	SelectedHover    *OutlinedIconButtonSelectedHoverOverlay
 	SelectedPressed  *OutlinedIconButtonSelectedPressedOverlay
-	Disabled         *OutlinedIconButtonDisabledOverlay
+}
+
+type OutlinedIconButtonDisabledOverlay struct {
+	IconColor      *string `m3:"disabled-icon-color"`
+	IconOpacity    *string `m3:"disabled-icon-opacity"`
+	OutlineColor   *string `m3:"disabled-outline-color"`
+	OutlineOpacity *string `m3:"disabled-outline-opacity"`
 }
 
 type OutlinedIconButtonDisabledSelectedOverlay struct {
@@ -2279,11 +2286,6 @@ type OutlinedIconButtonPressedOverlay struct {
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
-type OutlinedIconButtonSelectedHoverOverlay struct {
-	IconColor       *string `m3:"selected-hover-icon-color"`
-	StateLayerColor *string `m3:"selected-hover-state-layer-color"`
-}
-
 type OutlinedIconButtonSelectedOverlay struct {
 	ContainerColor *string `m3:"selected-container-color"`
 	IconColor      *string `m3:"selected-icon-color"`
@@ -2293,16 +2295,14 @@ type OutlinedIconButtonSelectedFocusOverlay struct {
 	IconColor *string `m3:"selected-focus-icon-color"`
 }
 
+type OutlinedIconButtonSelectedHoverOverlay struct {
+	IconColor       *string `m3:"selected-hover-icon-color"`
+	StateLayerColor *string `m3:"selected-hover-state-layer-color"`
+}
+
 type OutlinedIconButtonSelectedPressedOverlay struct {
 	IconColor       *string `m3:"selected-pressed-icon-color"`
 	StateLayerColor *string `m3:"selected-pressed-state-layer-color"`
-}
-
-type OutlinedIconButtonDisabledOverlay struct {
-	IconColor      *string `m3:"disabled-icon-color"`
-	IconOpacity    *string `m3:"disabled-icon-opacity"`
-	OutlineColor   *string `m3:"disabled-outline-color"`
-	OutlineOpacity *string `m3:"disabled-outline-opacity"`
 }
 
 type OutlinedSegmentedButtonTokens struct {
@@ -2347,13 +2347,19 @@ type OutlinedSegmentedButtonTokens struct {
 		PressedLabelTextColor  string `m3:"unselected-pressed-label-text-color"`
 		PressedStateLayerColor string `m3:"unselected-pressed-state-layer-color"`
 	}
+	Disabled        *OutlinedSegmentedButtonDisabledOverlay
 	Hover           *OutlinedSegmentedButtonHoverOverlay
 	Pressed         *OutlinedSegmentedButtonPressedOverlay
 	Selected        *OutlinedSegmentedButtonSelectedOverlay
 	SelectedFocus   *OutlinedSegmentedButtonSelectedFocusOverlay
 	SelectedHover   *OutlinedSegmentedButtonSelectedHoverOverlay
 	SelectedPressed *OutlinedSegmentedButtonSelectedPressedOverlay
-	Disabled        *OutlinedSegmentedButtonDisabledOverlay
+}
+
+type OutlinedSegmentedButtonDisabledOverlay struct {
+	IconColor      *string `m3:"disabled-icon-color"`
+	LabelTextColor *string `m3:"disabled-label-text-color"`
+	OutlineColor   *string `m3:"disabled-outline-color"`
 }
 
 type OutlinedSegmentedButtonHoverOverlay struct {
@@ -2385,12 +2391,6 @@ type OutlinedSegmentedButtonSelectedPressedOverlay struct {
 	IconColor       *string `m3:"selected-pressed-icon-color"`
 	LabelTextColor  *string `m3:"selected-pressed-label-text-color"`
 	StateLayerColor *string `m3:"selected-pressed-state-layer-color"`
-}
-
-type OutlinedSegmentedButtonDisabledOverlay struct {
-	IconColor      *string `m3:"disabled-icon-color"`
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	OutlineColor   *string `m3:"disabled-outline-color"`
 }
 
 type OutlinedSelectTokens struct {
@@ -2550,9 +2550,9 @@ type OutlinedTextFieldTokens struct {
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
 	Disabled   *OutlinedTextFieldDisabledOverlay
+	Error      *OutlinedTextFieldErrorOverlay
 	ErrorFocus *OutlinedTextFieldErrorFocusOverlay
 	ErrorHover *OutlinedTextFieldErrorHoverOverlay
-	Error      *OutlinedTextFieldErrorOverlay
 	Focus      *OutlinedTextFieldFocusOverlay
 	Hover      *OutlinedTextFieldHoverOverlay
 }
@@ -2573,6 +2573,15 @@ type OutlinedTextFieldDisabledOverlay struct {
 	TrailingIconOpacity   *string `m3:"disabled-trailing-icon-opacity"`
 }
 
+type OutlinedTextFieldErrorOverlay struct {
+	InputTextColor      *string `m3:"error-input-text-color"`
+	LabelTextColor      *string `m3:"error-label-text-color"`
+	LeadingIconColor    *string `m3:"error-leading-icon-color"`
+	OutlineColor        *string `m3:"error-outline-color"`
+	SupportingTextColor *string `m3:"error-supporting-text-color"`
+	TrailingIconColor   *string `m3:"error-trailing-icon-color"`
+}
+
 type OutlinedTextFieldErrorFocusOverlay struct {
 	CaretColor          *string `m3:"error-focus-caret-color"`
 	InputTextColor      *string `m3:"error-focus-input-text-color"`
@@ -2590,15 +2599,6 @@ type OutlinedTextFieldErrorHoverOverlay struct {
 	OutlineColor        *string `m3:"error-hover-outline-color"`
 	SupportingTextColor *string `m3:"error-hover-supporting-text-color"`
 	TrailingIconColor   *string `m3:"error-hover-trailing-icon-color"`
-}
-
-type OutlinedTextFieldErrorOverlay struct {
-	InputTextColor      *string `m3:"error-input-text-color"`
-	LabelTextColor      *string `m3:"error-label-text-color"`
-	LeadingIconColor    *string `m3:"error-leading-icon-color"`
-	OutlineColor        *string `m3:"error-outline-color"`
-	SupportingTextColor *string `m3:"error-supporting-text-color"`
-	TrailingIconColor   *string `m3:"error-trailing-icon-color"`
 }
 
 type OutlinedTextFieldFocusOverlay struct {
@@ -2656,13 +2656,40 @@ type PrimaryTabTokens struct {
 	With struct {
 		IconAndLabelTextContainerHeight string `m3:"with-icon-and-label-text-container-height"`
 	}
+	Active        *PrimaryTabActiveOverlay
+	ActiveFocus   *PrimaryTabActiveFocusOverlay
+	ActiveHover   *PrimaryTabActiveHoverOverlay
+	ActivePressed *PrimaryTabActivePressedOverlay
 	Focus         *PrimaryTabFocusOverlay
 	Hover         *PrimaryTabHoverOverlay
 	Pressed       *PrimaryTabPressedOverlay
-	ActiveFocus   *PrimaryTabActiveFocusOverlay
-	ActiveHover   *PrimaryTabActiveHoverOverlay
-	Active        *PrimaryTabActiveOverlay
-	ActivePressed *PrimaryTabActivePressedOverlay
+}
+
+type PrimaryTabActiveOverlay struct {
+	IconColor       *string `m3:"active-icon-color"`
+	IndicatorColor  *string `m3:"active-indicator-color"`
+	IndicatorHeight *string `m3:"active-indicator-height"`
+	IndicatorShape  *string `m3:"active-indicator-shape"`
+	LabelTextColor  *string `m3:"active-label-text-color"`
+}
+
+type PrimaryTabActiveFocusOverlay struct {
+	IconColor      *string `m3:"active-focus-icon-color"`
+	LabelTextColor *string `m3:"active-focus-label-text-color"`
+}
+
+type PrimaryTabActiveHoverOverlay struct {
+	IconColor         *string `m3:"active-hover-icon-color"`
+	LabelTextColor    *string `m3:"active-hover-label-text-color"`
+	StateLayerColor   *string `m3:"active-hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"active-hover-state-layer-opacity"`
+}
+
+type PrimaryTabActivePressedOverlay struct {
+	IconColor         *string `m3:"active-pressed-icon-color"`
+	LabelTextColor    *string `m3:"active-pressed-label-text-color"`
+	StateLayerColor   *string `m3:"active-pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"active-pressed-state-layer-opacity"`
 }
 
 type PrimaryTabFocusOverlay struct {
@@ -2684,33 +2711,6 @@ type PrimaryTabPressedOverlay struct {
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
-type PrimaryTabActiveFocusOverlay struct {
-	IconColor      *string `m3:"active-focus-icon-color"`
-	LabelTextColor *string `m3:"active-focus-label-text-color"`
-}
-
-type PrimaryTabActiveHoverOverlay struct {
-	IconColor         *string `m3:"active-hover-icon-color"`
-	LabelTextColor    *string `m3:"active-hover-label-text-color"`
-	StateLayerColor   *string `m3:"active-hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"active-hover-state-layer-opacity"`
-}
-
-type PrimaryTabActiveOverlay struct {
-	IconColor       *string `m3:"active-icon-color"`
-	IndicatorColor  *string `m3:"active-indicator-color"`
-	IndicatorHeight *string `m3:"active-indicator-height"`
-	IndicatorShape  *string `m3:"active-indicator-shape"`
-	LabelTextColor  *string `m3:"active-label-text-color"`
-}
-
-type PrimaryTabActivePressedOverlay struct {
-	IconColor         *string `m3:"active-pressed-icon-color"`
-	LabelTextColor    *string `m3:"active-pressed-label-text-color"`
-	StateLayerColor   *string `m3:"active-pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"active-pressed-state-layer-opacity"`
-}
-
 type RadioTokens struct {
 	Icon struct {
 		Color   string `m3:"icon-color"`
@@ -2726,30 +2726,15 @@ type RadioTokens struct {
 		IconColor   string `m3:"unselected-icon-color"`
 		IconOpacity string `m3:"unselected-icon-opacity"`
 	}
-	SelectedFocus    *RadioSelectedFocusOverlay
-	SelectedHover    *RadioSelectedHoverOverlay
-	DisabledSelected *RadioDisabledSelectedOverlay
 	Disabled         *RadioDisabledOverlay
+	DisabledSelected *RadioDisabledSelectedOverlay
 	Focus            *RadioFocusOverlay
+	Hover            *RadioHoverOverlay
 	Pressed          *RadioPressedOverlay
 	Selected         *RadioSelectedOverlay
+	SelectedFocus    *RadioSelectedFocusOverlay
+	SelectedHover    *RadioSelectedHoverOverlay
 	SelectedPressed  *RadioSelectedPressedOverlay
-	Hover            *RadioHoverOverlay
-}
-
-type RadioSelectedFocusOverlay struct {
-	IconColor *string `m3:"selected-focus-icon-color"`
-}
-
-type RadioSelectedHoverOverlay struct {
-	IconColor         *string `m3:"selected-hover-icon-color"`
-	StateLayerColor   *string `m3:"selected-hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
-}
-
-type RadioDisabledSelectedOverlay struct {
-	IconColor   *string `m3:"disabled-selected-icon-color"`
-	IconOpacity *string `m3:"disabled-selected-icon-opacity"`
 }
 
 type RadioDisabledOverlay struct {
@@ -2757,8 +2742,19 @@ type RadioDisabledOverlay struct {
 	UnselectedIconOpacity *string `m3:"disabled-unselected-icon-opacity"`
 }
 
+type RadioDisabledSelectedOverlay struct {
+	IconColor   *string `m3:"disabled-selected-icon-color"`
+	IconOpacity *string `m3:"disabled-selected-icon-opacity"`
+}
+
 type RadioFocusOverlay struct {
 	IconColor *string `m3:"focus-icon-color"`
+}
+
+type RadioHoverOverlay struct {
+	IconColor         *string `m3:"hover-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
 type RadioPressedOverlay struct {
@@ -2771,16 +2767,20 @@ type RadioSelectedOverlay struct {
 	IconColor *string `m3:"selected-icon-color"`
 }
 
+type RadioSelectedFocusOverlay struct {
+	IconColor *string `m3:"selected-focus-icon-color"`
+}
+
+type RadioSelectedHoverOverlay struct {
+	IconColor         *string `m3:"selected-hover-icon-color"`
+	StateLayerColor   *string `m3:"selected-hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
+}
+
 type RadioSelectedPressedOverlay struct {
 	IconColor         *string `m3:"selected-pressed-icon-color"`
 	StateLayerColor   *string `m3:"selected-pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
-}
-
-type RadioHoverOverlay struct {
-	IconColor         *string `m3:"hover-icon-color"`
-	StateLayerColor   *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
 type RippleTokens struct {
@@ -2835,13 +2835,33 @@ type SecondaryTabTokens struct {
 		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
+	Active        *SecondaryTabActiveOverlay
+	ActiveFocus   *SecondaryTabActiveFocusOverlay
+	ActiveHover   *SecondaryTabActiveHoverOverlay
 	ActivePressed *SecondaryTabActivePressedOverlay
 	Focus         *SecondaryTabFocusOverlay
 	Hover         *SecondaryTabHoverOverlay
 	Pressed       *SecondaryTabPressedOverlay
-	ActiveFocus   *SecondaryTabActiveFocusOverlay
-	ActiveHover   *SecondaryTabActiveHoverOverlay
-	Active        *SecondaryTabActiveOverlay
+}
+
+type SecondaryTabActiveOverlay struct {
+	IconColor       *string `m3:"active-icon-color"`
+	IndicatorColor  *string `m3:"active-indicator-color"`
+	IndicatorHeight *string `m3:"active-indicator-height"`
+	IndicatorShape  *string `m3:"active-indicator-shape"`
+	LabelTextColor  *string `m3:"active-label-text-color"`
+}
+
+type SecondaryTabActiveFocusOverlay struct {
+	IconColor      *string `m3:"active-focus-icon-color"`
+	LabelTextColor *string `m3:"active-focus-label-text-color"`
+}
+
+type SecondaryTabActiveHoverOverlay struct {
+	IconColor         *string `m3:"active-hover-icon-color"`
+	LabelTextColor    *string `m3:"active-hover-label-text-color"`
+	StateLayerColor   *string `m3:"active-hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"active-hover-state-layer-opacity"`
 }
 
 type SecondaryTabActivePressedOverlay struct {
@@ -2868,26 +2888,6 @@ type SecondaryTabPressedOverlay struct {
 	LabelTextColor    *string `m3:"pressed-label-text-color"`
 	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
-}
-
-type SecondaryTabActiveFocusOverlay struct {
-	IconColor      *string `m3:"active-focus-icon-color"`
-	LabelTextColor *string `m3:"active-focus-label-text-color"`
-}
-
-type SecondaryTabActiveHoverOverlay struct {
-	IconColor         *string `m3:"active-hover-icon-color"`
-	LabelTextColor    *string `m3:"active-hover-label-text-color"`
-	StateLayerColor   *string `m3:"active-hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"active-hover-state-layer-opacity"`
-}
-
-type SecondaryTabActiveOverlay struct {
-	IconColor       *string `m3:"active-icon-color"`
-	IndicatorColor  *string `m3:"active-indicator-color"`
-	IndicatorHeight *string `m3:"active-indicator-height"`
-	IndicatorShape  *string `m3:"active-indicator-shape"`
-	LabelTextColor  *string `m3:"active-label-text-color"`
 }
 
 type SliderTokens struct {
@@ -2935,18 +2935,12 @@ type SliderTokens struct {
 		TickMarksDisabledContainerColor string `m3:"with-tick-marks-disabled-container-color"`
 		TickMarksInactiveContainerColor string `m3:"with-tick-marks-inactive-container-color"`
 	}
-	Pressed        *SliderPressedOverlay
 	Active         *SliderActiveOverlay
-	DisabledActive *SliderDisabledActiveOverlay
 	Disabled       *SliderDisabledOverlay
+	DisabledActive *SliderDisabledActiveOverlay
 	Focus          *SliderFocusOverlay
 	Hover          *SliderHoverOverlay
-}
-
-type SliderPressedOverlay struct {
-	HandleColor       *string `m3:"pressed-handle-color"`
-	StateLayerColor   *string `m3:"pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
+	Pressed        *SliderPressedOverlay
 }
 
 type SliderActiveOverlay struct {
@@ -2955,16 +2949,16 @@ type SliderActiveOverlay struct {
 	TrackShape  *string `m3:"active-track-shape"`
 }
 
-type SliderDisabledActiveOverlay struct {
-	TrackColor   *string `m3:"disabled-active-track-color"`
-	TrackOpacity *string `m3:"disabled-active-track-opacity"`
-}
-
 type SliderDisabledOverlay struct {
 	HandleColor          *string `m3:"disabled-handle-color"`
 	HandleElevation      *string `m3:"disabled-handle-elevation"`
 	InactiveTrackColor   *string `m3:"disabled-inactive-track-color"`
 	InactiveTrackOpacity *string `m3:"disabled-inactive-track-opacity"`
+}
+
+type SliderDisabledActiveOverlay struct {
+	TrackColor   *string `m3:"disabled-active-track-color"`
+	TrackOpacity *string `m3:"disabled-active-track-opacity"`
 }
 
 type SliderFocusOverlay struct {
@@ -2975,6 +2969,12 @@ type SliderHoverOverlay struct {
 	HandleColor       *string `m3:"hover-handle-color"`
 	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+}
+
+type SliderPressedOverlay struct {
+	HandleColor       *string `m3:"pressed-handle-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
 type SuggestionChipTokens struct {
@@ -3031,10 +3031,19 @@ type SuggestionChipTokens struct {
 	WithLeadingIcon struct {
 		LeadingSpace string `m3:"with-leading-icon-leading-space"`
 	}
+	Disabled *SuggestionChipDisabledOverlay
 	Focus    *SuggestionChipFocusOverlay
 	Hover    *SuggestionChipHoverOverlay
 	Pressed  *SuggestionChipPressedOverlay
-	Disabled *SuggestionChipDisabledOverlay
+}
+
+type SuggestionChipDisabledOverlay struct {
+	LabelTextColor     *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity   *string `m3:"disabled-label-text-opacity"`
+	LeadingIconColor   *string `m3:"disabled-leading-icon-color"`
+	LeadingIconOpacity *string `m3:"disabled-leading-icon-opacity"`
+	OutlineColor       *string `m3:"disabled-outline-color"`
+	OutlineOpacity     *string `m3:"disabled-outline-opacity"`
 }
 
 type SuggestionChipFocusOverlay struct {
@@ -3055,15 +3064,6 @@ type SuggestionChipPressedOverlay struct {
 	LeadingIconColor  *string `m3:"pressed-leading-icon-color"`
 	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
-}
-
-type SuggestionChipDisabledOverlay struct {
-	LabelTextColor     *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity   *string `m3:"disabled-label-text-opacity"`
-	LeadingIconColor   *string `m3:"disabled-leading-icon-color"`
-	LeadingIconOpacity *string `m3:"disabled-leading-icon-opacity"`
-	OutlineColor       *string `m3:"disabled-outline-color"`
-	OutlineOpacity     *string `m3:"disabled-outline-opacity"`
 }
 
 type SwitchTokens struct {
@@ -3109,41 +3109,15 @@ type SwitchTokens struct {
 		IconHandleHeight string `m3:"with-icon-handle-height"`
 		IconHandleWidth  string `m3:"with-icon-handle-width"`
 	}
-	Hover            *SwitchHoverOverlay
-	Selected         *SwitchSelectedOverlay
-	SelectedHover    *SwitchSelectedHoverOverlay
 	Disabled         *SwitchDisabledOverlay
 	DisabledSelected *SwitchDisabledSelectedOverlay
 	Focus            *SwitchFocusOverlay
+	Hover            *SwitchHoverOverlay
 	Pressed          *SwitchPressedOverlay
+	Selected         *SwitchSelectedOverlay
 	SelectedFocus    *SwitchSelectedFocusOverlay
+	SelectedHover    *SwitchSelectedHoverOverlay
 	SelectedPressed  *SwitchSelectedPressedOverlay
-}
-
-type SwitchHoverOverlay struct {
-	HandleColor       *string `m3:"hover-handle-color"`
-	IconColor         *string `m3:"hover-icon-color"`
-	StateLayerColor   *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
-	TrackColor        *string `m3:"hover-track-color"`
-	TrackOutlineColor *string `m3:"hover-track-outline-color"`
-}
-
-type SwitchSelectedOverlay struct {
-	HandleColor  *string `m3:"selected-handle-color"`
-	HandleHeight *string `m3:"selected-handle-height"`
-	HandleWidth  *string `m3:"selected-handle-width"`
-	IconColor    *string `m3:"selected-icon-color"`
-	IconSize     *string `m3:"selected-icon-size"`
-	TrackColor   *string `m3:"selected-track-color"`
-}
-
-type SwitchSelectedHoverOverlay struct {
-	HandleColor       *string `m3:"selected-hover-handle-color"`
-	IconColor         *string `m3:"selected-hover-icon-color"`
-	StateLayerColor   *string `m3:"selected-hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
-	TrackColor        *string `m3:"selected-hover-track-color"`
 }
 
 type SwitchDisabledOverlay struct {
@@ -3171,6 +3145,15 @@ type SwitchFocusOverlay struct {
 	TrackOutlineColor *string `m3:"focus-track-outline-color"`
 }
 
+type SwitchHoverOverlay struct {
+	HandleColor       *string `m3:"hover-handle-color"`
+	IconColor         *string `m3:"hover-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+	TrackColor        *string `m3:"hover-track-color"`
+	TrackOutlineColor *string `m3:"hover-track-outline-color"`
+}
+
 type SwitchPressedOverlay struct {
 	HandleColor       *string `m3:"pressed-handle-color"`
 	HandleHeight      *string `m3:"pressed-handle-height"`
@@ -3182,10 +3165,27 @@ type SwitchPressedOverlay struct {
 	TrackOutlineColor *string `m3:"pressed-track-outline-color"`
 }
 
+type SwitchSelectedOverlay struct {
+	HandleColor  *string `m3:"selected-handle-color"`
+	HandleHeight *string `m3:"selected-handle-height"`
+	HandleWidth  *string `m3:"selected-handle-width"`
+	IconColor    *string `m3:"selected-icon-color"`
+	IconSize     *string `m3:"selected-icon-size"`
+	TrackColor   *string `m3:"selected-track-color"`
+}
+
 type SwitchSelectedFocusOverlay struct {
 	HandleColor *string `m3:"selected-focus-handle-color"`
 	IconColor   *string `m3:"selected-focus-icon-color"`
 	TrackColor  *string `m3:"selected-focus-track-color"`
+}
+
+type SwitchSelectedHoverOverlay struct {
+	HandleColor       *string `m3:"selected-hover-handle-color"`
+	IconColor         *string `m3:"selected-hover-icon-color"`
+	StateLayerColor   *string `m3:"selected-hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
+	TrackColor        *string `m3:"selected-hover-track-color"`
 }
 
 type SwitchSelectedPressedOverlay struct {

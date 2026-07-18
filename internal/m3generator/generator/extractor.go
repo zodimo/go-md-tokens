@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strings"
 
 	"github.com/bep/godartsass/v2"
@@ -207,6 +208,11 @@ func extractComponentSchema(transpiler *godartsass.Transpiler, path string) (*Co
 	for prefix := range prefixMap {
 		compSchema.StatePrefixes = append(compSchema.StatePrefixes, prefix)
 	}
+
+	sort.Strings(compSchema.SupportedTokens)
+	sort.Strings(compSchema.UnsupportedTokens)
+	sort.Strings(compSchema.Dependencies)
+	sort.Strings(compSchema.StatePrefixes)
 
 	return compSchema, nil
 }
