@@ -17,6 +17,7 @@ import (
 	"github.com/bep/godartsass/v2"
 	"github.com/xeipuuv/gojsonschema"
 	"github.com/zodimo/go-md-tokens/internal/m3generator/generator"
+	"github.com/zodimo/go-md-tokens/internal/m3generator/schemadef"
 	"github.com/zodimo/go-md-tokens/internal/m3generator/templates"
 	"gopkg.in/yaml.v3"
 )
@@ -115,7 +116,7 @@ func main() {
 		log.Fatalf("Failed to write schema: %v", err)
 	}
 
-	absSchemaDefPath, _ := filepath.Abs("internal/m3generator/schema/schema-def.json")
+	absSchemaDefPath := schemadef.Path("def.json")
 	schemaLoader := gojsonschema.NewReferenceLoader("file://" + absSchemaDefPath)
 	documentLoader := gojsonschema.NewStringLoader(string(schemaJSON))
 	result, err := gojsonschema.Validate(schemaLoader, documentLoader)
@@ -236,7 +237,7 @@ func main() {
 			// "The default behavior is to iterate over map keys in sorted order." (since Go 1.12)
 			// So we can just pass the map directly.
 		}
-		
+
 		fileContext.Modes = append(fileContext.Modes, modeCtx)
 	}
 
