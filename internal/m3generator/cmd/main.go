@@ -15,7 +15,7 @@ import (
 
 	"github.com/bep/godartsass/v2"
 	"github.com/xeipuuv/gojsonschema"
-	"github.com/zodimo/go-gen-m3/internal/m3generator/generator"
+	"github.com/zodimo/go-md-tokens/internal/m3generator/generator"
 	"gopkg.in/yaml.v3"
 )
 
@@ -88,7 +88,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to serialize schema: %v", err)
 	}
-	
+
 	if err := os.MkdirAll(cfg.Generator.SchemaOutputDir, 0755); err != nil {
 		log.Fatal(err)
 	}

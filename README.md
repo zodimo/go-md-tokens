@@ -1,10 +1,10 @@
-# Go Gen M3
+# Go Material Design Tokens
 
-`go-gen-m3` is a code generator that parses Material 3 SCSS token schemas and generates a strongly-typed Go token resolution engine.
+`go-md-tokens` is a code generator that parses Material 3 SCSS token schemas and generates a strongly-typed Go token resolution engine.
 
 ## Typed Token System
 
-Instead of relying on fragile string-based map lookups, `go-gen-m3` generates a fully type-safe API for resolving Material 3 component tokens, complete with state fallback semantics.
+Instead of relying on fragile string-based map lookups, `go-md-tokens` generates a fully type-safe API for resolving Material 3 component tokens, complete with state fallback semantics.
 
 ### Features
 
@@ -21,7 +21,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/zodimo/go-gen-m3/pkg/m3tokens"
+	"github.com/zodimo/go-md-tokens/pkg/m3tokens"
 )
 
 func main() {

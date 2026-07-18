@@ -1,6 +1,6 @@
 ## Context
 
-The current `go-gen-m3` pipeline uses `godartsass/v2` to compile Sass bridge code and extract token values as flat CSS properties. The output is a single `theme/tokens.go` with `map[string]string` for each theme mode. While functional, this approach loses all structural information encoded in the SCSS token names (state, category, property hierarchy) and requires consumers to use stringly-typed keys with no compile-time validation.
+The current `go-md-tokens` pipeline uses `godartsass/v2` to compile Sass bridge code and extract token values as flat CSS properties. The output is a single `theme/tokens.go` with `map[string]string` for each theme mode. While functional, this approach loses all structural information encoded in the SCSS token names (state, category, property hierarchy) and requires consumers to use stringly-typed keys with no compile-time validation.
 
 This change introduces a typed token system that:
 1. Parses the SCSS schema to understand token hierarchy

@@ -1,6 +1,6 @@
 ## Context
 
-The current `go-gen-m3` repository uses `main.go` to parse Dart Sass files, generate an intermediate schema, and build theme components. However, this same `main.go` calls generation logic in `pkg/m3tokens` and then proceeds to do local `theme/` generation, while configurations are hardcoded.
+The current `go-md-tokens` repository uses `main.go` to parse Dart Sass files, generate an intermediate schema, and build theme components. However, this same `main.go` calls generation logic in `pkg/m3tokens` and then proceeds to do local `theme/` generation, while configurations are hardcoded.
 
 ## Goals / Non-Goals
 
