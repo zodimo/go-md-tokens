@@ -4,50 +4,50 @@ package m3tokens
 
 type AssistChipTokens struct {
 	Container struct {
-		Height string `m3:"container-height"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Height          string `m3:"container-height"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Elevated struct {
-		ContainerColor string `m3:"elevated-container-color"`
-		ContainerElevation string `m3:"elevated-container-elevation"`
-		ContainerShadowColor string `m3:"elevated-container-shadow-color"`
-		DisabledContainerColor string `m3:"elevated-disabled-container-color"`
+		ContainerColor             string `m3:"elevated-container-color"`
+		ContainerElevation         string `m3:"elevated-container-elevation"`
+		ContainerShadowColor       string `m3:"elevated-container-shadow-color"`
+		DisabledContainerColor     string `m3:"elevated-disabled-container-color"`
 		DisabledContainerElevation string `m3:"elevated-disabled-container-elevation"`
-		DisabledContainerOpacity string `m3:"elevated-disabled-container-opacity"`
-		FocusContainerElevation string `m3:"elevated-focus-container-elevation"`
-		HoverContainerElevation string `m3:"elevated-hover-container-elevation"`
-		PressedContainerElevation string `m3:"elevated-pressed-container-elevation"`
+		DisabledContainerOpacity   string `m3:"elevated-disabled-container-opacity"`
+		FocusContainerElevation    string `m3:"elevated-focus-container-elevation"`
+		HoverContainerElevation    string `m3:"elevated-hover-container-elevation"`
+		PressedContainerElevation  string `m3:"elevated-pressed-container-elevation"`
 	}
 	Icon struct {
 		LabelSpace string `m3:"icon-label-space"`
-		Size string `m3:"icon-size"`
+		Size       string `m3:"icon-size"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Opacity string `m3:"label-text-opacity"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Opacity    string `m3:"label-text-opacity"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
 	}
 	LeadingIcon struct {
-		Color string `m3:"leading-icon-color"`
+		Color   string `m3:"leading-icon-color"`
 		Opacity string `m3:"leading-icon-opacity"`
 	}
 	Outline struct {
-		Color string `m3:"outline-color"`
+		Color   string `m3:"outline-color"`
 		Opacity string `m3:"outline-opacity"`
-		Width string `m3:"outline-width"`
+		Width   string `m3:"outline-width"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	Trailing struct {
@@ -56,113 +56,101 @@ type AssistChipTokens struct {
 	WithLeadingIcon struct {
 		LeadingSpace string `m3:"with-leading-icon-leading-space"`
 	}
-	Focus *AssistChipFocusOverlay
-	Hover *AssistChipHoverOverlay
-	Pressed *AssistChipPressedOverlay
+	Hover    *AssistChipHoverOverlay
+	Pressed  *AssistChipPressedOverlay
 	Disabled *AssistChipDisabledOverlay
-}
-
-type AssistChipFocusOverlay struct {
-	LabelTextColor *string `m3:"focus-label-text-color"`
-	LeadingIconColor *string `m3:"focus-leading-icon-color"`
-	OutlineColor *string `m3:"focus-outline-color"`
+	Focus    *AssistChipFocusOverlay
 }
 
 type AssistChipHoverOverlay struct {
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	LeadingIconColor *string `m3:"hover-leading-icon-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
+	LabelTextColor    *string `m3:"hover-label-text-color"`
+	LeadingIconColor  *string `m3:"hover-leading-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
 type AssistChipPressedOverlay struct {
-	LabelTextColor *string `m3:"pressed-label-text-color"`
-	LeadingIconColor *string `m3:"pressed-leading-icon-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	LabelTextColor    *string `m3:"pressed-label-text-color"`
+	LeadingIconColor  *string `m3:"pressed-leading-icon-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
 type AssistChipDisabledOverlay struct {
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
-	LeadingIconColor *string `m3:"disabled-leading-icon-color"`
+	LabelTextColor     *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity   *string `m3:"disabled-label-text-opacity"`
+	LeadingIconColor   *string `m3:"disabled-leading-icon-color"`
 	LeadingIconOpacity *string `m3:"disabled-leading-icon-opacity"`
-	OutlineColor *string `m3:"disabled-outline-color"`
-	OutlineOpacity *string `m3:"disabled-outline-opacity"`
+	OutlineColor       *string `m3:"disabled-outline-color"`
+	OutlineOpacity     *string `m3:"disabled-outline-opacity"`
+}
+
+type AssistChipFocusOverlay struct {
+	LabelTextColor   *string `m3:"focus-label-text-color"`
+	LeadingIconColor *string `m3:"focus-leading-icon-color"`
+	OutlineColor     *string `m3:"focus-outline-color"`
 }
 
 type CheckboxTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Opacity string `m3:"container-opacity"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Opacity         string `m3:"container-opacity"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
-		Size string `m3:"container-size"`
+		Size            string `m3:"container-size"`
 	}
 	Icon struct {
 		Color string `m3:"icon-color"`
-		Size string `m3:"icon-size"`
+		Size  string `m3:"icon-size"`
 	}
 	Outline struct {
 		Color string `m3:"outline-color"`
 		Width string `m3:"outline-width"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
-		Shape string `m3:"state-layer-shape"`
-		Size string `m3:"state-layer-size"`
+		Shape   string `m3:"state-layer-shape"`
+		Size    string `m3:"state-layer-size"`
 	}
-	Disabled *CheckboxDisabledOverlay
-	Pressed *CheckboxPressedOverlay
-	Selected *CheckboxSelectedOverlay
+	Disabled         *CheckboxDisabledOverlay
+	Hover            *CheckboxHoverOverlay
+	Pressed          *CheckboxPressedOverlay
 	SelectedDisabled *CheckboxSelectedDisabledOverlay
-	SelectedHover *CheckboxSelectedHoverOverlay
-	SelectedPressed *CheckboxSelectedPressedOverlay
-	Focus *CheckboxFocusOverlay
-	Hover *CheckboxHoverOverlay
-	SelectedFocus *CheckboxSelectedFocusOverlay
+	Focus            *CheckboxFocusOverlay
+	Selected         *CheckboxSelectedOverlay
+	SelectedFocus    *CheckboxSelectedFocusOverlay
+	SelectedHover    *CheckboxSelectedHoverOverlay
+	SelectedPressed  *CheckboxSelectedPressedOverlay
 }
 
 type CheckboxDisabledOverlay struct {
 	ContainerOpacity *string `m3:"disabled-container-opacity"`
-	OutlineColor *string `m3:"disabled-outline-color"`
-	OutlineWidth *string `m3:"disabled-outline-width"`
+	OutlineColor     *string `m3:"disabled-outline-color"`
+	OutlineWidth     *string `m3:"disabled-outline-width"`
+}
+
+type CheckboxHoverOverlay struct {
+	OutlineColor      *string `m3:"hover-outline-color"`
+	OutlineWidth      *string `m3:"hover-outline-width"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
 type CheckboxPressedOverlay struct {
-	OutlineColor *string `m3:"pressed-outline-color"`
-	OutlineWidth *string `m3:"pressed-outline-width"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	OutlineColor      *string `m3:"pressed-outline-color"`
+	OutlineWidth      *string `m3:"pressed-outline-width"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
-type CheckboxSelectedOverlay struct {
-	ContainerColor *string `m3:"selected-container-color"`
-	IconColor *string `m3:"selected-icon-color"`
-}
-
 type CheckboxSelectedDisabledOverlay struct {
-	ContainerColor *string `m3:"selected-disabled-container-color"`
+	ContainerColor   *string `m3:"selected-disabled-container-color"`
 	ContainerOpacity *string `m3:"selected-disabled-container-opacity"`
-	IconColor *string `m3:"selected-disabled-icon-color"`
-}
-
-type CheckboxSelectedHoverOverlay struct {
-	ContainerColor *string `m3:"selected-hover-container-color"`
-	IconColor *string `m3:"selected-hover-icon-color"`
-	StateLayerColor *string `m3:"selected-hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
-}
-
-type CheckboxSelectedPressedOverlay struct {
-	ContainerColor *string `m3:"selected-pressed-container-color"`
-	IconColor *string `m3:"selected-pressed-icon-color"`
-	StateLayerColor *string `m3:"selected-pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
+	IconColor        *string `m3:"selected-disabled-icon-color"`
 }
 
 type CheckboxFocusOverlay struct {
@@ -170,24 +158,36 @@ type CheckboxFocusOverlay struct {
 	OutlineWidth *string `m3:"focus-outline-width"`
 }
 
-type CheckboxHoverOverlay struct {
-	OutlineColor *string `m3:"hover-outline-color"`
-	OutlineWidth *string `m3:"hover-outline-width"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+type CheckboxSelectedOverlay struct {
+	ContainerColor *string `m3:"selected-container-color"`
+	IconColor      *string `m3:"selected-icon-color"`
 }
 
 type CheckboxSelectedFocusOverlay struct {
 	ContainerColor *string `m3:"selected-focus-container-color"`
-	IconColor *string `m3:"selected-focus-icon-color"`
+	IconColor      *string `m3:"selected-focus-icon-color"`
+}
+
+type CheckboxSelectedHoverOverlay struct {
+	ContainerColor    *string `m3:"selected-hover-container-color"`
+	IconColor         *string `m3:"selected-hover-icon-color"`
+	StateLayerColor   *string `m3:"selected-hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
+}
+
+type CheckboxSelectedPressedOverlay struct {
+	ContainerColor    *string `m3:"selected-pressed-container-color"`
+	IconColor         *string `m3:"selected-pressed-icon-color"`
+	StateLayerColor   *string `m3:"selected-pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
 }
 
 type CircularProgressTokens struct {
 	FourColor struct {
-		ActiveIndicatorFourColor string `m3:"four-color-active-indicator-four-color"`
-		ActiveIndicatorOneColor string `m3:"four-color-active-indicator-one-color"`
+		ActiveIndicatorFourColor  string `m3:"four-color-active-indicator-four-color"`
+		ActiveIndicatorOneColor   string `m3:"four-color-active-indicator-one-color"`
 		ActiveIndicatorThreeColor string `m3:"four-color-active-indicator-three-color"`
-		ActiveIndicatorTwoColor string `m3:"four-color-active-indicator-two-color"`
+		ActiveIndicatorTwoColor   string `m3:"four-color-active-indicator-two-color"`
 	}
 	Indicator struct {
 		Color string `m3:"indicator-color"`
@@ -206,30 +206,30 @@ type CircularProgressActiveOverlay struct {
 
 type DialogTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Headline struct {
-		Color string `m3:"headline-color"`
-		Font string `m3:"headline-font"`
+		Color      string `m3:"headline-color"`
+		Font       string `m3:"headline-font"`
 		LineHeight string `m3:"headline-line-height"`
-		Size string `m3:"headline-size"`
-		Weight string `m3:"headline-weight"`
+		Size       string `m3:"headline-size"`
+		Weight     string `m3:"headline-weight"`
 	}
 	Icon struct {
 		Color string `m3:"icon-color"`
-		Size string `m3:"icon-size"`
+		Size  string `m3:"icon-size"`
 	}
 	SupportingText struct {
-		Color string `m3:"supporting-text-color"`
-		Font string `m3:"supporting-text-font"`
+		Color      string `m3:"supporting-text-color"`
+		Font       string `m3:"supporting-text-font"`
 		LineHeight string `m3:"supporting-text-line-height"`
-		Size string `m3:"supporting-text-size"`
-		Weight string `m3:"supporting-text-weight"`
+		Size       string `m3:"supporting-text-size"`
+		Weight     string `m3:"supporting-text-weight"`
 	}
 }
 
@@ -244,92 +244,92 @@ type DividerTokens struct {
 
 type ElevatedButtonTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Elevation string `m3:"container-elevation"`
-		Height string `m3:"container-height"`
-		Opacity string `m3:"container-opacity"`
-		ShadowColor string `m3:"container-shadow-color"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Elevation       string `m3:"container-elevation"`
+		Height          string `m3:"container-height"`
+		Opacity         string `m3:"container-opacity"`
+		ShadowColor     string `m3:"container-shadow-color"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Icon struct {
-		Color string `m3:"icon-color"`
+		Color   string `m3:"icon-color"`
 		Opacity string `m3:"icon-opacity"`
-		Size string `m3:"icon-size"`
+		Size    string `m3:"icon-size"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Opacity string `m3:"label-text-opacity"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Opacity    string `m3:"label-text-opacity"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	Trailing struct {
 		Space string `m3:"trailing-space"`
 	}
 	WithLeadingIcon struct {
-		LeadingSpace string `m3:"with-leading-icon-leading-space"`
+		LeadingSpace  string `m3:"with-leading-icon-leading-space"`
 		TrailingSpace string `m3:"with-leading-icon-trailing-space"`
 	}
 	WithTrailingIcon struct {
-		LeadingSpace string `m3:"with-trailing-icon-leading-space"`
+		LeadingSpace  string `m3:"with-trailing-icon-leading-space"`
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
 	Disabled *ElevatedButtonDisabledOverlay
-	Focus *ElevatedButtonFocusOverlay
-	Hover *ElevatedButtonHoverOverlay
-	Pressed *ElevatedButtonPressedOverlay
+	Focus    *ElevatedButtonFocusOverlay
+	Hover    *ElevatedButtonHoverOverlay
+	Pressed  *ElevatedButtonPressedOverlay
 }
 
 type ElevatedButtonDisabledOverlay struct {
-	ContainerColor *string `m3:"disabled-container-color"`
+	ContainerColor     *string `m3:"disabled-container-color"`
 	ContainerElevation *string `m3:"disabled-container-elevation"`
-	ContainerOpacity *string `m3:"disabled-container-opacity"`
-	IconColor *string `m3:"disabled-icon-color"`
-	IconOpacity *string `m3:"disabled-icon-opacity"`
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
+	ContainerOpacity   *string `m3:"disabled-container-opacity"`
+	IconColor          *string `m3:"disabled-icon-color"`
+	IconOpacity        *string `m3:"disabled-icon-opacity"`
+	LabelTextColor     *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity   *string `m3:"disabled-label-text-opacity"`
 }
 
 type ElevatedButtonFocusOverlay struct {
 	ContainerElevation *string `m3:"focus-container-elevation"`
-	IconColor *string `m3:"focus-icon-color"`
-	LabelTextColor *string `m3:"focus-label-text-color"`
+	IconColor          *string `m3:"focus-icon-color"`
+	LabelTextColor     *string `m3:"focus-label-text-color"`
 }
 
 type ElevatedButtonHoverOverlay struct {
 	ContainerElevation *string `m3:"hover-container-elevation"`
-	IconColor *string `m3:"hover-icon-color"`
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+	IconColor          *string `m3:"hover-icon-color"`
+	LabelTextColor     *string `m3:"hover-label-text-color"`
+	StateLayerColor    *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity  *string `m3:"hover-state-layer-opacity"`
 }
 
 type ElevatedButtonPressedOverlay struct {
 	ContainerElevation *string `m3:"pressed-container-elevation"`
-	IconColor *string `m3:"pressed-icon-color"`
-	LabelTextColor *string `m3:"pressed-label-text-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
+	IconColor          *string `m3:"pressed-icon-color"`
+	LabelTextColor     *string `m3:"pressed-label-text-color"`
+	StateLayerColor    *string `m3:"pressed-state-layer-color"`
+	StateLayerOpacity  *string `m3:"pressed-state-layer-opacity"`
 }
 
 type ElevatedCardTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Elevation string `m3:"container-elevation"`
+		Color       string `m3:"container-color"`
+		Elevation   string `m3:"container-elevation"`
 		ShadowColor string `m3:"container-shadow-color"`
-		Shape string `m3:"container-shape"`
+		Shape       string `m3:"container-shape"`
 	}
 }
 
@@ -344,281 +344,281 @@ type ElevationTokens struct {
 
 type FabBrandedTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Elevation string `m3:"container-elevation"`
-		Height string `m3:"container-height"`
-		ShadowColor string `m3:"container-shadow-color"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Elevation       string `m3:"container-elevation"`
+		Height          string `m3:"container-height"`
+		ShadowColor     string `m3:"container-shadow-color"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
-		Width string `m3:"container-width"`
+		Width           string `m3:"container-width"`
 	}
 	Icon struct {
 		Size string `m3:"icon-size"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Large struct {
-		ContainerHeight string `m3:"large-container-height"`
-		ContainerShape string `m3:"large-container-shape"`
-		ContainerShapeEndEnd string `m3:"large-container-shape-end-end"`
-		ContainerShapeEndStart string `m3:"large-container-shape-end-start"`
-		ContainerShapeStartEnd string `m3:"large-container-shape-start-end"`
+		ContainerHeight          string `m3:"large-container-height"`
+		ContainerShape           string `m3:"large-container-shape"`
+		ContainerShapeEndEnd     string `m3:"large-container-shape-end-end"`
+		ContainerShapeEndStart   string `m3:"large-container-shape-end-start"`
+		ContainerShapeStartEnd   string `m3:"large-container-shape-start-end"`
 		ContainerShapeStartStart string `m3:"large-container-shape-start-start"`
-		ContainerWidth string `m3:"large-container-width"`
-		IconSize string `m3:"large-icon-size"`
+		ContainerWidth           string `m3:"large-container-width"`
+		IconSize                 string `m3:"large-icon-size"`
 	}
 	Lowered struct {
-		ContainerColor string `m3:"lowered-container-color"`
-		ContainerElevation string `m3:"lowered-container-elevation"`
-		FocusContainerElevation string `m3:"lowered-focus-container-elevation"`
-		HoverContainerElevation string `m3:"lowered-hover-container-elevation"`
+		ContainerColor            string `m3:"lowered-container-color"`
+		ContainerElevation        string `m3:"lowered-container-elevation"`
+		FocusContainerElevation   string `m3:"lowered-focus-container-elevation"`
+		HoverContainerElevation   string `m3:"lowered-hover-container-elevation"`
 		PressedContainerElevation string `m3:"lowered-pressed-container-elevation"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
-	Focus *FabBrandedFocusOverlay
-	Hover *FabBrandedHoverOverlay
+	Focus   *FabBrandedFocusOverlay
+	Hover   *FabBrandedHoverOverlay
 	Pressed *FabBrandedPressedOverlay
 }
 
 type FabBrandedFocusOverlay struct {
 	ContainerElevation *string `m3:"focus-container-elevation"`
-	LabelTextColor *string `m3:"focus-label-text-color"`
+	LabelTextColor     *string `m3:"focus-label-text-color"`
 }
 
 type FabBrandedHoverOverlay struct {
 	ContainerElevation *string `m3:"hover-container-elevation"`
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+	LabelTextColor     *string `m3:"hover-label-text-color"`
+	StateLayerColor    *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity  *string `m3:"hover-state-layer-opacity"`
 }
 
 type FabBrandedPressedOverlay struct {
 	ContainerElevation *string `m3:"pressed-container-elevation"`
-	LabelTextColor *string `m3:"pressed-label-text-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
+	LabelTextColor     *string `m3:"pressed-label-text-color"`
+	StateLayerColor    *string `m3:"pressed-state-layer-color"`
+	StateLayerOpacity  *string `m3:"pressed-state-layer-opacity"`
 }
 
 type FabTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Elevation string `m3:"container-elevation"`
-		Height string `m3:"container-height"`
-		ShadowColor string `m3:"container-shadow-color"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Elevation       string `m3:"container-elevation"`
+		Height          string `m3:"container-height"`
+		ShadowColor     string `m3:"container-shadow-color"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
-		Width string `m3:"container-width"`
+		Width           string `m3:"container-width"`
 	}
 	Icon struct {
 		Color string `m3:"icon-color"`
-		Size string `m3:"icon-size"`
+		Size  string `m3:"icon-size"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Large struct {
-		ContainerHeight string `m3:"large-container-height"`
-		ContainerShape string `m3:"large-container-shape"`
-		ContainerShapeEndEnd string `m3:"large-container-shape-end-end"`
-		ContainerShapeEndStart string `m3:"large-container-shape-end-start"`
-		ContainerShapeStartEnd string `m3:"large-container-shape-start-end"`
+		ContainerHeight          string `m3:"large-container-height"`
+		ContainerShape           string `m3:"large-container-shape"`
+		ContainerShapeEndEnd     string `m3:"large-container-shape-end-end"`
+		ContainerShapeEndStart   string `m3:"large-container-shape-end-start"`
+		ContainerShapeStartEnd   string `m3:"large-container-shape-start-end"`
 		ContainerShapeStartStart string `m3:"large-container-shape-start-start"`
-		ContainerWidth string `m3:"large-container-width"`
-		IconSize string `m3:"large-icon-size"`
+		ContainerWidth           string `m3:"large-container-width"`
+		IconSize                 string `m3:"large-icon-size"`
 	}
 	Lowered struct {
-		ContainerColor string `m3:"lowered-container-color"`
-		ContainerElevation string `m3:"lowered-container-elevation"`
-		FocusContainerElevation string `m3:"lowered-focus-container-elevation"`
-		HoverContainerElevation string `m3:"lowered-hover-container-elevation"`
+		ContainerColor            string `m3:"lowered-container-color"`
+		ContainerElevation        string `m3:"lowered-container-elevation"`
+		FocusContainerElevation   string `m3:"lowered-focus-container-elevation"`
+		HoverContainerElevation   string `m3:"lowered-hover-container-elevation"`
 		PressedContainerElevation string `m3:"lowered-pressed-container-elevation"`
 	}
 	Primary struct {
-		ContainerColor string `m3:"primary-container-color"`
-		FocusIconColor string `m3:"primary-focus-icon-color"`
-		FocusLabelTextColor string `m3:"primary-focus-label-text-color"`
-		HoverIconColor string `m3:"primary-hover-icon-color"`
-		HoverLabelTextColor string `m3:"primary-hover-label-text-color"`
-		HoverStateLayerColor string `m3:"primary-hover-state-layer-color"`
-		IconColor string `m3:"primary-icon-color"`
-		LabelTextColor string `m3:"primary-label-text-color"`
-		PressedIconColor string `m3:"primary-pressed-icon-color"`
-		PressedLabelTextColor string `m3:"primary-pressed-label-text-color"`
+		ContainerColor         string `m3:"primary-container-color"`
+		FocusIconColor         string `m3:"primary-focus-icon-color"`
+		FocusLabelTextColor    string `m3:"primary-focus-label-text-color"`
+		HoverIconColor         string `m3:"primary-hover-icon-color"`
+		HoverLabelTextColor    string `m3:"primary-hover-label-text-color"`
+		HoverStateLayerColor   string `m3:"primary-hover-state-layer-color"`
+		IconColor              string `m3:"primary-icon-color"`
+		LabelTextColor         string `m3:"primary-label-text-color"`
+		PressedIconColor       string `m3:"primary-pressed-icon-color"`
+		PressedLabelTextColor  string `m3:"primary-pressed-label-text-color"`
 		PressedStateLayerColor string `m3:"primary-pressed-state-layer-color"`
 	}
 	Secondary struct {
-		ContainerColor string `m3:"secondary-container-color"`
-		FocusIconColor string `m3:"secondary-focus-icon-color"`
-		FocusLabelTextColor string `m3:"secondary-focus-label-text-color"`
-		HoverIconColor string `m3:"secondary-hover-icon-color"`
-		HoverLabelTextColor string `m3:"secondary-hover-label-text-color"`
-		HoverStateLayerColor string `m3:"secondary-hover-state-layer-color"`
-		IconColor string `m3:"secondary-icon-color"`
-		LabelTextColor string `m3:"secondary-label-text-color"`
-		PressedIconColor string `m3:"secondary-pressed-icon-color"`
-		PressedLabelTextColor string `m3:"secondary-pressed-label-text-color"`
+		ContainerColor         string `m3:"secondary-container-color"`
+		FocusIconColor         string `m3:"secondary-focus-icon-color"`
+		FocusLabelTextColor    string `m3:"secondary-focus-label-text-color"`
+		HoverIconColor         string `m3:"secondary-hover-icon-color"`
+		HoverLabelTextColor    string `m3:"secondary-hover-label-text-color"`
+		HoverStateLayerColor   string `m3:"secondary-hover-state-layer-color"`
+		IconColor              string `m3:"secondary-icon-color"`
+		LabelTextColor         string `m3:"secondary-label-text-color"`
+		PressedIconColor       string `m3:"secondary-pressed-icon-color"`
+		PressedLabelTextColor  string `m3:"secondary-pressed-label-text-color"`
 		PressedStateLayerColor string `m3:"secondary-pressed-state-layer-color"`
 	}
 	Small struct {
-		ContainerHeight string `m3:"small-container-height"`
-		ContainerShape string `m3:"small-container-shape"`
-		ContainerShapeEndEnd string `m3:"small-container-shape-end-end"`
-		ContainerShapeEndStart string `m3:"small-container-shape-end-start"`
-		ContainerShapeStartEnd string `m3:"small-container-shape-start-end"`
+		ContainerHeight          string `m3:"small-container-height"`
+		ContainerShape           string `m3:"small-container-shape"`
+		ContainerShapeEndEnd     string `m3:"small-container-shape-end-end"`
+		ContainerShapeEndStart   string `m3:"small-container-shape-end-start"`
+		ContainerShapeStartEnd   string `m3:"small-container-shape-start-end"`
 		ContainerShapeStartStart string `m3:"small-container-shape-start-start"`
-		ContainerWidth string `m3:"small-container-width"`
-		IconSize string `m3:"small-icon-size"`
+		ContainerWidth           string `m3:"small-container-width"`
+		IconSize                 string `m3:"small-icon-size"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	Tertiary struct {
-		ContainerColor string `m3:"tertiary-container-color"`
-		FocusIconColor string `m3:"tertiary-focus-icon-color"`
-		FocusLabelTextColor string `m3:"tertiary-focus-label-text-color"`
-		HoverIconColor string `m3:"tertiary-hover-icon-color"`
-		HoverLabelTextColor string `m3:"tertiary-hover-label-text-color"`
-		HoverStateLayerColor string `m3:"tertiary-hover-state-layer-color"`
-		IconColor string `m3:"tertiary-icon-color"`
-		LabelTextColor string `m3:"tertiary-label-text-color"`
-		PressedIconColor string `m3:"tertiary-pressed-icon-color"`
-		PressedLabelTextColor string `m3:"tertiary-pressed-label-text-color"`
+		ContainerColor         string `m3:"tertiary-container-color"`
+		FocusIconColor         string `m3:"tertiary-focus-icon-color"`
+		FocusLabelTextColor    string `m3:"tertiary-focus-label-text-color"`
+		HoverIconColor         string `m3:"tertiary-hover-icon-color"`
+		HoverLabelTextColor    string `m3:"tertiary-hover-label-text-color"`
+		HoverStateLayerColor   string `m3:"tertiary-hover-state-layer-color"`
+		IconColor              string `m3:"tertiary-icon-color"`
+		LabelTextColor         string `m3:"tertiary-label-text-color"`
+		PressedIconColor       string `m3:"tertiary-pressed-icon-color"`
+		PressedLabelTextColor  string `m3:"tertiary-pressed-label-text-color"`
 		PressedStateLayerColor string `m3:"tertiary-pressed-state-layer-color"`
 	}
-	Focus *FabFocusOverlay
-	Hover *FabHoverOverlay
 	Pressed *FabPressedOverlay
-}
-
-type FabFocusOverlay struct {
-	ContainerElevation *string `m3:"focus-container-elevation"`
-	IconColor *string `m3:"focus-icon-color"`
-	LabelTextColor *string `m3:"focus-label-text-color"`
-}
-
-type FabHoverOverlay struct {
-	ContainerElevation *string `m3:"hover-container-elevation"`
-	IconColor *string `m3:"hover-icon-color"`
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+	Focus   *FabFocusOverlay
+	Hover   *FabHoverOverlay
 }
 
 type FabPressedOverlay struct {
 	ContainerElevation *string `m3:"pressed-container-elevation"`
-	IconColor *string `m3:"pressed-icon-color"`
-	LabelTextColor *string `m3:"pressed-label-text-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
+	IconColor          *string `m3:"pressed-icon-color"`
+	LabelTextColor     *string `m3:"pressed-label-text-color"`
+	StateLayerColor    *string `m3:"pressed-state-layer-color"`
+	StateLayerOpacity  *string `m3:"pressed-state-layer-opacity"`
+}
+
+type FabFocusOverlay struct {
+	ContainerElevation *string `m3:"focus-container-elevation"`
+	IconColor          *string `m3:"focus-icon-color"`
+	LabelTextColor     *string `m3:"focus-label-text-color"`
+}
+
+type FabHoverOverlay struct {
+	ContainerElevation *string `m3:"hover-container-elevation"`
+	IconColor          *string `m3:"hover-icon-color"`
+	LabelTextColor     *string `m3:"hover-label-text-color"`
+	StateLayerColor    *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity  *string `m3:"hover-state-layer-opacity"`
 }
 
 type FilledButtonTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Elevation string `m3:"container-elevation"`
-		Height string `m3:"container-height"`
-		Opacity string `m3:"container-opacity"`
-		ShadowColor string `m3:"container-shadow-color"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Elevation       string `m3:"container-elevation"`
+		Height          string `m3:"container-height"`
+		Opacity         string `m3:"container-opacity"`
+		ShadowColor     string `m3:"container-shadow-color"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Icon struct {
-		Color string `m3:"icon-color"`
+		Color   string `m3:"icon-color"`
 		Opacity string `m3:"icon-opacity"`
-		Size string `m3:"icon-size"`
+		Size    string `m3:"icon-size"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Opacity string `m3:"label-text-opacity"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Opacity    string `m3:"label-text-opacity"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	Trailing struct {
 		Space string `m3:"trailing-space"`
 	}
 	WithLeadingIcon struct {
-		LeadingSpace string `m3:"with-leading-icon-leading-space"`
+		LeadingSpace  string `m3:"with-leading-icon-leading-space"`
 		TrailingSpace string `m3:"with-leading-icon-trailing-space"`
 	}
 	WithTrailingIcon struct {
-		LeadingSpace string `m3:"with-trailing-icon-leading-space"`
+		LeadingSpace  string `m3:"with-trailing-icon-leading-space"`
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
+	Focus    *FilledButtonFocusOverlay
+	Hover    *FilledButtonHoverOverlay
+	Pressed  *FilledButtonPressedOverlay
 	Disabled *FilledButtonDisabledOverlay
-	Focus *FilledButtonFocusOverlay
-	Hover *FilledButtonHoverOverlay
-	Pressed *FilledButtonPressedOverlay
-}
-
-type FilledButtonDisabledOverlay struct {
-	ContainerColor *string `m3:"disabled-container-color"`
-	ContainerElevation *string `m3:"disabled-container-elevation"`
-	ContainerOpacity *string `m3:"disabled-container-opacity"`
-	IconColor *string `m3:"disabled-icon-color"`
-	IconOpacity *string `m3:"disabled-icon-opacity"`
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
 }
 
 type FilledButtonFocusOverlay struct {
 	ContainerElevation *string `m3:"focus-container-elevation"`
-	IconColor *string `m3:"focus-icon-color"`
-	LabelTextColor *string `m3:"focus-label-text-color"`
+	IconColor          *string `m3:"focus-icon-color"`
+	LabelTextColor     *string `m3:"focus-label-text-color"`
 }
 
 type FilledButtonHoverOverlay struct {
 	ContainerElevation *string `m3:"hover-container-elevation"`
-	IconColor *string `m3:"hover-icon-color"`
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+	IconColor          *string `m3:"hover-icon-color"`
+	LabelTextColor     *string `m3:"hover-label-text-color"`
+	StateLayerColor    *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity  *string `m3:"hover-state-layer-opacity"`
 }
 
 type FilledButtonPressedOverlay struct {
 	ContainerElevation *string `m3:"pressed-container-elevation"`
-	IconColor *string `m3:"pressed-icon-color"`
-	LabelTextColor *string `m3:"pressed-label-text-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
+	IconColor          *string `m3:"pressed-icon-color"`
+	LabelTextColor     *string `m3:"pressed-label-text-color"`
+	StateLayerColor    *string `m3:"pressed-state-layer-color"`
+	StateLayerOpacity  *string `m3:"pressed-state-layer-opacity"`
+}
+
+type FilledButtonDisabledOverlay struct {
+	ContainerColor     *string `m3:"disabled-container-color"`
+	ContainerElevation *string `m3:"disabled-container-elevation"`
+	ContainerOpacity   *string `m3:"disabled-container-opacity"`
+	IconColor          *string `m3:"disabled-icon-color"`
+	IconOpacity        *string `m3:"disabled-icon-opacity"`
+	LabelTextColor     *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity   *string `m3:"disabled-label-text-opacity"`
 }
 
 type FilledCardTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Elevation string `m3:"container-elevation"`
+		Color       string `m3:"container-color"`
+		Elevation   string `m3:"container-elevation"`
 		ShadowColor string `m3:"container-shadow-color"`
-		Shape string `m3:"container-shape"`
+		Shape       string `m3:"container-shape"`
 	}
 }
 
@@ -627,59 +627,59 @@ type FilledFieldTokens struct {
 		Space string `m3:"bottom-space"`
 	}
 	Container struct {
-		Color string `m3:"container-color"`
-		Opacity string `m3:"container-opacity"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Opacity         string `m3:"container-opacity"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Content struct {
-		Color string `m3:"content-color"`
-		Font string `m3:"content-font"`
+		Color      string `m3:"content-color"`
+		Font       string `m3:"content-font"`
 		LineHeight string `m3:"content-line-height"`
-		Opacity string `m3:"content-opacity"`
-		Size string `m3:"content-size"`
-		Space string `m3:"content-space"`
-		Weight string `m3:"content-weight"`
+		Opacity    string `m3:"content-opacity"`
+		Size       string `m3:"content-size"`
+		Space      string `m3:"content-space"`
+		Weight     string `m3:"content-weight"`
 	}
 	Indicator struct {
-		Color string `m3:"indicator-color"`
-		Height string `m3:"indicator-height"`
+		Color   string `m3:"indicator-color"`
+		Height  string `m3:"indicator-height"`
 		Opacity string `m3:"indicator-opacity"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
-		LineHeight string `m3:"label-text-line-height"`
-		Opacity string `m3:"label-text-opacity"`
+		Color               string `m3:"label-text-color"`
+		Font                string `m3:"label-text-font"`
+		LineHeight          string `m3:"label-text-line-height"`
+		Opacity             string `m3:"label-text-opacity"`
 		PopulatedLineHeight string `m3:"label-text-populated-line-height"`
-		PopulatedSize string `m3:"label-text-populated-size"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		PopulatedSize       string `m3:"label-text-populated-size"`
+		Size                string `m3:"label-text-size"`
+		Weight              string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
 	}
 	LeadingContent struct {
-		Color string `m3:"leading-content-color"`
+		Color   string `m3:"leading-content-color"`
 		Opacity string `m3:"leading-content-opacity"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	SupportingText struct {
-		Color string `m3:"supporting-text-color"`
-		Font string `m3:"supporting-text-font"`
-		LeadingSpace string `m3:"supporting-text-leading-space"`
-		LineHeight string `m3:"supporting-text-line-height"`
-		Opacity string `m3:"supporting-text-opacity"`
-		Size string `m3:"supporting-text-size"`
-		TopSpace string `m3:"supporting-text-top-space"`
+		Color         string `m3:"supporting-text-color"`
+		Font          string `m3:"supporting-text-font"`
+		LeadingSpace  string `m3:"supporting-text-leading-space"`
+		LineHeight    string `m3:"supporting-text-line-height"`
+		Opacity       string `m3:"supporting-text-opacity"`
+		Size          string `m3:"supporting-text-size"`
+		TopSpace      string `m3:"supporting-text-top-space"`
 		TrailingSpace string `m3:"supporting-text-trailing-space"`
-		Weight string `m3:"supporting-text-weight"`
+		Weight        string `m3:"supporting-text-weight"`
 	}
 	Top struct {
 		Space string `m3:"top-space"`
@@ -688,12 +688,12 @@ type FilledFieldTokens struct {
 		Space string `m3:"trailing-space"`
 	}
 	TrailingContent struct {
-		Color string `m3:"trailing-content-color"`
+		Color   string `m3:"trailing-content-color"`
 		Opacity string `m3:"trailing-content-opacity"`
 	}
 	WithLabel struct {
 		BottomSpace string `m3:"with-label-bottom-space"`
-		TopSpace string `m3:"with-label-top-space"`
+		TopSpace    string `m3:"with-label-top-space"`
 	}
 	WithLeadingContent struct {
 		LeadingSpace string `m3:"with-leading-content-leading-space"`
@@ -701,89 +701,86 @@ type FilledFieldTokens struct {
 	WithTrailingContent struct {
 		TrailingSpace string `m3:"with-trailing-content-trailing-space"`
 	}
-	Focus *FilledFieldFocusOverlay
-	ErrorFocus *FilledFieldErrorFocusOverlay
-	ErrorHoverActive *FilledFieldErrorHoverActiveOverlay
-	ErrorHover *FilledFieldErrorHoverOverlay
-	HoverActive *FilledFieldHoverActiveOverlay
-	Hover *FilledFieldHoverOverlay
-	Active *FilledFieldActiveOverlay
-	DisabledActive *FilledFieldDisabledActiveOverlay
-	Disabled *FilledFieldDisabledOverlay
-	ErrorActive *FilledFieldErrorActiveOverlay
-	Error *FilledFieldErrorOverlay
+	HoverActive      *FilledFieldHoverActiveOverlay
 	ErrorFocusActive *FilledFieldErrorFocusActiveOverlay
-	FocusActive *FilledFieldFocusActiveOverlay
-}
-
-type FilledFieldFocusOverlay struct {
-	ContentColor *string `m3:"focus-content-color"`
-	LabelTextColor *string `m3:"focus-label-text-color"`
-	LeadingContentColor *string `m3:"focus-leading-content-color"`
-	SupportingTextColor *string `m3:"focus-supporting-text-color"`
-	TrailingContentColor *string `m3:"focus-trailing-content-color"`
-}
-
-type FilledFieldErrorFocusOverlay struct {
-	ContentColor *string `m3:"error-focus-content-color"`
-	LabelTextColor *string `m3:"error-focus-label-text-color"`
-	LeadingContentColor *string `m3:"error-focus-leading-content-color"`
-	SupportingTextColor *string `m3:"error-focus-supporting-text-color"`
-	TrailingContentColor *string `m3:"error-focus-trailing-content-color"`
-}
-
-type FilledFieldErrorHoverActiveOverlay struct {
-	IndicatorColor *string `m3:"error-hover-active-indicator-color"`
-}
-
-type FilledFieldErrorHoverOverlay struct {
-	ContentColor *string `m3:"error-hover-content-color"`
-	LabelTextColor *string `m3:"error-hover-label-text-color"`
-	LeadingContentColor *string `m3:"error-hover-leading-content-color"`
-	StateLayerColor *string `m3:"error-hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"error-hover-state-layer-opacity"`
-	SupportingTextColor *string `m3:"error-hover-supporting-text-color"`
-	TrailingContentColor *string `m3:"error-hover-trailing-content-color"`
+	ErrorFocus       *FilledFieldErrorFocusOverlay
+	ErrorHover       *FilledFieldErrorHoverOverlay
+	FocusActive      *FilledFieldFocusActiveOverlay
+	Hover            *FilledFieldHoverOverlay
+	Active           *FilledFieldActiveOverlay
+	DisabledActive   *FilledFieldDisabledActiveOverlay
+	Disabled         *FilledFieldDisabledOverlay
+	ErrorActive      *FilledFieldErrorActiveOverlay
+	Error            *FilledFieldErrorOverlay
+	ErrorHoverActive *FilledFieldErrorHoverActiveOverlay
+	Focus            *FilledFieldFocusOverlay
 }
 
 type FilledFieldHoverActiveOverlay struct {
-	IndicatorColor *string `m3:"hover-active-indicator-color"`
+	IndicatorColor  *string `m3:"hover-active-indicator-color"`
 	IndicatorHeight *string `m3:"hover-active-indicator-height"`
 }
 
+type FilledFieldErrorFocusActiveOverlay struct {
+	IndicatorColor *string `m3:"error-focus-active-indicator-color"`
+}
+
+type FilledFieldErrorFocusOverlay struct {
+	ContentColor         *string `m3:"error-focus-content-color"`
+	LabelTextColor       *string `m3:"error-focus-label-text-color"`
+	LeadingContentColor  *string `m3:"error-focus-leading-content-color"`
+	SupportingTextColor  *string `m3:"error-focus-supporting-text-color"`
+	TrailingContentColor *string `m3:"error-focus-trailing-content-color"`
+}
+
+type FilledFieldErrorHoverOverlay struct {
+	ContentColor         *string `m3:"error-hover-content-color"`
+	LabelTextColor       *string `m3:"error-hover-label-text-color"`
+	LeadingContentColor  *string `m3:"error-hover-leading-content-color"`
+	StateLayerColor      *string `m3:"error-hover-state-layer-color"`
+	StateLayerOpacity    *string `m3:"error-hover-state-layer-opacity"`
+	SupportingTextColor  *string `m3:"error-hover-supporting-text-color"`
+	TrailingContentColor *string `m3:"error-hover-trailing-content-color"`
+}
+
+type FilledFieldFocusActiveOverlay struct {
+	IndicatorColor  *string `m3:"focus-active-indicator-color"`
+	IndicatorHeight *string `m3:"focus-active-indicator-height"`
+}
+
 type FilledFieldHoverOverlay struct {
-	ContentColor *string `m3:"hover-content-color"`
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	LeadingContentColor *string `m3:"hover-leading-content-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
-	SupportingTextColor *string `m3:"hover-supporting-text-color"`
+	ContentColor         *string `m3:"hover-content-color"`
+	LabelTextColor       *string `m3:"hover-label-text-color"`
+	LeadingContentColor  *string `m3:"hover-leading-content-color"`
+	StateLayerColor      *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity    *string `m3:"hover-state-layer-opacity"`
+	SupportingTextColor  *string `m3:"hover-supporting-text-color"`
 	TrailingContentColor *string `m3:"hover-trailing-content-color"`
 }
 
 type FilledFieldActiveOverlay struct {
-	IndicatorColor *string `m3:"active-indicator-color"`
+	IndicatorColor  *string `m3:"active-indicator-color"`
 	IndicatorHeight *string `m3:"active-indicator-height"`
 }
 
 type FilledFieldDisabledActiveOverlay struct {
-	IndicatorColor *string `m3:"disabled-active-indicator-color"`
-	IndicatorHeight *string `m3:"disabled-active-indicator-height"`
+	IndicatorColor   *string `m3:"disabled-active-indicator-color"`
+	IndicatorHeight  *string `m3:"disabled-active-indicator-height"`
 	IndicatorOpacity *string `m3:"disabled-active-indicator-opacity"`
 }
 
 type FilledFieldDisabledOverlay struct {
-	ContainerColor *string `m3:"disabled-container-color"`
-	ContainerOpacity *string `m3:"disabled-container-opacity"`
-	ContentColor *string `m3:"disabled-content-color"`
-	ContentOpacity *string `m3:"disabled-content-opacity"`
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
-	LeadingContentColor *string `m3:"disabled-leading-content-color"`
-	LeadingContentOpacity *string `m3:"disabled-leading-content-opacity"`
-	SupportingTextColor *string `m3:"disabled-supporting-text-color"`
-	SupportingTextOpacity *string `m3:"disabled-supporting-text-opacity"`
-	TrailingContentColor *string `m3:"disabled-trailing-content-color"`
+	ContainerColor         *string `m3:"disabled-container-color"`
+	ContainerOpacity       *string `m3:"disabled-container-opacity"`
+	ContentColor           *string `m3:"disabled-content-color"`
+	ContentOpacity         *string `m3:"disabled-content-opacity"`
+	LabelTextColor         *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity       *string `m3:"disabled-label-text-opacity"`
+	LeadingContentColor    *string `m3:"disabled-leading-content-color"`
+	LeadingContentOpacity  *string `m3:"disabled-leading-content-opacity"`
+	SupportingTextColor    *string `m3:"disabled-supporting-text-color"`
+	SupportingTextOpacity  *string `m3:"disabled-supporting-text-opacity"`
+	TrailingContentColor   *string `m3:"disabled-trailing-content-color"`
 	TrailingContentOpacity *string `m3:"disabled-trailing-content-opacity"`
 }
 
@@ -792,108 +789,107 @@ type FilledFieldErrorActiveOverlay struct {
 }
 
 type FilledFieldErrorOverlay struct {
-	ContentColor *string `m3:"error-content-color"`
-	LabelTextColor *string `m3:"error-label-text-color"`
-	LeadingContentColor *string `m3:"error-leading-content-color"`
-	SupportingTextColor *string `m3:"error-supporting-text-color"`
+	ContentColor         *string `m3:"error-content-color"`
+	LabelTextColor       *string `m3:"error-label-text-color"`
+	LeadingContentColor  *string `m3:"error-leading-content-color"`
+	SupportingTextColor  *string `m3:"error-supporting-text-color"`
 	TrailingContentColor *string `m3:"error-trailing-content-color"`
 }
 
-type FilledFieldErrorFocusActiveOverlay struct {
-	IndicatorColor *string `m3:"error-focus-active-indicator-color"`
+type FilledFieldErrorHoverActiveOverlay struct {
+	IndicatorColor *string `m3:"error-hover-active-indicator-color"`
 }
 
-type FilledFieldFocusActiveOverlay struct {
-	IndicatorColor *string `m3:"focus-active-indicator-color"`
-	IndicatorHeight *string `m3:"focus-active-indicator-height"`
+type FilledFieldFocusOverlay struct {
+	ContentColor         *string `m3:"focus-content-color"`
+	LabelTextColor       *string `m3:"focus-label-text-color"`
+	LeadingContentColor  *string `m3:"focus-leading-content-color"`
+	SupportingTextColor  *string `m3:"focus-supporting-text-color"`
+	TrailingContentColor *string `m3:"focus-trailing-content-color"`
 }
 
 type FilledIconButtonTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Height string `m3:"container-height"`
-		Opacity string `m3:"container-opacity"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Height          string `m3:"container-height"`
+		Opacity         string `m3:"container-opacity"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
-		Width string `m3:"container-width"`
+		Width           string `m3:"container-width"`
 	}
 	Icon struct {
-		Color string `m3:"icon-color"`
+		Color   string `m3:"icon-color"`
 		Opacity string `m3:"icon-opacity"`
-		Size string `m3:"icon-size"`
+		Size    string `m3:"icon-size"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	Unselected struct {
 		ContainerColor string `m3:"unselected-container-color"`
 	}
-	ToggleSelectedFocus *FilledIconButtonToggleSelectedFocusOverlay
+	Focus                 *FilledIconButtonFocusOverlay
+	Hover                 *FilledIconButtonHoverOverlay
+	ToggleHover           *FilledIconButtonToggleHoverOverlay
+	Toggle                *FilledIconButtonToggleOverlay
+	ToggleSelectedFocus   *FilledIconButtonToggleSelectedFocusOverlay
+	ToggleSelectedHover   *FilledIconButtonToggleSelectedHoverOverlay
 	ToggleSelectedPressed *FilledIconButtonToggleSelectedPressedOverlay
-	Focus *FilledIconButtonFocusOverlay
-	ToggleFocus *FilledIconButtonToggleFocusOverlay
-	ToggleHover *FilledIconButtonToggleHoverOverlay
-	ToggleSelectedHover *FilledIconButtonToggleSelectedHoverOverlay
-	ToggleSelected *FilledIconButtonToggleSelectedOverlay
-	Disabled *FilledIconButtonDisabledOverlay
-	Hover *FilledIconButtonHoverOverlay
-	Pressed *FilledIconButtonPressedOverlay
-	Selected *FilledIconButtonSelectedOverlay
-	Toggle *FilledIconButtonToggleOverlay
-	TogglePressed *FilledIconButtonTogglePressedOverlay
-}
-
-type FilledIconButtonToggleSelectedFocusOverlay struct {
-	IconColor *string `m3:"toggle-selected-focus-icon-color"`
-}
-
-type FilledIconButtonToggleSelectedPressedOverlay struct {
-	IconColor *string `m3:"toggle-selected-pressed-icon-color"`
-	StateLayerColor *string `m3:"toggle-selected-pressed-state-layer-color"`
+	Disabled              *FilledIconButtonDisabledOverlay
+	Pressed               *FilledIconButtonPressedOverlay
+	Selected              *FilledIconButtonSelectedOverlay
+	ToggleFocus           *FilledIconButtonToggleFocusOverlay
+	TogglePressed         *FilledIconButtonTogglePressedOverlay
+	ToggleSelected        *FilledIconButtonToggleSelectedOverlay
 }
 
 type FilledIconButtonFocusOverlay struct {
 	IconColor *string `m3:"focus-icon-color"`
 }
 
-type FilledIconButtonToggleFocusOverlay struct {
-	IconColor *string `m3:"toggle-focus-icon-color"`
-}
-
-type FilledIconButtonToggleHoverOverlay struct {
-	IconColor *string `m3:"toggle-hover-icon-color"`
-	StateLayerColor *string `m3:"toggle-hover-state-layer-color"`
-}
-
-type FilledIconButtonToggleSelectedHoverOverlay struct {
-	IconColor *string `m3:"toggle-selected-hover-icon-color"`
-	StateLayerColor *string `m3:"toggle-selected-hover-state-layer-color"`
-}
-
-type FilledIconButtonToggleSelectedOverlay struct {
-	IconColor *string `m3:"toggle-selected-icon-color"`
-}
-
-type FilledIconButtonDisabledOverlay struct {
-	ContainerColor *string `m3:"disabled-container-color"`
-	ContainerOpacity *string `m3:"disabled-container-opacity"`
-	IconColor *string `m3:"disabled-icon-color"`
-	IconOpacity *string `m3:"disabled-icon-opacity"`
-}
-
 type FilledIconButtonHoverOverlay struct {
-	IconColor *string `m3:"hover-icon-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
+	IconColor         *string `m3:"hover-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
+type FilledIconButtonToggleHoverOverlay struct {
+	IconColor       *string `m3:"toggle-hover-icon-color"`
+	StateLayerColor *string `m3:"toggle-hover-state-layer-color"`
+}
+
+type FilledIconButtonToggleOverlay struct {
+	IconColor *string `m3:"toggle-icon-color"`
+}
+
+type FilledIconButtonToggleSelectedFocusOverlay struct {
+	IconColor *string `m3:"toggle-selected-focus-icon-color"`
+}
+
+type FilledIconButtonToggleSelectedHoverOverlay struct {
+	IconColor       *string `m3:"toggle-selected-hover-icon-color"`
+	StateLayerColor *string `m3:"toggle-selected-hover-state-layer-color"`
+}
+
+type FilledIconButtonToggleSelectedPressedOverlay struct {
+	IconColor       *string `m3:"toggle-selected-pressed-icon-color"`
+	StateLayerColor *string `m3:"toggle-selected-pressed-state-layer-color"`
+}
+
+type FilledIconButtonDisabledOverlay struct {
+	ContainerColor   *string `m3:"disabled-container-color"`
+	ContainerOpacity *string `m3:"disabled-container-opacity"`
+	IconColor        *string `m3:"disabled-icon-color"`
+	IconOpacity      *string `m3:"disabled-icon-opacity"`
+}
+
 type FilledIconButtonPressedOverlay struct {
-	IconColor *string `m3:"pressed-icon-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	IconColor         *string `m3:"pressed-icon-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
@@ -901,97 +897,101 @@ type FilledIconButtonSelectedOverlay struct {
 	ContainerColor *string `m3:"selected-container-color"`
 }
 
-type FilledIconButtonToggleOverlay struct {
-	IconColor *string `m3:"toggle-icon-color"`
+type FilledIconButtonToggleFocusOverlay struct {
+	IconColor *string `m3:"toggle-focus-icon-color"`
 }
 
 type FilledIconButtonTogglePressedOverlay struct {
-	IconColor *string `m3:"toggle-pressed-icon-color"`
+	IconColor       *string `m3:"toggle-pressed-icon-color"`
 	StateLayerColor *string `m3:"toggle-pressed-state-layer-color"`
+}
+
+type FilledIconButtonToggleSelectedOverlay struct {
+	IconColor *string `m3:"toggle-selected-icon-color"`
 }
 
 type FilledSelectTokens struct {
 	Text struct {
-		FieldActiveIndicatorColor string `m3:"text-field-active-indicator-color"`
-		FieldActiveIndicatorHeight string `m3:"text-field-active-indicator-height"`
-		FieldContainerColor string `m3:"text-field-container-color"`
-		FieldContainerShape string `m3:"text-field-container-shape"`
-		FieldContainerShapeEndEnd string `m3:"text-field-container-shape-end-end"`
-		FieldContainerShapeEndStart string `m3:"text-field-container-shape-end-start"`
-		FieldContainerShapeStartEnd string `m3:"text-field-container-shape-start-end"`
-		FieldContainerShapeStartStart string `m3:"text-field-container-shape-start-start"`
-		FieldDisabledActiveIndicatorColor string `m3:"text-field-disabled-active-indicator-color"`
-		FieldDisabledActiveIndicatorHeight string `m3:"text-field-disabled-active-indicator-height"`
+		FieldActiveIndicatorColor           string `m3:"text-field-active-indicator-color"`
+		FieldActiveIndicatorHeight          string `m3:"text-field-active-indicator-height"`
+		FieldContainerColor                 string `m3:"text-field-container-color"`
+		FieldContainerShape                 string `m3:"text-field-container-shape"`
+		FieldContainerShapeEndEnd           string `m3:"text-field-container-shape-end-end"`
+		FieldContainerShapeEndStart         string `m3:"text-field-container-shape-end-start"`
+		FieldContainerShapeStartEnd         string `m3:"text-field-container-shape-start-end"`
+		FieldContainerShapeStartStart       string `m3:"text-field-container-shape-start-start"`
+		FieldDisabledActiveIndicatorColor   string `m3:"text-field-disabled-active-indicator-color"`
+		FieldDisabledActiveIndicatorHeight  string `m3:"text-field-disabled-active-indicator-height"`
 		FieldDisabledActiveIndicatorOpacity string `m3:"text-field-disabled-active-indicator-opacity"`
-		FieldDisabledContainerColor string `m3:"text-field-disabled-container-color"`
-		FieldDisabledContainerOpacity string `m3:"text-field-disabled-container-opacity"`
-		FieldDisabledInputTextColor string `m3:"text-field-disabled-input-text-color"`
-		FieldDisabledInputTextOpacity string `m3:"text-field-disabled-input-text-opacity"`
-		FieldDisabledLabelTextColor string `m3:"text-field-disabled-label-text-color"`
-		FieldDisabledLabelTextOpacity string `m3:"text-field-disabled-label-text-opacity"`
-		FieldDisabledLeadingIconColor string `m3:"text-field-disabled-leading-icon-color"`
-		FieldDisabledLeadingIconOpacity string `m3:"text-field-disabled-leading-icon-opacity"`
-		FieldDisabledSupportingTextColor string `m3:"text-field-disabled-supporting-text-color"`
-		FieldDisabledSupportingTextOpacity string `m3:"text-field-disabled-supporting-text-opacity"`
-		FieldDisabledTrailingIconColor string `m3:"text-field-disabled-trailing-icon-color"`
-		FieldDisabledTrailingIconOpacity string `m3:"text-field-disabled-trailing-icon-opacity"`
-		FieldErrorActiveIndicatorColor string `m3:"text-field-error-active-indicator-color"`
+		FieldDisabledContainerColor         string `m3:"text-field-disabled-container-color"`
+		FieldDisabledContainerOpacity       string `m3:"text-field-disabled-container-opacity"`
+		FieldDisabledInputTextColor         string `m3:"text-field-disabled-input-text-color"`
+		FieldDisabledInputTextOpacity       string `m3:"text-field-disabled-input-text-opacity"`
+		FieldDisabledLabelTextColor         string `m3:"text-field-disabled-label-text-color"`
+		FieldDisabledLabelTextOpacity       string `m3:"text-field-disabled-label-text-opacity"`
+		FieldDisabledLeadingIconColor       string `m3:"text-field-disabled-leading-icon-color"`
+		FieldDisabledLeadingIconOpacity     string `m3:"text-field-disabled-leading-icon-opacity"`
+		FieldDisabledSupportingTextColor    string `m3:"text-field-disabled-supporting-text-color"`
+		FieldDisabledSupportingTextOpacity  string `m3:"text-field-disabled-supporting-text-opacity"`
+		FieldDisabledTrailingIconColor      string `m3:"text-field-disabled-trailing-icon-color"`
+		FieldDisabledTrailingIconOpacity    string `m3:"text-field-disabled-trailing-icon-opacity"`
+		FieldErrorActiveIndicatorColor      string `m3:"text-field-error-active-indicator-color"`
 		FieldErrorFocusActiveIndicatorColor string `m3:"text-field-error-focus-active-indicator-color"`
-		FieldErrorFocusInputTextColor string `m3:"text-field-error-focus-input-text-color"`
-		FieldErrorFocusLabelTextColor string `m3:"text-field-error-focus-label-text-color"`
-		FieldErrorFocusLeadingIconColor string `m3:"text-field-error-focus-leading-icon-color"`
-		FieldErrorFocusSupportingTextColor string `m3:"text-field-error-focus-supporting-text-color"`
-		FieldErrorFocusTrailingIconColor string `m3:"text-field-error-focus-trailing-icon-color"`
+		FieldErrorFocusInputTextColor       string `m3:"text-field-error-focus-input-text-color"`
+		FieldErrorFocusLabelTextColor       string `m3:"text-field-error-focus-label-text-color"`
+		FieldErrorFocusLeadingIconColor     string `m3:"text-field-error-focus-leading-icon-color"`
+		FieldErrorFocusSupportingTextColor  string `m3:"text-field-error-focus-supporting-text-color"`
+		FieldErrorFocusTrailingIconColor    string `m3:"text-field-error-focus-trailing-icon-color"`
 		FieldErrorHoverActiveIndicatorColor string `m3:"text-field-error-hover-active-indicator-color"`
-		FieldErrorHoverInputTextColor string `m3:"text-field-error-hover-input-text-color"`
-		FieldErrorHoverLabelTextColor string `m3:"text-field-error-hover-label-text-color"`
-		FieldErrorHoverLeadingIconColor string `m3:"text-field-error-hover-leading-icon-color"`
-		FieldErrorHoverStateLayerColor string `m3:"text-field-error-hover-state-layer-color"`
-		FieldErrorHoverStateLayerOpacity string `m3:"text-field-error-hover-state-layer-opacity"`
-		FieldErrorHoverSupportingTextColor string `m3:"text-field-error-hover-supporting-text-color"`
-		FieldErrorHoverTrailingIconColor string `m3:"text-field-error-hover-trailing-icon-color"`
-		FieldErrorInputTextColor string `m3:"text-field-error-input-text-color"`
-		FieldErrorLabelTextColor string `m3:"text-field-error-label-text-color"`
-		FieldErrorLeadingIconColor string `m3:"text-field-error-leading-icon-color"`
-		FieldErrorSupportingTextColor string `m3:"text-field-error-supporting-text-color"`
-		FieldErrorTrailingIconColor string `m3:"text-field-error-trailing-icon-color"`
-		FieldFocusActiveIndicatorColor string `m3:"text-field-focus-active-indicator-color"`
-		FieldFocusActiveIndicatorHeight string `m3:"text-field-focus-active-indicator-height"`
-		FieldFocusInputTextColor string `m3:"text-field-focus-input-text-color"`
-		FieldFocusLabelTextColor string `m3:"text-field-focus-label-text-color"`
-		FieldFocusLeadingIconColor string `m3:"text-field-focus-leading-icon-color"`
-		FieldFocusSupportingTextColor string `m3:"text-field-focus-supporting-text-color"`
-		FieldFocusTrailingIconColor string `m3:"text-field-focus-trailing-icon-color"`
-		FieldHoverActiveIndicatorColor string `m3:"text-field-hover-active-indicator-color"`
-		FieldHoverActiveIndicatorHeight string `m3:"text-field-hover-active-indicator-height"`
-		FieldHoverInputTextColor string `m3:"text-field-hover-input-text-color"`
-		FieldHoverLabelTextColor string `m3:"text-field-hover-label-text-color"`
-		FieldHoverLeadingIconColor string `m3:"text-field-hover-leading-icon-color"`
-		FieldHoverStateLayerColor string `m3:"text-field-hover-state-layer-color"`
-		FieldHoverStateLayerOpacity string `m3:"text-field-hover-state-layer-opacity"`
-		FieldHoverSupportingTextColor string `m3:"text-field-hover-supporting-text-color"`
-		FieldHoverTrailingIconColor string `m3:"text-field-hover-trailing-icon-color"`
-		FieldInputTextColor string `m3:"text-field-input-text-color"`
-		FieldInputTextFont string `m3:"text-field-input-text-font"`
-		FieldInputTextLineHeight string `m3:"text-field-input-text-line-height"`
-		FieldInputTextSize string `m3:"text-field-input-text-size"`
-		FieldInputTextWeight string `m3:"text-field-input-text-weight"`
-		FieldLabelTextColor string `m3:"text-field-label-text-color"`
-		FieldLabelTextFont string `m3:"text-field-label-text-font"`
-		FieldLabelTextLineHeight string `m3:"text-field-label-text-line-height"`
-		FieldLabelTextPopulatedLineHeight string `m3:"text-field-label-text-populated-line-height"`
-		FieldLabelTextPopulatedSize string `m3:"text-field-label-text-populated-size"`
-		FieldLabelTextSize string `m3:"text-field-label-text-size"`
-		FieldLabelTextWeight string `m3:"text-field-label-text-weight"`
-		FieldLeadingIconColor string `m3:"text-field-leading-icon-color"`
-		FieldLeadingIconSize string `m3:"text-field-leading-icon-size"`
-		FieldSupportingTextColor string `m3:"text-field-supporting-text-color"`
-		FieldSupportingTextFont string `m3:"text-field-supporting-text-font"`
-		FieldSupportingTextLineHeight string `m3:"text-field-supporting-text-line-height"`
-		FieldSupportingTextSize string `m3:"text-field-supporting-text-size"`
-		FieldSupportingTextWeight string `m3:"text-field-supporting-text-weight"`
-		FieldTrailingIconColor string `m3:"text-field-trailing-icon-color"`
-		FieldTrailingIconSize string `m3:"text-field-trailing-icon-size"`
+		FieldErrorHoverInputTextColor       string `m3:"text-field-error-hover-input-text-color"`
+		FieldErrorHoverLabelTextColor       string `m3:"text-field-error-hover-label-text-color"`
+		FieldErrorHoverLeadingIconColor     string `m3:"text-field-error-hover-leading-icon-color"`
+		FieldErrorHoverStateLayerColor      string `m3:"text-field-error-hover-state-layer-color"`
+		FieldErrorHoverStateLayerOpacity    string `m3:"text-field-error-hover-state-layer-opacity"`
+		FieldErrorHoverSupportingTextColor  string `m3:"text-field-error-hover-supporting-text-color"`
+		FieldErrorHoverTrailingIconColor    string `m3:"text-field-error-hover-trailing-icon-color"`
+		FieldErrorInputTextColor            string `m3:"text-field-error-input-text-color"`
+		FieldErrorLabelTextColor            string `m3:"text-field-error-label-text-color"`
+		FieldErrorLeadingIconColor          string `m3:"text-field-error-leading-icon-color"`
+		FieldErrorSupportingTextColor       string `m3:"text-field-error-supporting-text-color"`
+		FieldErrorTrailingIconColor         string `m3:"text-field-error-trailing-icon-color"`
+		FieldFocusActiveIndicatorColor      string `m3:"text-field-focus-active-indicator-color"`
+		FieldFocusActiveIndicatorHeight     string `m3:"text-field-focus-active-indicator-height"`
+		FieldFocusInputTextColor            string `m3:"text-field-focus-input-text-color"`
+		FieldFocusLabelTextColor            string `m3:"text-field-focus-label-text-color"`
+		FieldFocusLeadingIconColor          string `m3:"text-field-focus-leading-icon-color"`
+		FieldFocusSupportingTextColor       string `m3:"text-field-focus-supporting-text-color"`
+		FieldFocusTrailingIconColor         string `m3:"text-field-focus-trailing-icon-color"`
+		FieldHoverActiveIndicatorColor      string `m3:"text-field-hover-active-indicator-color"`
+		FieldHoverActiveIndicatorHeight     string `m3:"text-field-hover-active-indicator-height"`
+		FieldHoverInputTextColor            string `m3:"text-field-hover-input-text-color"`
+		FieldHoverLabelTextColor            string `m3:"text-field-hover-label-text-color"`
+		FieldHoverLeadingIconColor          string `m3:"text-field-hover-leading-icon-color"`
+		FieldHoverStateLayerColor           string `m3:"text-field-hover-state-layer-color"`
+		FieldHoverStateLayerOpacity         string `m3:"text-field-hover-state-layer-opacity"`
+		FieldHoverSupportingTextColor       string `m3:"text-field-hover-supporting-text-color"`
+		FieldHoverTrailingIconColor         string `m3:"text-field-hover-trailing-icon-color"`
+		FieldInputTextColor                 string `m3:"text-field-input-text-color"`
+		FieldInputTextFont                  string `m3:"text-field-input-text-font"`
+		FieldInputTextLineHeight            string `m3:"text-field-input-text-line-height"`
+		FieldInputTextSize                  string `m3:"text-field-input-text-size"`
+		FieldInputTextWeight                string `m3:"text-field-input-text-weight"`
+		FieldLabelTextColor                 string `m3:"text-field-label-text-color"`
+		FieldLabelTextFont                  string `m3:"text-field-label-text-font"`
+		FieldLabelTextLineHeight            string `m3:"text-field-label-text-line-height"`
+		FieldLabelTextPopulatedLineHeight   string `m3:"text-field-label-text-populated-line-height"`
+		FieldLabelTextPopulatedSize         string `m3:"text-field-label-text-populated-size"`
+		FieldLabelTextSize                  string `m3:"text-field-label-text-size"`
+		FieldLabelTextWeight                string `m3:"text-field-label-text-weight"`
+		FieldLeadingIconColor               string `m3:"text-field-leading-icon-color"`
+		FieldLeadingIconSize                string `m3:"text-field-leading-icon-size"`
+		FieldSupportingTextColor            string `m3:"text-field-supporting-text-color"`
+		FieldSupportingTextFont             string `m3:"text-field-supporting-text-font"`
+		FieldSupportingTextLineHeight       string `m3:"text-field-supporting-text-line-height"`
+		FieldSupportingTextSize             string `m3:"text-field-supporting-text-size"`
+		FieldSupportingTextWeight           string `m3:"text-field-supporting-text-weight"`
+		FieldTrailingIconColor              string `m3:"text-field-trailing-icon-color"`
+		FieldTrailingIconSize               string `m3:"text-field-trailing-icon-size"`
 	}
 }
 
@@ -1003,64 +1003,64 @@ type FilledTextFieldTokens struct {
 		Color string `m3:"caret-color"`
 	}
 	Container struct {
-		Color string `m3:"container-color"`
-		Opacity string `m3:"container-opacity"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Opacity         string `m3:"container-opacity"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Icon struct {
 		InputSpace string `m3:"icon-input-space"`
 	}
 	Indicator struct {
-		Color string `m3:"indicator-color"`
-		Height string `m3:"indicator-height"`
+		Color   string `m3:"indicator-color"`
+		Height  string `m3:"indicator-height"`
 		Opacity string `m3:"indicator-opacity"`
 	}
 	Input struct {
-		TextColor string `m3:"input-text-color"`
-		TextFont string `m3:"input-text-font"`
-		TextLineHeight string `m3:"input-text-line-height"`
-		TextOpacity string `m3:"input-text-opacity"`
-		TextPlaceholderColor string `m3:"input-text-placeholder-color"`
-		TextPrefixColor string `m3:"input-text-prefix-color"`
+		TextColor               string `m3:"input-text-color"`
+		TextFont                string `m3:"input-text-font"`
+		TextLineHeight          string `m3:"input-text-line-height"`
+		TextOpacity             string `m3:"input-text-opacity"`
+		TextPlaceholderColor    string `m3:"input-text-placeholder-color"`
+		TextPrefixColor         string `m3:"input-text-prefix-color"`
 		TextPrefixTrailingSpace string `m3:"input-text-prefix-trailing-space"`
-		TextSize string `m3:"input-text-size"`
-		TextSuffixColor string `m3:"input-text-suffix-color"`
-		TextSuffixLeadingSpace string `m3:"input-text-suffix-leading-space"`
-		TextWeight string `m3:"input-text-weight"`
+		TextSize                string `m3:"input-text-size"`
+		TextSuffixColor         string `m3:"input-text-suffix-color"`
+		TextSuffixLeadingSpace  string `m3:"input-text-suffix-leading-space"`
+		TextWeight              string `m3:"input-text-weight"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
-		LineHeight string `m3:"label-text-line-height"`
-		Opacity string `m3:"label-text-opacity"`
+		Color               string `m3:"label-text-color"`
+		Font                string `m3:"label-text-font"`
+		LineHeight          string `m3:"label-text-line-height"`
+		Opacity             string `m3:"label-text-opacity"`
 		PopulatedLineHeight string `m3:"label-text-populated-line-height"`
-		PopulatedSize string `m3:"label-text-populated-size"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		PopulatedSize       string `m3:"label-text-populated-size"`
+		Size                string `m3:"label-text-size"`
+		Weight              string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
 	}
 	LeadingIcon struct {
-		Color string `m3:"leading-icon-color"`
+		Color   string `m3:"leading-icon-color"`
 		Opacity string `m3:"leading-icon-opacity"`
-		Size string `m3:"leading-icon-size"`
+		Size    string `m3:"leading-icon-size"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	SupportingText struct {
-		Color string `m3:"supporting-text-color"`
-		Font string `m3:"supporting-text-font"`
+		Color      string `m3:"supporting-text-color"`
+		Font       string `m3:"supporting-text-font"`
 		LineHeight string `m3:"supporting-text-line-height"`
-		Opacity string `m3:"supporting-text-opacity"`
-		Size string `m3:"supporting-text-size"`
-		Weight string `m3:"supporting-text-weight"`
+		Opacity    string `m3:"supporting-text-opacity"`
+		Size       string `m3:"supporting-text-size"`
+		Weight     string `m3:"supporting-text-weight"`
 	}
 	Top struct {
 		Space string `m3:"top-space"`
@@ -1069,13 +1069,13 @@ type FilledTextFieldTokens struct {
 		Space string `m3:"trailing-space"`
 	}
 	TrailingIcon struct {
-		Color string `m3:"trailing-icon-color"`
+		Color   string `m3:"trailing-icon-color"`
 		Opacity string `m3:"trailing-icon-opacity"`
-		Size string `m3:"trailing-icon-size"`
+		Size    string `m3:"trailing-icon-size"`
 	}
 	WithLabel struct {
 		BottomSpace string `m3:"with-label-bottom-space"`
-		TopSpace string `m3:"with-label-top-space"`
+		TopSpace    string `m3:"with-label-top-space"`
 	}
 	WithLeadingIcon struct {
 		LeadingSpace string `m3:"with-leading-icon-leading-space"`
@@ -1083,100 +1083,96 @@ type FilledTextFieldTokens struct {
 	WithTrailingIcon struct {
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
-	ErrorHoverActive *FilledTextFieldErrorHoverActiveOverlay
-	ErrorHover *FilledTextFieldErrorHoverOverlay
-	Error *FilledTextFieldErrorOverlay
+	FocusActive      *FilledTextFieldFocusActiveOverlay
+	Focus            *FilledTextFieldFocusOverlay
+	HoverActive      *FilledTextFieldHoverActiveOverlay
+	Hover            *FilledTextFieldHoverOverlay
+	Active           *FilledTextFieldActiveOverlay
+	Disabled         *FilledTextFieldDisabledOverlay
 	ErrorFocusActive *FilledTextFieldErrorFocusActiveOverlay
-	FocusActive *FilledTextFieldFocusActiveOverlay
-	Focus *FilledTextFieldFocusOverlay
-	HoverActive *FilledTextFieldHoverActiveOverlay
-	Hover *FilledTextFieldHoverOverlay
-	Active *FilledTextFieldActiveOverlay
-	DisabledActive *FilledTextFieldDisabledActiveOverlay
-	Disabled *FilledTextFieldDisabledOverlay
-	ErrorActive *FilledTextFieldErrorActiveOverlay
-	ErrorFocus *FilledTextFieldErrorFocusOverlay
+	ErrorHover       *FilledTextFieldErrorHoverOverlay
+	Error            *FilledTextFieldErrorOverlay
+	DisabledActive   *FilledTextFieldDisabledActiveOverlay
+	ErrorActive      *FilledTextFieldErrorActiveOverlay
+	ErrorFocus       *FilledTextFieldErrorFocusOverlay
+	ErrorHoverActive *FilledTextFieldErrorHoverActiveOverlay
 }
 
-type FilledTextFieldErrorHoverActiveOverlay struct {
-	IndicatorColor *string `m3:"error-hover-active-indicator-color"`
+type FilledTextFieldFocusActiveOverlay struct {
+	IndicatorColor  *string `m3:"focus-active-indicator-color"`
+	IndicatorHeight *string `m3:"focus-active-indicator-height"`
 }
 
-type FilledTextFieldErrorHoverOverlay struct {
-	InputTextColor *string `m3:"error-hover-input-text-color"`
-	LabelTextColor *string `m3:"error-hover-label-text-color"`
-	LeadingIconColor *string `m3:"error-hover-leading-icon-color"`
-	StateLayerColor *string `m3:"error-hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"error-hover-state-layer-opacity"`
-	SupportingTextColor *string `m3:"error-hover-supporting-text-color"`
-	TrailingIconColor *string `m3:"error-hover-trailing-icon-color"`
+type FilledTextFieldFocusOverlay struct {
+	CaretColor          *string `m3:"focus-caret-color"`
+	InputTextColor      *string `m3:"focus-input-text-color"`
+	LabelTextColor      *string `m3:"focus-label-text-color"`
+	LeadingIconColor    *string `m3:"focus-leading-icon-color"`
+	SupportingTextColor *string `m3:"focus-supporting-text-color"`
+	TrailingIconColor   *string `m3:"focus-trailing-icon-color"`
 }
 
-type FilledTextFieldErrorOverlay struct {
-	InputTextColor *string `m3:"error-input-text-color"`
-	LabelTextColor *string `m3:"error-label-text-color"`
-	LeadingIconColor *string `m3:"error-leading-icon-color"`
-	SupportingTextColor *string `m3:"error-supporting-text-color"`
-	TrailingIconColor *string `m3:"error-trailing-icon-color"`
+type FilledTextFieldHoverActiveOverlay struct {
+	IndicatorColor  *string `m3:"hover-active-indicator-color"`
+	IndicatorHeight *string `m3:"hover-active-indicator-height"`
+}
+
+type FilledTextFieldHoverOverlay struct {
+	InputTextColor      *string `m3:"hover-input-text-color"`
+	LabelTextColor      *string `m3:"hover-label-text-color"`
+	LeadingIconColor    *string `m3:"hover-leading-icon-color"`
+	StateLayerColor     *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity   *string `m3:"hover-state-layer-opacity"`
+	SupportingTextColor *string `m3:"hover-supporting-text-color"`
+	TrailingIconColor   *string `m3:"hover-trailing-icon-color"`
+}
+
+type FilledTextFieldActiveOverlay struct {
+	IndicatorColor  *string `m3:"active-indicator-color"`
+	IndicatorHeight *string `m3:"active-indicator-height"`
+}
+
+type FilledTextFieldDisabledOverlay struct {
+	ContainerColor        *string `m3:"disabled-container-color"`
+	ContainerOpacity      *string `m3:"disabled-container-opacity"`
+	InputTextColor        *string `m3:"disabled-input-text-color"`
+	InputTextOpacity      *string `m3:"disabled-input-text-opacity"`
+	LabelTextColor        *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity      *string `m3:"disabled-label-text-opacity"`
+	LeadingIconColor      *string `m3:"disabled-leading-icon-color"`
+	LeadingIconOpacity    *string `m3:"disabled-leading-icon-opacity"`
+	SupportingTextColor   *string `m3:"disabled-supporting-text-color"`
+	SupportingTextOpacity *string `m3:"disabled-supporting-text-opacity"`
+	TrailingIconColor     *string `m3:"disabled-trailing-icon-color"`
+	TrailingIconOpacity   *string `m3:"disabled-trailing-icon-opacity"`
 }
 
 type FilledTextFieldErrorFocusActiveOverlay struct {
 	IndicatorColor *string `m3:"error-focus-active-indicator-color"`
 }
 
-type FilledTextFieldFocusActiveOverlay struct {
-	IndicatorColor *string `m3:"focus-active-indicator-color"`
-	IndicatorHeight *string `m3:"focus-active-indicator-height"`
+type FilledTextFieldErrorHoverOverlay struct {
+	InputTextColor      *string `m3:"error-hover-input-text-color"`
+	LabelTextColor      *string `m3:"error-hover-label-text-color"`
+	LeadingIconColor    *string `m3:"error-hover-leading-icon-color"`
+	StateLayerColor     *string `m3:"error-hover-state-layer-color"`
+	StateLayerOpacity   *string `m3:"error-hover-state-layer-opacity"`
+	SupportingTextColor *string `m3:"error-hover-supporting-text-color"`
+	TrailingIconColor   *string `m3:"error-hover-trailing-icon-color"`
 }
 
-type FilledTextFieldFocusOverlay struct {
-	CaretColor *string `m3:"focus-caret-color"`
-	InputTextColor *string `m3:"focus-input-text-color"`
-	LabelTextColor *string `m3:"focus-label-text-color"`
-	LeadingIconColor *string `m3:"focus-leading-icon-color"`
-	SupportingTextColor *string `m3:"focus-supporting-text-color"`
-	TrailingIconColor *string `m3:"focus-trailing-icon-color"`
-}
-
-type FilledTextFieldHoverActiveOverlay struct {
-	IndicatorColor *string `m3:"hover-active-indicator-color"`
-	IndicatorHeight *string `m3:"hover-active-indicator-height"`
-}
-
-type FilledTextFieldHoverOverlay struct {
-	InputTextColor *string `m3:"hover-input-text-color"`
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	LeadingIconColor *string `m3:"hover-leading-icon-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
-	SupportingTextColor *string `m3:"hover-supporting-text-color"`
-	TrailingIconColor *string `m3:"hover-trailing-icon-color"`
-}
-
-type FilledTextFieldActiveOverlay struct {
-	IndicatorColor *string `m3:"active-indicator-color"`
-	IndicatorHeight *string `m3:"active-indicator-height"`
+type FilledTextFieldErrorOverlay struct {
+	InputTextColor      *string `m3:"error-input-text-color"`
+	LabelTextColor      *string `m3:"error-label-text-color"`
+	LeadingIconColor    *string `m3:"error-leading-icon-color"`
+	SupportingTextColor *string `m3:"error-supporting-text-color"`
+	TrailingIconColor   *string `m3:"error-trailing-icon-color"`
 }
 
 type FilledTextFieldDisabledActiveOverlay struct {
-	IndicatorColor *string `m3:"disabled-active-indicator-color"`
-	IndicatorHeight *string `m3:"disabled-active-indicator-height"`
+	IndicatorColor   *string `m3:"disabled-active-indicator-color"`
+	IndicatorHeight  *string `m3:"disabled-active-indicator-height"`
 	IndicatorOpacity *string `m3:"disabled-active-indicator-opacity"`
-}
-
-type FilledTextFieldDisabledOverlay struct {
-	ContainerColor *string `m3:"disabled-container-color"`
-	ContainerOpacity *string `m3:"disabled-container-opacity"`
-	InputTextColor *string `m3:"disabled-input-text-color"`
-	InputTextOpacity *string `m3:"disabled-input-text-opacity"`
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
-	LeadingIconColor *string `m3:"disabled-leading-icon-color"`
-	LeadingIconOpacity *string `m3:"disabled-leading-icon-opacity"`
-	SupportingTextColor *string `m3:"disabled-supporting-text-color"`
-	SupportingTextOpacity *string `m3:"disabled-supporting-text-opacity"`
-	TrailingIconColor *string `m3:"disabled-trailing-icon-color"`
-	TrailingIconOpacity *string `m3:"disabled-trailing-icon-opacity"`
 }
 
 type FilledTextFieldErrorActiveOverlay struct {
@@ -1184,160 +1180,156 @@ type FilledTextFieldErrorActiveOverlay struct {
 }
 
 type FilledTextFieldErrorFocusOverlay struct {
-	CaretColor *string `m3:"error-focus-caret-color"`
-	InputTextColor *string `m3:"error-focus-input-text-color"`
-	LabelTextColor *string `m3:"error-focus-label-text-color"`
-	LeadingIconColor *string `m3:"error-focus-leading-icon-color"`
+	CaretColor          *string `m3:"error-focus-caret-color"`
+	InputTextColor      *string `m3:"error-focus-input-text-color"`
+	LabelTextColor      *string `m3:"error-focus-label-text-color"`
+	LeadingIconColor    *string `m3:"error-focus-leading-icon-color"`
 	SupportingTextColor *string `m3:"error-focus-supporting-text-color"`
-	TrailingIconColor *string `m3:"error-focus-trailing-icon-color"`
+	TrailingIconColor   *string `m3:"error-focus-trailing-icon-color"`
+}
+
+type FilledTextFieldErrorHoverActiveOverlay struct {
+	IndicatorColor *string `m3:"error-hover-active-indicator-color"`
 }
 
 type FilledTonalButtonTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Elevation string `m3:"container-elevation"`
-		Height string `m3:"container-height"`
-		Opacity string `m3:"container-opacity"`
-		ShadowColor string `m3:"container-shadow-color"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Elevation       string `m3:"container-elevation"`
+		Height          string `m3:"container-height"`
+		Opacity         string `m3:"container-opacity"`
+		ShadowColor     string `m3:"container-shadow-color"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Icon struct {
-		Color string `m3:"icon-color"`
+		Color   string `m3:"icon-color"`
 		Opacity string `m3:"icon-opacity"`
-		Size string `m3:"icon-size"`
+		Size    string `m3:"icon-size"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Opacity string `m3:"label-text-opacity"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Opacity    string `m3:"label-text-opacity"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	Trailing struct {
 		Space string `m3:"trailing-space"`
 	}
 	WithLeadingIcon struct {
-		LeadingSpace string `m3:"with-leading-icon-leading-space"`
+		LeadingSpace  string `m3:"with-leading-icon-leading-space"`
 		TrailingSpace string `m3:"with-leading-icon-trailing-space"`
 	}
 	WithTrailingIcon struct {
-		LeadingSpace string `m3:"with-trailing-icon-leading-space"`
+		LeadingSpace  string `m3:"with-trailing-icon-leading-space"`
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
+	Hover    *FilledTonalButtonHoverOverlay
+	Pressed  *FilledTonalButtonPressedOverlay
 	Disabled *FilledTonalButtonDisabledOverlay
-	Focus *FilledTonalButtonFocusOverlay
-	Hover *FilledTonalButtonHoverOverlay
-	Pressed *FilledTonalButtonPressedOverlay
-}
-
-type FilledTonalButtonDisabledOverlay struct {
-	ContainerColor *string `m3:"disabled-container-color"`
-	ContainerElevation *string `m3:"disabled-container-elevation"`
-	ContainerOpacity *string `m3:"disabled-container-opacity"`
-	IconColor *string `m3:"disabled-icon-color"`
-	IconOpacity *string `m3:"disabled-icon-opacity"`
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
-}
-
-type FilledTonalButtonFocusOverlay struct {
-	ContainerElevation *string `m3:"focus-container-elevation"`
-	IconColor *string `m3:"focus-icon-color"`
-	LabelTextColor *string `m3:"focus-label-text-color"`
+	Focus    *FilledTonalButtonFocusOverlay
 }
 
 type FilledTonalButtonHoverOverlay struct {
 	ContainerElevation *string `m3:"hover-container-elevation"`
-	IconColor *string `m3:"hover-icon-color"`
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+	IconColor          *string `m3:"hover-icon-color"`
+	LabelTextColor     *string `m3:"hover-label-text-color"`
+	StateLayerColor    *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity  *string `m3:"hover-state-layer-opacity"`
 }
 
 type FilledTonalButtonPressedOverlay struct {
 	ContainerElevation *string `m3:"pressed-container-elevation"`
-	IconColor *string `m3:"pressed-icon-color"`
-	LabelTextColor *string `m3:"pressed-label-text-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
+	IconColor          *string `m3:"pressed-icon-color"`
+	LabelTextColor     *string `m3:"pressed-label-text-color"`
+	StateLayerColor    *string `m3:"pressed-state-layer-color"`
+	StateLayerOpacity  *string `m3:"pressed-state-layer-opacity"`
+}
+
+type FilledTonalButtonDisabledOverlay struct {
+	ContainerColor     *string `m3:"disabled-container-color"`
+	ContainerElevation *string `m3:"disabled-container-elevation"`
+	ContainerOpacity   *string `m3:"disabled-container-opacity"`
+	IconColor          *string `m3:"disabled-icon-color"`
+	IconOpacity        *string `m3:"disabled-icon-opacity"`
+	LabelTextColor     *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity   *string `m3:"disabled-label-text-opacity"`
+}
+
+type FilledTonalButtonFocusOverlay struct {
+	ContainerElevation *string `m3:"focus-container-elevation"`
+	IconColor          *string `m3:"focus-icon-color"`
+	LabelTextColor     *string `m3:"focus-label-text-color"`
 }
 
 type FilledTonalIconButtonTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Height string `m3:"container-height"`
-		Opacity string `m3:"container-opacity"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Height          string `m3:"container-height"`
+		Opacity         string `m3:"container-opacity"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
-		Width string `m3:"container-width"`
+		Width           string `m3:"container-width"`
 	}
 	Icon struct {
-		Color string `m3:"icon-color"`
+		Color   string `m3:"icon-color"`
 		Opacity string `m3:"icon-opacity"`
-		Size string `m3:"icon-size"`
+		Size    string `m3:"icon-size"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	Unselected struct {
 		ContainerColor string `m3:"unselected-container-color"`
 	}
-	TogglePressed *FilledTonalIconButtonTogglePressedOverlay
-	ToggleSelectedFocus *FilledTonalIconButtonToggleSelectedFocusOverlay
-	ToggleSelected *FilledTonalIconButtonToggleSelectedOverlay
-	Pressed *FilledTonalIconButtonPressedOverlay
-	ToggleFocus *FilledTonalIconButtonToggleFocusOverlay
-	ToggleHover *FilledTonalIconButtonToggleHoverOverlay
-	Toggle *FilledTonalIconButtonToggleOverlay
-	ToggleSelectedHover *FilledTonalIconButtonToggleSelectedHoverOverlay
+	Disabled              *FilledTonalIconButtonDisabledOverlay
+	Focus                 *FilledTonalIconButtonFocusOverlay
+	Selected              *FilledTonalIconButtonSelectedOverlay
+	ToggleHover           *FilledTonalIconButtonToggleHoverOverlay
+	Toggle                *FilledTonalIconButtonToggleOverlay
+	TogglePressed         *FilledTonalIconButtonTogglePressedOverlay
+	ToggleSelected        *FilledTonalIconButtonToggleSelectedOverlay
+	Hover                 *FilledTonalIconButtonHoverOverlay
+	Pressed               *FilledTonalIconButtonPressedOverlay
+	ToggleFocus           *FilledTonalIconButtonToggleFocusOverlay
+	ToggleSelectedFocus   *FilledTonalIconButtonToggleSelectedFocusOverlay
+	ToggleSelectedHover   *FilledTonalIconButtonToggleSelectedHoverOverlay
 	ToggleSelectedPressed *FilledTonalIconButtonToggleSelectedPressedOverlay
-	Disabled *FilledTonalIconButtonDisabledOverlay
-	Focus *FilledTonalIconButtonFocusOverlay
-	Hover *FilledTonalIconButtonHoverOverlay
-	Selected *FilledTonalIconButtonSelectedOverlay
 }
 
-type FilledTonalIconButtonTogglePressedOverlay struct {
-	IconColor *string `m3:"toggle-pressed-icon-color"`
-	StateLayerColor *string `m3:"toggle-pressed-state-layer-color"`
+type FilledTonalIconButtonDisabledOverlay struct {
+	ContainerColor   *string `m3:"disabled-container-color"`
+	ContainerOpacity *string `m3:"disabled-container-opacity"`
+	IconColor        *string `m3:"disabled-icon-color"`
+	IconOpacity      *string `m3:"disabled-icon-opacity"`
 }
 
-type FilledTonalIconButtonToggleSelectedFocusOverlay struct {
-	IconColor *string `m3:"toggle-selected-focus-icon-color"`
+type FilledTonalIconButtonFocusOverlay struct {
+	IconColor *string `m3:"focus-icon-color"`
 }
 
-type FilledTonalIconButtonToggleSelectedOverlay struct {
-	IconColor *string `m3:"toggle-selected-icon-color"`
-}
-
-type FilledTonalIconButtonPressedOverlay struct {
-	IconColor *string `m3:"pressed-icon-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
-}
-
-type FilledTonalIconButtonToggleFocusOverlay struct {
-	IconColor *string `m3:"toggle-focus-icon-color"`
+type FilledTonalIconButtonSelectedOverlay struct {
+	ContainerColor *string `m3:"selected-container-color"`
 }
 
 type FilledTonalIconButtonToggleHoverOverlay struct {
-	IconColor *string `m3:"toggle-hover-icon-color"`
+	IconColor       *string `m3:"toggle-hover-icon-color"`
 	StateLayerColor *string `m3:"toggle-hover-state-layer-color"`
 }
 
@@ -1345,93 +1337,101 @@ type FilledTonalIconButtonToggleOverlay struct {
 	IconColor *string `m3:"toggle-icon-color"`
 }
 
+type FilledTonalIconButtonTogglePressedOverlay struct {
+	IconColor       *string `m3:"toggle-pressed-icon-color"`
+	StateLayerColor *string `m3:"toggle-pressed-state-layer-color"`
+}
+
+type FilledTonalIconButtonToggleSelectedOverlay struct {
+	IconColor *string `m3:"toggle-selected-icon-color"`
+}
+
+type FilledTonalIconButtonHoverOverlay struct {
+	IconColor         *string `m3:"hover-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+}
+
+type FilledTonalIconButtonPressedOverlay struct {
+	IconColor         *string `m3:"pressed-icon-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
+}
+
+type FilledTonalIconButtonToggleFocusOverlay struct {
+	IconColor *string `m3:"toggle-focus-icon-color"`
+}
+
+type FilledTonalIconButtonToggleSelectedFocusOverlay struct {
+	IconColor *string `m3:"toggle-selected-focus-icon-color"`
+}
+
 type FilledTonalIconButtonToggleSelectedHoverOverlay struct {
-	IconColor *string `m3:"toggle-selected-hover-icon-color"`
+	IconColor       *string `m3:"toggle-selected-hover-icon-color"`
 	StateLayerColor *string `m3:"toggle-selected-hover-state-layer-color"`
 }
 
 type FilledTonalIconButtonToggleSelectedPressedOverlay struct {
-	IconColor *string `m3:"toggle-selected-pressed-icon-color"`
+	IconColor       *string `m3:"toggle-selected-pressed-icon-color"`
 	StateLayerColor *string `m3:"toggle-selected-pressed-state-layer-color"`
-}
-
-type FilledTonalIconButtonDisabledOverlay struct {
-	ContainerColor *string `m3:"disabled-container-color"`
-	ContainerOpacity *string `m3:"disabled-container-opacity"`
-	IconColor *string `m3:"disabled-icon-color"`
-	IconOpacity *string `m3:"disabled-icon-opacity"`
-}
-
-type FilledTonalIconButtonFocusOverlay struct {
-	IconColor *string `m3:"focus-icon-color"`
-}
-
-type FilledTonalIconButtonHoverOverlay struct {
-	IconColor *string `m3:"hover-icon-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
-}
-
-type FilledTonalIconButtonSelectedOverlay struct {
-	ContainerColor *string `m3:"selected-container-color"`
 }
 
 type FilterChipTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Height string `m3:"container-height"`
-		Opacity string `m3:"container-opacity"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Height          string `m3:"container-height"`
+		Opacity         string `m3:"container-opacity"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Elevated struct {
-		ContainerColor string `m3:"elevated-container-color"`
-		ContainerElevation string `m3:"elevated-container-elevation"`
-		ContainerShadowColor string `m3:"elevated-container-shadow-color"`
-		DisabledContainerColor string `m3:"elevated-disabled-container-color"`
+		ContainerColor             string `m3:"elevated-container-color"`
+		ContainerElevation         string `m3:"elevated-container-elevation"`
+		ContainerShadowColor       string `m3:"elevated-container-shadow-color"`
+		DisabledContainerColor     string `m3:"elevated-disabled-container-color"`
 		DisabledContainerElevation string `m3:"elevated-disabled-container-elevation"`
-		DisabledContainerOpacity string `m3:"elevated-disabled-container-opacity"`
-		FocusContainerElevation string `m3:"elevated-focus-container-elevation"`
-		HoverContainerElevation string `m3:"elevated-hover-container-elevation"`
-		PressedContainerElevation string `m3:"elevated-pressed-container-elevation"`
-		SelectedContainerColor string `m3:"elevated-selected-container-color"`
+		DisabledContainerOpacity   string `m3:"elevated-disabled-container-opacity"`
+		FocusContainerElevation    string `m3:"elevated-focus-container-elevation"`
+		HoverContainerElevation    string `m3:"elevated-hover-container-elevation"`
+		PressedContainerElevation  string `m3:"elevated-pressed-container-elevation"`
+		SelectedContainerColor     string `m3:"elevated-selected-container-color"`
 	}
 	Icon struct {
 		LabelSpace string `m3:"icon-label-space"`
-		Size string `m3:"icon-size"`
+		Size       string `m3:"icon-size"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Opacity string `m3:"label-text-opacity"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Opacity    string `m3:"label-text-opacity"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
 	}
 	LeadingIcon struct {
-		Color string `m3:"leading-icon-color"`
+		Color   string `m3:"leading-icon-color"`
 		Opacity string `m3:"leading-icon-opacity"`
 	}
 	Outline struct {
-		Color string `m3:"outline-color"`
+		Color   string `m3:"outline-color"`
 		Opacity string `m3:"outline-opacity"`
-		Width string `m3:"outline-width"`
+		Width   string `m3:"outline-width"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	Trailing struct {
 		Space string `m3:"trailing-space"`
 	}
 	TrailingIcon struct {
-		Color string `m3:"trailing-icon-color"`
+		Color   string `m3:"trailing-icon-color"`
 		Opacity string `m3:"trailing-icon-opacity"`
 	}
 	WithLeadingIcon struct {
@@ -1440,84 +1440,84 @@ type FilterChipTokens struct {
 	WithTrailingIcon struct {
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
-	Disabled *FilterChipDisabledOverlay
-	Focus *FilterChipFocusOverlay
-	Selected *FilterChipSelectedOverlay
-	SelectedHover *FilterChipSelectedHoverOverlay
-	SelectedPressed *FilterChipSelectedPressedOverlay
+	Disabled         *FilterChipDisabledOverlay
 	DisabledSelected *FilterChipDisabledSelectedOverlay
-	Hover *FilterChipHoverOverlay
-	Pressed *FilterChipPressedOverlay
-	SelectedFocus *FilterChipSelectedFocusOverlay
+	Focus            *FilterChipFocusOverlay
+	Hover            *FilterChipHoverOverlay
+	Pressed          *FilterChipPressedOverlay
+	Selected         *FilterChipSelectedOverlay
+	SelectedFocus    *FilterChipSelectedFocusOverlay
+	SelectedHover    *FilterChipSelectedHoverOverlay
+	SelectedPressed  *FilterChipSelectedPressedOverlay
 }
 
 type FilterChipDisabledOverlay struct {
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
-	LeadingIconColor *string `m3:"disabled-leading-icon-color"`
-	LeadingIconOpacity *string `m3:"disabled-leading-icon-opacity"`
-	OutlineColor *string `m3:"disabled-outline-color"`
-	OutlineOpacity *string `m3:"disabled-outline-opacity"`
-	TrailingIconColor *string `m3:"disabled-trailing-icon-color"`
+	LabelTextColor      *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity    *string `m3:"disabled-label-text-opacity"`
+	LeadingIconColor    *string `m3:"disabled-leading-icon-color"`
+	LeadingIconOpacity  *string `m3:"disabled-leading-icon-opacity"`
+	OutlineColor        *string `m3:"disabled-outline-color"`
+	OutlineOpacity      *string `m3:"disabled-outline-opacity"`
+	TrailingIconColor   *string `m3:"disabled-trailing-icon-color"`
 	TrailingIconOpacity *string `m3:"disabled-trailing-icon-opacity"`
 }
 
-type FilterChipFocusOverlay struct {
-	LabelTextColor *string `m3:"focus-label-text-color"`
-	LeadingIconColor *string `m3:"focus-leading-icon-color"`
-	OutlineColor *string `m3:"focus-outline-color"`
-	TrailingIconColor *string `m3:"focus-trailing-icon-color"`
-}
-
-type FilterChipSelectedOverlay struct {
-	ContainerColor *string `m3:"selected-container-color"`
-	LabelTextColor *string `m3:"selected-label-text-color"`
-	LeadingIconColor *string `m3:"selected-leading-icon-color"`
-	OutlineWidth *string `m3:"selected-outline-width"`
-	TrailingIconColor *string `m3:"selected-trailing-icon-color"`
-}
-
-type FilterChipSelectedHoverOverlay struct {
-	LabelTextColor *string `m3:"selected-hover-label-text-color"`
-	LeadingIconColor *string `m3:"selected-hover-leading-icon-color"`
-	StateLayerColor *string `m3:"selected-hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
-	TrailingIconColor *string `m3:"selected-hover-trailing-icon-color"`
-}
-
-type FilterChipSelectedPressedOverlay struct {
-	LabelTextColor *string `m3:"selected-pressed-label-text-color"`
-	LeadingIconColor *string `m3:"selected-pressed-leading-icon-color"`
-	StateLayerColor *string `m3:"selected-pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
-	TrailingIconColor *string `m3:"selected-pressed-trailing-icon-color"`
-}
-
 type FilterChipDisabledSelectedOverlay struct {
-	ContainerColor *string `m3:"disabled-selected-container-color"`
+	ContainerColor   *string `m3:"disabled-selected-container-color"`
 	ContainerOpacity *string `m3:"disabled-selected-container-opacity"`
 }
 
+type FilterChipFocusOverlay struct {
+	LabelTextColor    *string `m3:"focus-label-text-color"`
+	LeadingIconColor  *string `m3:"focus-leading-icon-color"`
+	OutlineColor      *string `m3:"focus-outline-color"`
+	TrailingIconColor *string `m3:"focus-trailing-icon-color"`
+}
+
 type FilterChipHoverOverlay struct {
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	LeadingIconColor *string `m3:"hover-leading-icon-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
+	LabelTextColor    *string `m3:"hover-label-text-color"`
+	LeadingIconColor  *string `m3:"hover-leading-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 	TrailingIconColor *string `m3:"hover-trailing-icon-color"`
 }
 
 type FilterChipPressedOverlay struct {
-	LabelTextColor *string `m3:"pressed-label-text-color"`
-	LeadingIconColor *string `m3:"pressed-leading-icon-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	LabelTextColor    *string `m3:"pressed-label-text-color"`
+	LeadingIconColor  *string `m3:"pressed-leading-icon-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 	TrailingIconColor *string `m3:"pressed-trailing-icon-color"`
 }
 
+type FilterChipSelectedOverlay struct {
+	ContainerColor    *string `m3:"selected-container-color"`
+	LabelTextColor    *string `m3:"selected-label-text-color"`
+	LeadingIconColor  *string `m3:"selected-leading-icon-color"`
+	OutlineWidth      *string `m3:"selected-outline-width"`
+	TrailingIconColor *string `m3:"selected-trailing-icon-color"`
+}
+
 type FilterChipSelectedFocusOverlay struct {
-	LabelTextColor *string `m3:"selected-focus-label-text-color"`
-	LeadingIconColor *string `m3:"selected-focus-leading-icon-color"`
+	LabelTextColor    *string `m3:"selected-focus-label-text-color"`
+	LeadingIconColor  *string `m3:"selected-focus-leading-icon-color"`
 	TrailingIconColor *string `m3:"selected-focus-trailing-icon-color"`
+}
+
+type FilterChipSelectedHoverOverlay struct {
+	LabelTextColor    *string `m3:"selected-hover-label-text-color"`
+	LeadingIconColor  *string `m3:"selected-hover-leading-icon-color"`
+	StateLayerColor   *string `m3:"selected-hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
+	TrailingIconColor *string `m3:"selected-hover-trailing-icon-color"`
+}
+
+type FilterChipSelectedPressedOverlay struct {
+	LabelTextColor    *string `m3:"selected-pressed-label-text-color"`
+	LeadingIconColor  *string `m3:"selected-pressed-leading-icon-color"`
+	StateLayerColor   *string `m3:"selected-pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
+	TrailingIconColor *string `m3:"selected-pressed-trailing-icon-color"`
 }
 
 type FocusRingTokens struct {
@@ -1534,11 +1534,11 @@ type FocusRingTokens struct {
 		Offset string `m3:"outward-offset"`
 	}
 	Shape struct {
-		EndEnd string `m3:"shape-end-end"`
-		EndStart string `m3:"shape-end-start"`
-		StartEnd string `m3:"shape-start-end"`
+		EndEnd     string `m3:"shape-end-end"`
+		EndStart   string `m3:"shape-end-start"`
+		StartEnd   string `m3:"shape-start-end"`
 		StartStart string `m3:"shape-start-start"`
-		Value string `m3:"shape"`
+		Value      string `m3:"shape"`
 	}
 	Width struct {
 		Value string `m3:"width"`
@@ -1552,66 +1552,66 @@ type FocusRingActiveOverlay struct {
 
 type IconButtonTokens struct {
 	Icon struct {
-		Color string `m3:"icon-color"`
+		Color   string `m3:"icon-color"`
 		Opacity string `m3:"icon-opacity"`
-		Size string `m3:"icon-size"`
+		Size    string `m3:"icon-size"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
-		Height string `m3:"state-layer-height"`
+		Color   string `m3:"state-layer-color"`
+		Height  string `m3:"state-layer-height"`
 		Opacity string `m3:"state-layer-opacity"`
-		Shape string `m3:"state-layer-shape"`
-		Width string `m3:"state-layer-width"`
+		Shape   string `m3:"state-layer-shape"`
+		Width   string `m3:"state-layer-width"`
 	}
-	SelectedFocus *IconButtonSelectedFocusOverlay
+	Hover           *IconButtonHoverOverlay
+	Disabled        *IconButtonDisabledOverlay
+	Pressed         *IconButtonPressedOverlay
+	SelectedFocus   *IconButtonSelectedFocusOverlay
+	SelectedHover   *IconButtonSelectedHoverOverlay
+	Selected        *IconButtonSelectedOverlay
 	SelectedPressed *IconButtonSelectedPressedOverlay
-	Disabled *IconButtonDisabledOverlay
-	Focus *IconButtonFocusOverlay
-	Hover *IconButtonHoverOverlay
-	Pressed *IconButtonPressedOverlay
-	SelectedHover *IconButtonSelectedHoverOverlay
-	Selected *IconButtonSelectedOverlay
+	Focus           *IconButtonFocusOverlay
+}
+
+type IconButtonHoverOverlay struct {
+	IconColor         *string `m3:"hover-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+}
+
+type IconButtonDisabledOverlay struct {
+	IconColor   *string `m3:"disabled-icon-color"`
+	IconOpacity *string `m3:"disabled-icon-opacity"`
+}
+
+type IconButtonPressedOverlay struct {
+	IconColor         *string `m3:"pressed-icon-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
 type IconButtonSelectedFocusOverlay struct {
 	IconColor *string `m3:"selected-focus-icon-color"`
 }
 
-type IconButtonSelectedPressedOverlay struct {
-	IconColor *string `m3:"selected-pressed-icon-color"`
-	StateLayerColor *string `m3:"selected-pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
-}
-
-type IconButtonDisabledOverlay struct {
-	IconColor *string `m3:"disabled-icon-color"`
-	IconOpacity *string `m3:"disabled-icon-opacity"`
-}
-
-type IconButtonFocusOverlay struct {
-	IconColor *string `m3:"focus-icon-color"`
-}
-
-type IconButtonHoverOverlay struct {
-	IconColor *string `m3:"hover-icon-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
-}
-
-type IconButtonPressedOverlay struct {
-	IconColor *string `m3:"pressed-icon-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
-}
-
 type IconButtonSelectedHoverOverlay struct {
-	IconColor *string `m3:"selected-hover-icon-color"`
-	StateLayerColor *string `m3:"selected-hover-state-layer-color"`
+	IconColor         *string `m3:"selected-hover-icon-color"`
+	StateLayerColor   *string `m3:"selected-hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
 }
 
 type IconButtonSelectedOverlay struct {
 	IconColor *string `m3:"selected-icon-color"`
+}
+
+type IconButtonSelectedPressedOverlay struct {
+	IconColor         *string `m3:"selected-pressed-icon-color"`
+	StateLayerColor   *string `m3:"selected-pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
+}
+
+type IconButtonFocusOverlay struct {
+	IconColor *string `m3:"focus-icon-color"`
 }
 
 type IconTokens struct {
@@ -1626,52 +1626,52 @@ type IconTokens struct {
 type InputChipTokens struct {
 	Avatar struct {
 		Opacity string `m3:"avatar-opacity"`
-		Shape string `m3:"avatar-shape"`
-		Size string `m3:"avatar-size"`
+		Shape   string `m3:"avatar-shape"`
+		Size    string `m3:"avatar-size"`
 	}
 	Container struct {
-		Color string `m3:"container-color"`
-		Height string `m3:"container-height"`
-		Opacity string `m3:"container-opacity"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Height          string `m3:"container-height"`
+		Opacity         string `m3:"container-opacity"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Icon struct {
 		LabelSpace string `m3:"icon-label-space"`
-		Size string `m3:"icon-size"`
+		Size       string `m3:"icon-size"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Opacity string `m3:"label-text-opacity"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Opacity    string `m3:"label-text-opacity"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
 	}
 	LeadingIcon struct {
-		Color string `m3:"leading-icon-color"`
+		Color   string `m3:"leading-icon-color"`
 		Opacity string `m3:"leading-icon-opacity"`
 	}
 	Outline struct {
-		Color string `m3:"outline-color"`
+		Color   string `m3:"outline-color"`
 		Opacity string `m3:"outline-opacity"`
-		Width string `m3:"outline-width"`
+		Width   string `m3:"outline-width"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	Trailing struct {
 		Space string `m3:"trailing-space"`
 	}
 	TrailingIcon struct {
-		Color string `m3:"trailing-icon-color"`
+		Color   string `m3:"trailing-icon-color"`
 		Opacity string `m3:"trailing-icon-opacity"`
 	}
 	WithLeadingIcon struct {
@@ -1680,139 +1680,139 @@ type InputChipTokens struct {
 	WithTrailingIcon struct {
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
-	Focus *InputChipFocusOverlay
-	Pressed *InputChipPressedOverlay
-	Selected *InputChipSelectedOverlay
-	SelectedHover *InputChipSelectedHoverOverlay
-	SelectedPressed *InputChipSelectedPressedOverlay
-	Disabled *InputChipDisabledOverlay
+	Focus            *InputChipFocusOverlay
+	Hover            *InputChipHoverOverlay
+	Pressed          *InputChipPressedOverlay
+	Selected         *InputChipSelectedOverlay
+	SelectedFocus    *InputChipSelectedFocusOverlay
+	SelectedHover    *InputChipSelectedHoverOverlay
+	SelectedPressed  *InputChipSelectedPressedOverlay
+	Disabled         *InputChipDisabledOverlay
 	DisabledSelected *InputChipDisabledSelectedOverlay
-	Hover *InputChipHoverOverlay
-	SelectedFocus *InputChipSelectedFocusOverlay
 }
 
 type InputChipFocusOverlay struct {
-	LabelTextColor *string `m3:"focus-label-text-color"`
-	LeadingIconColor *string `m3:"focus-leading-icon-color"`
-	OutlineColor *string `m3:"focus-outline-color"`
+	LabelTextColor    *string `m3:"focus-label-text-color"`
+	LeadingIconColor  *string `m3:"focus-leading-icon-color"`
+	OutlineColor      *string `m3:"focus-outline-color"`
 	TrailingIconColor *string `m3:"focus-trailing-icon-color"`
 }
 
+type InputChipHoverOverlay struct {
+	LabelTextColor    *string `m3:"hover-label-text-color"`
+	LeadingIconColor  *string `m3:"hover-leading-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+	TrailingIconColor *string `m3:"hover-trailing-icon-color"`
+}
+
 type InputChipPressedOverlay struct {
-	LabelTextColor *string `m3:"pressed-label-text-color"`
-	LeadingIconColor *string `m3:"pressed-leading-icon-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	LabelTextColor    *string `m3:"pressed-label-text-color"`
+	LeadingIconColor  *string `m3:"pressed-leading-icon-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 	TrailingIconColor *string `m3:"pressed-trailing-icon-color"`
 }
 
 type InputChipSelectedOverlay struct {
-	ContainerColor *string `m3:"selected-container-color"`
-	LabelTextColor *string `m3:"selected-label-text-color"`
-	LeadingIconColor *string `m3:"selected-leading-icon-color"`
-	OutlineWidth *string `m3:"selected-outline-width"`
+	ContainerColor    *string `m3:"selected-container-color"`
+	LabelTextColor    *string `m3:"selected-label-text-color"`
+	LeadingIconColor  *string `m3:"selected-leading-icon-color"`
+	OutlineWidth      *string `m3:"selected-outline-width"`
 	TrailingIconColor *string `m3:"selected-trailing-icon-color"`
 }
 
+type InputChipSelectedFocusOverlay struct {
+	LabelTextColor    *string `m3:"selected-focus-label-text-color"`
+	LeadingIconColor  *string `m3:"selected-focus-leading-icon-color"`
+	TrailingIconColor *string `m3:"selected-focus-trailing-icon-color"`
+}
+
 type InputChipSelectedHoverOverlay struct {
-	LabelTextColor *string `m3:"selected-hover-label-text-color"`
-	LeadingIconColor *string `m3:"selected-hover-leading-icon-color"`
-	StateLayerColor *string `m3:"selected-hover-state-layer-color"`
+	LabelTextColor    *string `m3:"selected-hover-label-text-color"`
+	LeadingIconColor  *string `m3:"selected-hover-leading-icon-color"`
+	StateLayerColor   *string `m3:"selected-hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
 	TrailingIconColor *string `m3:"selected-hover-trailing-icon-color"`
 }
 
 type InputChipSelectedPressedOverlay struct {
-	LabelTextColor *string `m3:"selected-pressed-label-text-color"`
-	LeadingIconColor *string `m3:"selected-pressed-leading-icon-color"`
-	StateLayerColor *string `m3:"selected-pressed-state-layer-color"`
+	LabelTextColor    *string `m3:"selected-pressed-label-text-color"`
+	LeadingIconColor  *string `m3:"selected-pressed-leading-icon-color"`
+	StateLayerColor   *string `m3:"selected-pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
 	TrailingIconColor *string `m3:"selected-pressed-trailing-icon-color"`
 }
 
 type InputChipDisabledOverlay struct {
-	AvatarOpacity *string `m3:"disabled-avatar-opacity"`
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
-	LeadingIconColor *string `m3:"disabled-leading-icon-color"`
-	LeadingIconOpacity *string `m3:"disabled-leading-icon-opacity"`
-	OutlineColor *string `m3:"disabled-outline-color"`
-	OutlineOpacity *string `m3:"disabled-outline-opacity"`
-	TrailingIconColor *string `m3:"disabled-trailing-icon-color"`
+	AvatarOpacity       *string `m3:"disabled-avatar-opacity"`
+	LabelTextColor      *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity    *string `m3:"disabled-label-text-opacity"`
+	LeadingIconColor    *string `m3:"disabled-leading-icon-color"`
+	LeadingIconOpacity  *string `m3:"disabled-leading-icon-opacity"`
+	OutlineColor        *string `m3:"disabled-outline-color"`
+	OutlineOpacity      *string `m3:"disabled-outline-opacity"`
+	TrailingIconColor   *string `m3:"disabled-trailing-icon-color"`
 	TrailingIconOpacity *string `m3:"disabled-trailing-icon-opacity"`
 }
 
 type InputChipDisabledSelectedOverlay struct {
-	ContainerColor *string `m3:"disabled-selected-container-color"`
+	ContainerColor   *string `m3:"disabled-selected-container-color"`
 	ContainerOpacity *string `m3:"disabled-selected-container-opacity"`
-}
-
-type InputChipHoverOverlay struct {
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	LeadingIconColor *string `m3:"hover-leading-icon-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
-	TrailingIconColor *string `m3:"hover-trailing-icon-color"`
-}
-
-type InputChipSelectedFocusOverlay struct {
-	LabelTextColor *string `m3:"selected-focus-label-text-color"`
-	LeadingIconColor *string `m3:"selected-focus-leading-icon-color"`
-	TrailingIconColor *string `m3:"selected-focus-trailing-icon-color"`
 }
 
 type ItemTokens struct {
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Overline struct {
-		Color string `m3:"overline-color"`
-		Font string `m3:"overline-font"`
+		Color      string `m3:"overline-color"`
+		Font       string `m3:"overline-font"`
 		LineHeight string `m3:"overline-line-height"`
-		Size string `m3:"overline-size"`
-		Weight string `m3:"overline-weight"`
+		Size       string `m3:"overline-size"`
+		Weight     string `m3:"overline-weight"`
 	}
 	SupportingText struct {
-		Color string `m3:"supporting-text-color"`
-		Font string `m3:"supporting-text-font"`
+		Color      string `m3:"supporting-text-color"`
+		Font       string `m3:"supporting-text-font"`
 		LineHeight string `m3:"supporting-text-line-height"`
-		Size string `m3:"supporting-text-size"`
-		Weight string `m3:"supporting-text-weight"`
+		Size       string `m3:"supporting-text-size"`
+		Weight     string `m3:"supporting-text-weight"`
 	}
 	Trailing struct {
-		SupportingTextColor string `m3:"trailing-supporting-text-color"`
-		SupportingTextFont string `m3:"trailing-supporting-text-font"`
+		SupportingTextColor      string `m3:"trailing-supporting-text-color"`
+		SupportingTextFont       string `m3:"trailing-supporting-text-font"`
 		SupportingTextLineHeight string `m3:"trailing-supporting-text-line-height"`
-		SupportingTextSize string `m3:"trailing-supporting-text-size"`
-		SupportingTextWeight string `m3:"trailing-supporting-text-weight"`
+		SupportingTextSize       string `m3:"trailing-supporting-text-size"`
+		SupportingTextWeight     string `m3:"trailing-supporting-text-weight"`
 	}
 }
 
 type LinearProgressTokens struct {
 	FourColor struct {
-		ActiveIndicatorFourColor string `m3:"four-color-active-indicator-four-color"`
-		ActiveIndicatorOneColor string `m3:"four-color-active-indicator-one-color"`
+		ActiveIndicatorFourColor  string `m3:"four-color-active-indicator-four-color"`
+		ActiveIndicatorOneColor   string `m3:"four-color-active-indicator-one-color"`
 		ActiveIndicatorThreeColor string `m3:"four-color-active-indicator-three-color"`
-		ActiveIndicatorTwoColor string `m3:"four-color-active-indicator-two-color"`
+		ActiveIndicatorTwoColor   string `m3:"four-color-active-indicator-two-color"`
 	}
 	Indicator struct {
-		Color string `m3:"indicator-color"`
+		Color  string `m3:"indicator-color"`
 		Height string `m3:"indicator-height"`
 	}
 	Track struct {
-		Color string `m3:"track-color"`
+		Color  string `m3:"track-color"`
 		Height string `m3:"track-height"`
-		Shape string `m3:"track-shape"`
+		Shape  string `m3:"track-shape"`
 	}
 	Active *LinearProgressActiveOverlay
 }
 
 type LinearProgressActiveOverlay struct {
-	IndicatorColor *string `m3:"active-indicator-color"`
+	IndicatorColor  *string `m3:"active-indicator-color"`
 	IndicatorHeight *string `m3:"active-indicator-height"`
 }
 
@@ -1821,11 +1821,11 @@ type ListItemTokens struct {
 		Space string `m3:"bottom-space"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
@@ -1840,26 +1840,26 @@ type ListItemTokens struct {
 		Value string `m3:"opacity"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	SupportingText struct {
-		Color string `m3:"supporting-text-color"`
-		Font string `m3:"supporting-text-font"`
+		Color      string `m3:"supporting-text-color"`
+		Font       string `m3:"supporting-text-font"`
 		LineHeight string `m3:"supporting-text-line-height"`
-		Size string `m3:"supporting-text-size"`
-		Weight string `m3:"supporting-text-weight"`
+		Size       string `m3:"supporting-text-size"`
+		Weight     string `m3:"supporting-text-weight"`
 	}
 	Top struct {
 		Space string `m3:"top-space"`
 	}
 	Trailing struct {
-		Space string `m3:"trailing-space"`
-		SupportingTextColor string `m3:"trailing-supporting-text-color"`
-		SupportingTextFont string `m3:"trailing-supporting-text-font"`
+		Space                    string `m3:"trailing-space"`
+		SupportingTextColor      string `m3:"trailing-supporting-text-color"`
+		SupportingTextFont       string `m3:"trailing-supporting-text-font"`
 		SupportingTextLineHeight string `m3:"trailing-supporting-text-line-height"`
-		SupportingTextSize string `m3:"trailing-supporting-text-size"`
-		SupportingTextWeight string `m3:"trailing-supporting-text-weight"`
+		SupportingTextSize       string `m3:"trailing-supporting-text-size"`
+		SupportingTextWeight     string `m3:"trailing-supporting-text-weight"`
 	}
 	TrailingIcon struct {
 		Color string `m3:"trailing-icon-color"`
@@ -1868,8 +1868,8 @@ type ListItemTokens struct {
 		LineContainerHeight string `m3:"two-line-container-height"`
 	}
 	Disabled *ListItemDisabledOverlay
-	Hover *ListItemHoverOverlay
-	Pressed *ListItemPressedOverlay
+	Hover    *ListItemHoverOverlay
+	Pressed  *ListItemPressedOverlay
 }
 
 type ListItemDisabledOverlay struct {
@@ -1877,12 +1877,12 @@ type ListItemDisabledOverlay struct {
 }
 
 type ListItemHoverOverlay struct {
-	StateLayerColor *string `m3:"hover-state-layer-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
 type ListItemPressedOverlay struct {
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
@@ -1900,11 +1900,11 @@ type MenuItemTokens struct {
 		Color string `m3:"container-color"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
@@ -1919,26 +1919,26 @@ type MenuItemTokens struct {
 		Value string `m3:"opacity"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	SupportingText struct {
-		Color string `m3:"supporting-text-color"`
-		Font string `m3:"supporting-text-font"`
+		Color      string `m3:"supporting-text-color"`
+		Font       string `m3:"supporting-text-font"`
 		LineHeight string `m3:"supporting-text-line-height"`
-		Size string `m3:"supporting-text-size"`
-		Weight string `m3:"supporting-text-weight"`
+		Size       string `m3:"supporting-text-size"`
+		Weight     string `m3:"supporting-text-weight"`
 	}
 	Top struct {
 		Space string `m3:"top-space"`
 	}
 	Trailing struct {
-		Space string `m3:"trailing-space"`
-		SupportingTextColor string `m3:"trailing-supporting-text-color"`
-		SupportingTextFont string `m3:"trailing-supporting-text-font"`
+		Space                    string `m3:"trailing-space"`
+		SupportingTextColor      string `m3:"trailing-supporting-text-color"`
+		SupportingTextFont       string `m3:"trailing-supporting-text-font"`
 		SupportingTextLineHeight string `m3:"trailing-supporting-text-line-height"`
-		SupportingTextSize string `m3:"trailing-supporting-text-size"`
-		SupportingTextWeight string `m3:"trailing-supporting-text-weight"`
+		SupportingTextSize       string `m3:"trailing-supporting-text-size"`
+		SupportingTextWeight     string `m3:"trailing-supporting-text-weight"`
 	}
 	TrailingIcon struct {
 		Color string `m3:"trailing-icon-color"`
@@ -1947,8 +1947,8 @@ type MenuItemTokens struct {
 		LineContainerHeight string `m3:"two-line-container-height"`
 	}
 	Disabled *MenuItemDisabledOverlay
-	Hover *MenuItemHoverOverlay
-	Pressed *MenuItemPressedOverlay
+	Hover    *MenuItemHoverOverlay
+	Pressed  *MenuItemPressedOverlay
 	Selected *MenuItemSelectedOverlay
 }
 
@@ -1957,12 +1957,12 @@ type MenuItemDisabledOverlay struct {
 }
 
 type MenuItemHoverOverlay struct {
-	StateLayerColor *string `m3:"hover-state-layer-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
 type MenuItemPressedOverlay struct {
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
@@ -1976,10 +1976,10 @@ type MenuTokens struct {
 		Space string `m3:"bottom-space"`
 	}
 	Container struct {
-		Color string `m3:"container-color"`
-		Elevation string `m3:"container-elevation"`
+		Color       string `m3:"container-color"`
+		Elevation   string `m3:"container-elevation"`
 		ShadowColor string `m3:"container-shadow-color"`
-		Shape string `m3:"container-shape"`
+		Shape       string `m3:"container-shape"`
 	}
 	Top struct {
 		Space string `m3:"top-space"`
@@ -1988,90 +1988,90 @@ type MenuTokens struct {
 
 type OutlinedButtonTokens struct {
 	Container struct {
-		Height string `m3:"container-height"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Height          string `m3:"container-height"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Icon struct {
-		Color string `m3:"icon-color"`
+		Color   string `m3:"icon-color"`
 		Opacity string `m3:"icon-opacity"`
-		Size string `m3:"icon-size"`
+		Size    string `m3:"icon-size"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Opacity string `m3:"label-text-opacity"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Opacity    string `m3:"label-text-opacity"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
 	}
 	Outline struct {
-		Color string `m3:"outline-color"`
+		Color   string `m3:"outline-color"`
 		Opacity string `m3:"outline-opacity"`
-		Width string `m3:"outline-width"`
+		Width   string `m3:"outline-width"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	Trailing struct {
 		Space string `m3:"trailing-space"`
 	}
 	WithLeadingIcon struct {
-		LeadingSpace string `m3:"with-leading-icon-leading-space"`
+		LeadingSpace  string `m3:"with-leading-icon-leading-space"`
 		TrailingSpace string `m3:"with-leading-icon-trailing-space"`
 	}
 	WithTrailingIcon struct {
-		LeadingSpace string `m3:"with-trailing-icon-leading-space"`
+		LeadingSpace  string `m3:"with-trailing-icon-leading-space"`
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
+	Focus    *OutlinedButtonFocusOverlay
+	Hover    *OutlinedButtonHoverOverlay
+	Pressed  *OutlinedButtonPressedOverlay
 	Disabled *OutlinedButtonDisabledOverlay
-	Focus *OutlinedButtonFocusOverlay
-	Hover *OutlinedButtonHoverOverlay
-	Pressed *OutlinedButtonPressedOverlay
-}
-
-type OutlinedButtonDisabledOverlay struct {
-	IconColor *string `m3:"disabled-icon-color"`
-	IconOpacity *string `m3:"disabled-icon-opacity"`
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
-	OutlineColor *string `m3:"disabled-outline-color"`
-	OutlineOpacity *string `m3:"disabled-outline-opacity"`
 }
 
 type OutlinedButtonFocusOverlay struct {
-	IconColor *string `m3:"focus-icon-color"`
+	IconColor      *string `m3:"focus-icon-color"`
 	LabelTextColor *string `m3:"focus-label-text-color"`
 }
 
 type OutlinedButtonHoverOverlay struct {
-	IconColor *string `m3:"hover-icon-color"`
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
+	IconColor         *string `m3:"hover-icon-color"`
+	LabelTextColor    *string `m3:"hover-label-text-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
 type OutlinedButtonPressedOverlay struct {
-	IconColor *string `m3:"pressed-icon-color"`
-	LabelTextColor *string `m3:"pressed-label-text-color"`
-	OutlineColor *string `m3:"pressed-outline-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	IconColor         *string `m3:"pressed-icon-color"`
+	LabelTextColor    *string `m3:"pressed-label-text-color"`
+	OutlineColor      *string `m3:"pressed-outline-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
+}
+
+type OutlinedButtonDisabledOverlay struct {
+	IconColor        *string `m3:"disabled-icon-color"`
+	IconOpacity      *string `m3:"disabled-icon-opacity"`
+	LabelTextColor   *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
+	OutlineColor     *string `m3:"disabled-outline-color"`
+	OutlineOpacity   *string `m3:"disabled-outline-opacity"`
 }
 
 type OutlinedCardTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Elevation string `m3:"container-elevation"`
+		Color       string `m3:"container-color"`
+		Elevation   string `m3:"container-elevation"`
 		ShadowColor string `m3:"container-shadow-color"`
-		Shape string `m3:"container-shape"`
+		Shape       string `m3:"container-shape"`
 	}
 	Outline struct {
 		Color string `m3:"outline-color"`
@@ -2084,55 +2084,55 @@ type OutlinedFieldTokens struct {
 		Space string `m3:"bottom-space"`
 	}
 	Container struct {
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Content struct {
-		Color string `m3:"content-color"`
-		Font string `m3:"content-font"`
+		Color      string `m3:"content-color"`
+		Font       string `m3:"content-font"`
 		LineHeight string `m3:"content-line-height"`
-		Opacity string `m3:"content-opacity"`
-		Size string `m3:"content-size"`
-		Space string `m3:"content-space"`
-		Weight string `m3:"content-weight"`
+		Opacity    string `m3:"content-opacity"`
+		Size       string `m3:"content-size"`
+		Space      string `m3:"content-space"`
+		Weight     string `m3:"content-weight"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
-		LineHeight string `m3:"label-text-line-height"`
-		Opacity string `m3:"label-text-opacity"`
-		PaddingBottom string `m3:"label-text-padding-bottom"`
+		Color               string `m3:"label-text-color"`
+		Font                string `m3:"label-text-font"`
+		LineHeight          string `m3:"label-text-line-height"`
+		Opacity             string `m3:"label-text-opacity"`
+		PaddingBottom       string `m3:"label-text-padding-bottom"`
 		PopulatedLineHeight string `m3:"label-text-populated-line-height"`
-		PopulatedSize string `m3:"label-text-populated-size"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		PopulatedSize       string `m3:"label-text-populated-size"`
+		Size                string `m3:"label-text-size"`
+		Weight              string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
 	}
 	LeadingContent struct {
-		Color string `m3:"leading-content-color"`
+		Color   string `m3:"leading-content-color"`
 		Opacity string `m3:"leading-content-opacity"`
 	}
 	Outline struct {
-		Color string `m3:"outline-color"`
+		Color        string `m3:"outline-color"`
 		LabelPadding string `m3:"outline-label-padding"`
-		Opacity string `m3:"outline-opacity"`
-		Width string `m3:"outline-width"`
+		Opacity      string `m3:"outline-opacity"`
+		Width        string `m3:"outline-width"`
 	}
 	SupportingText struct {
-		Color string `m3:"supporting-text-color"`
-		Font string `m3:"supporting-text-font"`
-		LeadingSpace string `m3:"supporting-text-leading-space"`
-		LineHeight string `m3:"supporting-text-line-height"`
-		Opacity string `m3:"supporting-text-opacity"`
-		Size string `m3:"supporting-text-size"`
-		TopSpace string `m3:"supporting-text-top-space"`
+		Color         string `m3:"supporting-text-color"`
+		Font          string `m3:"supporting-text-font"`
+		LeadingSpace  string `m3:"supporting-text-leading-space"`
+		LineHeight    string `m3:"supporting-text-line-height"`
+		Opacity       string `m3:"supporting-text-opacity"`
+		Size          string `m3:"supporting-text-size"`
+		TopSpace      string `m3:"supporting-text-top-space"`
 		TrailingSpace string `m3:"supporting-text-trailing-space"`
-		Weight string `m3:"supporting-text-weight"`
+		Weight        string `m3:"supporting-text-weight"`
 	}
 	Top struct {
 		Space string `m3:"top-space"`
@@ -2141,7 +2141,7 @@ type OutlinedFieldTokens struct {
 		Space string `m3:"trailing-space"`
 	}
 	TrailingContent struct {
-		Color string `m3:"trailing-content-color"`
+		Color   string `m3:"trailing-content-color"`
 		Opacity string `m3:"trailing-content-opacity"`
 	}
 	WithLeadingContent struct {
@@ -2150,116 +2150,116 @@ type OutlinedFieldTokens struct {
 	WithTrailingContent struct {
 		TrailingSpace string `m3:"with-trailing-content-trailing-space"`
 	}
-	Disabled *OutlinedFieldDisabledOverlay
-	Error *OutlinedFieldErrorOverlay
+	Hover      *OutlinedFieldHoverOverlay
+	Disabled   *OutlinedFieldDisabledOverlay
+	Error      *OutlinedFieldErrorOverlay
 	ErrorFocus *OutlinedFieldErrorFocusOverlay
 	ErrorHover *OutlinedFieldErrorHoverOverlay
-	Focus *OutlinedFieldFocusOverlay
-	Hover *OutlinedFieldHoverOverlay
+	Focus      *OutlinedFieldFocusOverlay
+}
+
+type OutlinedFieldHoverOverlay struct {
+	ContentColor         *string `m3:"hover-content-color"`
+	LabelTextColor       *string `m3:"hover-label-text-color"`
+	LeadingContentColor  *string `m3:"hover-leading-content-color"`
+	OutlineColor         *string `m3:"hover-outline-color"`
+	OutlineWidth         *string `m3:"hover-outline-width"`
+	SupportingTextColor  *string `m3:"hover-supporting-text-color"`
+	TrailingContentColor *string `m3:"hover-trailing-content-color"`
 }
 
 type OutlinedFieldDisabledOverlay struct {
-	ContentColor *string `m3:"disabled-content-color"`
-	ContentOpacity *string `m3:"disabled-content-opacity"`
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
-	LeadingContentColor *string `m3:"disabled-leading-content-color"`
-	LeadingContentOpacity *string `m3:"disabled-leading-content-opacity"`
-	OutlineColor *string `m3:"disabled-outline-color"`
-	OutlineOpacity *string `m3:"disabled-outline-opacity"`
-	OutlineWidth *string `m3:"disabled-outline-width"`
-	SupportingTextColor *string `m3:"disabled-supporting-text-color"`
-	SupportingTextOpacity *string `m3:"disabled-supporting-text-opacity"`
-	TrailingContentColor *string `m3:"disabled-trailing-content-color"`
+	ContentColor           *string `m3:"disabled-content-color"`
+	ContentOpacity         *string `m3:"disabled-content-opacity"`
+	LabelTextColor         *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity       *string `m3:"disabled-label-text-opacity"`
+	LeadingContentColor    *string `m3:"disabled-leading-content-color"`
+	LeadingContentOpacity  *string `m3:"disabled-leading-content-opacity"`
+	OutlineColor           *string `m3:"disabled-outline-color"`
+	OutlineOpacity         *string `m3:"disabled-outline-opacity"`
+	OutlineWidth           *string `m3:"disabled-outline-width"`
+	SupportingTextColor    *string `m3:"disabled-supporting-text-color"`
+	SupportingTextOpacity  *string `m3:"disabled-supporting-text-opacity"`
+	TrailingContentColor   *string `m3:"disabled-trailing-content-color"`
 	TrailingContentOpacity *string `m3:"disabled-trailing-content-opacity"`
 }
 
 type OutlinedFieldErrorOverlay struct {
-	ContentColor *string `m3:"error-content-color"`
-	LabelTextColor *string `m3:"error-label-text-color"`
-	LeadingContentColor *string `m3:"error-leading-content-color"`
-	OutlineColor *string `m3:"error-outline-color"`
-	SupportingTextColor *string `m3:"error-supporting-text-color"`
+	ContentColor         *string `m3:"error-content-color"`
+	LabelTextColor       *string `m3:"error-label-text-color"`
+	LeadingContentColor  *string `m3:"error-leading-content-color"`
+	OutlineColor         *string `m3:"error-outline-color"`
+	SupportingTextColor  *string `m3:"error-supporting-text-color"`
 	TrailingContentColor *string `m3:"error-trailing-content-color"`
 }
 
 type OutlinedFieldErrorFocusOverlay struct {
-	ContentColor *string `m3:"error-focus-content-color"`
-	LabelTextColor *string `m3:"error-focus-label-text-color"`
-	LeadingContentColor *string `m3:"error-focus-leading-content-color"`
-	OutlineColor *string `m3:"error-focus-outline-color"`
-	SupportingTextColor *string `m3:"error-focus-supporting-text-color"`
+	ContentColor         *string `m3:"error-focus-content-color"`
+	LabelTextColor       *string `m3:"error-focus-label-text-color"`
+	LeadingContentColor  *string `m3:"error-focus-leading-content-color"`
+	OutlineColor         *string `m3:"error-focus-outline-color"`
+	SupportingTextColor  *string `m3:"error-focus-supporting-text-color"`
 	TrailingContentColor *string `m3:"error-focus-trailing-content-color"`
 }
 
 type OutlinedFieldErrorHoverOverlay struct {
-	ContentColor *string `m3:"error-hover-content-color"`
-	LabelTextColor *string `m3:"error-hover-label-text-color"`
-	LeadingContentColor *string `m3:"error-hover-leading-content-color"`
-	OutlineColor *string `m3:"error-hover-outline-color"`
-	SupportingTextColor *string `m3:"error-hover-supporting-text-color"`
+	ContentColor         *string `m3:"error-hover-content-color"`
+	LabelTextColor       *string `m3:"error-hover-label-text-color"`
+	LeadingContentColor  *string `m3:"error-hover-leading-content-color"`
+	OutlineColor         *string `m3:"error-hover-outline-color"`
+	SupportingTextColor  *string `m3:"error-hover-supporting-text-color"`
 	TrailingContentColor *string `m3:"error-hover-trailing-content-color"`
 }
 
 type OutlinedFieldFocusOverlay struct {
-	ContentColor *string `m3:"focus-content-color"`
-	LabelTextColor *string `m3:"focus-label-text-color"`
-	LeadingContentColor *string `m3:"focus-leading-content-color"`
-	OutlineColor *string `m3:"focus-outline-color"`
-	OutlineWidth *string `m3:"focus-outline-width"`
-	SupportingTextColor *string `m3:"focus-supporting-text-color"`
+	ContentColor         *string `m3:"focus-content-color"`
+	LabelTextColor       *string `m3:"focus-label-text-color"`
+	LeadingContentColor  *string `m3:"focus-leading-content-color"`
+	OutlineColor         *string `m3:"focus-outline-color"`
+	OutlineWidth         *string `m3:"focus-outline-width"`
+	SupportingTextColor  *string `m3:"focus-supporting-text-color"`
 	TrailingContentColor *string `m3:"focus-trailing-content-color"`
-}
-
-type OutlinedFieldHoverOverlay struct {
-	ContentColor *string `m3:"hover-content-color"`
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	LeadingContentColor *string `m3:"hover-leading-content-color"`
-	OutlineColor *string `m3:"hover-outline-color"`
-	OutlineWidth *string `m3:"hover-outline-width"`
-	SupportingTextColor *string `m3:"hover-supporting-text-color"`
-	TrailingContentColor *string `m3:"hover-trailing-content-color"`
 }
 
 type OutlinedIconButtonTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Height string `m3:"container-height"`
-		Opacity string `m3:"container-opacity"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Height          string `m3:"container-height"`
+		Opacity         string `m3:"container-opacity"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
-		Width string `m3:"container-width"`
+		Width           string `m3:"container-width"`
 	}
 	Icon struct {
-		Color string `m3:"icon-color"`
+		Color   string `m3:"icon-color"`
 		Opacity string `m3:"icon-opacity"`
-		Size string `m3:"icon-size"`
+		Size    string `m3:"icon-size"`
 	}
 	Outline struct {
-		Color string `m3:"outline-color"`
+		Color   string `m3:"outline-color"`
 		Opacity string `m3:"outline-opacity"`
-		Width string `m3:"outline-width"`
+		Width   string `m3:"outline-width"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	DisabledSelected *OutlinedIconButtonDisabledSelectedOverlay
-	Focus *OutlinedIconButtonFocusOverlay
-	Hover *OutlinedIconButtonHoverOverlay
-	Pressed *OutlinedIconButtonPressedOverlay
-	Selected *OutlinedIconButtonSelectedOverlay
-	SelectedPressed *OutlinedIconButtonSelectedPressedOverlay
-	Disabled *OutlinedIconButtonDisabledOverlay
-	SelectedFocus *OutlinedIconButtonSelectedFocusOverlay
-	SelectedHover *OutlinedIconButtonSelectedHoverOverlay
+	Focus            *OutlinedIconButtonFocusOverlay
+	Hover            *OutlinedIconButtonHoverOverlay
+	Selected         *OutlinedIconButtonSelectedOverlay
+	SelectedFocus    *OutlinedIconButtonSelectedFocusOverlay
+	SelectedHover    *OutlinedIconButtonSelectedHoverOverlay
+	Disabled         *OutlinedIconButtonDisabledOverlay
+	Pressed          *OutlinedIconButtonPressedOverlay
+	SelectedPressed  *OutlinedIconButtonSelectedPressedOverlay
 }
 
 type OutlinedIconButtonDisabledSelectedOverlay struct {
-	ContainerColor *string `m3:"disabled-selected-container-color"`
+	ContainerColor   *string `m3:"disabled-selected-container-color"`
 	ContainerOpacity *string `m3:"disabled-selected-container-opacity"`
 }
 
@@ -2268,32 +2268,14 @@ type OutlinedIconButtonFocusOverlay struct {
 }
 
 type OutlinedIconButtonHoverOverlay struct {
-	IconColor *string `m3:"hover-icon-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
+	IconColor         *string `m3:"hover-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
-}
-
-type OutlinedIconButtonPressedOverlay struct {
-	IconColor *string `m3:"pressed-icon-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
 type OutlinedIconButtonSelectedOverlay struct {
 	ContainerColor *string `m3:"selected-container-color"`
-	IconColor *string `m3:"selected-icon-color"`
-}
-
-type OutlinedIconButtonSelectedPressedOverlay struct {
-	IconColor *string `m3:"selected-pressed-icon-color"`
-	StateLayerColor *string `m3:"selected-pressed-state-layer-color"`
-}
-
-type OutlinedIconButtonDisabledOverlay struct {
-	IconColor *string `m3:"disabled-icon-color"`
-	IconOpacity *string `m3:"disabled-icon-opacity"`
-	OutlineColor *string `m3:"disabled-outline-color"`
-	OutlineOpacity *string `m3:"disabled-outline-opacity"`
+	IconColor      *string `m3:"selected-icon-color"`
 }
 
 type OutlinedIconButtonSelectedFocusOverlay struct {
@@ -2301,88 +2283,100 @@ type OutlinedIconButtonSelectedFocusOverlay struct {
 }
 
 type OutlinedIconButtonSelectedHoverOverlay struct {
-	IconColor *string `m3:"selected-hover-icon-color"`
+	IconColor       *string `m3:"selected-hover-icon-color"`
 	StateLayerColor *string `m3:"selected-hover-state-layer-color"`
+}
+
+type OutlinedIconButtonDisabledOverlay struct {
+	IconColor      *string `m3:"disabled-icon-color"`
+	IconOpacity    *string `m3:"disabled-icon-opacity"`
+	OutlineColor   *string `m3:"disabled-outline-color"`
+	OutlineOpacity *string `m3:"disabled-outline-opacity"`
+}
+
+type OutlinedIconButtonPressedOverlay struct {
+	IconColor         *string `m3:"pressed-icon-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
+}
+
+type OutlinedIconButtonSelectedPressedOverlay struct {
+	IconColor       *string `m3:"selected-pressed-icon-color"`
+	StateLayerColor *string `m3:"selected-pressed-state-layer-color"`
 }
 
 type OutlinedSegmentedButtonTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
+		Color  string `m3:"container-color"`
 		Height string `m3:"container-height"`
 	}
 	Icon struct {
 		Color string `m3:"icon-color"`
-		Size string `m3:"icon-size"`
+		Size  string `m3:"icon-size"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Outline struct {
 		Color string `m3:"outline-color"`
 	}
 	Shape struct {
-		EndEnd string `m3:"shape-end-end"`
-		EndStart string `m3:"shape-end-start"`
-		StartEnd string `m3:"shape-start-end"`
+		EndEnd     string `m3:"shape-end-end"`
+		EndStart   string `m3:"shape-end-start"`
+		StartEnd   string `m3:"shape-start-end"`
 		StartStart string `m3:"shape-start-start"`
-		Value string `m3:"shape"`
+		Value      string `m3:"shape"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	Unselected struct {
-		FocusIconColor string `m3:"unselected-focus-icon-color"`
-		FocusLabelTextColor string `m3:"unselected-focus-label-text-color"`
-		HoverIconColor string `m3:"unselected-hover-icon-color"`
-		HoverLabelTextColor string `m3:"unselected-hover-label-text-color"`
-		HoverStateLayerColor string `m3:"unselected-hover-state-layer-color"`
-		IconColor string `m3:"unselected-icon-color"`
-		LabelTextColor string `m3:"unselected-label-text-color"`
-		PressedIconColor string `m3:"unselected-pressed-icon-color"`
-		PressedLabelTextColor string `m3:"unselected-pressed-label-text-color"`
+		FocusIconColor         string `m3:"unselected-focus-icon-color"`
+		FocusLabelTextColor    string `m3:"unselected-focus-label-text-color"`
+		HoverIconColor         string `m3:"unselected-hover-icon-color"`
+		HoverLabelTextColor    string `m3:"unselected-hover-label-text-color"`
+		HoverStateLayerColor   string `m3:"unselected-hover-state-layer-color"`
+		IconColor              string `m3:"unselected-icon-color"`
+		LabelTextColor         string `m3:"unselected-label-text-color"`
+		PressedIconColor       string `m3:"unselected-pressed-icon-color"`
+		PressedLabelTextColor  string `m3:"unselected-pressed-label-text-color"`
 		PressedStateLayerColor string `m3:"unselected-pressed-state-layer-color"`
 	}
-	Selected *OutlinedSegmentedButtonSelectedOverlay
-	SelectedFocus *OutlinedSegmentedButtonSelectedFocusOverlay
-	SelectedHover *OutlinedSegmentedButtonSelectedHoverOverlay
+	SelectedFocus   *OutlinedSegmentedButtonSelectedFocusOverlay
+	SelectedHover   *OutlinedSegmentedButtonSelectedHoverOverlay
 	SelectedPressed *OutlinedSegmentedButtonSelectedPressedOverlay
-	Disabled *OutlinedSegmentedButtonDisabledOverlay
-	Hover *OutlinedSegmentedButtonHoverOverlay
-	Pressed *OutlinedSegmentedButtonPressedOverlay
-}
-
-type OutlinedSegmentedButtonSelectedOverlay struct {
-	ContainerColor *string `m3:"selected-container-color"`
-	IconColor *string `m3:"selected-icon-color"`
-	LabelTextColor *string `m3:"selected-label-text-color"`
+	Disabled        *OutlinedSegmentedButtonDisabledOverlay
+	Hover           *OutlinedSegmentedButtonHoverOverlay
+	Pressed         *OutlinedSegmentedButtonPressedOverlay
+	Selected        *OutlinedSegmentedButtonSelectedOverlay
 }
 
 type OutlinedSegmentedButtonSelectedFocusOverlay struct {
-	IconColor *string `m3:"selected-focus-icon-color"`
+	IconColor      *string `m3:"selected-focus-icon-color"`
 	LabelTextColor *string `m3:"selected-focus-label-text-color"`
 }
 
 type OutlinedSegmentedButtonSelectedHoverOverlay struct {
-	IconColor *string `m3:"selected-hover-icon-color"`
-	LabelTextColor *string `m3:"selected-hover-label-text-color"`
+	IconColor       *string `m3:"selected-hover-icon-color"`
+	LabelTextColor  *string `m3:"selected-hover-label-text-color"`
 	StateLayerColor *string `m3:"selected-hover-state-layer-color"`
 }
 
 type OutlinedSegmentedButtonSelectedPressedOverlay struct {
-	IconColor *string `m3:"selected-pressed-icon-color"`
-	LabelTextColor *string `m3:"selected-pressed-label-text-color"`
+	IconColor       *string `m3:"selected-pressed-icon-color"`
+	LabelTextColor  *string `m3:"selected-pressed-label-text-color"`
 	StateLayerColor *string `m3:"selected-pressed-state-layer-color"`
 }
 
 type OutlinedSegmentedButtonDisabledOverlay struct {
-	IconColor *string `m3:"disabled-icon-color"`
+	IconColor      *string `m3:"disabled-icon-color"`
 	LabelTextColor *string `m3:"disabled-label-text-color"`
-	OutlineColor *string `m3:"disabled-outline-color"`
+	OutlineColor   *string `m3:"disabled-outline-color"`
 }
 
 type OutlinedSegmentedButtonHoverOverlay struct {
@@ -2393,81 +2387,87 @@ type OutlinedSegmentedButtonPressedOverlay struct {
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
+type OutlinedSegmentedButtonSelectedOverlay struct {
+	ContainerColor *string `m3:"selected-container-color"`
+	IconColor      *string `m3:"selected-icon-color"`
+	LabelTextColor *string `m3:"selected-label-text-color"`
+}
+
 type OutlinedSelectTokens struct {
 	Text struct {
-		FieldContainerShape string `m3:"text-field-container-shape"`
-		FieldContainerShapeEndEnd string `m3:"text-field-container-shape-end-end"`
-		FieldContainerShapeEndStart string `m3:"text-field-container-shape-end-start"`
-		FieldContainerShapeStartEnd string `m3:"text-field-container-shape-start-end"`
-		FieldContainerShapeStartStart string `m3:"text-field-container-shape-start-start"`
-		FieldDisabledInputTextColor string `m3:"text-field-disabled-input-text-color"`
-		FieldDisabledInputTextOpacity string `m3:"text-field-disabled-input-text-opacity"`
-		FieldDisabledLabelTextColor string `m3:"text-field-disabled-label-text-color"`
-		FieldDisabledLabelTextOpacity string `m3:"text-field-disabled-label-text-opacity"`
-		FieldDisabledLeadingIconColor string `m3:"text-field-disabled-leading-icon-color"`
-		FieldDisabledLeadingIconOpacity string `m3:"text-field-disabled-leading-icon-opacity"`
-		FieldDisabledOutlineColor string `m3:"text-field-disabled-outline-color"`
-		FieldDisabledOutlineOpacity string `m3:"text-field-disabled-outline-opacity"`
-		FieldDisabledOutlineWidth string `m3:"text-field-disabled-outline-width"`
-		FieldDisabledSupportingTextColor string `m3:"text-field-disabled-supporting-text-color"`
+		FieldContainerShape                string `m3:"text-field-container-shape"`
+		FieldContainerShapeEndEnd          string `m3:"text-field-container-shape-end-end"`
+		FieldContainerShapeEndStart        string `m3:"text-field-container-shape-end-start"`
+		FieldContainerShapeStartEnd        string `m3:"text-field-container-shape-start-end"`
+		FieldContainerShapeStartStart      string `m3:"text-field-container-shape-start-start"`
+		FieldDisabledInputTextColor        string `m3:"text-field-disabled-input-text-color"`
+		FieldDisabledInputTextOpacity      string `m3:"text-field-disabled-input-text-opacity"`
+		FieldDisabledLabelTextColor        string `m3:"text-field-disabled-label-text-color"`
+		FieldDisabledLabelTextOpacity      string `m3:"text-field-disabled-label-text-opacity"`
+		FieldDisabledLeadingIconColor      string `m3:"text-field-disabled-leading-icon-color"`
+		FieldDisabledLeadingIconOpacity    string `m3:"text-field-disabled-leading-icon-opacity"`
+		FieldDisabledOutlineColor          string `m3:"text-field-disabled-outline-color"`
+		FieldDisabledOutlineOpacity        string `m3:"text-field-disabled-outline-opacity"`
+		FieldDisabledOutlineWidth          string `m3:"text-field-disabled-outline-width"`
+		FieldDisabledSupportingTextColor   string `m3:"text-field-disabled-supporting-text-color"`
 		FieldDisabledSupportingTextOpacity string `m3:"text-field-disabled-supporting-text-opacity"`
-		FieldDisabledTrailingIconColor string `m3:"text-field-disabled-trailing-icon-color"`
-		FieldDisabledTrailingIconOpacity string `m3:"text-field-disabled-trailing-icon-opacity"`
-		FieldErrorFocusInputTextColor string `m3:"text-field-error-focus-input-text-color"`
-		FieldErrorFocusLabelTextColor string `m3:"text-field-error-focus-label-text-color"`
-		FieldErrorFocusLeadingIconColor string `m3:"text-field-error-focus-leading-icon-color"`
-		FieldErrorFocusOutlineColor string `m3:"text-field-error-focus-outline-color"`
+		FieldDisabledTrailingIconColor     string `m3:"text-field-disabled-trailing-icon-color"`
+		FieldDisabledTrailingIconOpacity   string `m3:"text-field-disabled-trailing-icon-opacity"`
+		FieldErrorFocusInputTextColor      string `m3:"text-field-error-focus-input-text-color"`
+		FieldErrorFocusLabelTextColor      string `m3:"text-field-error-focus-label-text-color"`
+		FieldErrorFocusLeadingIconColor    string `m3:"text-field-error-focus-leading-icon-color"`
+		FieldErrorFocusOutlineColor        string `m3:"text-field-error-focus-outline-color"`
 		FieldErrorFocusSupportingTextColor string `m3:"text-field-error-focus-supporting-text-color"`
-		FieldErrorFocusTrailingIconColor string `m3:"text-field-error-focus-trailing-icon-color"`
-		FieldErrorHoverInputTextColor string `m3:"text-field-error-hover-input-text-color"`
-		FieldErrorHoverLabelTextColor string `m3:"text-field-error-hover-label-text-color"`
-		FieldErrorHoverLeadingIconColor string `m3:"text-field-error-hover-leading-icon-color"`
-		FieldErrorHoverOutlineColor string `m3:"text-field-error-hover-outline-color"`
+		FieldErrorFocusTrailingIconColor   string `m3:"text-field-error-focus-trailing-icon-color"`
+		FieldErrorHoverInputTextColor      string `m3:"text-field-error-hover-input-text-color"`
+		FieldErrorHoverLabelTextColor      string `m3:"text-field-error-hover-label-text-color"`
+		FieldErrorHoverLeadingIconColor    string `m3:"text-field-error-hover-leading-icon-color"`
+		FieldErrorHoverOutlineColor        string `m3:"text-field-error-hover-outline-color"`
 		FieldErrorHoverSupportingTextColor string `m3:"text-field-error-hover-supporting-text-color"`
-		FieldErrorHoverTrailingIconColor string `m3:"text-field-error-hover-trailing-icon-color"`
-		FieldErrorInputTextColor string `m3:"text-field-error-input-text-color"`
-		FieldErrorLabelTextColor string `m3:"text-field-error-label-text-color"`
-		FieldErrorLeadingIconColor string `m3:"text-field-error-leading-icon-color"`
-		FieldErrorOutlineColor string `m3:"text-field-error-outline-color"`
-		FieldErrorSupportingTextColor string `m3:"text-field-error-supporting-text-color"`
-		FieldErrorTrailingIconColor string `m3:"text-field-error-trailing-icon-color"`
-		FieldFocusInputTextColor string `m3:"text-field-focus-input-text-color"`
-		FieldFocusLabelTextColor string `m3:"text-field-focus-label-text-color"`
-		FieldFocusLeadingIconColor string `m3:"text-field-focus-leading-icon-color"`
-		FieldFocusOutlineColor string `m3:"text-field-focus-outline-color"`
-		FieldFocusOutlineWidth string `m3:"text-field-focus-outline-width"`
-		FieldFocusSupportingTextColor string `m3:"text-field-focus-supporting-text-color"`
-		FieldFocusTrailingIconColor string `m3:"text-field-focus-trailing-icon-color"`
-		FieldHoverInputTextColor string `m3:"text-field-hover-input-text-color"`
-		FieldHoverLabelTextColor string `m3:"text-field-hover-label-text-color"`
-		FieldHoverLeadingIconColor string `m3:"text-field-hover-leading-icon-color"`
-		FieldHoverOutlineColor string `m3:"text-field-hover-outline-color"`
-		FieldHoverOutlineWidth string `m3:"text-field-hover-outline-width"`
-		FieldHoverSupportingTextColor string `m3:"text-field-hover-supporting-text-color"`
-		FieldHoverTrailingIconColor string `m3:"text-field-hover-trailing-icon-color"`
-		FieldInputTextColor string `m3:"text-field-input-text-color"`
-		FieldInputTextFont string `m3:"text-field-input-text-font"`
-		FieldInputTextLineHeight string `m3:"text-field-input-text-line-height"`
-		FieldInputTextSize string `m3:"text-field-input-text-size"`
-		FieldInputTextWeight string `m3:"text-field-input-text-weight"`
-		FieldLabelTextColor string `m3:"text-field-label-text-color"`
-		FieldLabelTextFont string `m3:"text-field-label-text-font"`
-		FieldLabelTextLineHeight string `m3:"text-field-label-text-line-height"`
-		FieldLabelTextPopulatedLineHeight string `m3:"text-field-label-text-populated-line-height"`
-		FieldLabelTextPopulatedSize string `m3:"text-field-label-text-populated-size"`
-		FieldLabelTextSize string `m3:"text-field-label-text-size"`
-		FieldLabelTextWeight string `m3:"text-field-label-text-weight"`
-		FieldLeadingIconColor string `m3:"text-field-leading-icon-color"`
-		FieldLeadingIconSize string `m3:"text-field-leading-icon-size"`
-		FieldOutlineColor string `m3:"text-field-outline-color"`
-		FieldOutlineWidth string `m3:"text-field-outline-width"`
-		FieldSupportingTextColor string `m3:"text-field-supporting-text-color"`
-		FieldSupportingTextFont string `m3:"text-field-supporting-text-font"`
-		FieldSupportingTextLineHeight string `m3:"text-field-supporting-text-line-height"`
-		FieldSupportingTextSize string `m3:"text-field-supporting-text-size"`
-		FieldSupportingTextWeight string `m3:"text-field-supporting-text-weight"`
-		FieldTrailingIconColor string `m3:"text-field-trailing-icon-color"`
-		FieldTrailingIconSize string `m3:"text-field-trailing-icon-size"`
+		FieldErrorHoverTrailingIconColor   string `m3:"text-field-error-hover-trailing-icon-color"`
+		FieldErrorInputTextColor           string `m3:"text-field-error-input-text-color"`
+		FieldErrorLabelTextColor           string `m3:"text-field-error-label-text-color"`
+		FieldErrorLeadingIconColor         string `m3:"text-field-error-leading-icon-color"`
+		FieldErrorOutlineColor             string `m3:"text-field-error-outline-color"`
+		FieldErrorSupportingTextColor      string `m3:"text-field-error-supporting-text-color"`
+		FieldErrorTrailingIconColor        string `m3:"text-field-error-trailing-icon-color"`
+		FieldFocusInputTextColor           string `m3:"text-field-focus-input-text-color"`
+		FieldFocusLabelTextColor           string `m3:"text-field-focus-label-text-color"`
+		FieldFocusLeadingIconColor         string `m3:"text-field-focus-leading-icon-color"`
+		FieldFocusOutlineColor             string `m3:"text-field-focus-outline-color"`
+		FieldFocusOutlineWidth             string `m3:"text-field-focus-outline-width"`
+		FieldFocusSupportingTextColor      string `m3:"text-field-focus-supporting-text-color"`
+		FieldFocusTrailingIconColor        string `m3:"text-field-focus-trailing-icon-color"`
+		FieldHoverInputTextColor           string `m3:"text-field-hover-input-text-color"`
+		FieldHoverLabelTextColor           string `m3:"text-field-hover-label-text-color"`
+		FieldHoverLeadingIconColor         string `m3:"text-field-hover-leading-icon-color"`
+		FieldHoverOutlineColor             string `m3:"text-field-hover-outline-color"`
+		FieldHoverOutlineWidth             string `m3:"text-field-hover-outline-width"`
+		FieldHoverSupportingTextColor      string `m3:"text-field-hover-supporting-text-color"`
+		FieldHoverTrailingIconColor        string `m3:"text-field-hover-trailing-icon-color"`
+		FieldInputTextColor                string `m3:"text-field-input-text-color"`
+		FieldInputTextFont                 string `m3:"text-field-input-text-font"`
+		FieldInputTextLineHeight           string `m3:"text-field-input-text-line-height"`
+		FieldInputTextSize                 string `m3:"text-field-input-text-size"`
+		FieldInputTextWeight               string `m3:"text-field-input-text-weight"`
+		FieldLabelTextColor                string `m3:"text-field-label-text-color"`
+		FieldLabelTextFont                 string `m3:"text-field-label-text-font"`
+		FieldLabelTextLineHeight           string `m3:"text-field-label-text-line-height"`
+		FieldLabelTextPopulatedLineHeight  string `m3:"text-field-label-text-populated-line-height"`
+		FieldLabelTextPopulatedSize        string `m3:"text-field-label-text-populated-size"`
+		FieldLabelTextSize                 string `m3:"text-field-label-text-size"`
+		FieldLabelTextWeight               string `m3:"text-field-label-text-weight"`
+		FieldLeadingIconColor              string `m3:"text-field-leading-icon-color"`
+		FieldLeadingIconSize               string `m3:"text-field-leading-icon-size"`
+		FieldOutlineColor                  string `m3:"text-field-outline-color"`
+		FieldOutlineWidth                  string `m3:"text-field-outline-width"`
+		FieldSupportingTextColor           string `m3:"text-field-supporting-text-color"`
+		FieldSupportingTextFont            string `m3:"text-field-supporting-text-font"`
+		FieldSupportingTextLineHeight      string `m3:"text-field-supporting-text-line-height"`
+		FieldSupportingTextSize            string `m3:"text-field-supporting-text-size"`
+		FieldSupportingTextWeight          string `m3:"text-field-supporting-text-weight"`
+		FieldTrailingIconColor             string `m3:"text-field-trailing-icon-color"`
+		FieldTrailingIconSize              string `m3:"text-field-trailing-icon-size"`
 	}
 }
 
@@ -2479,58 +2479,58 @@ type OutlinedTextFieldTokens struct {
 		Color string `m3:"caret-color"`
 	}
 	Container struct {
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Icon struct {
 		InputSpace string `m3:"icon-input-space"`
 	}
 	Input struct {
-		TextColor string `m3:"input-text-color"`
-		TextFont string `m3:"input-text-font"`
-		TextLineHeight string `m3:"input-text-line-height"`
-		TextOpacity string `m3:"input-text-opacity"`
-		TextPlaceholderColor string `m3:"input-text-placeholder-color"`
-		TextPrefixColor string `m3:"input-text-prefix-color"`
+		TextColor               string `m3:"input-text-color"`
+		TextFont                string `m3:"input-text-font"`
+		TextLineHeight          string `m3:"input-text-line-height"`
+		TextOpacity             string `m3:"input-text-opacity"`
+		TextPlaceholderColor    string `m3:"input-text-placeholder-color"`
+		TextPrefixColor         string `m3:"input-text-prefix-color"`
 		TextPrefixTrailingSpace string `m3:"input-text-prefix-trailing-space"`
-		TextSize string `m3:"input-text-size"`
-		TextSuffixColor string `m3:"input-text-suffix-color"`
-		TextSuffixLeadingSpace string `m3:"input-text-suffix-leading-space"`
-		TextWeight string `m3:"input-text-weight"`
+		TextSize                string `m3:"input-text-size"`
+		TextSuffixColor         string `m3:"input-text-suffix-color"`
+		TextSuffixLeadingSpace  string `m3:"input-text-suffix-leading-space"`
+		TextWeight              string `m3:"input-text-weight"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
-		LineHeight string `m3:"label-text-line-height"`
-		Opacity string `m3:"label-text-opacity"`
+		Color               string `m3:"label-text-color"`
+		Font                string `m3:"label-text-font"`
+		LineHeight          string `m3:"label-text-line-height"`
+		Opacity             string `m3:"label-text-opacity"`
 		PopulatedLineHeight string `m3:"label-text-populated-line-height"`
-		PopulatedSize string `m3:"label-text-populated-size"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		PopulatedSize       string `m3:"label-text-populated-size"`
+		Size                string `m3:"label-text-size"`
+		Weight              string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
 	}
 	LeadingIcon struct {
-		Color string `m3:"leading-icon-color"`
+		Color   string `m3:"leading-icon-color"`
 		Opacity string `m3:"leading-icon-opacity"`
-		Size string `m3:"leading-icon-size"`
+		Size    string `m3:"leading-icon-size"`
 	}
 	Outline struct {
-		Color string `m3:"outline-color"`
+		Color   string `m3:"outline-color"`
 		Opacity string `m3:"outline-opacity"`
-		Width string `m3:"outline-width"`
+		Width   string `m3:"outline-width"`
 	}
 	SupportingText struct {
-		Color string `m3:"supporting-text-color"`
-		Font string `m3:"supporting-text-font"`
+		Color      string `m3:"supporting-text-color"`
+		Font       string `m3:"supporting-text-font"`
 		LineHeight string `m3:"supporting-text-line-height"`
-		Opacity string `m3:"supporting-text-opacity"`
-		Size string `m3:"supporting-text-size"`
-		Weight string `m3:"supporting-text-weight"`
+		Opacity    string `m3:"supporting-text-opacity"`
+		Size       string `m3:"supporting-text-size"`
+		Weight     string `m3:"supporting-text-weight"`
 	}
 	Top struct {
 		Space string `m3:"top-space"`
@@ -2539,9 +2539,9 @@ type OutlinedTextFieldTokens struct {
 		Space string `m3:"trailing-space"`
 	}
 	TrailingIcon struct {
-		Color string `m3:"trailing-icon-color"`
+		Color   string `m3:"trailing-icon-color"`
 		Opacity string `m3:"trailing-icon-opacity"`
-		Size string `m3:"trailing-icon-size"`
+		Size    string `m3:"trailing-icon-size"`
 	}
 	WithLeadingIcon struct {
 		LeadingSpace string `m3:"with-leading-icon-leading-space"`
@@ -2549,224 +2549,224 @@ type OutlinedTextFieldTokens struct {
 	WithTrailingIcon struct {
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
-	Error *OutlinedTextFieldErrorOverlay
-	Focus *OutlinedTextFieldFocusOverlay
-	Hover *OutlinedTextFieldHoverOverlay
-	Disabled *OutlinedTextFieldDisabledOverlay
+	Disabled   *OutlinedTextFieldDisabledOverlay
 	ErrorFocus *OutlinedTextFieldErrorFocusOverlay
 	ErrorHover *OutlinedTextFieldErrorHoverOverlay
-}
-
-type OutlinedTextFieldErrorOverlay struct {
-	InputTextColor *string `m3:"error-input-text-color"`
-	LabelTextColor *string `m3:"error-label-text-color"`
-	LeadingIconColor *string `m3:"error-leading-icon-color"`
-	OutlineColor *string `m3:"error-outline-color"`
-	SupportingTextColor *string `m3:"error-supporting-text-color"`
-	TrailingIconColor *string `m3:"error-trailing-icon-color"`
-}
-
-type OutlinedTextFieldFocusOverlay struct {
-	CaretColor *string `m3:"focus-caret-color"`
-	InputTextColor *string `m3:"focus-input-text-color"`
-	LabelTextColor *string `m3:"focus-label-text-color"`
-	LeadingIconColor *string `m3:"focus-leading-icon-color"`
-	OutlineColor *string `m3:"focus-outline-color"`
-	OutlineWidth *string `m3:"focus-outline-width"`
-	SupportingTextColor *string `m3:"focus-supporting-text-color"`
-	TrailingIconColor *string `m3:"focus-trailing-icon-color"`
-}
-
-type OutlinedTextFieldHoverOverlay struct {
-	InputTextColor *string `m3:"hover-input-text-color"`
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	LeadingIconColor *string `m3:"hover-leading-icon-color"`
-	OutlineColor *string `m3:"hover-outline-color"`
-	OutlineWidth *string `m3:"hover-outline-width"`
-	SupportingTextColor *string `m3:"hover-supporting-text-color"`
-	TrailingIconColor *string `m3:"hover-trailing-icon-color"`
+	Error      *OutlinedTextFieldErrorOverlay
+	Focus      *OutlinedTextFieldFocusOverlay
+	Hover      *OutlinedTextFieldHoverOverlay
 }
 
 type OutlinedTextFieldDisabledOverlay struct {
-	InputTextColor *string `m3:"disabled-input-text-color"`
-	InputTextOpacity *string `m3:"disabled-input-text-opacity"`
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
-	LeadingIconColor *string `m3:"disabled-leading-icon-color"`
-	LeadingIconOpacity *string `m3:"disabled-leading-icon-opacity"`
-	OutlineColor *string `m3:"disabled-outline-color"`
-	OutlineOpacity *string `m3:"disabled-outline-opacity"`
-	OutlineWidth *string `m3:"disabled-outline-width"`
-	SupportingTextColor *string `m3:"disabled-supporting-text-color"`
+	InputTextColor        *string `m3:"disabled-input-text-color"`
+	InputTextOpacity      *string `m3:"disabled-input-text-opacity"`
+	LabelTextColor        *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity      *string `m3:"disabled-label-text-opacity"`
+	LeadingIconColor      *string `m3:"disabled-leading-icon-color"`
+	LeadingIconOpacity    *string `m3:"disabled-leading-icon-opacity"`
+	OutlineColor          *string `m3:"disabled-outline-color"`
+	OutlineOpacity        *string `m3:"disabled-outline-opacity"`
+	OutlineWidth          *string `m3:"disabled-outline-width"`
+	SupportingTextColor   *string `m3:"disabled-supporting-text-color"`
 	SupportingTextOpacity *string `m3:"disabled-supporting-text-opacity"`
-	TrailingIconColor *string `m3:"disabled-trailing-icon-color"`
-	TrailingIconOpacity *string `m3:"disabled-trailing-icon-opacity"`
+	TrailingIconColor     *string `m3:"disabled-trailing-icon-color"`
+	TrailingIconOpacity   *string `m3:"disabled-trailing-icon-opacity"`
 }
 
 type OutlinedTextFieldErrorFocusOverlay struct {
-	CaretColor *string `m3:"error-focus-caret-color"`
-	InputTextColor *string `m3:"error-focus-input-text-color"`
-	LabelTextColor *string `m3:"error-focus-label-text-color"`
-	LeadingIconColor *string `m3:"error-focus-leading-icon-color"`
-	OutlineColor *string `m3:"error-focus-outline-color"`
+	CaretColor          *string `m3:"error-focus-caret-color"`
+	InputTextColor      *string `m3:"error-focus-input-text-color"`
+	LabelTextColor      *string `m3:"error-focus-label-text-color"`
+	LeadingIconColor    *string `m3:"error-focus-leading-icon-color"`
+	OutlineColor        *string `m3:"error-focus-outline-color"`
 	SupportingTextColor *string `m3:"error-focus-supporting-text-color"`
-	TrailingIconColor *string `m3:"error-focus-trailing-icon-color"`
+	TrailingIconColor   *string `m3:"error-focus-trailing-icon-color"`
 }
 
 type OutlinedTextFieldErrorHoverOverlay struct {
-	InputTextColor *string `m3:"error-hover-input-text-color"`
-	LabelTextColor *string `m3:"error-hover-label-text-color"`
-	LeadingIconColor *string `m3:"error-hover-leading-icon-color"`
-	OutlineColor *string `m3:"error-hover-outline-color"`
+	InputTextColor      *string `m3:"error-hover-input-text-color"`
+	LabelTextColor      *string `m3:"error-hover-label-text-color"`
+	LeadingIconColor    *string `m3:"error-hover-leading-icon-color"`
+	OutlineColor        *string `m3:"error-hover-outline-color"`
 	SupportingTextColor *string `m3:"error-hover-supporting-text-color"`
-	TrailingIconColor *string `m3:"error-hover-trailing-icon-color"`
+	TrailingIconColor   *string `m3:"error-hover-trailing-icon-color"`
+}
+
+type OutlinedTextFieldErrorOverlay struct {
+	InputTextColor      *string `m3:"error-input-text-color"`
+	LabelTextColor      *string `m3:"error-label-text-color"`
+	LeadingIconColor    *string `m3:"error-leading-icon-color"`
+	OutlineColor        *string `m3:"error-outline-color"`
+	SupportingTextColor *string `m3:"error-supporting-text-color"`
+	TrailingIconColor   *string `m3:"error-trailing-icon-color"`
+}
+
+type OutlinedTextFieldFocusOverlay struct {
+	CaretColor          *string `m3:"focus-caret-color"`
+	InputTextColor      *string `m3:"focus-input-text-color"`
+	LabelTextColor      *string `m3:"focus-label-text-color"`
+	LeadingIconColor    *string `m3:"focus-leading-icon-color"`
+	OutlineColor        *string `m3:"focus-outline-color"`
+	OutlineWidth        *string `m3:"focus-outline-width"`
+	SupportingTextColor *string `m3:"focus-supporting-text-color"`
+	TrailingIconColor   *string `m3:"focus-trailing-icon-color"`
+}
+
+type OutlinedTextFieldHoverOverlay struct {
+	InputTextColor      *string `m3:"hover-input-text-color"`
+	LabelTextColor      *string `m3:"hover-label-text-color"`
+	LeadingIconColor    *string `m3:"hover-leading-icon-color"`
+	OutlineColor        *string `m3:"hover-outline-color"`
+	OutlineWidth        *string `m3:"hover-outline-width"`
+	SupportingTextColor *string `m3:"hover-supporting-text-color"`
+	TrailingIconColor   *string `m3:"hover-trailing-icon-color"`
 }
 
 type PrimaryTabTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Elevation string `m3:"container-elevation"`
-		Height string `m3:"container-height"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Elevation       string `m3:"container-elevation"`
+		Height          string `m3:"container-height"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Icon struct {
 		Color string `m3:"icon-color"`
-		Size string `m3:"icon-size"`
+		Size  string `m3:"icon-size"`
 	}
 	Indicator struct {
-		Color string `m3:"indicator-color"`
+		Color  string `m3:"indicator-color"`
 		Height string `m3:"indicator-height"`
-		Shape string `m3:"indicator-shape"`
+		Shape  string `m3:"indicator-shape"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	With struct {
 		IconAndLabelTextContainerHeight string `m3:"with-icon-and-label-text-container-height"`
 	}
-	Pressed *PrimaryTabPressedOverlay
-	ActiveFocus *PrimaryTabActiveFocusOverlay
-	ActiveHover *PrimaryTabActiveHoverOverlay
-	Active *PrimaryTabActiveOverlay
+	Hover         *PrimaryTabHoverOverlay
+	Pressed       *PrimaryTabPressedOverlay
+	ActiveFocus   *PrimaryTabActiveFocusOverlay
+	ActiveHover   *PrimaryTabActiveHoverOverlay
+	Active        *PrimaryTabActiveOverlay
 	ActivePressed *PrimaryTabActivePressedOverlay
-	Focus *PrimaryTabFocusOverlay
-	Hover *PrimaryTabHoverOverlay
+	Focus         *PrimaryTabFocusOverlay
+}
+
+type PrimaryTabHoverOverlay struct {
+	IconColor         *string `m3:"hover-icon-color"`
+	LabelTextColor    *string `m3:"hover-label-text-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
 type PrimaryTabPressedOverlay struct {
-	IconColor *string `m3:"pressed-icon-color"`
-	LabelTextColor *string `m3:"pressed-label-text-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	IconColor         *string `m3:"pressed-icon-color"`
+	LabelTextColor    *string `m3:"pressed-label-text-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
 type PrimaryTabActiveFocusOverlay struct {
-	IconColor *string `m3:"active-focus-icon-color"`
+	IconColor      *string `m3:"active-focus-icon-color"`
 	LabelTextColor *string `m3:"active-focus-label-text-color"`
 }
 
 type PrimaryTabActiveHoverOverlay struct {
-	IconColor *string `m3:"active-hover-icon-color"`
-	LabelTextColor *string `m3:"active-hover-label-text-color"`
-	StateLayerColor *string `m3:"active-hover-state-layer-color"`
+	IconColor         *string `m3:"active-hover-icon-color"`
+	LabelTextColor    *string `m3:"active-hover-label-text-color"`
+	StateLayerColor   *string `m3:"active-hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"active-hover-state-layer-opacity"`
 }
 
 type PrimaryTabActiveOverlay struct {
-	IconColor *string `m3:"active-icon-color"`
-	IndicatorColor *string `m3:"active-indicator-color"`
+	IconColor       *string `m3:"active-icon-color"`
+	IndicatorColor  *string `m3:"active-indicator-color"`
 	IndicatorHeight *string `m3:"active-indicator-height"`
-	IndicatorShape *string `m3:"active-indicator-shape"`
-	LabelTextColor *string `m3:"active-label-text-color"`
+	IndicatorShape  *string `m3:"active-indicator-shape"`
+	LabelTextColor  *string `m3:"active-label-text-color"`
 }
 
 type PrimaryTabActivePressedOverlay struct {
-	IconColor *string `m3:"active-pressed-icon-color"`
-	LabelTextColor *string `m3:"active-pressed-label-text-color"`
-	StateLayerColor *string `m3:"active-pressed-state-layer-color"`
+	IconColor         *string `m3:"active-pressed-icon-color"`
+	LabelTextColor    *string `m3:"active-pressed-label-text-color"`
+	StateLayerColor   *string `m3:"active-pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"active-pressed-state-layer-opacity"`
 }
 
 type PrimaryTabFocusOverlay struct {
-	IconColor *string `m3:"focus-icon-color"`
+	IconColor      *string `m3:"focus-icon-color"`
 	LabelTextColor *string `m3:"focus-label-text-color"`
-}
-
-type PrimaryTabHoverOverlay struct {
-	IconColor *string `m3:"hover-icon-color"`
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
 type RadioTokens struct {
 	Icon struct {
-		Color string `m3:"icon-color"`
+		Color   string `m3:"icon-color"`
 		Opacity string `m3:"icon-opacity"`
-		Size string `m3:"icon-size"`
+		Size    string `m3:"icon-size"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
-		Size string `m3:"state-layer-size"`
+		Size    string `m3:"state-layer-size"`
 	}
 	Unselected struct {
-		IconColor string `m3:"unselected-icon-color"`
+		IconColor   string `m3:"unselected-icon-color"`
 		IconOpacity string `m3:"unselected-icon-opacity"`
 	}
-	Focus *RadioFocusOverlay
-	Hover *RadioHoverOverlay
-	Pressed *RadioPressedOverlay
-	SelectedPressed *RadioSelectedPressedOverlay
 	DisabledSelected *RadioDisabledSelectedOverlay
-	Disabled *RadioDisabledOverlay
-	SelectedFocus *RadioSelectedFocusOverlay
-	SelectedHover *RadioSelectedHoverOverlay
-	Selected *RadioSelectedOverlay
-}
-
-type RadioFocusOverlay struct {
-	IconColor *string `m3:"focus-icon-color"`
-}
-
-type RadioHoverOverlay struct {
-	IconColor *string `m3:"hover-icon-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
-	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
-}
-
-type RadioPressedOverlay struct {
-	IconColor *string `m3:"pressed-icon-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
-}
-
-type RadioSelectedPressedOverlay struct {
-	IconColor *string `m3:"selected-pressed-icon-color"`
-	StateLayerColor *string `m3:"selected-pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
+	Disabled         *RadioDisabledOverlay
+	Hover            *RadioHoverOverlay
+	Pressed          *RadioPressedOverlay
+	SelectedPressed  *RadioSelectedPressedOverlay
+	Focus            *RadioFocusOverlay
+	SelectedFocus    *RadioSelectedFocusOverlay
+	SelectedHover    *RadioSelectedHoverOverlay
+	Selected         *RadioSelectedOverlay
 }
 
 type RadioDisabledSelectedOverlay struct {
-	IconColor *string `m3:"disabled-selected-icon-color"`
+	IconColor   *string `m3:"disabled-selected-icon-color"`
 	IconOpacity *string `m3:"disabled-selected-icon-opacity"`
 }
 
 type RadioDisabledOverlay struct {
-	UnselectedIconColor *string `m3:"disabled-unselected-icon-color"`
+	UnselectedIconColor   *string `m3:"disabled-unselected-icon-color"`
 	UnselectedIconOpacity *string `m3:"disabled-unselected-icon-opacity"`
+}
+
+type RadioHoverOverlay struct {
+	IconColor         *string `m3:"hover-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
+	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
+}
+
+type RadioPressedOverlay struct {
+	IconColor         *string `m3:"pressed-icon-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
+}
+
+type RadioSelectedPressedOverlay struct {
+	IconColor         *string `m3:"selected-pressed-icon-color"`
+	StateLayerColor   *string `m3:"selected-pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
+}
+
+type RadioFocusOverlay struct {
+	IconColor *string `m3:"focus-icon-color"`
 }
 
 type RadioSelectedFocusOverlay struct {
@@ -2774,8 +2774,8 @@ type RadioSelectedFocusOverlay struct {
 }
 
 type RadioSelectedHoverOverlay struct {
-	IconColor *string `m3:"selected-hover-icon-color"`
-	StateLayerColor *string `m3:"selected-hover-state-layer-color"`
+	IconColor         *string `m3:"selected-hover-icon-color"`
+	StateLayerColor   *string `m3:"selected-hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
 }
 
@@ -2790,174 +2790,174 @@ type RippleTokens struct {
 	Opacity struct {
 		Value string `m3:"opacity"`
 	}
-	Hover *RippleHoverOverlay
+	Hover   *RippleHoverOverlay
 	Pressed *RipplePressedOverlay
 }
 
 type RippleHoverOverlay struct {
-	ColorValue *string `m3:"hover-color"`
+	ColorValue   *string `m3:"hover-color"`
 	OpacityValue *string `m3:"hover-opacity"`
 }
 
 type RipplePressedOverlay struct {
-	ColorValue *string `m3:"pressed-color"`
+	ColorValue   *string `m3:"pressed-color"`
 	OpacityValue *string `m3:"pressed-opacity"`
 }
 
 type SecondaryTabTokens struct {
 	Container struct {
-		Color string `m3:"container-color"`
-		Elevation string `m3:"container-elevation"`
-		Height string `m3:"container-height"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Color           string `m3:"container-color"`
+		Elevation       string `m3:"container-elevation"`
+		Height          string `m3:"container-height"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Icon struct {
 		Color string `m3:"icon-color"`
-		Size string `m3:"icon-size"`
+		Size  string `m3:"icon-size"`
 	}
 	Indicator struct {
-		Color string `m3:"indicator-color"`
+		Color  string `m3:"indicator-color"`
 		Height string `m3:"indicator-height"`
-		Shape string `m3:"indicator-shape"`
+		Shape  string `m3:"indicator-shape"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
-	ActiveHover *SecondaryTabActiveHoverOverlay
-	Active *SecondaryTabActiveOverlay
+	ActiveHover   *SecondaryTabActiveHoverOverlay
+	Active        *SecondaryTabActiveOverlay
 	ActivePressed *SecondaryTabActivePressedOverlay
-	Focus *SecondaryTabFocusOverlay
-	Hover *SecondaryTabHoverOverlay
-	Pressed *SecondaryTabPressedOverlay
-	ActiveFocus *SecondaryTabActiveFocusOverlay
+	Focus         *SecondaryTabFocusOverlay
+	Hover         *SecondaryTabHoverOverlay
+	Pressed       *SecondaryTabPressedOverlay
+	ActiveFocus   *SecondaryTabActiveFocusOverlay
 }
 
 type SecondaryTabActiveHoverOverlay struct {
-	IconColor *string `m3:"active-hover-icon-color"`
-	LabelTextColor *string `m3:"active-hover-label-text-color"`
-	StateLayerColor *string `m3:"active-hover-state-layer-color"`
+	IconColor         *string `m3:"active-hover-icon-color"`
+	LabelTextColor    *string `m3:"active-hover-label-text-color"`
+	StateLayerColor   *string `m3:"active-hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"active-hover-state-layer-opacity"`
 }
 
 type SecondaryTabActiveOverlay struct {
-	IconColor *string `m3:"active-icon-color"`
-	IndicatorColor *string `m3:"active-indicator-color"`
+	IconColor       *string `m3:"active-icon-color"`
+	IndicatorColor  *string `m3:"active-indicator-color"`
 	IndicatorHeight *string `m3:"active-indicator-height"`
-	IndicatorShape *string `m3:"active-indicator-shape"`
-	LabelTextColor *string `m3:"active-label-text-color"`
+	IndicatorShape  *string `m3:"active-indicator-shape"`
+	LabelTextColor  *string `m3:"active-label-text-color"`
 }
 
 type SecondaryTabActivePressedOverlay struct {
-	IconColor *string `m3:"active-pressed-icon-color"`
-	LabelTextColor *string `m3:"active-pressed-label-text-color"`
-	StateLayerColor *string `m3:"active-pressed-state-layer-color"`
+	IconColor         *string `m3:"active-pressed-icon-color"`
+	LabelTextColor    *string `m3:"active-pressed-label-text-color"`
+	StateLayerColor   *string `m3:"active-pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"active-pressed-state-layer-opacity"`
 }
 
 type SecondaryTabFocusOverlay struct {
-	IconColor *string `m3:"focus-icon-color"`
+	IconColor      *string `m3:"focus-icon-color"`
 	LabelTextColor *string `m3:"focus-label-text-color"`
 }
 
 type SecondaryTabHoverOverlay struct {
-	IconColor *string `m3:"hover-icon-color"`
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
+	IconColor         *string `m3:"hover-icon-color"`
+	LabelTextColor    *string `m3:"hover-label-text-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
 type SecondaryTabPressedOverlay struct {
-	IconColor *string `m3:"pressed-icon-color"`
-	LabelTextColor *string `m3:"pressed-label-text-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	IconColor         *string `m3:"pressed-icon-color"`
+	LabelTextColor    *string `m3:"pressed-label-text-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
 type SecondaryTabActiveFocusOverlay struct {
-	IconColor *string `m3:"active-focus-icon-color"`
+	IconColor      *string `m3:"active-focus-icon-color"`
 	LabelTextColor *string `m3:"active-focus-label-text-color"`
 }
 
 type SliderTokens struct {
 	Handle struct {
-		Color string `m3:"handle-color"`
-		Elevation string `m3:"handle-elevation"`
-		Height string `m3:"handle-height"`
+		Color       string `m3:"handle-color"`
+		Elevation   string `m3:"handle-elevation"`
+		Height      string `m3:"handle-height"`
 		ShadowColor string `m3:"handle-shadow-color"`
-		Shape string `m3:"handle-shape"`
-		Width string `m3:"handle-width"`
+		Shape       string `m3:"handle-shape"`
+		Width       string `m3:"handle-width"`
 	}
 	Inactive struct {
-		TrackColor string `m3:"inactive-track-color"`
-		TrackHeight string `m3:"inactive-track-height"`
+		TrackColor   string `m3:"inactive-track-color"`
+		TrackHeight  string `m3:"inactive-track-height"`
 		TrackOpacity string `m3:"inactive-track-opacity"`
-		TrackShape string `m3:"inactive-track-shape"`
+		TrackShape   string `m3:"inactive-track-shape"`
 	}
 	Label struct {
-		ContainerColor string `m3:"label-container-color"`
+		ContainerColor  string `m3:"label-container-color"`
 		ContainerHeight string `m3:"label-container-height"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
-		Size string `m3:"state-layer-size"`
+		Size    string `m3:"state-layer-size"`
 	}
 	Track struct {
-		Color string `m3:"track-color"`
-		Height string `m3:"track-height"`
+		Color   string `m3:"track-color"`
+		Height  string `m3:"track-height"`
 		Opacity string `m3:"track-opacity"`
-		Shape string `m3:"track-shape"`
+		Shape   string `m3:"track-shape"`
 	}
 	With struct {
-		OverlapHandleOutlineColor string `m3:"with-overlap-handle-outline-color"`
-		OverlapHandleOutlineWidth string `m3:"with-overlap-handle-outline-width"`
-		TickMarksActiveContainerColor string `m3:"with-tick-marks-active-container-color"`
-		TickMarksContainerSize string `m3:"with-tick-marks-container-size"`
+		OverlapHandleOutlineColor       string `m3:"with-overlap-handle-outline-color"`
+		OverlapHandleOutlineWidth       string `m3:"with-overlap-handle-outline-width"`
+		TickMarksActiveContainerColor   string `m3:"with-tick-marks-active-container-color"`
+		TickMarksContainerSize          string `m3:"with-tick-marks-container-size"`
 		TickMarksDisabledContainerColor string `m3:"with-tick-marks-disabled-container-color"`
 		TickMarksInactiveContainerColor string `m3:"with-tick-marks-inactive-container-color"`
 	}
-	Active *SliderActiveOverlay
+	Active         *SliderActiveOverlay
 	DisabledActive *SliderDisabledActiveOverlay
-	Disabled *SliderDisabledOverlay
-	Focus *SliderFocusOverlay
-	Hover *SliderHoverOverlay
-	Pressed *SliderPressedOverlay
+	Disabled       *SliderDisabledOverlay
+	Focus          *SliderFocusOverlay
+	Hover          *SliderHoverOverlay
+	Pressed        *SliderPressedOverlay
 }
 
 type SliderActiveOverlay struct {
-	TrackColor *string `m3:"active-track-color"`
+	TrackColor  *string `m3:"active-track-color"`
 	TrackHeight *string `m3:"active-track-height"`
-	TrackShape *string `m3:"active-track-shape"`
+	TrackShape  *string `m3:"active-track-shape"`
 }
 
 type SliderDisabledActiveOverlay struct {
-	TrackColor *string `m3:"disabled-active-track-color"`
+	TrackColor   *string `m3:"disabled-active-track-color"`
 	TrackOpacity *string `m3:"disabled-active-track-opacity"`
 }
 
 type SliderDisabledOverlay struct {
-	HandleColor *string `m3:"disabled-handle-color"`
-	HandleElevation *string `m3:"disabled-handle-elevation"`
-	InactiveTrackColor *string `m3:"disabled-inactive-track-color"`
+	HandleColor          *string `m3:"disabled-handle-color"`
+	HandleElevation      *string `m3:"disabled-handle-elevation"`
+	InactiveTrackColor   *string `m3:"disabled-inactive-track-color"`
 	InactiveTrackOpacity *string `m3:"disabled-inactive-track-opacity"`
 }
 
@@ -2966,63 +2966,63 @@ type SliderFocusOverlay struct {
 }
 
 type SliderHoverOverlay struct {
-	HandleColor *string `m3:"hover-handle-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
+	HandleColor       *string `m3:"hover-handle-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
 type SliderPressedOverlay struct {
-	HandleColor *string `m3:"pressed-handle-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	HandleColor       *string `m3:"pressed-handle-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
 
 type SuggestionChipTokens struct {
 	Container struct {
-		Height string `m3:"container-height"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Height          string `m3:"container-height"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Elevated struct {
-		ContainerColor string `m3:"elevated-container-color"`
-		ContainerElevation string `m3:"elevated-container-elevation"`
-		ContainerShadowColor string `m3:"elevated-container-shadow-color"`
-		DisabledContainerColor string `m3:"elevated-disabled-container-color"`
+		ContainerColor             string `m3:"elevated-container-color"`
+		ContainerElevation         string `m3:"elevated-container-elevation"`
+		ContainerShadowColor       string `m3:"elevated-container-shadow-color"`
+		DisabledContainerColor     string `m3:"elevated-disabled-container-color"`
 		DisabledContainerElevation string `m3:"elevated-disabled-container-elevation"`
-		DisabledContainerOpacity string `m3:"elevated-disabled-container-opacity"`
-		FocusContainerElevation string `m3:"elevated-focus-container-elevation"`
-		HoverContainerElevation string `m3:"elevated-hover-container-elevation"`
-		PressedContainerElevation string `m3:"elevated-pressed-container-elevation"`
+		DisabledContainerOpacity   string `m3:"elevated-disabled-container-opacity"`
+		FocusContainerElevation    string `m3:"elevated-focus-container-elevation"`
+		HoverContainerElevation    string `m3:"elevated-hover-container-elevation"`
+		PressedContainerElevation  string `m3:"elevated-pressed-container-elevation"`
 	}
 	Icon struct {
 		LabelSpace string `m3:"icon-label-space"`
-		Size string `m3:"icon-size"`
+		Size       string `m3:"icon-size"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Opacity string `m3:"label-text-opacity"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Opacity    string `m3:"label-text-opacity"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
 	}
 	LeadingIcon struct {
-		Color string `m3:"leading-icon-color"`
+		Color   string `m3:"leading-icon-color"`
 		Opacity string `m3:"leading-icon-opacity"`
 	}
 	Outline struct {
-		Color string `m3:"outline-color"`
+		Color   string `m3:"outline-color"`
 		Opacity string `m3:"outline-opacity"`
-		Width string `m3:"outline-width"`
+		Width   string `m3:"outline-width"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	Trailing struct {
@@ -3031,240 +3031,239 @@ type SuggestionChipTokens struct {
 	WithLeadingIcon struct {
 		LeadingSpace string `m3:"with-leading-icon-leading-space"`
 	}
-	Hover *SuggestionChipHoverOverlay
-	Pressed *SuggestionChipPressedOverlay
 	Disabled *SuggestionChipDisabledOverlay
-	Focus *SuggestionChipFocusOverlay
+	Focus    *SuggestionChipFocusOverlay
+	Hover    *SuggestionChipHoverOverlay
+	Pressed  *SuggestionChipPressedOverlay
+}
+
+type SuggestionChipDisabledOverlay struct {
+	LabelTextColor     *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity   *string `m3:"disabled-label-text-opacity"`
+	LeadingIconColor   *string `m3:"disabled-leading-icon-color"`
+	LeadingIconOpacity *string `m3:"disabled-leading-icon-opacity"`
+	OutlineColor       *string `m3:"disabled-outline-color"`
+	OutlineOpacity     *string `m3:"disabled-outline-opacity"`
+}
+
+type SuggestionChipFocusOverlay struct {
+	LabelTextColor   *string `m3:"focus-label-text-color"`
+	LeadingIconColor *string `m3:"focus-leading-icon-color"`
+	OutlineColor     *string `m3:"focus-outline-color"`
 }
 
 type SuggestionChipHoverOverlay struct {
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	LeadingIconColor *string `m3:"hover-leading-icon-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
+	LabelTextColor    *string `m3:"hover-label-text-color"`
+	LeadingIconColor  *string `m3:"hover-leading-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
 type SuggestionChipPressedOverlay struct {
-	LabelTextColor *string `m3:"pressed-label-text-color"`
-	LeadingIconColor *string `m3:"pressed-leading-icon-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	LabelTextColor    *string `m3:"pressed-label-text-color"`
+	LeadingIconColor  *string `m3:"pressed-leading-icon-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
-}
-
-type SuggestionChipDisabledOverlay struct {
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
-	LeadingIconColor *string `m3:"disabled-leading-icon-color"`
-	LeadingIconOpacity *string `m3:"disabled-leading-icon-opacity"`
-	OutlineColor *string `m3:"disabled-outline-color"`
-	OutlineOpacity *string `m3:"disabled-outline-opacity"`
-}
-
-type SuggestionChipFocusOverlay struct {
-	LabelTextColor *string `m3:"focus-label-text-color"`
-	LeadingIconColor *string `m3:"focus-leading-icon-color"`
-	OutlineColor *string `m3:"focus-outline-color"`
 }
 
 type SwitchTokens struct {
 	Handle struct {
-		Color string `m3:"handle-color"`
-		Height string `m3:"handle-height"`
-		Opacity string `m3:"handle-opacity"`
-		Shape string `m3:"handle-shape"`
-		ShapeEndEnd string `m3:"handle-shape-end-end"`
-		ShapeEndStart string `m3:"handle-shape-end-start"`
-		ShapeStartEnd string `m3:"handle-shape-start-end"`
+		Color           string `m3:"handle-color"`
+		Height          string `m3:"handle-height"`
+		Opacity         string `m3:"handle-opacity"`
+		Shape           string `m3:"handle-shape"`
+		ShapeEndEnd     string `m3:"handle-shape-end-end"`
+		ShapeEndStart   string `m3:"handle-shape-end-start"`
+		ShapeStartEnd   string `m3:"handle-shape-start-end"`
 		ShapeStartStart string `m3:"handle-shape-start-start"`
-		Width string `m3:"handle-width"`
+		Width           string `m3:"handle-width"`
 	}
 	Icon struct {
-		Color string `m3:"icon-color"`
+		Color   string `m3:"icon-color"`
 		Opacity string `m3:"icon-opacity"`
-		Size string `m3:"icon-size"`
+		Size    string `m3:"icon-size"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
-		Shape string `m3:"state-layer-shape"`
-		Size string `m3:"state-layer-size"`
+		Shape   string `m3:"state-layer-shape"`
+		Size    string `m3:"state-layer-size"`
 	}
 	Touch struct {
 		TargetSize string `m3:"touch-target-size"`
 	}
 	Track struct {
-		Color string `m3:"track-color"`
-		Height string `m3:"track-height"`
-		Opacity string `m3:"track-opacity"`
-		OutlineColor string `m3:"track-outline-color"`
-		OutlineWidth string `m3:"track-outline-width"`
-		Shape string `m3:"track-shape"`
-		ShapeEndEnd string `m3:"track-shape-end-end"`
-		ShapeEndStart string `m3:"track-shape-end-start"`
-		ShapeStartEnd string `m3:"track-shape-start-end"`
+		Color           string `m3:"track-color"`
+		Height          string `m3:"track-height"`
+		Opacity         string `m3:"track-opacity"`
+		OutlineColor    string `m3:"track-outline-color"`
+		OutlineWidth    string `m3:"track-outline-width"`
+		Shape           string `m3:"track-shape"`
+		ShapeEndEnd     string `m3:"track-shape-end-end"`
+		ShapeEndStart   string `m3:"track-shape-end-start"`
+		ShapeStartEnd   string `m3:"track-shape-start-end"`
 		ShapeStartStart string `m3:"track-shape-start-start"`
-		Width string `m3:"track-width"`
+		Width           string `m3:"track-width"`
 	}
 	With struct {
 		IconHandleHeight string `m3:"with-icon-handle-height"`
-		IconHandleWidth string `m3:"with-icon-handle-width"`
+		IconHandleWidth  string `m3:"with-icon-handle-width"`
 	}
-	Hover *SwitchHoverOverlay
-	Pressed *SwitchPressedOverlay
-	SelectedFocus *SwitchSelectedFocusOverlay
-	SelectedHover *SwitchSelectedHoverOverlay
-	SelectedPressed *SwitchSelectedPressedOverlay
-	Disabled *SwitchDisabledOverlay
+	Disabled         *SwitchDisabledOverlay
 	DisabledSelected *SwitchDisabledSelectedOverlay
-	Focus *SwitchFocusOverlay
-	Selected *SwitchSelectedOverlay
+	Focus            *SwitchFocusOverlay
+	Hover            *SwitchHoverOverlay
+	Selected         *SwitchSelectedOverlay
+	SelectedPressed  *SwitchSelectedPressedOverlay
+	Pressed          *SwitchPressedOverlay
+	SelectedFocus    *SwitchSelectedFocusOverlay
+	SelectedHover    *SwitchSelectedHoverOverlay
+}
+
+type SwitchDisabledOverlay struct {
+	HandleColor       *string `m3:"disabled-handle-color"`
+	HandleOpacity     *string `m3:"disabled-handle-opacity"`
+	IconColor         *string `m3:"disabled-icon-color"`
+	IconOpacity       *string `m3:"disabled-icon-opacity"`
+	TrackColor        *string `m3:"disabled-track-color"`
+	TrackOpacity      *string `m3:"disabled-track-opacity"`
+	TrackOutlineColor *string `m3:"disabled-track-outline-color"`
+}
+
+type SwitchDisabledSelectedOverlay struct {
+	HandleColor   *string `m3:"disabled-selected-handle-color"`
+	HandleOpacity *string `m3:"disabled-selected-handle-opacity"`
+	IconColor     *string `m3:"disabled-selected-icon-color"`
+	IconOpacity   *string `m3:"disabled-selected-icon-opacity"`
+	TrackColor    *string `m3:"disabled-selected-track-color"`
+}
+
+type SwitchFocusOverlay struct {
+	HandleColor       *string `m3:"focus-handle-color"`
+	IconColor         *string `m3:"focus-icon-color"`
+	TrackColor        *string `m3:"focus-track-color"`
+	TrackOutlineColor *string `m3:"focus-track-outline-color"`
 }
 
 type SwitchHoverOverlay struct {
-	HandleColor *string `m3:"hover-handle-color"`
-	IconColor *string `m3:"hover-icon-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
+	HandleColor       *string `m3:"hover-handle-color"`
+	IconColor         *string `m3:"hover-icon-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
-	TrackColor *string `m3:"hover-track-color"`
+	TrackColor        *string `m3:"hover-track-color"`
 	TrackOutlineColor *string `m3:"hover-track-outline-color"`
 }
 
+type SwitchSelectedOverlay struct {
+	HandleColor  *string `m3:"selected-handle-color"`
+	HandleHeight *string `m3:"selected-handle-height"`
+	HandleWidth  *string `m3:"selected-handle-width"`
+	IconColor    *string `m3:"selected-icon-color"`
+	IconSize     *string `m3:"selected-icon-size"`
+	TrackColor   *string `m3:"selected-track-color"`
+}
+
+type SwitchSelectedPressedOverlay struct {
+	HandleColor       *string `m3:"selected-pressed-handle-color"`
+	IconColor         *string `m3:"selected-pressed-icon-color"`
+	StateLayerColor   *string `m3:"selected-pressed-state-layer-color"`
+	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
+	TrackColor        *string `m3:"selected-pressed-track-color"`
+}
+
 type SwitchPressedOverlay struct {
-	HandleColor *string `m3:"pressed-handle-color"`
-	HandleHeight *string `m3:"pressed-handle-height"`
-	HandleWidth *string `m3:"pressed-handle-width"`
-	IconColor *string `m3:"pressed-icon-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	HandleColor       *string `m3:"pressed-handle-color"`
+	HandleHeight      *string `m3:"pressed-handle-height"`
+	HandleWidth       *string `m3:"pressed-handle-width"`
+	IconColor         *string `m3:"pressed-icon-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
-	TrackColor *string `m3:"pressed-track-color"`
+	TrackColor        *string `m3:"pressed-track-color"`
 	TrackOutlineColor *string `m3:"pressed-track-outline-color"`
 }
 
 type SwitchSelectedFocusOverlay struct {
 	HandleColor *string `m3:"selected-focus-handle-color"`
-	IconColor *string `m3:"selected-focus-icon-color"`
-	TrackColor *string `m3:"selected-focus-track-color"`
+	IconColor   *string `m3:"selected-focus-icon-color"`
+	TrackColor  *string `m3:"selected-focus-track-color"`
 }
 
 type SwitchSelectedHoverOverlay struct {
-	HandleColor *string `m3:"selected-hover-handle-color"`
-	IconColor *string `m3:"selected-hover-icon-color"`
-	StateLayerColor *string `m3:"selected-hover-state-layer-color"`
+	HandleColor       *string `m3:"selected-hover-handle-color"`
+	IconColor         *string `m3:"selected-hover-icon-color"`
+	StateLayerColor   *string `m3:"selected-hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"selected-hover-state-layer-opacity"`
-	TrackColor *string `m3:"selected-hover-track-color"`
-}
-
-type SwitchSelectedPressedOverlay struct {
-	HandleColor *string `m3:"selected-pressed-handle-color"`
-	IconColor *string `m3:"selected-pressed-icon-color"`
-	StateLayerColor *string `m3:"selected-pressed-state-layer-color"`
-	StateLayerOpacity *string `m3:"selected-pressed-state-layer-opacity"`
-	TrackColor *string `m3:"selected-pressed-track-color"`
-}
-
-type SwitchDisabledOverlay struct {
-	HandleColor *string `m3:"disabled-handle-color"`
-	HandleOpacity *string `m3:"disabled-handle-opacity"`
-	IconColor *string `m3:"disabled-icon-color"`
-	IconOpacity *string `m3:"disabled-icon-opacity"`
-	TrackColor *string `m3:"disabled-track-color"`
-	TrackOpacity *string `m3:"disabled-track-opacity"`
-	TrackOutlineColor *string `m3:"disabled-track-outline-color"`
-}
-
-type SwitchDisabledSelectedOverlay struct {
-	HandleColor *string `m3:"disabled-selected-handle-color"`
-	HandleOpacity *string `m3:"disabled-selected-handle-opacity"`
-	IconColor *string `m3:"disabled-selected-icon-color"`
-	IconOpacity *string `m3:"disabled-selected-icon-opacity"`
-	TrackColor *string `m3:"disabled-selected-track-color"`
-}
-
-type SwitchFocusOverlay struct {
-	HandleColor *string `m3:"focus-handle-color"`
-	IconColor *string `m3:"focus-icon-color"`
-	TrackColor *string `m3:"focus-track-color"`
-	TrackOutlineColor *string `m3:"focus-track-outline-color"`
-}
-
-type SwitchSelectedOverlay struct {
-	HandleColor *string `m3:"selected-handle-color"`
-	HandleHeight *string `m3:"selected-handle-height"`
-	HandleWidth *string `m3:"selected-handle-width"`
-	IconColor *string `m3:"selected-icon-color"`
-	IconSize *string `m3:"selected-icon-size"`
-	TrackColor *string `m3:"selected-track-color"`
+	TrackColor        *string `m3:"selected-hover-track-color"`
 }
 
 type TextButtonTokens struct {
 	Container struct {
-		Height string `m3:"container-height"`
-		Shape string `m3:"container-shape"`
-		ShapeEndEnd string `m3:"container-shape-end-end"`
-		ShapeEndStart string `m3:"container-shape-end-start"`
-		ShapeStartEnd string `m3:"container-shape-start-end"`
+		Height          string `m3:"container-height"`
+		Shape           string `m3:"container-shape"`
+		ShapeEndEnd     string `m3:"container-shape-end-end"`
+		ShapeEndStart   string `m3:"container-shape-end-start"`
+		ShapeStartEnd   string `m3:"container-shape-start-end"`
 		ShapeStartStart string `m3:"container-shape-start-start"`
 	}
 	Icon struct {
-		Color string `m3:"icon-color"`
+		Color   string `m3:"icon-color"`
 		Opacity string `m3:"icon-opacity"`
-		Size string `m3:"icon-size"`
+		Size    string `m3:"icon-size"`
 	}
 	LabelText struct {
-		Color string `m3:"label-text-color"`
-		Font string `m3:"label-text-font"`
+		Color      string `m3:"label-text-color"`
+		Font       string `m3:"label-text-font"`
 		LineHeight string `m3:"label-text-line-height"`
-		Opacity string `m3:"label-text-opacity"`
-		Size string `m3:"label-text-size"`
-		Weight string `m3:"label-text-weight"`
+		Opacity    string `m3:"label-text-opacity"`
+		Size       string `m3:"label-text-size"`
+		Weight     string `m3:"label-text-weight"`
 	}
 	Leading struct {
 		Space string `m3:"leading-space"`
 	}
 	StateLayer struct {
-		Color string `m3:"state-layer-color"`
+		Color   string `m3:"state-layer-color"`
 		Opacity string `m3:"state-layer-opacity"`
 	}
 	Trailing struct {
 		Space string `m3:"trailing-space"`
 	}
 	WithLeadingIcon struct {
-		LeadingSpace string `m3:"with-leading-icon-leading-space"`
+		LeadingSpace  string `m3:"with-leading-icon-leading-space"`
 		TrailingSpace string `m3:"with-leading-icon-trailing-space"`
 	}
 	WithTrailingIcon struct {
-		LeadingSpace string `m3:"with-trailing-icon-leading-space"`
+		LeadingSpace  string `m3:"with-trailing-icon-leading-space"`
 		TrailingSpace string `m3:"with-trailing-icon-trailing-space"`
 	}
-	Focus *TextButtonFocusOverlay
-	Hover *TextButtonHoverOverlay
-	Pressed *TextButtonPressedOverlay
 	Disabled *TextButtonDisabledOverlay
+	Focus    *TextButtonFocusOverlay
+	Hover    *TextButtonHoverOverlay
+	Pressed  *TextButtonPressedOverlay
+}
+
+type TextButtonDisabledOverlay struct {
+	IconColor        *string `m3:"disabled-icon-color"`
+	IconOpacity      *string `m3:"disabled-icon-opacity"`
+	LabelTextColor   *string `m3:"disabled-label-text-color"`
+	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
 }
 
 type TextButtonFocusOverlay struct {
-	IconColor *string `m3:"focus-icon-color"`
+	IconColor      *string `m3:"focus-icon-color"`
 	LabelTextColor *string `m3:"focus-label-text-color"`
 }
 
 type TextButtonHoverOverlay struct {
-	IconColor *string `m3:"hover-icon-color"`
-	LabelTextColor *string `m3:"hover-label-text-color"`
-	StateLayerColor *string `m3:"hover-state-layer-color"`
+	IconColor         *string `m3:"hover-icon-color"`
+	LabelTextColor    *string `m3:"hover-label-text-color"`
+	StateLayerColor   *string `m3:"hover-state-layer-color"`
 	StateLayerOpacity *string `m3:"hover-state-layer-opacity"`
 }
 
 type TextButtonPressedOverlay struct {
-	IconColor *string `m3:"pressed-icon-color"`
-	LabelTextColor *string `m3:"pressed-label-text-color"`
-	StateLayerColor *string `m3:"pressed-state-layer-color"`
+	IconColor         *string `m3:"pressed-icon-color"`
+	LabelTextColor    *string `m3:"pressed-label-text-color"`
+	StateLayerColor   *string `m3:"pressed-state-layer-color"`
 	StateLayerOpacity *string `m3:"pressed-state-layer-opacity"`
 }
-
-type TextButtonDisabledOverlay struct {
-	IconColor *string `m3:"disabled-icon-color"`
-	IconOpacity *string `m3:"disabled-icon-opacity"`
-	LabelTextColor *string `m3:"disabled-label-text-color"`
-	LabelTextOpacity *string `m3:"disabled-label-text-opacity"`
-}
-

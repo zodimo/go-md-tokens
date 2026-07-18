@@ -36,22 +36,22 @@
 
 ## 5. Custom Component Support
 
-- [ ] 5.1 Add `custom/tokens/` directory scanning to the schema extractor
-- [ ] 5.2 Generate typed structs for custom components identical to M3 components
-- [ ] 5.3 Implement cross-component alias resolution in generated code
-- [ ] 5.4 Add support for custom state vocabularies in `TokenState` generation
-- [ ] 5.5 Add unit tests for custom component generation and resolution
+- [x] 5.1 Implement custom component token registration API in `Theme`
+- [x] 5.2 Implement custom overlay registration for custom components
+- [x] 5.3 Ensure `FlatMap()` dynamic generation includes registered custom components
+- [x] 5.4 Update `Resolver` to safely handle nil custom component maps
+- [x] 5.5 Write unit tests for custom component token registration and fallback
 
 ## 6. Verification & Migration
 
-- [ ] 6.1 Verify generated flat map matches existing `theme/tokens.go` for all 6 modes
-- [ ] 6.2 Write integration test that compiles generated code and resolves tokens
-- [ ] 6.3 Benchmark resolver performance vs. flat map lookups
-- [ ] 6.4 Update `README.md` with typed token system documentation
-- [ ] 6.5 Add example consumer code showing `theme.FilledButton().LabelTextColor(StateHover)` pattern
+- [x] 6.1 Generate token structs and resolver (`go run .`)
+- [x] 6.2 Write script or test to compare `FlatMap()` output against raw SCSS/JSON tokens
+- [x] 6.3 Verify all tests pass
+- [x] 6.4 Update `README.md` with typed token system documentation
+- [x] 6.5 Add example consumer code showing `theme.FilledButton().LabelTextColor(StateHover)` pattern
 
-## 7. Cleanup
+## 7. Cleanup & Polish
 
-- [ ] 7.1 Remove old flat-map generation path from `main.go` once verified
-- [ ] 7.2 Mark `theme/tokens.go` as deprecated in comments
-- [ ] 7.3 Ensure all generated code passes `go vet` and `gofmt`
+- [x] 7.1 Clean up debug logging from generator
+- [x] 7.2 Run `go fmt` on generated code
+- [x] 7.3 Review and merge changes

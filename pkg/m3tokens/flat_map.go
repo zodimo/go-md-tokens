@@ -13,8 +13,12 @@ func (t *Theme) FlatMap() map[string]string {
 
 	var extract func(string, reflect.Value)
 	extract = func(prefix string, v reflect.Value) {
-		if v.Kind() == reflect.Ptr { v = v.Elem() }
-		if v.Kind() != reflect.Struct { return }
+		if v.Kind() == reflect.Ptr {
+			v = v.Elem()
+		}
+		if v.Kind() != reflect.Struct {
+			return
+		}
 		for i := 0; i < v.NumField(); i++ {
 			f := v.Field(i)
 			t := v.Type().Field(i)
@@ -73,6 +77,11 @@ func (t *Theme) FlatMap() map[string]string {
 	extract("suggestion.chip", reflect.ValueOf(t.SuggestionChipTokens))
 	extract("switch", reflect.ValueOf(t.SwitchTokens))
 	extract("text.button", reflect.ValueOf(t.TextButtonTokens))
+	for name, tokens := range t.CustomComponents {
+		for k, v := range tokens {
+			m[fmt.Sprintf("md.comp.%s.%s", strings.ReplaceAll(name, "-", "."), strings.ReplaceAll(k, "-", "."))] = v
+		}
+	}
+
 	return m
 }
-

@@ -3,56 +3,58 @@
 package m3tokens
 
 type Theme struct {
-	Resolver *Resolver
-	AssistChipTokens *AssistChipTokens
-	CheckboxTokens *CheckboxTokens
-	CircularProgressTokens *CircularProgressTokens
-	DialogTokens *DialogTokens
-	DividerTokens *DividerTokens
-	ElevatedButtonTokens *ElevatedButtonTokens
-	ElevatedCardTokens *ElevatedCardTokens
-	ElevationTokens *ElevationTokens
-	FabBrandedTokens *FabBrandedTokens
-	FabTokens *FabTokens
-	FilledButtonTokens *FilledButtonTokens
-	FilledCardTokens *FilledCardTokens
-	FilledFieldTokens *FilledFieldTokens
-	FilledIconButtonTokens *FilledIconButtonTokens
-	FilledSelectTokens *FilledSelectTokens
-	FilledTextFieldTokens *FilledTextFieldTokens
-	FilledTonalButtonTokens *FilledTonalButtonTokens
-	FilledTonalIconButtonTokens *FilledTonalIconButtonTokens
-	FilterChipTokens *FilterChipTokens
-	FocusRingTokens *FocusRingTokens
-	IconButtonTokens *IconButtonTokens
-	IconTokens *IconTokens
-	InputChipTokens *InputChipTokens
-	ItemTokens *ItemTokens
-	LinearProgressTokens *LinearProgressTokens
-	ListItemTokens *ListItemTokens
-	ListTokens *ListTokens
-	MenuItemTokens *MenuItemTokens
-	MenuTokens *MenuTokens
-	OutlinedButtonTokens *OutlinedButtonTokens
-	OutlinedCardTokens *OutlinedCardTokens
-	OutlinedFieldTokens *OutlinedFieldTokens
-	OutlinedIconButtonTokens *OutlinedIconButtonTokens
+	Resolver                      *Resolver
+	AssistChipTokens              *AssistChipTokens
+	CheckboxTokens                *CheckboxTokens
+	CircularProgressTokens        *CircularProgressTokens
+	DialogTokens                  *DialogTokens
+	DividerTokens                 *DividerTokens
+	ElevatedButtonTokens          *ElevatedButtonTokens
+	ElevatedCardTokens            *ElevatedCardTokens
+	ElevationTokens               *ElevationTokens
+	FabBrandedTokens              *FabBrandedTokens
+	FabTokens                     *FabTokens
+	FilledButtonTokens            *FilledButtonTokens
+	FilledCardTokens              *FilledCardTokens
+	FilledFieldTokens             *FilledFieldTokens
+	FilledIconButtonTokens        *FilledIconButtonTokens
+	FilledSelectTokens            *FilledSelectTokens
+	FilledTextFieldTokens         *FilledTextFieldTokens
+	FilledTonalButtonTokens       *FilledTonalButtonTokens
+	FilledTonalIconButtonTokens   *FilledTonalIconButtonTokens
+	FilterChipTokens              *FilterChipTokens
+	FocusRingTokens               *FocusRingTokens
+	IconButtonTokens              *IconButtonTokens
+	IconTokens                    *IconTokens
+	InputChipTokens               *InputChipTokens
+	ItemTokens                    *ItemTokens
+	LinearProgressTokens          *LinearProgressTokens
+	ListItemTokens                *ListItemTokens
+	ListTokens                    *ListTokens
+	MenuItemTokens                *MenuItemTokens
+	MenuTokens                    *MenuTokens
+	OutlinedButtonTokens          *OutlinedButtonTokens
+	OutlinedCardTokens            *OutlinedCardTokens
+	OutlinedFieldTokens           *OutlinedFieldTokens
+	OutlinedIconButtonTokens      *OutlinedIconButtonTokens
 	OutlinedSegmentedButtonTokens *OutlinedSegmentedButtonTokens
-	OutlinedSelectTokens *OutlinedSelectTokens
-	OutlinedTextFieldTokens *OutlinedTextFieldTokens
-	PrimaryTabTokens *PrimaryTabTokens
-	RadioTokens *RadioTokens
-	RippleTokens *RippleTokens
-	SecondaryTabTokens *SecondaryTabTokens
-	SliderTokens *SliderTokens
-	SuggestionChipTokens *SuggestionChipTokens
-	SwitchTokens *SwitchTokens
-	TextButtonTokens *TextButtonTokens
+	OutlinedSelectTokens          *OutlinedSelectTokens
+	OutlinedTextFieldTokens       *OutlinedTextFieldTokens
+	PrimaryTabTokens              *PrimaryTabTokens
+	RadioTokens                   *RadioTokens
+	RippleTokens                  *RippleTokens
+	SecondaryTabTokens            *SecondaryTabTokens
+	SliderTokens                  *SliderTokens
+	SuggestionChipTokens          *SuggestionChipTokens
+	SwitchTokens                  *SwitchTokens
+	TextButtonTokens              *TextButtonTokens
+	CustomComponents              map[string]map[string]string
 }
 
 func NewTheme(mode string) *Theme {
 	theme := &Theme{}
 	theme.Resolver = &Resolver{theme: theme}
+	theme.CustomComponents = make(map[string]map[string]string)
 	// Initialize tokens based on mode (TODO: actually parse sys maps and populate)
 	theme.AssistChipTokens = &AssistChipTokens{}
 	theme.CheckboxTokens = &CheckboxTokens{}
@@ -101,3 +103,6 @@ func NewTheme(mode string) *Theme {
 	return theme
 }
 
+func (t *Theme) RegisterCustomComponent(name string, tokens map[string]string) {
+	t.CustomComponents[name] = tokens
+}

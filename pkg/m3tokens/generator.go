@@ -183,7 +183,7 @@ func generateStructs(schema *Schema, outPath string) error {
 			catName := toCamelCase(cat)
 			// Generate inline anonymous struct for category
 			buf.WriteString(fmt.Sprintf("\t%s struct {\n", catName))
-			
+
 			props := make([]string, 0, len(compCats[cat]))
 			for prop := range compCats[cat] {
 				props = append(props, prop)
@@ -198,20 +198,20 @@ func generateStructs(schema *Schema, outPath string) error {
 			}
 			buf.WriteString("\t}\n")
 		}
-		
+
 		for _, statePrefix := range comp.StatePrefixes {
 			state := strings.TrimSuffix(statePrefix, "-")
 			overlayName := toCamelCase(comp.Name) + toCamelCase(state) + "Overlay"
 			buf.WriteString(fmt.Sprintf("\t%s *%s\n", toCamelCase(state), overlayName))
 		}
-		
+
 		buf.WriteString("}\n\n")
 
 		for _, statePrefix := range comp.StatePrefixes {
 			state := strings.TrimSuffix(statePrefix, "-")
 			overlayName := toCamelCase(comp.Name) + toCamelCase(state) + "Overlay"
 			buf.WriteString(fmt.Sprintf("type %s struct {\n", overlayName))
-			
+
 			propsMap := make(map[string]string)
 			for _, tok := range comp.SupportedTokens {
 				var matchedPrefix string
@@ -254,8 +254,8 @@ func hasStatePrefix(token string) bool {
 
 func parseTokenCatProp(token string) (string, string) {
 	knownCategories := []string{
-		"container", "icon", "label-text", "state-layer", "outline", 
-		"active-indicator", "supporting-text", "leading-content", 
+		"container", "icon", "label-text", "state-layer", "outline",
+		"active-indicator", "supporting-text", "leading-content",
 		"trailing-content", "headline", "content", "leading-icon",
 		"trailing-icon", "four-color", "bottom", "top", "with-label", "with-leading-icon",
 		"with-trailing-icon", "with-leading-content", "with-trailing-content",
@@ -342,7 +342,7 @@ func generateResolver(schema *Schema, outPath string) error {
 				uniqueBaseTokens[tok] = true
 			}
 		}
-		
+
 		baseTokens := make([]string, 0, len(uniqueBaseTokens))
 		for tok := range uniqueBaseTokens {
 			baseTokens = append(baseTokens, tok)
@@ -352,15 +352,15 @@ func generateResolver(schema *Schema, outPath string) error {
 		for _, baseTok := range baseTokens {
 			cat, prop := parseTokenCatProp(baseTok)
 			methodName := toCamelCase(cat) + toCamelCase(prop)
-			
+
 			buf.WriteString(fmt.Sprintf("func (r *%sResolver) %s(state TokenState) string {\n", compName, methodName))
-			
+
 			for _, statePrefix := range prefixes {
 				stateName := toCamelCase(strings.TrimSuffix(statePrefix, "-"))
-				
+
 				hasProp := false
 				for _, t := range comp.SupportedTokens {
-					if t == statePrefix + baseTok {
+					if t == statePrefix+baseTok {
 						var matchedPrefix string
 						for _, p := range prefixes {
 							if strings.HasPrefix(t, p) {
@@ -374,7 +374,7 @@ func generateResolver(schema *Schema, outPath string) error {
 						break
 					}
 				}
-				
+
 				if hasProp {
 					// Generate bitwise check for this prefix
 					parts := strings.Split(strings.TrimSuffix(statePrefix, "-"), "-")
@@ -384,7 +384,7 @@ func generateResolver(schema *Schema, outPath string) error {
 							stateChecks = append(stateChecks, fmt.Sprintf("State%s", toCamelCase(p)))
 						}
 					}
-					
+
 					if len(stateChecks) > 0 {
 						mask := strings.Join(stateChecks, " | ")
 						buf.WriteString(fmt.Sprintf("\tif state & (%s) == (%s) {\n", mask, mask))
@@ -395,11 +395,41 @@ func generateResolver(schema *Schema, outPath string) error {
 					}
 				}
 			}
-			
+
 			buf.WriteString(fmt.Sprintf("\treturn r.tokens.%s.%s\n", toCamelCase(cat), toCamelCase(prop)))
 			buf.WriteString("}\n\n")
 		}
 	}
+
+	buf.WriteString("func (r *Resolver) Custom(name string, token string, state TokenState) string {\n")
+	buf.WriteString("\ttokens, ok := r.theme.CustomComponents[name]\n")
+	buf.WriteString("\tif !ok { return \"\" }\n")
+	buf.WriteString("\t// Basic state resolution for custom components\n")
+	buf.WriteString("\t// Checks compound overlays then single overlays based on state bitmask\n")
+	buf.WriteString("\tif state != StateDefault {\n")
+	buf.WriteString("\t\t// This is a simplified check for custom components. For full compound support,\n")
+	buf.WriteString("\t\t// developers should rely on typed components or explicit token names.\n")
+	buf.WriteString("\t\tstates := []struct{ s TokenState; p string }{\n")
+	buf.WriteString("\t\t\t{StateSelected | StateHover, \"selected-hover-\"},\n")
+	buf.WriteString("\t\t\t{StateSelected | StateFocus, \"selected-focus-\"},\n")
+	buf.WriteString("\t\t\t{StateSelected | StatePressed, \"selected-pressed-\"},\n")
+	buf.WriteString("\t\t\t{StateError | StateHover, \"error-hover-\"},\n")
+	buf.WriteString("\t\t\t{StateError | StateFocus, \"error-focus-\"},\n")
+	buf.WriteString("\t\t\t{StateDisabled, \"disabled-\"},\n")
+	buf.WriteString("\t\t\t{StateError, \"error-\"},\n")
+	buf.WriteString("\t\t\t{StatePressed, \"pressed-\"},\n")
+	buf.WriteString("\t\t\t{StateFocus, \"focus-\"},\n")
+	buf.WriteString("\t\t\t{StateHover, \"hover-\"},\n")
+	buf.WriteString("\t\t\t{StateSelected, \"selected-\"},\n")
+	buf.WriteString("\t\t}\n")
+	buf.WriteString("\t\tfor _, st := range states {\n")
+	buf.WriteString("\t\t\tif state & st.s == st.s {\n")
+	buf.WriteString("\t\t\t\tif v, ok := tokens[st.p + token]; ok { return v }\n")
+	buf.WriteString("\t\t\t}\n")
+	buf.WriteString("\t\t}\n")
+	buf.WriteString("\t}\n")
+	buf.WriteString("\treturn tokens[token]\n")
+	buf.WriteString("}\n\n")
 
 	return os.WriteFile(outPath, buf.Bytes(), 0644)
 }
@@ -415,17 +445,23 @@ func generateTheme(schema *Schema, outPath string) error {
 		compName := toCamelCase(comp.Name)
 		buf.WriteString(fmt.Sprintf("\t%sTokens *%sTokens\n", compName, compName))
 	}
+	buf.WriteString("\tCustomComponents map[string]map[string]string\n")
 	buf.WriteString("}\n\n")
 
 	buf.WriteString("func NewTheme(mode string) *Theme {\n")
 	buf.WriteString("\ttheme := &Theme{}\n")
 	buf.WriteString("\ttheme.Resolver = &Resolver{theme: theme}\n")
+	buf.WriteString("\ttheme.CustomComponents = make(map[string]map[string]string)\n")
 	buf.WriteString("\t// Initialize tokens based on mode (TODO: actually parse sys maps and populate)\n")
 	for _, comp := range schema.Components {
 		compName := toCamelCase(comp.Name)
 		buf.WriteString(fmt.Sprintf("\ttheme.%sTokens = &%sTokens{}\n", compName, compName))
 	}
 	buf.WriteString("\treturn theme\n")
+	buf.WriteString("}\n\n")
+
+	buf.WriteString("func (t *Theme) RegisterCustomComponent(name string, tokens map[string]string) {\n")
+	buf.WriteString("\tt.CustomComponents[name] = tokens\n")
 	buf.WriteString("}\n\n")
 
 	return os.WriteFile(outPath, buf.Bytes(), 0644)
@@ -439,7 +475,7 @@ func generateFlatMap(schema *Schema, outPath string) error {
 
 	buf.WriteString("func (t *Theme) FlatMap() map[string]string {\n")
 	buf.WriteString("\tm := make(map[string]string)\n\n")
-	
+
 	buf.WriteString("\tvar extract func(string, reflect.Value)\n")
 	buf.WriteString("\textract = func(prefix string, v reflect.Value) {\n")
 	buf.WriteString("\t\tif v.Kind() == reflect.Ptr { v = v.Elem() }\n")
@@ -462,6 +498,12 @@ func generateFlatMap(schema *Schema, outPath string) error {
 		compName := toCamelCase(comp.Name)
 		buf.WriteString(fmt.Sprintf("\textract(\"%s\", reflect.ValueOf(t.%sTokens))\n", strings.ReplaceAll(comp.Name, "-", "."), compName))
 	}
+
+	buf.WriteString("\tfor name, tokens := range t.CustomComponents {\n")
+	buf.WriteString("\t\tfor k, v := range tokens {\n")
+	buf.WriteString("\t\t\tm[fmt.Sprintf(\"md.comp.%s.%s\", strings.ReplaceAll(name, \"-\", \".\"), strings.ReplaceAll(k, \"-\", \".\"))] = v\n")
+	buf.WriteString("\t\t}\n")
+	buf.WriteString("\t}\n\n")
 
 	buf.WriteString("\treturn m\n")
 	buf.WriteString("}\n\n")
