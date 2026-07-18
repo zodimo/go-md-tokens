@@ -11,5 +11,5 @@ The system SHALL use external text templates rather than imperative string build
 The system SHALL embed the templates into the generator binary to maintain a single distributable artifact.
 
 #### Scenario: Running the generator
-- **WHEN** the user executes the compiled `go-gen-m3` binary
+- **WHEN** the user executes the compiled `go-md-tokens` binary
 - **THEN** the generator executes without requiring the external `.tmpl` files on the filesystem at runtime
