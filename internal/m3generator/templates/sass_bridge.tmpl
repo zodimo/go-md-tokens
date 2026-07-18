@@ -1,0 +1,27 @@
+
+@use 'sass:map';
+@use '{{.FileURL}}' as compModule;
+@use 'md-sys-elevation' as sysElevation;
+@use 'md-sys-shape' as sysShape;
+@use 'md-sys-state' as sysState;
+@use 'md-sys-typescale' as sysTypescale;
+
+$customColors: (
+{{.CustomColorsSass}}
+);
+
+$customDeps: (
+  'md-sys-color': $customColors,
+  'md-sys-elevation': sysElevation.values(),
+  'md-sys-shape': sysShape.values($exclude-custom-properties: true),
+  'md-sys-state': sysState.values(),
+  'md-sys-typescale': sysTypescale.values($exclude-custom-properties: true),
+);
+
+$tokens: compModule.values($deps: $customDeps, $exclude-custom-properties: true);
+
+.token-dump-{{.Component}} {
+  @each $key, $value in $tokens {
+    --#{$key}: #{$value};
+  }
+}
