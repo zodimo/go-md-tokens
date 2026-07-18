@@ -1,4 +1,4 @@
-package m3tokens
+package generator
 
 import (
 	"bytes"

@@ -93,14 +93,14 @@ func (r *AssistChipResolver) LabelTextColor(state TokenState) string {
 			return *r.tokens.Pressed.LabelTextColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.LabelTextColor != nil {
-			return *r.tokens.Hover.LabelTextColor
-		}
-	}
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.LabelTextColor != nil {
 			return *r.tokens.Focus.LabelTextColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.LabelTextColor != nil {
+			return *r.tokens.Hover.LabelTextColor
 		}
 	}
 	return r.tokens.LabelText.Color
@@ -142,14 +142,14 @@ func (r *AssistChipResolver) LeadingIconColor(state TokenState) string {
 			return *r.tokens.Pressed.LeadingIconColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.LeadingIconColor != nil {
-			return *r.tokens.Hover.LeadingIconColor
-		}
-	}
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.LeadingIconColor != nil {
 			return *r.tokens.Focus.LeadingIconColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.LeadingIconColor != nil {
+			return *r.tokens.Hover.LeadingIconColor
 		}
 	}
 	return r.tokens.LeadingIcon.Color
@@ -350,14 +350,14 @@ func (r *CheckboxResolver) OutlineColor(state TokenState) string {
 			return *r.tokens.Pressed.OutlineColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.OutlineColor != nil {
-			return *r.tokens.Hover.OutlineColor
-		}
-	}
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.OutlineColor != nil {
 			return *r.tokens.Focus.OutlineColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.OutlineColor != nil {
+			return *r.tokens.Hover.OutlineColor
 		}
 	}
 	return r.tokens.Outline.Color
@@ -374,14 +374,14 @@ func (r *CheckboxResolver) OutlineWidth(state TokenState) string {
 			return *r.tokens.Pressed.OutlineWidth
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.OutlineWidth != nil {
-			return *r.tokens.Hover.OutlineWidth
-		}
-	}
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.OutlineWidth != nil {
 			return *r.tokens.Focus.OutlineWidth
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.OutlineWidth != nil {
+			return *r.tokens.Hover.OutlineWidth
 		}
 	}
 	return r.tokens.Outline.Width
@@ -859,14 +859,14 @@ func (r *FabBrandedResolver) ContainerElevation(state TokenState) string {
 			return *r.tokens.Pressed.ContainerElevation
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.ContainerElevation != nil {
-			return *r.tokens.Focus.ContainerElevation
-		}
-	}
 	if state&(StateHover) == (StateHover) {
 		if r.tokens.Hover != nil && r.tokens.Hover.ContainerElevation != nil {
 			return *r.tokens.Hover.ContainerElevation
+		}
+	}
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.ContainerElevation != nil {
+			return *r.tokens.Focus.ContainerElevation
 		}
 	}
 	return r.tokens.Container.Elevation
@@ -914,14 +914,14 @@ func (r *FabBrandedResolver) LabelTextColor(state TokenState) string {
 			return *r.tokens.Pressed.LabelTextColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.LabelTextColor != nil {
-			return *r.tokens.Focus.LabelTextColor
-		}
-	}
 	if state&(StateHover) == (StateHover) {
 		if r.tokens.Hover != nil && r.tokens.Hover.LabelTextColor != nil {
 			return *r.tokens.Hover.LabelTextColor
+		}
+	}
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.LabelTextColor != nil {
+			return *r.tokens.Focus.LabelTextColor
 		}
 	}
 	return r.tokens.LabelText.Color
@@ -1694,9 +1694,9 @@ func (r *FilledFieldResolver) ContentColor(state TokenState) string {
 			return *r.tokens.Disabled.ContentColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.ContentColor != nil {
-			return *r.tokens.Hover.ContentColor
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.ContentColor != nil {
+			return *r.tokens.Focus.ContentColor
 		}
 	}
 	if state&(StateError) == (StateError) {
@@ -1704,9 +1704,9 @@ func (r *FilledFieldResolver) ContentColor(state TokenState) string {
 			return *r.tokens.Error.ContentColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.ContentColor != nil {
-			return *r.tokens.Focus.ContentColor
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.ContentColor != nil {
+			return *r.tokens.Hover.ContentColor
 		}
 	}
 	return r.tokens.Content.Color
@@ -1757,6 +1757,11 @@ func (r *FilledFieldResolver) IndicatorColor(state TokenState) string {
 			return *r.tokens.DisabledActive.IndicatorColor
 		}
 	}
+	if state&(StateError|StateActive) == (StateError | StateActive) {
+		if r.tokens.ErrorActive != nil && r.tokens.ErrorActive.IndicatorColor != nil {
+			return *r.tokens.ErrorActive.IndicatorColor
+		}
+	}
 	if state&(StateHover|StateActive) == (StateHover | StateActive) {
 		if r.tokens.HoverActive != nil && r.tokens.HoverActive.IndicatorColor != nil {
 			return *r.tokens.HoverActive.IndicatorColor
@@ -1765,11 +1770,6 @@ func (r *FilledFieldResolver) IndicatorColor(state TokenState) string {
 	if state&(StateFocus|StateActive) == (StateFocus | StateActive) {
 		if r.tokens.FocusActive != nil && r.tokens.FocusActive.IndicatorColor != nil {
 			return *r.tokens.FocusActive.IndicatorColor
-		}
-	}
-	if state&(StateError|StateActive) == (StateError | StateActive) {
-		if r.tokens.ErrorActive != nil && r.tokens.ErrorActive.IndicatorColor != nil {
-			return *r.tokens.ErrorActive.IndicatorColor
 		}
 	}
 	if state&(StateActive) == (StateActive) {
@@ -1829,9 +1829,9 @@ func (r *FilledFieldResolver) LabelTextColor(state TokenState) string {
 			return *r.tokens.Disabled.LabelTextColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.LabelTextColor != nil {
-			return *r.tokens.Hover.LabelTextColor
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.LabelTextColor != nil {
+			return *r.tokens.Focus.LabelTextColor
 		}
 	}
 	if state&(StateError) == (StateError) {
@@ -1839,9 +1839,9 @@ func (r *FilledFieldResolver) LabelTextColor(state TokenState) string {
 			return *r.tokens.Error.LabelTextColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.LabelTextColor != nil {
-			return *r.tokens.Focus.LabelTextColor
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.LabelTextColor != nil {
+			return *r.tokens.Hover.LabelTextColor
 		}
 	}
 	return r.tokens.LabelText.Color
@@ -1896,9 +1896,9 @@ func (r *FilledFieldResolver) LeadingContentColor(state TokenState) string {
 			return *r.tokens.Disabled.LeadingContentColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.LeadingContentColor != nil {
-			return *r.tokens.Hover.LeadingContentColor
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.LeadingContentColor != nil {
+			return *r.tokens.Focus.LeadingContentColor
 		}
 	}
 	if state&(StateError) == (StateError) {
@@ -1906,9 +1906,9 @@ func (r *FilledFieldResolver) LeadingContentColor(state TokenState) string {
 			return *r.tokens.Error.LeadingContentColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.LeadingContentColor != nil {
-			return *r.tokens.Focus.LeadingContentColor
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.LeadingContentColor != nil {
+			return *r.tokens.Hover.LeadingContentColor
 		}
 	}
 	return r.tokens.LeadingContent.Color
@@ -1971,9 +1971,9 @@ func (r *FilledFieldResolver) SupportingTextColor(state TokenState) string {
 			return *r.tokens.Disabled.SupportingTextColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.SupportingTextColor != nil {
-			return *r.tokens.Hover.SupportingTextColor
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.SupportingTextColor != nil {
+			return *r.tokens.Focus.SupportingTextColor
 		}
 	}
 	if state&(StateError) == (StateError) {
@@ -1981,9 +1981,9 @@ func (r *FilledFieldResolver) SupportingTextColor(state TokenState) string {
 			return *r.tokens.Error.SupportingTextColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.SupportingTextColor != nil {
-			return *r.tokens.Focus.SupportingTextColor
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.SupportingTextColor != nil {
+			return *r.tokens.Hover.SupportingTextColor
 		}
 	}
 	return r.tokens.SupportingText.Color
@@ -2046,9 +2046,9 @@ func (r *FilledFieldResolver) TrailingContentColor(state TokenState) string {
 			return *r.tokens.Disabled.TrailingContentColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.TrailingContentColor != nil {
-			return *r.tokens.Hover.TrailingContentColor
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.TrailingContentColor != nil {
+			return *r.tokens.Focus.TrailingContentColor
 		}
 	}
 	if state&(StateError) == (StateError) {
@@ -2056,9 +2056,9 @@ func (r *FilledFieldResolver) TrailingContentColor(state TokenState) string {
 			return *r.tokens.Error.TrailingContentColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.TrailingContentColor != nil {
-			return *r.tokens.Focus.TrailingContentColor
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.TrailingContentColor != nil {
+			return *r.tokens.Hover.TrailingContentColor
 		}
 	}
 	return r.tokens.TrailingContent.Color
@@ -2158,14 +2158,14 @@ func (r *FilledIconButtonResolver) IconColor(state TokenState) string {
 			return *r.tokens.ToggleSelectedPressed.IconColor
 		}
 	}
-	if state&(StateToggle|StateSelected|StateFocus) == (StateToggle | StateSelected | StateFocus) {
-		if r.tokens.ToggleSelectedFocus != nil && r.tokens.ToggleSelectedFocus.IconColor != nil {
-			return *r.tokens.ToggleSelectedFocus.IconColor
-		}
-	}
 	if state&(StateToggle|StateSelected|StateHover) == (StateToggle | StateSelected | StateHover) {
 		if r.tokens.ToggleSelectedHover != nil && r.tokens.ToggleSelectedHover.IconColor != nil {
 			return *r.tokens.ToggleSelectedHover.IconColor
+		}
+	}
+	if state&(StateToggle|StateSelected|StateFocus) == (StateToggle | StateSelected | StateFocus) {
+		if r.tokens.ToggleSelectedFocus != nil && r.tokens.ToggleSelectedFocus.IconColor != nil {
+			return *r.tokens.ToggleSelectedFocus.IconColor
 		}
 	}
 	if state&(StateToggle|StateSelected) == (StateToggle | StateSelected) {
@@ -2203,14 +2203,14 @@ func (r *FilledIconButtonResolver) IconColor(state TokenState) string {
 			return *r.tokens.Toggle.IconColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.IconColor != nil {
-			return *r.tokens.Focus.IconColor
-		}
-	}
 	if state&(StateHover) == (StateHover) {
 		if r.tokens.Hover != nil && r.tokens.Hover.IconColor != nil {
 			return *r.tokens.Hover.IconColor
+		}
+	}
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.IconColor != nil {
+			return *r.tokens.Focus.IconColor
 		}
 	}
 	return r.tokens.Icon.Color
@@ -2678,14 +2678,14 @@ func (r *FilledTextFieldResolver) IconInputSpace(state TokenState) string {
 }
 
 func (r *FilledTextFieldResolver) IndicatorColor(state TokenState) string {
-	if state&(StateError|StateFocus|StateActive) == (StateError | StateFocus | StateActive) {
-		if r.tokens.ErrorFocusActive != nil && r.tokens.ErrorFocusActive.IndicatorColor != nil {
-			return *r.tokens.ErrorFocusActive.IndicatorColor
-		}
-	}
 	if state&(StateError|StateHover|StateActive) == (StateError | StateHover | StateActive) {
 		if r.tokens.ErrorHoverActive != nil && r.tokens.ErrorHoverActive.IndicatorColor != nil {
 			return *r.tokens.ErrorHoverActive.IndicatorColor
+		}
+	}
+	if state&(StateError|StateFocus|StateActive) == (StateError | StateFocus | StateActive) {
+		if r.tokens.ErrorFocusActive != nil && r.tokens.ErrorFocusActive.IndicatorColor != nil {
+			return *r.tokens.ErrorFocusActive.IndicatorColor
 		}
 	}
 	if state&(StateDisabled|StateActive) == (StateDisabled | StateActive) {
@@ -2698,14 +2698,14 @@ func (r *FilledTextFieldResolver) IndicatorColor(state TokenState) string {
 			return *r.tokens.HoverActive.IndicatorColor
 		}
 	}
-	if state&(StateFocus|StateActive) == (StateFocus | StateActive) {
-		if r.tokens.FocusActive != nil && r.tokens.FocusActive.IndicatorColor != nil {
-			return *r.tokens.FocusActive.IndicatorColor
-		}
-	}
 	if state&(StateError|StateActive) == (StateError | StateActive) {
 		if r.tokens.ErrorActive != nil && r.tokens.ErrorActive.IndicatorColor != nil {
 			return *r.tokens.ErrorActive.IndicatorColor
+		}
+	}
+	if state&(StateFocus|StateActive) == (StateFocus | StateActive) {
+		if r.tokens.FocusActive != nil && r.tokens.FocusActive.IndicatorColor != nil {
+			return *r.tokens.FocusActive.IndicatorColor
 		}
 	}
 	if state&(StateActive) == (StateActive) {
@@ -3132,14 +3132,14 @@ func (r *FilledTonalButtonResolver) ContainerElevation(state TokenState) string 
 			return *r.tokens.Pressed.ContainerElevation
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.ContainerElevation != nil {
-			return *r.tokens.Hover.ContainerElevation
-		}
-	}
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.ContainerElevation != nil {
 			return *r.tokens.Focus.ContainerElevation
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.ContainerElevation != nil {
+			return *r.tokens.Hover.ContainerElevation
 		}
 	}
 	return r.tokens.Container.Elevation
@@ -3193,14 +3193,14 @@ func (r *FilledTonalButtonResolver) IconColor(state TokenState) string {
 			return *r.tokens.Pressed.IconColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.IconColor != nil {
-			return *r.tokens.Hover.IconColor
-		}
-	}
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.IconColor != nil {
 			return *r.tokens.Focus.IconColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.IconColor != nil {
+			return *r.tokens.Hover.IconColor
 		}
 	}
 	return r.tokens.Icon.Color
@@ -3230,14 +3230,14 @@ func (r *FilledTonalButtonResolver) LabelTextColor(state TokenState) string {
 			return *r.tokens.Pressed.LabelTextColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.LabelTextColor != nil {
-			return *r.tokens.Hover.LabelTextColor
-		}
-	}
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.LabelTextColor != nil {
 			return *r.tokens.Focus.LabelTextColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.LabelTextColor != nil {
+			return *r.tokens.Hover.LabelTextColor
 		}
 	}
 	return r.tokens.LabelText.Color
@@ -3385,14 +3385,14 @@ func (r *FilledTonalIconButtonResolver) IconColor(state TokenState) string {
 			return *r.tokens.ToggleSelectedPressed.IconColor
 		}
 	}
-	if state&(StateToggle|StateSelected|StateHover) == (StateToggle | StateSelected | StateHover) {
-		if r.tokens.ToggleSelectedHover != nil && r.tokens.ToggleSelectedHover.IconColor != nil {
-			return *r.tokens.ToggleSelectedHover.IconColor
-		}
-	}
 	if state&(StateToggle|StateSelected|StateFocus) == (StateToggle | StateSelected | StateFocus) {
 		if r.tokens.ToggleSelectedFocus != nil && r.tokens.ToggleSelectedFocus.IconColor != nil {
 			return *r.tokens.ToggleSelectedFocus.IconColor
+		}
+	}
+	if state&(StateToggle|StateSelected|StateHover) == (StateToggle | StateSelected | StateHover) {
+		if r.tokens.ToggleSelectedHover != nil && r.tokens.ToggleSelectedHover.IconColor != nil {
+			return *r.tokens.ToggleSelectedHover.IconColor
 		}
 	}
 	if state&(StateToggle|StateSelected) == (StateToggle | StateSelected) {
@@ -3405,14 +3405,14 @@ func (r *FilledTonalIconButtonResolver) IconColor(state TokenState) string {
 			return *r.tokens.TogglePressed.IconColor
 		}
 	}
-	if state&(StateToggle|StateHover) == (StateToggle | StateHover) {
-		if r.tokens.ToggleHover != nil && r.tokens.ToggleHover.IconColor != nil {
-			return *r.tokens.ToggleHover.IconColor
-		}
-	}
 	if state&(StateToggle|StateFocus) == (StateToggle | StateFocus) {
 		if r.tokens.ToggleFocus != nil && r.tokens.ToggleFocus.IconColor != nil {
 			return *r.tokens.ToggleFocus.IconColor
+		}
+	}
+	if state&(StateToggle|StateHover) == (StateToggle | StateHover) {
+		if r.tokens.ToggleHover != nil && r.tokens.ToggleHover.IconColor != nil {
+			return *r.tokens.ToggleHover.IconColor
 		}
 	}
 	if state&(StateDisabled) == (StateDisabled) {
@@ -3642,14 +3642,14 @@ func (r *FilterChipResolver) LabelTextColor(state TokenState) string {
 			return *r.tokens.Pressed.LabelTextColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.LabelTextColor != nil {
-			return *r.tokens.Focus.LabelTextColor
-		}
-	}
 	if state&(StateHover) == (StateHover) {
 		if r.tokens.Hover != nil && r.tokens.Hover.LabelTextColor != nil {
 			return *r.tokens.Hover.LabelTextColor
+		}
+	}
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.LabelTextColor != nil {
+			return *r.tokens.Focus.LabelTextColor
 		}
 	}
 	return r.tokens.LabelText.Color
@@ -3711,14 +3711,14 @@ func (r *FilterChipResolver) LeadingIconColor(state TokenState) string {
 			return *r.tokens.Pressed.LeadingIconColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.LeadingIconColor != nil {
-			return *r.tokens.Focus.LeadingIconColor
-		}
-	}
 	if state&(StateHover) == (StateHover) {
 		if r.tokens.Hover != nil && r.tokens.Hover.LeadingIconColor != nil {
 			return *r.tokens.Hover.LeadingIconColor
+		}
+	}
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.LeadingIconColor != nil {
+			return *r.tokens.Focus.LeadingIconColor
 		}
 	}
 	return r.tokens.LeadingIcon.Color
@@ -3848,14 +3848,14 @@ func (r *FilterChipResolver) TrailingIconColor(state TokenState) string {
 			return *r.tokens.Pressed.TrailingIconColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.TrailingIconColor != nil {
-			return *r.tokens.Focus.TrailingIconColor
-		}
-	}
 	if state&(StateHover) == (StateHover) {
 		if r.tokens.Hover != nil && r.tokens.Hover.TrailingIconColor != nil {
 			return *r.tokens.Hover.TrailingIconColor
+		}
+	}
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.TrailingIconColor != nil {
+			return *r.tokens.Focus.TrailingIconColor
 		}
 	}
 	return r.tokens.TrailingIcon.Color
@@ -3949,19 +3949,14 @@ func (r *IconButtonResolver) IconColor(state TokenState) string {
 			return *r.tokens.SelectedPressed.IconColor
 		}
 	}
-	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
-		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.IconColor != nil {
-			return *r.tokens.SelectedFocus.IconColor
-		}
-	}
 	if state&(StateSelected|StateHover) == (StateSelected | StateHover) {
 		if r.tokens.SelectedHover != nil && r.tokens.SelectedHover.IconColor != nil {
 			return *r.tokens.SelectedHover.IconColor
 		}
 	}
-	if state&(StateDisabled) == (StateDisabled) {
-		if r.tokens.Disabled != nil && r.tokens.Disabled.IconColor != nil {
-			return *r.tokens.Disabled.IconColor
+	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
+		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.IconColor != nil {
+			return *r.tokens.SelectedFocus.IconColor
 		}
 	}
 	if state&(StateSelected) == (StateSelected) {
@@ -3969,19 +3964,24 @@ func (r *IconButtonResolver) IconColor(state TokenState) string {
 			return *r.tokens.Selected.IconColor
 		}
 	}
+	if state&(StateDisabled) == (StateDisabled) {
+		if r.tokens.Disabled != nil && r.tokens.Disabled.IconColor != nil {
+			return *r.tokens.Disabled.IconColor
+		}
+	}
 	if state&(StatePressed) == (StatePressed) {
 		if r.tokens.Pressed != nil && r.tokens.Pressed.IconColor != nil {
 			return *r.tokens.Pressed.IconColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.IconColor != nil {
-			return *r.tokens.Hover.IconColor
-		}
-	}
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.IconColor != nil {
 			return *r.tokens.Focus.IconColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.IconColor != nil {
+			return *r.tokens.Hover.IconColor
 		}
 	}
 	return r.tokens.Icon.Color
@@ -4162,14 +4162,14 @@ func (r *InputChipResolver) LabelTextColor(state TokenState) string {
 			return *r.tokens.SelectedPressed.LabelTextColor
 		}
 	}
-	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
-		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.LabelTextColor != nil {
-			return *r.tokens.SelectedFocus.LabelTextColor
-		}
-	}
 	if state&(StateSelected|StateHover) == (StateSelected | StateHover) {
 		if r.tokens.SelectedHover != nil && r.tokens.SelectedHover.LabelTextColor != nil {
 			return *r.tokens.SelectedHover.LabelTextColor
+		}
+	}
+	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
+		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.LabelTextColor != nil {
+			return *r.tokens.SelectedFocus.LabelTextColor
 		}
 	}
 	if state&(StateSelected) == (StateSelected) {
@@ -4231,14 +4231,14 @@ func (r *InputChipResolver) LeadingIconColor(state TokenState) string {
 			return *r.tokens.SelectedPressed.LeadingIconColor
 		}
 	}
-	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
-		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.LeadingIconColor != nil {
-			return *r.tokens.SelectedFocus.LeadingIconColor
-		}
-	}
 	if state&(StateSelected|StateHover) == (StateSelected | StateHover) {
 		if r.tokens.SelectedHover != nil && r.tokens.SelectedHover.LeadingIconColor != nil {
 			return *r.tokens.SelectedHover.LeadingIconColor
+		}
+	}
+	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
+		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.LeadingIconColor != nil {
+			return *r.tokens.SelectedFocus.LeadingIconColor
 		}
 	}
 	if state&(StateSelected) == (StateSelected) {
@@ -4368,14 +4368,14 @@ func (r *InputChipResolver) TrailingIconColor(state TokenState) string {
 			return *r.tokens.SelectedPressed.TrailingIconColor
 		}
 	}
-	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
-		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.TrailingIconColor != nil {
-			return *r.tokens.SelectedFocus.TrailingIconColor
-		}
-	}
 	if state&(StateSelected|StateHover) == (StateSelected | StateHover) {
 		if r.tokens.SelectedHover != nil && r.tokens.SelectedHover.TrailingIconColor != nil {
 			return *r.tokens.SelectedHover.TrailingIconColor
+		}
+	}
+	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
+		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.TrailingIconColor != nil {
+			return *r.tokens.SelectedFocus.TrailingIconColor
 		}
 	}
 	if state&(StateSelected) == (StateSelected) {
@@ -5178,11 +5178,6 @@ func (r *OutlinedFieldResolver) ContentColor(state TokenState) string {
 			return *r.tokens.Disabled.ContentColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.ContentColor != nil {
-			return *r.tokens.Hover.ContentColor
-		}
-	}
 	if state&(StateError) == (StateError) {
 		if r.tokens.Error != nil && r.tokens.Error.ContentColor != nil {
 			return *r.tokens.Error.ContentColor
@@ -5191,6 +5186,11 @@ func (r *OutlinedFieldResolver) ContentColor(state TokenState) string {
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.ContentColor != nil {
 			return *r.tokens.Focus.ContentColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.ContentColor != nil {
+			return *r.tokens.Hover.ContentColor
 		}
 	}
 	return r.tokens.Content.Color
@@ -5241,11 +5241,6 @@ func (r *OutlinedFieldResolver) LabelTextColor(state TokenState) string {
 			return *r.tokens.Disabled.LabelTextColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.LabelTextColor != nil {
-			return *r.tokens.Hover.LabelTextColor
-		}
-	}
 	if state&(StateError) == (StateError) {
 		if r.tokens.Error != nil && r.tokens.Error.LabelTextColor != nil {
 			return *r.tokens.Error.LabelTextColor
@@ -5254,6 +5249,11 @@ func (r *OutlinedFieldResolver) LabelTextColor(state TokenState) string {
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.LabelTextColor != nil {
 			return *r.tokens.Focus.LabelTextColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.LabelTextColor != nil {
+			return *r.tokens.Hover.LabelTextColor
 		}
 	}
 	return r.tokens.LabelText.Color
@@ -5312,11 +5312,6 @@ func (r *OutlinedFieldResolver) LeadingContentColor(state TokenState) string {
 			return *r.tokens.Disabled.LeadingContentColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.LeadingContentColor != nil {
-			return *r.tokens.Hover.LeadingContentColor
-		}
-	}
 	if state&(StateError) == (StateError) {
 		if r.tokens.Error != nil && r.tokens.Error.LeadingContentColor != nil {
 			return *r.tokens.Error.LeadingContentColor
@@ -5325,6 +5320,11 @@ func (r *OutlinedFieldResolver) LeadingContentColor(state TokenState) string {
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.LeadingContentColor != nil {
 			return *r.tokens.Focus.LeadingContentColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.LeadingContentColor != nil {
+			return *r.tokens.Hover.LeadingContentColor
 		}
 	}
 	return r.tokens.LeadingContent.Color
@@ -5359,11 +5359,6 @@ func (r *OutlinedFieldResolver) OutlineColor(state TokenState) string {
 			return *r.tokens.Disabled.OutlineColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.OutlineColor != nil {
-			return *r.tokens.Hover.OutlineColor
-		}
-	}
 	if state&(StateError) == (StateError) {
 		if r.tokens.Error != nil && r.tokens.Error.OutlineColor != nil {
 			return *r.tokens.Error.OutlineColor
@@ -5372,6 +5367,11 @@ func (r *OutlinedFieldResolver) OutlineColor(state TokenState) string {
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.OutlineColor != nil {
 			return *r.tokens.Focus.OutlineColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.OutlineColor != nil {
+			return *r.tokens.Hover.OutlineColor
 		}
 	}
 	return r.tokens.Outline.Color
@@ -5396,14 +5396,14 @@ func (r *OutlinedFieldResolver) OutlineWidth(state TokenState) string {
 			return *r.tokens.Disabled.OutlineWidth
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.OutlineWidth != nil {
-			return *r.tokens.Hover.OutlineWidth
-		}
-	}
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.OutlineWidth != nil {
 			return *r.tokens.Focus.OutlineWidth
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.OutlineWidth != nil {
+			return *r.tokens.Hover.OutlineWidth
 		}
 	}
 	return r.tokens.Outline.Width
@@ -5425,11 +5425,6 @@ func (r *OutlinedFieldResolver) SupportingTextColor(state TokenState) string {
 			return *r.tokens.Disabled.SupportingTextColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.SupportingTextColor != nil {
-			return *r.tokens.Hover.SupportingTextColor
-		}
-	}
 	if state&(StateError) == (StateError) {
 		if r.tokens.Error != nil && r.tokens.Error.SupportingTextColor != nil {
 			return *r.tokens.Error.SupportingTextColor
@@ -5438,6 +5433,11 @@ func (r *OutlinedFieldResolver) SupportingTextColor(state TokenState) string {
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.SupportingTextColor != nil {
 			return *r.tokens.Focus.SupportingTextColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.SupportingTextColor != nil {
+			return *r.tokens.Hover.SupportingTextColor
 		}
 	}
 	return r.tokens.SupportingText.Color
@@ -5500,11 +5500,6 @@ func (r *OutlinedFieldResolver) TrailingContentColor(state TokenState) string {
 			return *r.tokens.Disabled.TrailingContentColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.TrailingContentColor != nil {
-			return *r.tokens.Hover.TrailingContentColor
-		}
-	}
 	if state&(StateError) == (StateError) {
 		if r.tokens.Error != nil && r.tokens.Error.TrailingContentColor != nil {
 			return *r.tokens.Error.TrailingContentColor
@@ -5513,6 +5508,11 @@ func (r *OutlinedFieldResolver) TrailingContentColor(state TokenState) string {
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.TrailingContentColor != nil {
 			return *r.tokens.Focus.TrailingContentColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.TrailingContentColor != nil {
+			return *r.tokens.Hover.TrailingContentColor
 		}
 	}
 	return r.tokens.TrailingContent.Color
@@ -5604,14 +5604,14 @@ func (r *OutlinedIconButtonResolver) IconColor(state TokenState) string {
 			return *r.tokens.SelectedPressed.IconColor
 		}
 	}
-	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
-		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.IconColor != nil {
-			return *r.tokens.SelectedFocus.IconColor
-		}
-	}
 	if state&(StateSelected|StateHover) == (StateSelected | StateHover) {
 		if r.tokens.SelectedHover != nil && r.tokens.SelectedHover.IconColor != nil {
 			return *r.tokens.SelectedHover.IconColor
+		}
+	}
+	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
+		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.IconColor != nil {
+			return *r.tokens.SelectedFocus.IconColor
 		}
 	}
 	if state&(StateSelected) == (StateSelected) {
@@ -5752,14 +5752,14 @@ func (r *OutlinedSegmentedButtonResolver) IconColor(state TokenState) string {
 			return *r.tokens.SelectedHover.IconColor
 		}
 	}
-	if state&(StateDisabled) == (StateDisabled) {
-		if r.tokens.Disabled != nil && r.tokens.Disabled.IconColor != nil {
-			return *r.tokens.Disabled.IconColor
-		}
-	}
 	if state&(StateSelected) == (StateSelected) {
 		if r.tokens.Selected != nil && r.tokens.Selected.IconColor != nil {
 			return *r.tokens.Selected.IconColor
+		}
+	}
+	if state&(StateDisabled) == (StateDisabled) {
+		if r.tokens.Disabled != nil && r.tokens.Disabled.IconColor != nil {
+			return *r.tokens.Disabled.IconColor
 		}
 	}
 	return r.tokens.Icon.Color
@@ -5785,14 +5785,14 @@ func (r *OutlinedSegmentedButtonResolver) LabelTextColor(state TokenState) strin
 			return *r.tokens.SelectedHover.LabelTextColor
 		}
 	}
-	if state&(StateDisabled) == (StateDisabled) {
-		if r.tokens.Disabled != nil && r.tokens.Disabled.LabelTextColor != nil {
-			return *r.tokens.Disabled.LabelTextColor
-		}
-	}
 	if state&(StateSelected) == (StateSelected) {
 		if r.tokens.Selected != nil && r.tokens.Selected.LabelTextColor != nil {
 			return *r.tokens.Selected.LabelTextColor
+		}
+	}
+	if state&(StateDisabled) == (StateDisabled) {
+		if r.tokens.Disabled != nil && r.tokens.Disabled.LabelTextColor != nil {
+			return *r.tokens.Disabled.LabelTextColor
 		}
 	}
 	return r.tokens.LabelText.Color
@@ -6708,14 +6708,14 @@ func (r *PrimaryTabResolver) IconColor(state TokenState) string {
 			return *r.tokens.Active.IconColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.IconColor != nil {
-			return *r.tokens.Hover.IconColor
-		}
-	}
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.IconColor != nil {
 			return *r.tokens.Focus.IconColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.IconColor != nil {
+			return *r.tokens.Hover.IconColor
 		}
 	}
 	return r.tokens.Icon.Color
@@ -6778,14 +6778,14 @@ func (r *PrimaryTabResolver) LabelTextColor(state TokenState) string {
 			return *r.tokens.Active.LabelTextColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.LabelTextColor != nil {
-			return *r.tokens.Hover.LabelTextColor
-		}
-	}
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.LabelTextColor != nil {
 			return *r.tokens.Focus.LabelTextColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.LabelTextColor != nil {
+			return *r.tokens.Hover.LabelTextColor
 		}
 	}
 	return r.tokens.LabelText.Color
@@ -6898,14 +6898,14 @@ func (r *RadioResolver) IconColor(state TokenState) string {
 			return *r.tokens.Pressed.IconColor
 		}
 	}
-	if state&(StateHover) == (StateHover) {
-		if r.tokens.Hover != nil && r.tokens.Hover.IconColor != nil {
-			return *r.tokens.Hover.IconColor
-		}
-	}
 	if state&(StateFocus) == (StateFocus) {
 		if r.tokens.Focus != nil && r.tokens.Focus.IconColor != nil {
 			return *r.tokens.Focus.IconColor
+		}
+	}
+	if state&(StateHover) == (StateHover) {
+		if r.tokens.Hover != nil && r.tokens.Hover.IconColor != nil {
+			return *r.tokens.Hover.IconColor
 		}
 	}
 	return r.tokens.Icon.Color
@@ -7076,14 +7076,14 @@ func (r *SecondaryTabResolver) IconColor(state TokenState) string {
 			return *r.tokens.ActivePressed.IconColor
 		}
 	}
-	if state&(StateActive|StateHover) == (StateActive | StateHover) {
-		if r.tokens.ActiveHover != nil && r.tokens.ActiveHover.IconColor != nil {
-			return *r.tokens.ActiveHover.IconColor
-		}
-	}
 	if state&(StateActive|StateFocus) == (StateActive | StateFocus) {
 		if r.tokens.ActiveFocus != nil && r.tokens.ActiveFocus.IconColor != nil {
 			return *r.tokens.ActiveFocus.IconColor
+		}
+	}
+	if state&(StateActive|StateHover) == (StateActive | StateHover) {
+		if r.tokens.ActiveHover != nil && r.tokens.ActiveHover.IconColor != nil {
+			return *r.tokens.ActiveHover.IconColor
 		}
 	}
 	if state&(StatePressed) == (StatePressed) {
@@ -7146,14 +7146,14 @@ func (r *SecondaryTabResolver) LabelTextColor(state TokenState) string {
 			return *r.tokens.ActivePressed.LabelTextColor
 		}
 	}
-	if state&(StateActive|StateHover) == (StateActive | StateHover) {
-		if r.tokens.ActiveHover != nil && r.tokens.ActiveHover.LabelTextColor != nil {
-			return *r.tokens.ActiveHover.LabelTextColor
-		}
-	}
 	if state&(StateActive|StateFocus) == (StateActive | StateFocus) {
 		if r.tokens.ActiveFocus != nil && r.tokens.ActiveFocus.LabelTextColor != nil {
 			return *r.tokens.ActiveFocus.LabelTextColor
+		}
+	}
+	if state&(StateActive|StateHover) == (StateActive | StateHover) {
+		if r.tokens.ActiveHover != nil && r.tokens.ActiveHover.LabelTextColor != nil {
+			return *r.tokens.ActiveHover.LabelTextColor
 		}
 	}
 	if state&(StatePressed) == (StatePressed) {
@@ -7695,19 +7695,14 @@ func (r *SwitchResolver) HandleColor(state TokenState) string {
 			return *r.tokens.SelectedPressed.HandleColor
 		}
 	}
-	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
-		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.HandleColor != nil {
-			return *r.tokens.SelectedFocus.HandleColor
-		}
-	}
 	if state&(StateSelected|StateHover) == (StateSelected | StateHover) {
 		if r.tokens.SelectedHover != nil && r.tokens.SelectedHover.HandleColor != nil {
 			return *r.tokens.SelectedHover.HandleColor
 		}
 	}
-	if state&(StateDisabled) == (StateDisabled) {
-		if r.tokens.Disabled != nil && r.tokens.Disabled.HandleColor != nil {
-			return *r.tokens.Disabled.HandleColor
+	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
+		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.HandleColor != nil {
+			return *r.tokens.SelectedFocus.HandleColor
 		}
 	}
 	if state&(StateSelected) == (StateSelected) {
@@ -7715,19 +7710,24 @@ func (r *SwitchResolver) HandleColor(state TokenState) string {
 			return *r.tokens.Selected.HandleColor
 		}
 	}
+	if state&(StateDisabled) == (StateDisabled) {
+		if r.tokens.Disabled != nil && r.tokens.Disabled.HandleColor != nil {
+			return *r.tokens.Disabled.HandleColor
+		}
+	}
 	if state&(StatePressed) == (StatePressed) {
 		if r.tokens.Pressed != nil && r.tokens.Pressed.HandleColor != nil {
 			return *r.tokens.Pressed.HandleColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.HandleColor != nil {
-			return *r.tokens.Focus.HandleColor
-		}
-	}
 	if state&(StateHover) == (StateHover) {
 		if r.tokens.Hover != nil && r.tokens.Hover.HandleColor != nil {
 			return *r.tokens.Hover.HandleColor
+		}
+	}
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.HandleColor != nil {
+			return *r.tokens.Focus.HandleColor
 		}
 	}
 	return r.tokens.Handle.Color
@@ -7806,19 +7806,14 @@ func (r *SwitchResolver) IconColor(state TokenState) string {
 			return *r.tokens.SelectedPressed.IconColor
 		}
 	}
-	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
-		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.IconColor != nil {
-			return *r.tokens.SelectedFocus.IconColor
-		}
-	}
 	if state&(StateSelected|StateHover) == (StateSelected | StateHover) {
 		if r.tokens.SelectedHover != nil && r.tokens.SelectedHover.IconColor != nil {
 			return *r.tokens.SelectedHover.IconColor
 		}
 	}
-	if state&(StateDisabled) == (StateDisabled) {
-		if r.tokens.Disabled != nil && r.tokens.Disabled.IconColor != nil {
-			return *r.tokens.Disabled.IconColor
+	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
+		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.IconColor != nil {
+			return *r.tokens.SelectedFocus.IconColor
 		}
 	}
 	if state&(StateSelected) == (StateSelected) {
@@ -7826,19 +7821,24 @@ func (r *SwitchResolver) IconColor(state TokenState) string {
 			return *r.tokens.Selected.IconColor
 		}
 	}
+	if state&(StateDisabled) == (StateDisabled) {
+		if r.tokens.Disabled != nil && r.tokens.Disabled.IconColor != nil {
+			return *r.tokens.Disabled.IconColor
+		}
+	}
 	if state&(StatePressed) == (StatePressed) {
 		if r.tokens.Pressed != nil && r.tokens.Pressed.IconColor != nil {
 			return *r.tokens.Pressed.IconColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.IconColor != nil {
-			return *r.tokens.Focus.IconColor
-		}
-	}
 	if state&(StateHover) == (StateHover) {
 		if r.tokens.Hover != nil && r.tokens.Hover.IconColor != nil {
 			return *r.tokens.Hover.IconColor
+		}
+	}
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.IconColor != nil {
+			return *r.tokens.Focus.IconColor
 		}
 	}
 	return r.tokens.Icon.Color
@@ -7938,19 +7938,14 @@ func (r *SwitchResolver) TrackColor(state TokenState) string {
 			return *r.tokens.SelectedPressed.TrackColor
 		}
 	}
-	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
-		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.TrackColor != nil {
-			return *r.tokens.SelectedFocus.TrackColor
-		}
-	}
 	if state&(StateSelected|StateHover) == (StateSelected | StateHover) {
 		if r.tokens.SelectedHover != nil && r.tokens.SelectedHover.TrackColor != nil {
 			return *r.tokens.SelectedHover.TrackColor
 		}
 	}
-	if state&(StateDisabled) == (StateDisabled) {
-		if r.tokens.Disabled != nil && r.tokens.Disabled.TrackColor != nil {
-			return *r.tokens.Disabled.TrackColor
+	if state&(StateSelected|StateFocus) == (StateSelected | StateFocus) {
+		if r.tokens.SelectedFocus != nil && r.tokens.SelectedFocus.TrackColor != nil {
+			return *r.tokens.SelectedFocus.TrackColor
 		}
 	}
 	if state&(StateSelected) == (StateSelected) {
@@ -7958,19 +7953,24 @@ func (r *SwitchResolver) TrackColor(state TokenState) string {
 			return *r.tokens.Selected.TrackColor
 		}
 	}
+	if state&(StateDisabled) == (StateDisabled) {
+		if r.tokens.Disabled != nil && r.tokens.Disabled.TrackColor != nil {
+			return *r.tokens.Disabled.TrackColor
+		}
+	}
 	if state&(StatePressed) == (StatePressed) {
 		if r.tokens.Pressed != nil && r.tokens.Pressed.TrackColor != nil {
 			return *r.tokens.Pressed.TrackColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.TrackColor != nil {
-			return *r.tokens.Focus.TrackColor
-		}
-	}
 	if state&(StateHover) == (StateHover) {
 		if r.tokens.Hover != nil && r.tokens.Hover.TrackColor != nil {
 			return *r.tokens.Hover.TrackColor
+		}
+	}
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.TrackColor != nil {
+			return *r.tokens.Focus.TrackColor
 		}
 	}
 	return r.tokens.Track.Color
@@ -8000,14 +8000,14 @@ func (r *SwitchResolver) TrackOutlineColor(state TokenState) string {
 			return *r.tokens.Pressed.TrackOutlineColor
 		}
 	}
-	if state&(StateFocus) == (StateFocus) {
-		if r.tokens.Focus != nil && r.tokens.Focus.TrackOutlineColor != nil {
-			return *r.tokens.Focus.TrackOutlineColor
-		}
-	}
 	if state&(StateHover) == (StateHover) {
 		if r.tokens.Hover != nil && r.tokens.Hover.TrackOutlineColor != nil {
 			return *r.tokens.Hover.TrackOutlineColor
+		}
+	}
+	if state&(StateFocus) == (StateFocus) {
+		if r.tokens.Focus != nil && r.tokens.Focus.TrackOutlineColor != nil {
+			return *r.tokens.Focus.TrackOutlineColor
 		}
 	}
 	return r.tokens.Track.OutlineColor

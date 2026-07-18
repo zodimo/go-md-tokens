@@ -70,10 +70,10 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
-        "hover-",
-        "pressed-",
         "disabled-",
-        "focus-"
+        "focus-",
+        "hover-",
+        "pressed-"
       ]
     },
     {
@@ -156,13 +156,13 @@
       ],
       "statePrefixes": [
         "disabled-",
-        "hover-",
-        "pressed-",
-        "selected-disabled-",
         "focus-",
+        "hover-",
         "selected-",
+        "selected-disabled-",
         "selected-focus-",
         "selected-hover-",
+        "pressed-",
         "selected-pressed-"
       ]
     },
@@ -318,10 +318,10 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
-        "disabled-",
         "focus-",
         "hover-",
-        "pressed-"
+        "pressed-",
+        "disabled-"
       ]
     },
     {
@@ -430,9 +430,9 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
-        "focus-",
         "hover-",
-        "pressed-"
+        "pressed-",
+        "focus-"
       ]
     },
     {
@@ -536,9 +536,9 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
-        "pressed-",
         "focus-",
-        "hover-"
+        "hover-",
+        "pressed-"
       ]
     },
     {
@@ -602,10 +602,10 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
+        "disabled-",
         "focus-",
         "hover-",
-        "pressed-",
-        "disabled-"
+        "pressed-"
       ]
     },
     {
@@ -747,19 +747,19 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
-        "hover-active-",
-        "error-focus-active-",
-        "error-focus-",
-        "error-hover-",
-        "focus-active-",
-        "hover-",
-        "active-",
-        "disabled-active-",
         "disabled-",
         "error-active-",
         "error-",
+        "error-focus-",
         "error-hover-active-",
-        "focus-"
+        "focus-active-",
+        "active-",
+        "disabled-active-",
+        "error-focus-active-",
+        "error-hover-",
+        "focus-",
+        "hover-active-",
+        "hover-"
       ]
     },
     {
@@ -814,19 +814,19 @@
         "md-sys-state"
       ],
       "statePrefixes": [
-        "focus-",
         "hover-",
+        "toggle-focus-",
         "toggle-hover-",
         "toggle-",
-        "toggle-selected-focus-",
-        "toggle-selected-hover-",
+        "toggle-selected-",
         "toggle-selected-pressed-",
         "disabled-",
+        "focus-",
         "pressed-",
         "selected-",
-        "toggle-focus-",
         "toggle-pressed-",
-        "toggle-selected-"
+        "toggle-selected-focus-",
+        "toggle-selected-hover-"
       ]
     },
     {
@@ -1069,17 +1069,17 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
-        "focus-active-",
         "focus-",
-        "hover-active-",
-        "hover-",
         "active-",
-        "disabled-",
-        "error-focus-active-",
+        "error-active-",
         "error-hover-",
         "error-",
+        "focus-active-",
+        "hover-active-",
+        "hover-",
         "disabled-active-",
-        "error-active-",
+        "disabled-",
+        "error-focus-active-",
         "error-focus-",
         "error-hover-active-"
       ]
@@ -1145,10 +1145,10 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
-        "hover-",
-        "pressed-",
         "disabled-",
-        "focus-"
+        "focus-",
+        "hover-",
+        "pressed-"
       ]
     },
     {
@@ -1205,16 +1205,16 @@
       "statePrefixes": [
         "disabled-",
         "focus-",
-        "selected-",
-        "toggle-hover-",
-        "toggle-",
-        "toggle-pressed-",
-        "toggle-selected-",
         "hover-",
         "pressed-",
-        "toggle-focus-",
-        "toggle-selected-focus-",
+        "toggle-pressed-",
         "toggle-selected-hover-",
+        "selected-",
+        "toggle-focus-",
+        "toggle-hover-",
+        "toggle-",
+        "toggle-selected-focus-",
+        "toggle-selected-",
         "toggle-selected-pressed-"
       ]
     },
@@ -1331,11 +1331,11 @@
       ],
       "statePrefixes": [
         "disabled-",
+        "hover-",
+        "selected-",
         "disabled-selected-",
         "focus-",
-        "hover-",
         "pressed-",
-        "selected-",
         "selected-focus-",
         "selected-hover-",
         "selected-pressed-"
@@ -1406,14 +1406,14 @@
         "md-sys-state"
       ],
       "statePrefixes": [
-        "hover-",
-        "disabled-",
-        "pressed-",
-        "selected-focus-",
-        "selected-hover-",
         "selected-",
         "selected-pressed-",
-        "focus-"
+        "focus-",
+        "pressed-",
+        "selected-hover-",
+        "disabled-",
+        "hover-",
+        "selected-focus-"
       ]
     },
     {
@@ -1527,15 +1527,15 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
+        "disabled-selected-",
         "focus-",
-        "hover-",
         "pressed-",
         "selected-",
-        "selected-focus-",
         "selected-hover-",
         "selected-pressed-",
         "disabled-",
-        "disabled-selected-"
+        "hover-",
+        "selected-focus-"
       ]
     },
     {
@@ -1857,10 +1857,10 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
+        "disabled-",
         "focus-",
         "hover-",
-        "pressed-",
-        "disabled-"
+        "pressed-"
       ]
     },
     {
@@ -2001,12 +2001,12 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
-        "hover-",
         "disabled-",
         "error-",
         "error-focus-",
         "error-hover-",
-        "focus-"
+        "focus-",
+        "hover-"
       ]
     },
     {
@@ -2059,12 +2059,12 @@
         "disabled-selected-",
         "focus-",
         "hover-",
+        "pressed-",
+        "selected-hover-",
         "selected-",
         "selected-focus-",
-        "selected-hover-",
-        "disabled-",
-        "pressed-",
-        "selected-pressed-"
+        "selected-pressed-",
+        "disabled-"
       ]
     },
     {
@@ -2128,13 +2128,13 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
+        "hover-",
+        "pressed-",
+        "selected-",
         "selected-focus-",
         "selected-hover-",
         "selected-pressed-",
-        "disabled-",
-        "hover-",
-        "pressed-",
-        "selected-"
+        "disabled-"
       ]
     },
     {
@@ -2465,13 +2465,13 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
+        "focus-",
         "hover-",
         "pressed-",
         "active-focus-",
         "active-hover-",
         "active-",
-        "active-pressed-",
-        "focus-"
+        "active-pressed-"
       ]
     },
     {
@@ -2512,15 +2512,15 @@
         "md-sys-state"
       ],
       "statePrefixes": [
-        "disabled-selected-",
-        "disabled-",
-        "hover-",
-        "pressed-",
-        "selected-pressed-",
-        "focus-",
         "selected-focus-",
         "selected-hover-",
-        "selected-"
+        "disabled-selected-",
+        "disabled-",
+        "focus-",
+        "pressed-",
+        "selected-",
+        "selected-pressed-",
+        "hover-"
       ]
     },
     {
@@ -2610,13 +2610,13 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
-        "active-hover-",
-        "active-",
         "active-pressed-",
         "focus-",
         "hover-",
         "pressed-",
-        "active-focus-"
+        "active-focus-",
+        "active-hover-",
+        "active-"
       ]
     },
     {
@@ -2692,12 +2692,12 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
+        "pressed-",
         "active-",
         "disabled-active-",
         "disabled-",
         "focus-",
-        "hover-",
-        "pressed-"
+        "hover-"
       ]
     },
     {
@@ -2770,10 +2770,10 @@
         "md-sys-typescale"
       ],
       "statePrefixes": [
-        "disabled-",
         "focus-",
         "hover-",
-        "pressed-"
+        "pressed-",
+        "disabled-"
       ]
     },
     {
@@ -2867,15 +2867,15 @@
         "md-sys-state"
       ],
       "statePrefixes": [
+        "hover-",
+        "selected-",
+        "selected-hover-",
         "disabled-",
         "disabled-selected-",
         "focus-",
-        "hover-",
-        "selected-",
-        "selected-pressed-",
         "pressed-",
         "selected-focus-",
-        "selected-hover-"
+        "selected-pressed-"
       ]
     },
     {

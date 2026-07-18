@@ -1,0 +1,29 @@
+pipeline:
+  theme_source: "m3/material-theme.json"
+  sass_tokens_dir: "m3web/v2.4.1/tokens"
+
+generator:
+  schema_output_dir: "pkg/m3tokens"
+  schema_output_file: "schema.json"
+
+theme_output:
+  output_dir: "theme"
+  output_file: "theme/tokens.go"
+  components:
+    - "filled-button"
+    - "elevated-card"
+    - "switch"
+    - "filled-text-field"
+  targets:
+    - "light"
+    - "dark"
+    - "light-medium-contrast"
+    - "light-high-contrast"
+    - "dark-medium-contrast"
+    - "dark-high-contrast"
+  structural_tokens:
+    md.sys.shape.corner.full: "999px"
+    md.sys.shape.corner.large: "16px"
+    md.sys.shape.corner.medium: "12px"
+    md.sys.shape.corner.small: "8px"
+    md.sys.shape.corner.none: "0px"
