@@ -22,7 +22,7 @@ theme_output:
     - "dark-medium-contrast"
     - "dark-high-contrast"
   structural_tokens:
-    md.sys.shape.corner.full: "999px"
+    md.sys.shape.corner.full: "9999px"
     md.sys.shape.corner.large: "16px"
     md.sys.shape.corner.medium: "12px"
     md.sys.shape.corner.small: "8px"
