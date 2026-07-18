@@ -145,6 +145,15 @@ func main() {
 			allTokens[fmt.Sprintf("md.sys.color.%s", kebabKey)] = hexVal
 		}
 
+		// Pre-populate all supported tokens with empty strings
+		// This ensures that even if SASS drops a token (e.g., null value), it exists in the map
+		for _, compSchema := range schema.Components {
+			for _, tok := range compSchema.SupportedTokens {
+				tokenKey := normalize(fmt.Sprintf("md.comp.%s.%s", compSchema.Name, tok))
+				allTokens[tokenKey] = ""
+			}
+		}
+
 		customColorsSass := buildSassColorMap(schemeColors)
 
 		for _, comp := range cfg.ThemeOutput.Components {

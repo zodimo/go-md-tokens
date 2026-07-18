@@ -2,26 +2,31 @@ package m3tokens
 
 import (
 	"testing"
+
+	m3theme "github.com/zodimo/go-md-tokens/theme"
 )
 
 func TestFlatMap(t *testing.T) {
-	theme := NewTheme("light")
+	th, err := NewTheme(m3theme.GetM3LightTokens())
+	if err != nil {
+		t.Fatalf("Failed to create theme: %v", err)
+	}
 
 	val1 := "#abcdef"
 	val2 := "#123456"
 	val3 := "#789012"
 
-	theme.FilledButtonTokens.Container.Color = val1
+	th.FilledButtonTokens.Container.Color = val1
 
-	theme.FilledButtonTokens.Hover = &FilledButtonHoverOverlay{
+	th.FilledButtonTokens.Hover = &FilledButtonHoverOverlay{
 		LabelTextColor: &val2,
 	}
 
-	theme.RegisterCustomComponent("my-widget", map[string]string{
+	th.RegisterCustomComponent("my-widget", map[string]string{
 		"custom-token": val3,
 	})
 
-	m := theme.FlatMap()
+	m := th.FlatMap()
 
 	if m["md.comp.filled.button.container.color"] != val1 {
 		t.Errorf("Expected FlatMap to contain base token 'md.comp.filled.button.container.color' with value %q, got %q", val1, m["md.comp.filled.button.container.color"])

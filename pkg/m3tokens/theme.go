@@ -2,6 +2,11 @@
 
 package m3tokens
 
+import (
+	"fmt"
+	"strings"
+)
+
 type Theme struct {
 	Resolver                      *Resolver
 	AssistChipTokens              *AssistChipTokens
@@ -51,56 +56,11083 @@ type Theme struct {
 	CustomComponents              map[string]map[string]string
 }
 
-func NewTheme(mode string) *Theme {
+func NewTheme(tokens map[string]string) (*Theme, error) {
 	theme := &Theme{}
 	theme.Resolver = &Resolver{theme: theme}
 	theme.CustomComponents = make(map[string]map[string]string)
-	// Initialize tokens based on mode (TODO: actually parse sys maps and populate)
+	var missing []string
+
 	theme.AssistChipTokens = &AssistChipTokens{}
+	if val, ok := tokens["md.comp.assist.chip.container.height"]; ok {
+		theme.AssistChipTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.container.height")
+	}
+	if val, ok := tokens["md.comp.assist.chip.container.shape"]; ok {
+		theme.AssistChipTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.container.shape")
+	}
+	if val, ok := tokens["md.comp.assist.chip.container.shape.end.end"]; ok {
+		theme.AssistChipTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.assist.chip.container.shape.end.start"]; ok {
+		theme.AssistChipTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.assist.chip.container.shape.start.end"]; ok {
+		theme.AssistChipTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.assist.chip.container.shape.start.start"]; ok {
+		theme.AssistChipTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.assist.chip.disabled.label.text.color"]; ok {
+		if theme.AssistChipTokens.Disabled == nil {
+			theme.AssistChipTokens.Disabled = &AssistChipDisabledOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.disabled.label.text.opacity"]; ok {
+		if theme.AssistChipTokens.Disabled == nil {
+			theme.AssistChipTokens.Disabled = &AssistChipDisabledOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Disabled.LabelTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.assist.chip.disabled.leading.icon.color"]; ok {
+		if theme.AssistChipTokens.Disabled == nil {
+			theme.AssistChipTokens.Disabled = &AssistChipDisabledOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Disabled.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.disabled.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.disabled.leading.icon.opacity"]; ok {
+		if theme.AssistChipTokens.Disabled == nil {
+			theme.AssistChipTokens.Disabled = &AssistChipDisabledOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Disabled.LeadingIconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.disabled.leading.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.assist.chip.disabled.outline.color"]; ok {
+		if theme.AssistChipTokens.Disabled == nil {
+			theme.AssistChipTokens.Disabled = &AssistChipDisabledOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Disabled.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.disabled.outline.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.disabled.outline.opacity"]; ok {
+		if theme.AssistChipTokens.Disabled == nil {
+			theme.AssistChipTokens.Disabled = &AssistChipDisabledOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Disabled.OutlineOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.disabled.outline.opacity")
+	}
+	if val, ok := tokens["md.comp.assist.chip.elevated.container.color"]; ok {
+		theme.AssistChipTokens.Elevated.ContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.elevated.container.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.elevated.container.elevation"]; ok {
+		theme.AssistChipTokens.Elevated.ContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.elevated.container.elevation")
+	}
+	if val, ok := tokens["md.comp.assist.chip.elevated.container.shadow.color"]; ok {
+		theme.AssistChipTokens.Elevated.ContainerShadowColor = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.elevated.container.shadow.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.elevated.disabled.container.color"]; ok {
+		theme.AssistChipTokens.Elevated.DisabledContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.elevated.disabled.container.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.elevated.disabled.container.elevation"]; ok {
+		theme.AssistChipTokens.Elevated.DisabledContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.elevated.disabled.container.elevation")
+	}
+	if val, ok := tokens["md.comp.assist.chip.elevated.disabled.container.opacity"]; ok {
+		theme.AssistChipTokens.Elevated.DisabledContainerOpacity = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.elevated.disabled.container.opacity")
+	}
+	if val, ok := tokens["md.comp.assist.chip.elevated.focus.container.elevation"]; ok {
+		theme.AssistChipTokens.Elevated.FocusContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.elevated.focus.container.elevation")
+	}
+	if val, ok := tokens["md.comp.assist.chip.elevated.hover.container.elevation"]; ok {
+		theme.AssistChipTokens.Elevated.HoverContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.elevated.hover.container.elevation")
+	}
+	if val, ok := tokens["md.comp.assist.chip.elevated.pressed.container.elevation"]; ok {
+		theme.AssistChipTokens.Elevated.PressedContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.elevated.pressed.container.elevation")
+	}
+	if val, ok := tokens["md.comp.assist.chip.focus.label.text.color"]; ok {
+		if theme.AssistChipTokens.Focus == nil {
+			theme.AssistChipTokens.Focus = &AssistChipFocusOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.focus.leading.icon.color"]; ok {
+		if theme.AssistChipTokens.Focus == nil {
+			theme.AssistChipTokens.Focus = &AssistChipFocusOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Focus.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.focus.outline.color"]; ok {
+		if theme.AssistChipTokens.Focus == nil {
+			theme.AssistChipTokens.Focus = &AssistChipFocusOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Focus.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.focus.outline.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.hover.label.text.color"]; ok {
+		if theme.AssistChipTokens.Hover == nil {
+			theme.AssistChipTokens.Hover = &AssistChipHoverOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.hover.leading.icon.color"]; ok {
+		if theme.AssistChipTokens.Hover == nil {
+			theme.AssistChipTokens.Hover = &AssistChipHoverOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Hover.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.hover.state.layer.color"]; ok {
+		if theme.AssistChipTokens.Hover == nil {
+			theme.AssistChipTokens.Hover = &AssistChipHoverOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.hover.state.layer.opacity"]; ok {
+		if theme.AssistChipTokens.Hover == nil {
+			theme.AssistChipTokens.Hover = &AssistChipHoverOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.assist.chip.icon.label.space"]; ok {
+		theme.AssistChipTokens.Icon.LabelSpace = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.icon.label.space")
+	}
+	if val, ok := tokens["md.comp.assist.chip.icon.size"]; ok {
+		theme.AssistChipTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.icon.size")
+	}
+	if val, ok := tokens["md.comp.assist.chip.label.text.color"]; ok {
+		theme.AssistChipTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.label.text.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.label.text.font"]; ok {
+		theme.AssistChipTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.label.text.font")
+	}
+	if val, ok := tokens["md.comp.assist.chip.label.text.line.height"]; ok {
+		theme.AssistChipTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.assist.chip.label.text.size"]; ok {
+		theme.AssistChipTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.label.text.size")
+	}
+	if val, ok := tokens["md.comp.assist.chip.label.text.weight"]; ok {
+		theme.AssistChipTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.assist.chip.leading.icon.color"]; ok {
+		theme.AssistChipTokens.LeadingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.leading.space"]; ok {
+		theme.AssistChipTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.leading.space")
+	}
+	if val, ok := tokens["md.comp.assist.chip.outline.color"]; ok {
+		theme.AssistChipTokens.Outline.Color = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.outline.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.outline.width"]; ok {
+		theme.AssistChipTokens.Outline.Width = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.outline.width")
+	}
+	if val, ok := tokens["md.comp.assist.chip.pressed.label.text.color"]; ok {
+		if theme.AssistChipTokens.Pressed == nil {
+			theme.AssistChipTokens.Pressed = &AssistChipPressedOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Pressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.pressed.leading.icon.color"]; ok {
+		if theme.AssistChipTokens.Pressed == nil {
+			theme.AssistChipTokens.Pressed = &AssistChipPressedOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Pressed.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.pressed.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.pressed.state.layer.color"]; ok {
+		if theme.AssistChipTokens.Pressed == nil {
+			theme.AssistChipTokens.Pressed = &AssistChipPressedOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.assist.chip.pressed.state.layer.opacity"]; ok {
+		if theme.AssistChipTokens.Pressed == nil {
+			theme.AssistChipTokens.Pressed = &AssistChipPressedOverlay{}
+		}
+		v := val
+		theme.AssistChipTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.assist.chip.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.assist.chip.trailing.space"]; ok {
+		theme.AssistChipTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.trailing.space")
+	}
+	if val, ok := tokens["md.comp.assist.chip.with.leading.icon.leading.space"]; ok {
+		theme.AssistChipTokens.WithLeadingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.assist.chip.with.leading.icon.leading.space")
+	}
 	theme.CheckboxTokens = &CheckboxTokens{}
+	if val, ok := tokens["md.comp.checkbox.container.shape"]; ok {
+		theme.CheckboxTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.checkbox.container.shape")
+	}
+	if val, ok := tokens["md.comp.checkbox.container.shape.end.end"]; ok {
+		theme.CheckboxTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.checkbox.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.checkbox.container.shape.end.start"]; ok {
+		theme.CheckboxTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.checkbox.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.checkbox.container.shape.start.end"]; ok {
+		theme.CheckboxTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.checkbox.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.checkbox.container.shape.start.start"]; ok {
+		theme.CheckboxTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.checkbox.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.checkbox.container.size"]; ok {
+		theme.CheckboxTokens.Container.Size = val
+	} else {
+		missing = append(missing, "md.comp.checkbox.container.size")
+	}
+	if val, ok := tokens["md.comp.checkbox.disabled.container.opacity"]; ok {
+		if theme.CheckboxTokens.Disabled == nil {
+			theme.CheckboxTokens.Disabled = &CheckboxDisabledOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Disabled.ContainerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.disabled.container.opacity")
+	}
+	if val, ok := tokens["md.comp.checkbox.disabled.outline.color"]; ok {
+		if theme.CheckboxTokens.Disabled == nil {
+			theme.CheckboxTokens.Disabled = &CheckboxDisabledOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Disabled.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.disabled.outline.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.disabled.outline.width"]; ok {
+		if theme.CheckboxTokens.Disabled == nil {
+			theme.CheckboxTokens.Disabled = &CheckboxDisabledOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Disabled.OutlineWidth = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.disabled.outline.width")
+	}
+	if val, ok := tokens["md.comp.checkbox.focus.outline.color"]; ok {
+		if theme.CheckboxTokens.Focus == nil {
+			theme.CheckboxTokens.Focus = &CheckboxFocusOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Focus.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.focus.outline.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.focus.outline.width"]; ok {
+		if theme.CheckboxTokens.Focus == nil {
+			theme.CheckboxTokens.Focus = &CheckboxFocusOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Focus.OutlineWidth = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.focus.outline.width")
+	}
+	if val, ok := tokens["md.comp.checkbox.hover.outline.color"]; ok {
+		if theme.CheckboxTokens.Hover == nil {
+			theme.CheckboxTokens.Hover = &CheckboxHoverOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Hover.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.hover.outline.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.hover.outline.width"]; ok {
+		if theme.CheckboxTokens.Hover == nil {
+			theme.CheckboxTokens.Hover = &CheckboxHoverOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Hover.OutlineWidth = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.hover.outline.width")
+	}
+	if val, ok := tokens["md.comp.checkbox.hover.state.layer.color"]; ok {
+		if theme.CheckboxTokens.Hover == nil {
+			theme.CheckboxTokens.Hover = &CheckboxHoverOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.hover.state.layer.opacity"]; ok {
+		if theme.CheckboxTokens.Hover == nil {
+			theme.CheckboxTokens.Hover = &CheckboxHoverOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.checkbox.icon.size"]; ok {
+		theme.CheckboxTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.checkbox.icon.size")
+	}
+	if val, ok := tokens["md.comp.checkbox.outline.color"]; ok {
+		theme.CheckboxTokens.Outline.Color = val
+	} else {
+		missing = append(missing, "md.comp.checkbox.outline.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.outline.width"]; ok {
+		theme.CheckboxTokens.Outline.Width = val
+	} else {
+		missing = append(missing, "md.comp.checkbox.outline.width")
+	}
+	if val, ok := tokens["md.comp.checkbox.pressed.outline.color"]; ok {
+		if theme.CheckboxTokens.Pressed == nil {
+			theme.CheckboxTokens.Pressed = &CheckboxPressedOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Pressed.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.pressed.outline.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.pressed.outline.width"]; ok {
+		if theme.CheckboxTokens.Pressed == nil {
+			theme.CheckboxTokens.Pressed = &CheckboxPressedOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Pressed.OutlineWidth = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.pressed.outline.width")
+	}
+	if val, ok := tokens["md.comp.checkbox.pressed.state.layer.color"]; ok {
+		if theme.CheckboxTokens.Pressed == nil {
+			theme.CheckboxTokens.Pressed = &CheckboxPressedOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.pressed.state.layer.opacity"]; ok {
+		if theme.CheckboxTokens.Pressed == nil {
+			theme.CheckboxTokens.Pressed = &CheckboxPressedOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.container.color"]; ok {
+		if theme.CheckboxTokens.Selected == nil {
+			theme.CheckboxTokens.Selected = &CheckboxSelectedOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Selected.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.container.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.disabled.container.color"]; ok {
+		if theme.CheckboxTokens.SelectedDisabled == nil {
+			theme.CheckboxTokens.SelectedDisabled = &CheckboxSelectedDisabledOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.SelectedDisabled.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.disabled.container.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.disabled.container.opacity"]; ok {
+		if theme.CheckboxTokens.SelectedDisabled == nil {
+			theme.CheckboxTokens.SelectedDisabled = &CheckboxSelectedDisabledOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.SelectedDisabled.ContainerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.disabled.container.opacity")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.disabled.icon.color"]; ok {
+		if theme.CheckboxTokens.SelectedDisabled == nil {
+			theme.CheckboxTokens.SelectedDisabled = &CheckboxSelectedDisabledOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.SelectedDisabled.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.disabled.icon.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.focus.container.color"]; ok {
+		if theme.CheckboxTokens.SelectedFocus == nil {
+			theme.CheckboxTokens.SelectedFocus = &CheckboxSelectedFocusOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.SelectedFocus.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.focus.container.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.focus.icon.color"]; ok {
+		if theme.CheckboxTokens.SelectedFocus == nil {
+			theme.CheckboxTokens.SelectedFocus = &CheckboxSelectedFocusOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.SelectedFocus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.hover.container.color"]; ok {
+		if theme.CheckboxTokens.SelectedHover == nil {
+			theme.CheckboxTokens.SelectedHover = &CheckboxSelectedHoverOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.SelectedHover.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.hover.container.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.hover.icon.color"]; ok {
+		if theme.CheckboxTokens.SelectedHover == nil {
+			theme.CheckboxTokens.SelectedHover = &CheckboxSelectedHoverOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.SelectedHover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.hover.state.layer.color"]; ok {
+		if theme.CheckboxTokens.SelectedHover == nil {
+			theme.CheckboxTokens.SelectedHover = &CheckboxSelectedHoverOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.SelectedHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.hover.state.layer.opacity"]; ok {
+		if theme.CheckboxTokens.SelectedHover == nil {
+			theme.CheckboxTokens.SelectedHover = &CheckboxSelectedHoverOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.SelectedHover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.icon.color"]; ok {
+		if theme.CheckboxTokens.Selected == nil {
+			theme.CheckboxTokens.Selected = &CheckboxSelectedOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.Selected.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.icon.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.pressed.container.color"]; ok {
+		if theme.CheckboxTokens.SelectedPressed == nil {
+			theme.CheckboxTokens.SelectedPressed = &CheckboxSelectedPressedOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.SelectedPressed.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.pressed.container.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.pressed.icon.color"]; ok {
+		if theme.CheckboxTokens.SelectedPressed == nil {
+			theme.CheckboxTokens.SelectedPressed = &CheckboxSelectedPressedOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.SelectedPressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.pressed.state.layer.color"]; ok {
+		if theme.CheckboxTokens.SelectedPressed == nil {
+			theme.CheckboxTokens.SelectedPressed = &CheckboxSelectedPressedOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.SelectedPressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.checkbox.selected.pressed.state.layer.opacity"]; ok {
+		if theme.CheckboxTokens.SelectedPressed == nil {
+			theme.CheckboxTokens.SelectedPressed = &CheckboxSelectedPressedOverlay{}
+		}
+		v := val
+		theme.CheckboxTokens.SelectedPressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.checkbox.selected.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.checkbox.state.layer.shape"]; ok {
+		theme.CheckboxTokens.StateLayer.Shape = val
+	} else {
+		missing = append(missing, "md.comp.checkbox.state.layer.shape")
+	}
+	if val, ok := tokens["md.comp.checkbox.state.layer.size"]; ok {
+		theme.CheckboxTokens.StateLayer.Size = val
+	} else {
+		missing = append(missing, "md.comp.checkbox.state.layer.size")
+	}
 	theme.CircularProgressTokens = &CircularProgressTokens{}
+	if val, ok := tokens["md.comp.circular.progress.active.indicator.color"]; ok {
+		if theme.CircularProgressTokens.Active == nil {
+			theme.CircularProgressTokens.Active = &CircularProgressActiveOverlay{}
+		}
+		v := val
+		theme.CircularProgressTokens.Active.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.circular.progress.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.circular.progress.active.indicator.width"]; ok {
+		if theme.CircularProgressTokens.Active == nil {
+			theme.CircularProgressTokens.Active = &CircularProgressActiveOverlay{}
+		}
+		v := val
+		theme.CircularProgressTokens.Active.IndicatorWidth = &v
+	} else {
+		missing = append(missing, "md.comp.circular.progress.active.indicator.width")
+	}
+	if val, ok := tokens["md.comp.circular.progress.four.color.active.indicator.four.color"]; ok {
+		theme.CircularProgressTokens.FourColor.ActiveIndicatorFourColor = val
+	} else {
+		missing = append(missing, "md.comp.circular.progress.four.color.active.indicator.four.color")
+	}
+	if val, ok := tokens["md.comp.circular.progress.four.color.active.indicator.one.color"]; ok {
+		theme.CircularProgressTokens.FourColor.ActiveIndicatorOneColor = val
+	} else {
+		missing = append(missing, "md.comp.circular.progress.four.color.active.indicator.one.color")
+	}
+	if val, ok := tokens["md.comp.circular.progress.four.color.active.indicator.three.color"]; ok {
+		theme.CircularProgressTokens.FourColor.ActiveIndicatorThreeColor = val
+	} else {
+		missing = append(missing, "md.comp.circular.progress.four.color.active.indicator.three.color")
+	}
+	if val, ok := tokens["md.comp.circular.progress.four.color.active.indicator.two.color"]; ok {
+		theme.CircularProgressTokens.FourColor.ActiveIndicatorTwoColor = val
+	} else {
+		missing = append(missing, "md.comp.circular.progress.four.color.active.indicator.two.color")
+	}
+	if val, ok := tokens["md.comp.circular.progress.size"]; ok {
+		theme.CircularProgressTokens.Size.Value = val
+	} else {
+		missing = append(missing, "md.comp.circular.progress.size")
+	}
 	theme.DialogTokens = &DialogTokens{}
+	if val, ok := tokens["md.comp.dialog.container.color"]; ok {
+		theme.DialogTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.dialog.container.color")
+	}
+	if val, ok := tokens["md.comp.dialog.container.shape"]; ok {
+		theme.DialogTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.dialog.container.shape")
+	}
+	if val, ok := tokens["md.comp.dialog.container.shape.end.end"]; ok {
+		theme.DialogTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.dialog.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.dialog.container.shape.end.start"]; ok {
+		theme.DialogTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.dialog.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.dialog.container.shape.start.end"]; ok {
+		theme.DialogTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.dialog.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.dialog.container.shape.start.start"]; ok {
+		theme.DialogTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.dialog.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.dialog.headline.color"]; ok {
+		theme.DialogTokens.Headline.Color = val
+	} else {
+		missing = append(missing, "md.comp.dialog.headline.color")
+	}
+	if val, ok := tokens["md.comp.dialog.headline.font"]; ok {
+		theme.DialogTokens.Headline.Font = val
+	} else {
+		missing = append(missing, "md.comp.dialog.headline.font")
+	}
+	if val, ok := tokens["md.comp.dialog.headline.line.height"]; ok {
+		theme.DialogTokens.Headline.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.dialog.headline.line.height")
+	}
+	if val, ok := tokens["md.comp.dialog.headline.size"]; ok {
+		theme.DialogTokens.Headline.Size = val
+	} else {
+		missing = append(missing, "md.comp.dialog.headline.size")
+	}
+	if val, ok := tokens["md.comp.dialog.headline.weight"]; ok {
+		theme.DialogTokens.Headline.Weight = val
+	} else {
+		missing = append(missing, "md.comp.dialog.headline.weight")
+	}
+	if val, ok := tokens["md.comp.dialog.icon.color"]; ok {
+		theme.DialogTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.dialog.icon.color")
+	}
+	if val, ok := tokens["md.comp.dialog.icon.size"]; ok {
+		theme.DialogTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.dialog.icon.size")
+	}
+	if val, ok := tokens["md.comp.dialog.supporting.text.color"]; ok {
+		theme.DialogTokens.SupportingText.Color = val
+	} else {
+		missing = append(missing, "md.comp.dialog.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.dialog.supporting.text.font"]; ok {
+		theme.DialogTokens.SupportingText.Font = val
+	} else {
+		missing = append(missing, "md.comp.dialog.supporting.text.font")
+	}
+	if val, ok := tokens["md.comp.dialog.supporting.text.line.height"]; ok {
+		theme.DialogTokens.SupportingText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.dialog.supporting.text.line.height")
+	}
+	if val, ok := tokens["md.comp.dialog.supporting.text.size"]; ok {
+		theme.DialogTokens.SupportingText.Size = val
+	} else {
+		missing = append(missing, "md.comp.dialog.supporting.text.size")
+	}
+	if val, ok := tokens["md.comp.dialog.supporting.text.weight"]; ok {
+		theme.DialogTokens.SupportingText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.dialog.supporting.text.weight")
+	}
 	theme.DividerTokens = &DividerTokens{}
+	if val, ok := tokens["md.comp.divider.color"]; ok {
+		theme.DividerTokens.Color.Value = val
+	} else {
+		missing = append(missing, "md.comp.divider.color")
+	}
+	if val, ok := tokens["md.comp.divider.thickness"]; ok {
+		theme.DividerTokens.Thickness.Value = val
+	} else {
+		missing = append(missing, "md.comp.divider.thickness")
+	}
 	theme.ElevatedButtonTokens = &ElevatedButtonTokens{}
+	if val, ok := tokens["md.comp.elevated.button.container.color"]; ok {
+		theme.ElevatedButtonTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.container.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.container.elevation"]; ok {
+		theme.ElevatedButtonTokens.Container.Elevation = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.container.elevation")
+	}
+	if val, ok := tokens["md.comp.elevated.button.container.height"]; ok {
+		theme.ElevatedButtonTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.container.height")
+	}
+	if val, ok := tokens["md.comp.elevated.button.container.shadow.color"]; ok {
+		theme.ElevatedButtonTokens.Container.ShadowColor = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.container.shadow.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.container.shape"]; ok {
+		theme.ElevatedButtonTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.container.shape")
+	}
+	if val, ok := tokens["md.comp.elevated.button.container.shape.end.end"]; ok {
+		theme.ElevatedButtonTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.elevated.button.container.shape.end.start"]; ok {
+		theme.ElevatedButtonTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.elevated.button.container.shape.start.end"]; ok {
+		theme.ElevatedButtonTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.elevated.button.container.shape.start.start"]; ok {
+		theme.ElevatedButtonTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.elevated.button.disabled.container.color"]; ok {
+		if theme.ElevatedButtonTokens.Disabled == nil {
+			theme.ElevatedButtonTokens.Disabled = &ElevatedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Disabled.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.disabled.container.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.disabled.container.elevation"]; ok {
+		if theme.ElevatedButtonTokens.Disabled == nil {
+			theme.ElevatedButtonTokens.Disabled = &ElevatedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Disabled.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.disabled.container.elevation")
+	}
+	if val, ok := tokens["md.comp.elevated.button.disabled.container.opacity"]; ok {
+		if theme.ElevatedButtonTokens.Disabled == nil {
+			theme.ElevatedButtonTokens.Disabled = &ElevatedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Disabled.ContainerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.disabled.container.opacity")
+	}
+	if val, ok := tokens["md.comp.elevated.button.disabled.icon.color"]; ok {
+		if theme.ElevatedButtonTokens.Disabled == nil {
+			theme.ElevatedButtonTokens.Disabled = &ElevatedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Disabled.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.disabled.icon.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.disabled.icon.opacity"]; ok {
+		if theme.ElevatedButtonTokens.Disabled == nil {
+			theme.ElevatedButtonTokens.Disabled = &ElevatedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Disabled.IconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.disabled.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.elevated.button.disabled.label.text.color"]; ok {
+		if theme.ElevatedButtonTokens.Disabled == nil {
+			theme.ElevatedButtonTokens.Disabled = &ElevatedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.disabled.label.text.opacity"]; ok {
+		if theme.ElevatedButtonTokens.Disabled == nil {
+			theme.ElevatedButtonTokens.Disabled = &ElevatedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Disabled.LabelTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.elevated.button.focus.container.elevation"]; ok {
+		if theme.ElevatedButtonTokens.Focus == nil {
+			theme.ElevatedButtonTokens.Focus = &ElevatedButtonFocusOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Focus.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.focus.container.elevation")
+	}
+	if val, ok := tokens["md.comp.elevated.button.focus.icon.color"]; ok {
+		if theme.ElevatedButtonTokens.Focus == nil {
+			theme.ElevatedButtonTokens.Focus = &ElevatedButtonFocusOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.focus.label.text.color"]; ok {
+		if theme.ElevatedButtonTokens.Focus == nil {
+			theme.ElevatedButtonTokens.Focus = &ElevatedButtonFocusOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.hover.container.elevation"]; ok {
+		if theme.ElevatedButtonTokens.Hover == nil {
+			theme.ElevatedButtonTokens.Hover = &ElevatedButtonHoverOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Hover.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.hover.container.elevation")
+	}
+	if val, ok := tokens["md.comp.elevated.button.hover.icon.color"]; ok {
+		if theme.ElevatedButtonTokens.Hover == nil {
+			theme.ElevatedButtonTokens.Hover = &ElevatedButtonHoverOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.hover.label.text.color"]; ok {
+		if theme.ElevatedButtonTokens.Hover == nil {
+			theme.ElevatedButtonTokens.Hover = &ElevatedButtonHoverOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.hover.state.layer.color"]; ok {
+		if theme.ElevatedButtonTokens.Hover == nil {
+			theme.ElevatedButtonTokens.Hover = &ElevatedButtonHoverOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.hover.state.layer.opacity"]; ok {
+		if theme.ElevatedButtonTokens.Hover == nil {
+			theme.ElevatedButtonTokens.Hover = &ElevatedButtonHoverOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.elevated.button.icon.color"]; ok {
+		theme.ElevatedButtonTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.icon.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.icon.size"]; ok {
+		theme.ElevatedButtonTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.icon.size")
+	}
+	if val, ok := tokens["md.comp.elevated.button.label.text.color"]; ok {
+		theme.ElevatedButtonTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.label.text.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.label.text.font"]; ok {
+		theme.ElevatedButtonTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.label.text.font")
+	}
+	if val, ok := tokens["md.comp.elevated.button.label.text.line.height"]; ok {
+		theme.ElevatedButtonTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.elevated.button.label.text.size"]; ok {
+		theme.ElevatedButtonTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.label.text.size")
+	}
+	if val, ok := tokens["md.comp.elevated.button.label.text.weight"]; ok {
+		theme.ElevatedButtonTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.elevated.button.leading.space"]; ok {
+		theme.ElevatedButtonTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.leading.space")
+	}
+	if val, ok := tokens["md.comp.elevated.button.pressed.container.elevation"]; ok {
+		if theme.ElevatedButtonTokens.Pressed == nil {
+			theme.ElevatedButtonTokens.Pressed = &ElevatedButtonPressedOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Pressed.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.pressed.container.elevation")
+	}
+	if val, ok := tokens["md.comp.elevated.button.pressed.icon.color"]; ok {
+		if theme.ElevatedButtonTokens.Pressed == nil {
+			theme.ElevatedButtonTokens.Pressed = &ElevatedButtonPressedOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.pressed.label.text.color"]; ok {
+		if theme.ElevatedButtonTokens.Pressed == nil {
+			theme.ElevatedButtonTokens.Pressed = &ElevatedButtonPressedOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Pressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.pressed.state.layer.color"]; ok {
+		if theme.ElevatedButtonTokens.Pressed == nil {
+			theme.ElevatedButtonTokens.Pressed = &ElevatedButtonPressedOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.elevated.button.pressed.state.layer.opacity"]; ok {
+		if theme.ElevatedButtonTokens.Pressed == nil {
+			theme.ElevatedButtonTokens.Pressed = &ElevatedButtonPressedOverlay{}
+		}
+		v := val
+		theme.ElevatedButtonTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.elevated.button.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.elevated.button.trailing.space"]; ok {
+		theme.ElevatedButtonTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.trailing.space")
+	}
+	if val, ok := tokens["md.comp.elevated.button.with.leading.icon.leading.space"]; ok {
+		theme.ElevatedButtonTokens.WithLeadingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.with.leading.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.elevated.button.with.leading.icon.trailing.space"]; ok {
+		theme.ElevatedButtonTokens.WithLeadingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.with.leading.icon.trailing.space")
+	}
+	if val, ok := tokens["md.comp.elevated.button.with.trailing.icon.leading.space"]; ok {
+		theme.ElevatedButtonTokens.WithTrailingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.with.trailing.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.elevated.button.with.trailing.icon.trailing.space"]; ok {
+		theme.ElevatedButtonTokens.WithTrailingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.elevated.button.with.trailing.icon.trailing.space")
+	}
 	theme.ElevatedCardTokens = &ElevatedCardTokens{}
+	if val, ok := tokens["md.comp.elevated.card.container.color"]; ok {
+		theme.ElevatedCardTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.elevated.card.container.color")
+	}
+	if val, ok := tokens["md.comp.elevated.card.container.elevation"]; ok {
+		theme.ElevatedCardTokens.Container.Elevation = val
+	} else {
+		missing = append(missing, "md.comp.elevated.card.container.elevation")
+	}
+	if val, ok := tokens["md.comp.elevated.card.container.shadow.color"]; ok {
+		theme.ElevatedCardTokens.Container.ShadowColor = val
+	} else {
+		missing = append(missing, "md.comp.elevated.card.container.shadow.color")
+	}
+	if val, ok := tokens["md.comp.elevated.card.container.shape"]; ok {
+		theme.ElevatedCardTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.elevated.card.container.shape")
+	}
 	theme.ElevationTokens = &ElevationTokens{}
+	if val, ok := tokens["md.comp.elevation.level"]; ok {
+		theme.ElevationTokens.Level.Value = val
+	} else {
+		missing = append(missing, "md.comp.elevation.level")
+	}
+	if val, ok := tokens["md.comp.elevation.shadow.color"]; ok {
+		theme.ElevationTokens.Shadow.Color = val
+	} else {
+		missing = append(missing, "md.comp.elevation.shadow.color")
+	}
 	theme.FabBrandedTokens = &FabBrandedTokens{}
+	if val, ok := tokens["md.comp.fab.branded.container.color"]; ok {
+		theme.FabBrandedTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.container.color")
+	}
+	if val, ok := tokens["md.comp.fab.branded.container.elevation"]; ok {
+		theme.FabBrandedTokens.Container.Elevation = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.branded.container.height"]; ok {
+		theme.FabBrandedTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.container.height")
+	}
+	if val, ok := tokens["md.comp.fab.branded.container.shadow.color"]; ok {
+		theme.FabBrandedTokens.Container.ShadowColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.container.shadow.color")
+	}
+	if val, ok := tokens["md.comp.fab.branded.container.shape"]; ok {
+		theme.FabBrandedTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.container.shape")
+	}
+	if val, ok := tokens["md.comp.fab.branded.container.shape.end.end"]; ok {
+		theme.FabBrandedTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.fab.branded.container.shape.end.start"]; ok {
+		theme.FabBrandedTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.fab.branded.container.shape.start.end"]; ok {
+		theme.FabBrandedTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.fab.branded.container.shape.start.start"]; ok {
+		theme.FabBrandedTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.fab.branded.container.width"]; ok {
+		theme.FabBrandedTokens.Container.Width = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.container.width")
+	}
+	if val, ok := tokens["md.comp.fab.branded.focus.container.elevation"]; ok {
+		if theme.FabBrandedTokens.Focus == nil {
+			theme.FabBrandedTokens.Focus = &FabBrandedFocusOverlay{}
+		}
+		v := val
+		theme.FabBrandedTokens.Focus.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.fab.branded.focus.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.branded.focus.label.text.color"]; ok {
+		if theme.FabBrandedTokens.Focus == nil {
+			theme.FabBrandedTokens.Focus = &FabBrandedFocusOverlay{}
+		}
+		v := val
+		theme.FabBrandedTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.fab.branded.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.branded.hover.container.elevation"]; ok {
+		if theme.FabBrandedTokens.Hover == nil {
+			theme.FabBrandedTokens.Hover = &FabBrandedHoverOverlay{}
+		}
+		v := val
+		theme.FabBrandedTokens.Hover.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.fab.branded.hover.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.branded.hover.label.text.color"]; ok {
+		if theme.FabBrandedTokens.Hover == nil {
+			theme.FabBrandedTokens.Hover = &FabBrandedHoverOverlay{}
+		}
+		v := val
+		theme.FabBrandedTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.fab.branded.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.branded.hover.state.layer.color"]; ok {
+		if theme.FabBrandedTokens.Hover == nil {
+			theme.FabBrandedTokens.Hover = &FabBrandedHoverOverlay{}
+		}
+		v := val
+		theme.FabBrandedTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.fab.branded.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.fab.branded.hover.state.layer.opacity"]; ok {
+		if theme.FabBrandedTokens.Hover == nil {
+			theme.FabBrandedTokens.Hover = &FabBrandedHoverOverlay{}
+		}
+		v := val
+		theme.FabBrandedTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.fab.branded.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.fab.branded.icon.size"]; ok {
+		theme.FabBrandedTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.icon.size")
+	}
+	if val, ok := tokens["md.comp.fab.branded.label.text.color"]; ok {
+		theme.FabBrandedTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.branded.label.text.font"]; ok {
+		theme.FabBrandedTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.label.text.font")
+	}
+	if val, ok := tokens["md.comp.fab.branded.label.text.line.height"]; ok {
+		theme.FabBrandedTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.fab.branded.label.text.size"]; ok {
+		theme.FabBrandedTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.label.text.size")
+	}
+	if val, ok := tokens["md.comp.fab.branded.label.text.weight"]; ok {
+		theme.FabBrandedTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.fab.branded.large.container.height"]; ok {
+		theme.FabBrandedTokens.Large.ContainerHeight = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.large.container.height")
+	}
+	if val, ok := tokens["md.comp.fab.branded.large.container.shape"]; ok {
+		theme.FabBrandedTokens.Large.ContainerShape = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.large.container.shape")
+	}
+	if val, ok := tokens["md.comp.fab.branded.large.container.shape.end.end"]; ok {
+		theme.FabBrandedTokens.Large.ContainerShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.large.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.fab.branded.large.container.shape.end.start"]; ok {
+		theme.FabBrandedTokens.Large.ContainerShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.large.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.fab.branded.large.container.shape.start.end"]; ok {
+		theme.FabBrandedTokens.Large.ContainerShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.large.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.fab.branded.large.container.shape.start.start"]; ok {
+		theme.FabBrandedTokens.Large.ContainerShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.large.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.fab.branded.large.container.width"]; ok {
+		theme.FabBrandedTokens.Large.ContainerWidth = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.large.container.width")
+	}
+	if val, ok := tokens["md.comp.fab.branded.large.icon.size"]; ok {
+		theme.FabBrandedTokens.Large.IconSize = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.large.icon.size")
+	}
+	if val, ok := tokens["md.comp.fab.branded.lowered.container.color"]; ok {
+		theme.FabBrandedTokens.Lowered.ContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.lowered.container.color")
+	}
+	if val, ok := tokens["md.comp.fab.branded.lowered.container.elevation"]; ok {
+		theme.FabBrandedTokens.Lowered.ContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.lowered.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.branded.lowered.focus.container.elevation"]; ok {
+		theme.FabBrandedTokens.Lowered.FocusContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.lowered.focus.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.branded.lowered.hover.container.elevation"]; ok {
+		theme.FabBrandedTokens.Lowered.HoverContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.lowered.hover.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.branded.lowered.pressed.container.elevation"]; ok {
+		theme.FabBrandedTokens.Lowered.PressedContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.fab.branded.lowered.pressed.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.branded.pressed.container.elevation"]; ok {
+		if theme.FabBrandedTokens.Pressed == nil {
+			theme.FabBrandedTokens.Pressed = &FabBrandedPressedOverlay{}
+		}
+		v := val
+		theme.FabBrandedTokens.Pressed.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.fab.branded.pressed.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.branded.pressed.label.text.color"]; ok {
+		if theme.FabBrandedTokens.Pressed == nil {
+			theme.FabBrandedTokens.Pressed = &FabBrandedPressedOverlay{}
+		}
+		v := val
+		theme.FabBrandedTokens.Pressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.fab.branded.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.branded.pressed.state.layer.color"]; ok {
+		if theme.FabBrandedTokens.Pressed == nil {
+			theme.FabBrandedTokens.Pressed = &FabBrandedPressedOverlay{}
+		}
+		v := val
+		theme.FabBrandedTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.fab.branded.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.fab.branded.pressed.state.layer.opacity"]; ok {
+		if theme.FabBrandedTokens.Pressed == nil {
+			theme.FabBrandedTokens.Pressed = &FabBrandedPressedOverlay{}
+		}
+		v := val
+		theme.FabBrandedTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.fab.branded.pressed.state.layer.opacity")
+	}
 	theme.FabTokens = &FabTokens{}
+	if val, ok := tokens["md.comp.fab.container.color"]; ok {
+		theme.FabTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.fab.container.color")
+	}
+	if val, ok := tokens["md.comp.fab.container.elevation"]; ok {
+		theme.FabTokens.Container.Elevation = val
+	} else {
+		missing = append(missing, "md.comp.fab.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.container.height"]; ok {
+		theme.FabTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.fab.container.height")
+	}
+	if val, ok := tokens["md.comp.fab.container.shadow.color"]; ok {
+		theme.FabTokens.Container.ShadowColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.container.shadow.color")
+	}
+	if val, ok := tokens["md.comp.fab.container.shape"]; ok {
+		theme.FabTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.fab.container.shape")
+	}
+	if val, ok := tokens["md.comp.fab.container.shape.end.end"]; ok {
+		theme.FabTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.fab.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.fab.container.shape.end.start"]; ok {
+		theme.FabTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.fab.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.fab.container.shape.start.end"]; ok {
+		theme.FabTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.fab.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.fab.container.shape.start.start"]; ok {
+		theme.FabTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.fab.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.fab.container.width"]; ok {
+		theme.FabTokens.Container.Width = val
+	} else {
+		missing = append(missing, "md.comp.fab.container.width")
+	}
+	if val, ok := tokens["md.comp.fab.focus.container.elevation"]; ok {
+		if theme.FabTokens.Focus == nil {
+			theme.FabTokens.Focus = &FabFocusOverlay{}
+		}
+		v := val
+		theme.FabTokens.Focus.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.fab.focus.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.focus.icon.color"]; ok {
+		if theme.FabTokens.Focus == nil {
+			theme.FabTokens.Focus = &FabFocusOverlay{}
+		}
+		v := val
+		theme.FabTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.fab.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.focus.label.text.color"]; ok {
+		if theme.FabTokens.Focus == nil {
+			theme.FabTokens.Focus = &FabFocusOverlay{}
+		}
+		v := val
+		theme.FabTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.fab.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.hover.container.elevation"]; ok {
+		if theme.FabTokens.Hover == nil {
+			theme.FabTokens.Hover = &FabHoverOverlay{}
+		}
+		v := val
+		theme.FabTokens.Hover.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.fab.hover.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.hover.icon.color"]; ok {
+		if theme.FabTokens.Hover == nil {
+			theme.FabTokens.Hover = &FabHoverOverlay{}
+		}
+		v := val
+		theme.FabTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.fab.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.hover.label.text.color"]; ok {
+		if theme.FabTokens.Hover == nil {
+			theme.FabTokens.Hover = &FabHoverOverlay{}
+		}
+		v := val
+		theme.FabTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.fab.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.hover.state.layer.color"]; ok {
+		if theme.FabTokens.Hover == nil {
+			theme.FabTokens.Hover = &FabHoverOverlay{}
+		}
+		v := val
+		theme.FabTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.fab.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.fab.hover.state.layer.opacity"]; ok {
+		if theme.FabTokens.Hover == nil {
+			theme.FabTokens.Hover = &FabHoverOverlay{}
+		}
+		v := val
+		theme.FabTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.fab.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.fab.icon.color"]; ok {
+		theme.FabTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.fab.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.icon.size"]; ok {
+		theme.FabTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.fab.icon.size")
+	}
+	if val, ok := tokens["md.comp.fab.label.text.color"]; ok {
+		theme.FabTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.fab.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.label.text.font"]; ok {
+		theme.FabTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.fab.label.text.font")
+	}
+	if val, ok := tokens["md.comp.fab.label.text.line.height"]; ok {
+		theme.FabTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.fab.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.fab.label.text.size"]; ok {
+		theme.FabTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.fab.label.text.size")
+	}
+	if val, ok := tokens["md.comp.fab.label.text.weight"]; ok {
+		theme.FabTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.fab.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.fab.large.container.height"]; ok {
+		theme.FabTokens.Large.ContainerHeight = val
+	} else {
+		missing = append(missing, "md.comp.fab.large.container.height")
+	}
+	if val, ok := tokens["md.comp.fab.large.container.shape"]; ok {
+		theme.FabTokens.Large.ContainerShape = val
+	} else {
+		missing = append(missing, "md.comp.fab.large.container.shape")
+	}
+	if val, ok := tokens["md.comp.fab.large.container.shape.end.end"]; ok {
+		theme.FabTokens.Large.ContainerShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.fab.large.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.fab.large.container.shape.end.start"]; ok {
+		theme.FabTokens.Large.ContainerShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.fab.large.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.fab.large.container.shape.start.end"]; ok {
+		theme.FabTokens.Large.ContainerShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.fab.large.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.fab.large.container.shape.start.start"]; ok {
+		theme.FabTokens.Large.ContainerShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.fab.large.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.fab.large.container.width"]; ok {
+		theme.FabTokens.Large.ContainerWidth = val
+	} else {
+		missing = append(missing, "md.comp.fab.large.container.width")
+	}
+	if val, ok := tokens["md.comp.fab.large.icon.size"]; ok {
+		theme.FabTokens.Large.IconSize = val
+	} else {
+		missing = append(missing, "md.comp.fab.large.icon.size")
+	}
+	if val, ok := tokens["md.comp.fab.lowered.container.color"]; ok {
+		theme.FabTokens.Lowered.ContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.lowered.container.color")
+	}
+	if val, ok := tokens["md.comp.fab.lowered.container.elevation"]; ok {
+		theme.FabTokens.Lowered.ContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.fab.lowered.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.lowered.focus.container.elevation"]; ok {
+		theme.FabTokens.Lowered.FocusContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.fab.lowered.focus.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.lowered.hover.container.elevation"]; ok {
+		theme.FabTokens.Lowered.HoverContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.fab.lowered.hover.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.lowered.pressed.container.elevation"]; ok {
+		theme.FabTokens.Lowered.PressedContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.fab.lowered.pressed.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.pressed.container.elevation"]; ok {
+		if theme.FabTokens.Pressed == nil {
+			theme.FabTokens.Pressed = &FabPressedOverlay{}
+		}
+		v := val
+		theme.FabTokens.Pressed.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.fab.pressed.container.elevation")
+	}
+	if val, ok := tokens["md.comp.fab.pressed.icon.color"]; ok {
+		if theme.FabTokens.Pressed == nil {
+			theme.FabTokens.Pressed = &FabPressedOverlay{}
+		}
+		v := val
+		theme.FabTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.fab.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.pressed.label.text.color"]; ok {
+		if theme.FabTokens.Pressed == nil {
+			theme.FabTokens.Pressed = &FabPressedOverlay{}
+		}
+		v := val
+		theme.FabTokens.Pressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.fab.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.pressed.state.layer.color"]; ok {
+		if theme.FabTokens.Pressed == nil {
+			theme.FabTokens.Pressed = &FabPressedOverlay{}
+		}
+		v := val
+		theme.FabTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.fab.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.fab.pressed.state.layer.opacity"]; ok {
+		if theme.FabTokens.Pressed == nil {
+			theme.FabTokens.Pressed = &FabPressedOverlay{}
+		}
+		v := val
+		theme.FabTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.fab.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.fab.primary.container.color"]; ok {
+		theme.FabTokens.Primary.ContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.primary.container.color")
+	}
+	if val, ok := tokens["md.comp.fab.primary.focus.icon.color"]; ok {
+		theme.FabTokens.Primary.FocusIconColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.primary.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.primary.focus.label.text.color"]; ok {
+		theme.FabTokens.Primary.FocusLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.primary.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.primary.hover.icon.color"]; ok {
+		theme.FabTokens.Primary.HoverIconColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.primary.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.primary.hover.label.text.color"]; ok {
+		theme.FabTokens.Primary.HoverLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.primary.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.primary.hover.state.layer.color"]; ok {
+		theme.FabTokens.Primary.HoverStateLayerColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.primary.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.fab.primary.icon.color"]; ok {
+		theme.FabTokens.Primary.IconColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.primary.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.primary.label.text.color"]; ok {
+		theme.FabTokens.Primary.LabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.primary.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.primary.pressed.icon.color"]; ok {
+		theme.FabTokens.Primary.PressedIconColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.primary.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.primary.pressed.label.text.color"]; ok {
+		theme.FabTokens.Primary.PressedLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.primary.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.primary.pressed.state.layer.color"]; ok {
+		theme.FabTokens.Primary.PressedStateLayerColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.primary.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.fab.secondary.container.color"]; ok {
+		theme.FabTokens.Secondary.ContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.secondary.container.color")
+	}
+	if val, ok := tokens["md.comp.fab.secondary.focus.icon.color"]; ok {
+		theme.FabTokens.Secondary.FocusIconColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.secondary.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.secondary.focus.label.text.color"]; ok {
+		theme.FabTokens.Secondary.FocusLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.secondary.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.secondary.hover.icon.color"]; ok {
+		theme.FabTokens.Secondary.HoverIconColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.secondary.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.secondary.hover.label.text.color"]; ok {
+		theme.FabTokens.Secondary.HoverLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.secondary.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.secondary.hover.state.layer.color"]; ok {
+		theme.FabTokens.Secondary.HoverStateLayerColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.secondary.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.fab.secondary.icon.color"]; ok {
+		theme.FabTokens.Secondary.IconColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.secondary.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.secondary.label.text.color"]; ok {
+		theme.FabTokens.Secondary.LabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.secondary.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.secondary.pressed.icon.color"]; ok {
+		theme.FabTokens.Secondary.PressedIconColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.secondary.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.secondary.pressed.label.text.color"]; ok {
+		theme.FabTokens.Secondary.PressedLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.secondary.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.secondary.pressed.state.layer.color"]; ok {
+		theme.FabTokens.Secondary.PressedStateLayerColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.secondary.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.fab.small.container.height"]; ok {
+		theme.FabTokens.Small.ContainerHeight = val
+	} else {
+		missing = append(missing, "md.comp.fab.small.container.height")
+	}
+	if val, ok := tokens["md.comp.fab.small.container.shape"]; ok {
+		theme.FabTokens.Small.ContainerShape = val
+	} else {
+		missing = append(missing, "md.comp.fab.small.container.shape")
+	}
+	if val, ok := tokens["md.comp.fab.small.container.shape.end.end"]; ok {
+		theme.FabTokens.Small.ContainerShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.fab.small.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.fab.small.container.shape.end.start"]; ok {
+		theme.FabTokens.Small.ContainerShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.fab.small.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.fab.small.container.shape.start.end"]; ok {
+		theme.FabTokens.Small.ContainerShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.fab.small.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.fab.small.container.shape.start.start"]; ok {
+		theme.FabTokens.Small.ContainerShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.fab.small.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.fab.small.container.width"]; ok {
+		theme.FabTokens.Small.ContainerWidth = val
+	} else {
+		missing = append(missing, "md.comp.fab.small.container.width")
+	}
+	if val, ok := tokens["md.comp.fab.small.icon.size"]; ok {
+		theme.FabTokens.Small.IconSize = val
+	} else {
+		missing = append(missing, "md.comp.fab.small.icon.size")
+	}
+	if val, ok := tokens["md.comp.fab.tertiary.container.color"]; ok {
+		theme.FabTokens.Tertiary.ContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.tertiary.container.color")
+	}
+	if val, ok := tokens["md.comp.fab.tertiary.focus.icon.color"]; ok {
+		theme.FabTokens.Tertiary.FocusIconColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.tertiary.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.tertiary.focus.label.text.color"]; ok {
+		theme.FabTokens.Tertiary.FocusLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.tertiary.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.tertiary.hover.icon.color"]; ok {
+		theme.FabTokens.Tertiary.HoverIconColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.tertiary.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.tertiary.hover.label.text.color"]; ok {
+		theme.FabTokens.Tertiary.HoverLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.tertiary.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.tertiary.hover.state.layer.color"]; ok {
+		theme.FabTokens.Tertiary.HoverStateLayerColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.tertiary.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.fab.tertiary.icon.color"]; ok {
+		theme.FabTokens.Tertiary.IconColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.tertiary.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.tertiary.label.text.color"]; ok {
+		theme.FabTokens.Tertiary.LabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.tertiary.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.tertiary.pressed.icon.color"]; ok {
+		theme.FabTokens.Tertiary.PressedIconColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.tertiary.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.fab.tertiary.pressed.label.text.color"]; ok {
+		theme.FabTokens.Tertiary.PressedLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.tertiary.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.fab.tertiary.pressed.state.layer.color"]; ok {
+		theme.FabTokens.Tertiary.PressedStateLayerColor = val
+	} else {
+		missing = append(missing, "md.comp.fab.tertiary.pressed.state.layer.color")
+	}
 	theme.FilledButtonTokens = &FilledButtonTokens{}
+	if val, ok := tokens["md.comp.filled.button.container.color"]; ok {
+		theme.FilledButtonTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.container.elevation"]; ok {
+		theme.FilledButtonTokens.Container.Elevation = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filled.button.container.height"]; ok {
+		theme.FilledButtonTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.container.height")
+	}
+	if val, ok := tokens["md.comp.filled.button.container.shadow.color"]; ok {
+		theme.FilledButtonTokens.Container.ShadowColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.container.shadow.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.container.shape"]; ok {
+		theme.FilledButtonTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.container.shape")
+	}
+	if val, ok := tokens["md.comp.filled.button.container.shape.end.end"]; ok {
+		theme.FilledButtonTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.filled.button.container.shape.end.start"]; ok {
+		theme.FilledButtonTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.filled.button.container.shape.start.end"]; ok {
+		theme.FilledButtonTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.filled.button.container.shape.start.start"]; ok {
+		theme.FilledButtonTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.filled.button.disabled.container.color"]; ok {
+		if theme.FilledButtonTokens.Disabled == nil {
+			theme.FilledButtonTokens.Disabled = &FilledButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Disabled.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.disabled.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.disabled.container.elevation"]; ok {
+		if theme.FilledButtonTokens.Disabled == nil {
+			theme.FilledButtonTokens.Disabled = &FilledButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Disabled.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.disabled.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filled.button.disabled.container.opacity"]; ok {
+		if theme.FilledButtonTokens.Disabled == nil {
+			theme.FilledButtonTokens.Disabled = &FilledButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Disabled.ContainerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.disabled.container.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.button.disabled.icon.color"]; ok {
+		if theme.FilledButtonTokens.Disabled == nil {
+			theme.FilledButtonTokens.Disabled = &FilledButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Disabled.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.disabled.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.disabled.icon.opacity"]; ok {
+		if theme.FilledButtonTokens.Disabled == nil {
+			theme.FilledButtonTokens.Disabled = &FilledButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Disabled.IconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.disabled.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.button.disabled.label.text.color"]; ok {
+		if theme.FilledButtonTokens.Disabled == nil {
+			theme.FilledButtonTokens.Disabled = &FilledButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.disabled.label.text.opacity"]; ok {
+		if theme.FilledButtonTokens.Disabled == nil {
+			theme.FilledButtonTokens.Disabled = &FilledButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Disabled.LabelTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.button.focus.container.elevation"]; ok {
+		if theme.FilledButtonTokens.Focus == nil {
+			theme.FilledButtonTokens.Focus = &FilledButtonFocusOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Focus.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.focus.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filled.button.focus.icon.color"]; ok {
+		if theme.FilledButtonTokens.Focus == nil {
+			theme.FilledButtonTokens.Focus = &FilledButtonFocusOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.focus.label.text.color"]; ok {
+		if theme.FilledButtonTokens.Focus == nil {
+			theme.FilledButtonTokens.Focus = &FilledButtonFocusOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.hover.container.elevation"]; ok {
+		if theme.FilledButtonTokens.Hover == nil {
+			theme.FilledButtonTokens.Hover = &FilledButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Hover.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.hover.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filled.button.hover.icon.color"]; ok {
+		if theme.FilledButtonTokens.Hover == nil {
+			theme.FilledButtonTokens.Hover = &FilledButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.hover.label.text.color"]; ok {
+		if theme.FilledButtonTokens.Hover == nil {
+			theme.FilledButtonTokens.Hover = &FilledButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.hover.state.layer.color"]; ok {
+		if theme.FilledButtonTokens.Hover == nil {
+			theme.FilledButtonTokens.Hover = &FilledButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.hover.state.layer.opacity"]; ok {
+		if theme.FilledButtonTokens.Hover == nil {
+			theme.FilledButtonTokens.Hover = &FilledButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.button.icon.color"]; ok {
+		theme.FilledButtonTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.icon.size"]; ok {
+		theme.FilledButtonTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.icon.size")
+	}
+	if val, ok := tokens["md.comp.filled.button.label.text.color"]; ok {
+		theme.FilledButtonTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.label.text.font"]; ok {
+		theme.FilledButtonTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.label.text.font")
+	}
+	if val, ok := tokens["md.comp.filled.button.label.text.line.height"]; ok {
+		theme.FilledButtonTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.button.label.text.size"]; ok {
+		theme.FilledButtonTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.label.text.size")
+	}
+	if val, ok := tokens["md.comp.filled.button.label.text.weight"]; ok {
+		theme.FilledButtonTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.filled.button.leading.space"]; ok {
+		theme.FilledButtonTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.leading.space")
+	}
+	if val, ok := tokens["md.comp.filled.button.pressed.container.elevation"]; ok {
+		if theme.FilledButtonTokens.Pressed == nil {
+			theme.FilledButtonTokens.Pressed = &FilledButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Pressed.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.pressed.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filled.button.pressed.icon.color"]; ok {
+		if theme.FilledButtonTokens.Pressed == nil {
+			theme.FilledButtonTokens.Pressed = &FilledButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.pressed.label.text.color"]; ok {
+		if theme.FilledButtonTokens.Pressed == nil {
+			theme.FilledButtonTokens.Pressed = &FilledButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Pressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.pressed.state.layer.color"]; ok {
+		if theme.FilledButtonTokens.Pressed == nil {
+			theme.FilledButtonTokens.Pressed = &FilledButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.button.pressed.state.layer.opacity"]; ok {
+		if theme.FilledButtonTokens.Pressed == nil {
+			theme.FilledButtonTokens.Pressed = &FilledButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledButtonTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.button.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.button.trailing.space"]; ok {
+		theme.FilledButtonTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.trailing.space")
+	}
+	if val, ok := tokens["md.comp.filled.button.with.leading.icon.leading.space"]; ok {
+		theme.FilledButtonTokens.WithLeadingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.with.leading.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.filled.button.with.leading.icon.trailing.space"]; ok {
+		theme.FilledButtonTokens.WithLeadingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.with.leading.icon.trailing.space")
+	}
+	if val, ok := tokens["md.comp.filled.button.with.trailing.icon.leading.space"]; ok {
+		theme.FilledButtonTokens.WithTrailingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.with.trailing.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.filled.button.with.trailing.icon.trailing.space"]; ok {
+		theme.FilledButtonTokens.WithTrailingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.button.with.trailing.icon.trailing.space")
+	}
 	theme.FilledCardTokens = &FilledCardTokens{}
+	if val, ok := tokens["md.comp.filled.card.container.color"]; ok {
+		theme.FilledCardTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.card.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.card.container.elevation"]; ok {
+		theme.FilledCardTokens.Container.Elevation = val
+	} else {
+		missing = append(missing, "md.comp.filled.card.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filled.card.container.shadow.color"]; ok {
+		theme.FilledCardTokens.Container.ShadowColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.card.container.shadow.color")
+	}
+	if val, ok := tokens["md.comp.filled.card.container.shape"]; ok {
+		theme.FilledCardTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.filled.card.container.shape")
+	}
 	theme.FilledFieldTokens = &FilledFieldTokens{}
+	if val, ok := tokens["md.comp.filled.field.active.indicator.color"]; ok {
+		if theme.FilledFieldTokens.Active == nil {
+			theme.FilledFieldTokens.Active = &FilledFieldActiveOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Active.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.active.indicator.height"]; ok {
+		if theme.FilledFieldTokens.Active == nil {
+			theme.FilledFieldTokens.Active = &FilledFieldActiveOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Active.IndicatorHeight = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.filled.field.bottom.space"]; ok {
+		theme.FilledFieldTokens.Bottom.Space = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.bottom.space")
+	}
+	if val, ok := tokens["md.comp.filled.field.container.color"]; ok {
+		theme.FilledFieldTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.container.shape"]; ok {
+		theme.FilledFieldTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.container.shape")
+	}
+	if val, ok := tokens["md.comp.filled.field.container.shape.end.end"]; ok {
+		theme.FilledFieldTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.filled.field.container.shape.end.start"]; ok {
+		theme.FilledFieldTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.filled.field.container.shape.start.end"]; ok {
+		theme.FilledFieldTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.filled.field.container.shape.start.start"]; ok {
+		theme.FilledFieldTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.filled.field.content.color"]; ok {
+		theme.FilledFieldTokens.Content.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.content.font"]; ok {
+		theme.FilledFieldTokens.Content.Font = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.content.font")
+	}
+	if val, ok := tokens["md.comp.filled.field.content.line.height"]; ok {
+		theme.FilledFieldTokens.Content.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.content.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.field.content.size"]; ok {
+		theme.FilledFieldTokens.Content.Size = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.content.size")
+	}
+	if val, ok := tokens["md.comp.filled.field.content.space"]; ok {
+		theme.FilledFieldTokens.Content.Space = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.content.space")
+	}
+	if val, ok := tokens["md.comp.filled.field.content.weight"]; ok {
+		theme.FilledFieldTokens.Content.Weight = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.content.weight")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.active.indicator.color"]; ok {
+		if theme.FilledFieldTokens.DisabledActive == nil {
+			theme.FilledFieldTokens.DisabledActive = &FilledFieldDisabledActiveOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.DisabledActive.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.active.indicator.height"]; ok {
+		if theme.FilledFieldTokens.DisabledActive == nil {
+			theme.FilledFieldTokens.DisabledActive = &FilledFieldDisabledActiveOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.DisabledActive.IndicatorHeight = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.active.indicator.opacity"]; ok {
+		if theme.FilledFieldTokens.DisabledActive == nil {
+			theme.FilledFieldTokens.DisabledActive = &FilledFieldDisabledActiveOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.DisabledActive.IndicatorOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.active.indicator.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.container.color"]; ok {
+		if theme.FilledFieldTokens.Disabled == nil {
+			theme.FilledFieldTokens.Disabled = &FilledFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Disabled.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.container.opacity"]; ok {
+		if theme.FilledFieldTokens.Disabled == nil {
+			theme.FilledFieldTokens.Disabled = &FilledFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Disabled.ContainerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.container.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.content.color"]; ok {
+		if theme.FilledFieldTokens.Disabled == nil {
+			theme.FilledFieldTokens.Disabled = &FilledFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Disabled.ContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.content.opacity"]; ok {
+		if theme.FilledFieldTokens.Disabled == nil {
+			theme.FilledFieldTokens.Disabled = &FilledFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Disabled.ContentOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.content.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.label.text.color"]; ok {
+		if theme.FilledFieldTokens.Disabled == nil {
+			theme.FilledFieldTokens.Disabled = &FilledFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.label.text.opacity"]; ok {
+		if theme.FilledFieldTokens.Disabled == nil {
+			theme.FilledFieldTokens.Disabled = &FilledFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Disabled.LabelTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.leading.content.color"]; ok {
+		if theme.FilledFieldTokens.Disabled == nil {
+			theme.FilledFieldTokens.Disabled = &FilledFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Disabled.LeadingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.leading.content.opacity"]; ok {
+		if theme.FilledFieldTokens.Disabled == nil {
+			theme.FilledFieldTokens.Disabled = &FilledFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Disabled.LeadingContentOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.leading.content.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.supporting.text.color"]; ok {
+		if theme.FilledFieldTokens.Disabled == nil {
+			theme.FilledFieldTokens.Disabled = &FilledFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Disabled.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.supporting.text.opacity"]; ok {
+		if theme.FilledFieldTokens.Disabled == nil {
+			theme.FilledFieldTokens.Disabled = &FilledFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Disabled.SupportingTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.supporting.text.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.trailing.content.color"]; ok {
+		if theme.FilledFieldTokens.Disabled == nil {
+			theme.FilledFieldTokens.Disabled = &FilledFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Disabled.TrailingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.disabled.trailing.content.opacity"]; ok {
+		if theme.FilledFieldTokens.Disabled == nil {
+			theme.FilledFieldTokens.Disabled = &FilledFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Disabled.TrailingContentOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.disabled.trailing.content.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.active.indicator.color"]; ok {
+		if theme.FilledFieldTokens.ErrorActive == nil {
+			theme.FilledFieldTokens.ErrorActive = &FilledFieldErrorActiveOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorActive.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.content.color"]; ok {
+		if theme.FilledFieldTokens.Error == nil {
+			theme.FilledFieldTokens.Error = &FilledFieldErrorOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Error.ContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.focus.active.indicator.color"]; ok {
+		if theme.FilledFieldTokens.ErrorFocusActive == nil {
+			theme.FilledFieldTokens.ErrorFocusActive = &FilledFieldErrorFocusActiveOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorFocusActive.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.focus.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.focus.content.color"]; ok {
+		if theme.FilledFieldTokens.ErrorFocus == nil {
+			theme.FilledFieldTokens.ErrorFocus = &FilledFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorFocus.ContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.focus.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.focus.label.text.color"]; ok {
+		if theme.FilledFieldTokens.ErrorFocus == nil {
+			theme.FilledFieldTokens.ErrorFocus = &FilledFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorFocus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.focus.leading.content.color"]; ok {
+		if theme.FilledFieldTokens.ErrorFocus == nil {
+			theme.FilledFieldTokens.ErrorFocus = &FilledFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorFocus.LeadingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.focus.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.focus.supporting.text.color"]; ok {
+		if theme.FilledFieldTokens.ErrorFocus == nil {
+			theme.FilledFieldTokens.ErrorFocus = &FilledFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorFocus.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.focus.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.focus.trailing.content.color"]; ok {
+		if theme.FilledFieldTokens.ErrorFocus == nil {
+			theme.FilledFieldTokens.ErrorFocus = &FilledFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorFocus.TrailingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.focus.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.hover.active.indicator.color"]; ok {
+		if theme.FilledFieldTokens.ErrorHoverActive == nil {
+			theme.FilledFieldTokens.ErrorHoverActive = &FilledFieldErrorHoverActiveOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorHoverActive.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.hover.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.hover.content.color"]; ok {
+		if theme.FilledFieldTokens.ErrorHover == nil {
+			theme.FilledFieldTokens.ErrorHover = &FilledFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorHover.ContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.hover.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.hover.label.text.color"]; ok {
+		if theme.FilledFieldTokens.ErrorHover == nil {
+			theme.FilledFieldTokens.ErrorHover = &FilledFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorHover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.hover.leading.content.color"]; ok {
+		if theme.FilledFieldTokens.ErrorHover == nil {
+			theme.FilledFieldTokens.ErrorHover = &FilledFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorHover.LeadingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.hover.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.hover.state.layer.color"]; ok {
+		if theme.FilledFieldTokens.ErrorHover == nil {
+			theme.FilledFieldTokens.ErrorHover = &FilledFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.hover.state.layer.opacity"]; ok {
+		if theme.FilledFieldTokens.ErrorHover == nil {
+			theme.FilledFieldTokens.ErrorHover = &FilledFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorHover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.hover.supporting.text.color"]; ok {
+		if theme.FilledFieldTokens.ErrorHover == nil {
+			theme.FilledFieldTokens.ErrorHover = &FilledFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorHover.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.hover.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.hover.trailing.content.color"]; ok {
+		if theme.FilledFieldTokens.ErrorHover == nil {
+			theme.FilledFieldTokens.ErrorHover = &FilledFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.ErrorHover.TrailingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.hover.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.label.text.color"]; ok {
+		if theme.FilledFieldTokens.Error == nil {
+			theme.FilledFieldTokens.Error = &FilledFieldErrorOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Error.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.leading.content.color"]; ok {
+		if theme.FilledFieldTokens.Error == nil {
+			theme.FilledFieldTokens.Error = &FilledFieldErrorOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Error.LeadingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.supporting.text.color"]; ok {
+		if theme.FilledFieldTokens.Error == nil {
+			theme.FilledFieldTokens.Error = &FilledFieldErrorOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Error.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.error.trailing.content.color"]; ok {
+		if theme.FilledFieldTokens.Error == nil {
+			theme.FilledFieldTokens.Error = &FilledFieldErrorOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Error.TrailingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.error.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.focus.active.indicator.color"]; ok {
+		if theme.FilledFieldTokens.FocusActive == nil {
+			theme.FilledFieldTokens.FocusActive = &FilledFieldFocusActiveOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.FocusActive.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.focus.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.focus.active.indicator.height"]; ok {
+		if theme.FilledFieldTokens.FocusActive == nil {
+			theme.FilledFieldTokens.FocusActive = &FilledFieldFocusActiveOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.FocusActive.IndicatorHeight = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.focus.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.filled.field.focus.content.color"]; ok {
+		if theme.FilledFieldTokens.Focus == nil {
+			theme.FilledFieldTokens.Focus = &FilledFieldFocusOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Focus.ContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.focus.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.focus.label.text.color"]; ok {
+		if theme.FilledFieldTokens.Focus == nil {
+			theme.FilledFieldTokens.Focus = &FilledFieldFocusOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.focus.leading.content.color"]; ok {
+		if theme.FilledFieldTokens.Focus == nil {
+			theme.FilledFieldTokens.Focus = &FilledFieldFocusOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Focus.LeadingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.focus.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.focus.supporting.text.color"]; ok {
+		if theme.FilledFieldTokens.Focus == nil {
+			theme.FilledFieldTokens.Focus = &FilledFieldFocusOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Focus.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.focus.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.focus.trailing.content.color"]; ok {
+		if theme.FilledFieldTokens.Focus == nil {
+			theme.FilledFieldTokens.Focus = &FilledFieldFocusOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Focus.TrailingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.focus.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.hover.active.indicator.color"]; ok {
+		if theme.FilledFieldTokens.HoverActive == nil {
+			theme.FilledFieldTokens.HoverActive = &FilledFieldHoverActiveOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.HoverActive.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.hover.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.hover.active.indicator.height"]; ok {
+		if theme.FilledFieldTokens.HoverActive == nil {
+			theme.FilledFieldTokens.HoverActive = &FilledFieldHoverActiveOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.HoverActive.IndicatorHeight = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.hover.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.filled.field.hover.content.color"]; ok {
+		if theme.FilledFieldTokens.Hover == nil {
+			theme.FilledFieldTokens.Hover = &FilledFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Hover.ContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.hover.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.hover.label.text.color"]; ok {
+		if theme.FilledFieldTokens.Hover == nil {
+			theme.FilledFieldTokens.Hover = &FilledFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.hover.leading.content.color"]; ok {
+		if theme.FilledFieldTokens.Hover == nil {
+			theme.FilledFieldTokens.Hover = &FilledFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Hover.LeadingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.hover.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.hover.state.layer.color"]; ok {
+		if theme.FilledFieldTokens.Hover == nil {
+			theme.FilledFieldTokens.Hover = &FilledFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.hover.state.layer.opacity"]; ok {
+		if theme.FilledFieldTokens.Hover == nil {
+			theme.FilledFieldTokens.Hover = &FilledFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.field.hover.supporting.text.color"]; ok {
+		if theme.FilledFieldTokens.Hover == nil {
+			theme.FilledFieldTokens.Hover = &FilledFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Hover.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.hover.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.hover.trailing.content.color"]; ok {
+		if theme.FilledFieldTokens.Hover == nil {
+			theme.FilledFieldTokens.Hover = &FilledFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledFieldTokens.Hover.TrailingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.field.hover.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.label.text.color"]; ok {
+		theme.FilledFieldTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.label.text.font"]; ok {
+		theme.FilledFieldTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.label.text.font")
+	}
+	if val, ok := tokens["md.comp.filled.field.label.text.line.height"]; ok {
+		theme.FilledFieldTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.field.label.text.populated.line.height"]; ok {
+		theme.FilledFieldTokens.LabelText.PopulatedLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.label.text.populated.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.field.label.text.populated.size"]; ok {
+		theme.FilledFieldTokens.LabelText.PopulatedSize = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.label.text.populated.size")
+	}
+	if val, ok := tokens["md.comp.filled.field.label.text.size"]; ok {
+		theme.FilledFieldTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.label.text.size")
+	}
+	if val, ok := tokens["md.comp.filled.field.label.text.weight"]; ok {
+		theme.FilledFieldTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.filled.field.leading.content.color"]; ok {
+		theme.FilledFieldTokens.LeadingContent.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.leading.space"]; ok {
+		theme.FilledFieldTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.leading.space")
+	}
+	if val, ok := tokens["md.comp.filled.field.supporting.text.color"]; ok {
+		theme.FilledFieldTokens.SupportingText.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.supporting.text.font"]; ok {
+		theme.FilledFieldTokens.SupportingText.Font = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.supporting.text.font")
+	}
+	if val, ok := tokens["md.comp.filled.field.supporting.text.leading.space"]; ok {
+		theme.FilledFieldTokens.SupportingText.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.supporting.text.leading.space")
+	}
+	if val, ok := tokens["md.comp.filled.field.supporting.text.line.height"]; ok {
+		theme.FilledFieldTokens.SupportingText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.supporting.text.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.field.supporting.text.size"]; ok {
+		theme.FilledFieldTokens.SupportingText.Size = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.supporting.text.size")
+	}
+	if val, ok := tokens["md.comp.filled.field.supporting.text.top.space"]; ok {
+		theme.FilledFieldTokens.SupportingText.TopSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.supporting.text.top.space")
+	}
+	if val, ok := tokens["md.comp.filled.field.supporting.text.trailing.space"]; ok {
+		theme.FilledFieldTokens.SupportingText.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.supporting.text.trailing.space")
+	}
+	if val, ok := tokens["md.comp.filled.field.supporting.text.weight"]; ok {
+		theme.FilledFieldTokens.SupportingText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.supporting.text.weight")
+	}
+	if val, ok := tokens["md.comp.filled.field.top.space"]; ok {
+		theme.FilledFieldTokens.Top.Space = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.top.space")
+	}
+	if val, ok := tokens["md.comp.filled.field.trailing.content.color"]; ok {
+		theme.FilledFieldTokens.TrailingContent.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.filled.field.trailing.space"]; ok {
+		theme.FilledFieldTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.trailing.space")
+	}
+	if val, ok := tokens["md.comp.filled.field.with.label.bottom.space"]; ok {
+		theme.FilledFieldTokens.WithLabel.BottomSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.with.label.bottom.space")
+	}
+	if val, ok := tokens["md.comp.filled.field.with.label.top.space"]; ok {
+		theme.FilledFieldTokens.WithLabel.TopSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.with.label.top.space")
+	}
+	if val, ok := tokens["md.comp.filled.field.with.leading.content.leading.space"]; ok {
+		theme.FilledFieldTokens.WithLeadingContent.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.with.leading.content.leading.space")
+	}
+	if val, ok := tokens["md.comp.filled.field.with.trailing.content.trailing.space"]; ok {
+		theme.FilledFieldTokens.WithTrailingContent.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.field.with.trailing.content.trailing.space")
+	}
 	theme.FilledIconButtonTokens = &FilledIconButtonTokens{}
+	if val, ok := tokens["md.comp.filled.icon.button.container.color"]; ok {
+		theme.FilledIconButtonTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.container.height"]; ok {
+		theme.FilledIconButtonTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.container.height")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.container.shape"]; ok {
+		theme.FilledIconButtonTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.container.shape")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.container.shape.end.end"]; ok {
+		theme.FilledIconButtonTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.container.shape.end.start"]; ok {
+		theme.FilledIconButtonTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.container.shape.start.end"]; ok {
+		theme.FilledIconButtonTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.container.shape.start.start"]; ok {
+		theme.FilledIconButtonTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.container.width"]; ok {
+		theme.FilledIconButtonTokens.Container.Width = val
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.container.width")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.disabled.container.color"]; ok {
+		if theme.FilledIconButtonTokens.Disabled == nil {
+			theme.FilledIconButtonTokens.Disabled = &FilledIconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.Disabled.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.disabled.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.disabled.container.opacity"]; ok {
+		if theme.FilledIconButtonTokens.Disabled == nil {
+			theme.FilledIconButtonTokens.Disabled = &FilledIconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.Disabled.ContainerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.disabled.container.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.disabled.icon.color"]; ok {
+		if theme.FilledIconButtonTokens.Disabled == nil {
+			theme.FilledIconButtonTokens.Disabled = &FilledIconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.Disabled.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.disabled.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.disabled.icon.opacity"]; ok {
+		if theme.FilledIconButtonTokens.Disabled == nil {
+			theme.FilledIconButtonTokens.Disabled = &FilledIconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.Disabled.IconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.disabled.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.focus.icon.color"]; ok {
+		if theme.FilledIconButtonTokens.Focus == nil {
+			theme.FilledIconButtonTokens.Focus = &FilledIconButtonFocusOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.hover.icon.color"]; ok {
+		if theme.FilledIconButtonTokens.Hover == nil {
+			theme.FilledIconButtonTokens.Hover = &FilledIconButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.hover.state.layer.color"]; ok {
+		if theme.FilledIconButtonTokens.Hover == nil {
+			theme.FilledIconButtonTokens.Hover = &FilledIconButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.hover.state.layer.opacity"]; ok {
+		if theme.FilledIconButtonTokens.Hover == nil {
+			theme.FilledIconButtonTokens.Hover = &FilledIconButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.icon.color"]; ok {
+		theme.FilledIconButtonTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.icon.size"]; ok {
+		theme.FilledIconButtonTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.icon.size")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.pressed.icon.color"]; ok {
+		if theme.FilledIconButtonTokens.Pressed == nil {
+			theme.FilledIconButtonTokens.Pressed = &FilledIconButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.pressed.state.layer.color"]; ok {
+		if theme.FilledIconButtonTokens.Pressed == nil {
+			theme.FilledIconButtonTokens.Pressed = &FilledIconButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.pressed.state.layer.opacity"]; ok {
+		if theme.FilledIconButtonTokens.Pressed == nil {
+			theme.FilledIconButtonTokens.Pressed = &FilledIconButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.selected.container.color"]; ok {
+		if theme.FilledIconButtonTokens.Selected == nil {
+			theme.FilledIconButtonTokens.Selected = &FilledIconButtonSelectedOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.Selected.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.selected.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.toggle.focus.icon.color"]; ok {
+		if theme.FilledIconButtonTokens.ToggleFocus == nil {
+			theme.FilledIconButtonTokens.ToggleFocus = &FilledIconButtonToggleFocusOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.ToggleFocus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.toggle.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.toggle.hover.icon.color"]; ok {
+		if theme.FilledIconButtonTokens.ToggleHover == nil {
+			theme.FilledIconButtonTokens.ToggleHover = &FilledIconButtonToggleHoverOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.ToggleHover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.toggle.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.toggle.hover.state.layer.color"]; ok {
+		if theme.FilledIconButtonTokens.ToggleHover == nil {
+			theme.FilledIconButtonTokens.ToggleHover = &FilledIconButtonToggleHoverOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.ToggleHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.toggle.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.toggle.icon.color"]; ok {
+		if theme.FilledIconButtonTokens.Toggle == nil {
+			theme.FilledIconButtonTokens.Toggle = &FilledIconButtonToggleOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.Toggle.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.toggle.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.toggle.pressed.icon.color"]; ok {
+		if theme.FilledIconButtonTokens.TogglePressed == nil {
+			theme.FilledIconButtonTokens.TogglePressed = &FilledIconButtonTogglePressedOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.TogglePressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.toggle.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.toggle.pressed.state.layer.color"]; ok {
+		if theme.FilledIconButtonTokens.TogglePressed == nil {
+			theme.FilledIconButtonTokens.TogglePressed = &FilledIconButtonTogglePressedOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.TogglePressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.toggle.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.toggle.selected.focus.icon.color"]; ok {
+		if theme.FilledIconButtonTokens.ToggleSelectedFocus == nil {
+			theme.FilledIconButtonTokens.ToggleSelectedFocus = &FilledIconButtonToggleSelectedFocusOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.ToggleSelectedFocus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.toggle.selected.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.toggle.selected.hover.icon.color"]; ok {
+		if theme.FilledIconButtonTokens.ToggleSelectedHover == nil {
+			theme.FilledIconButtonTokens.ToggleSelectedHover = &FilledIconButtonToggleSelectedHoverOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.ToggleSelectedHover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.toggle.selected.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.toggle.selected.hover.state.layer.color"]; ok {
+		if theme.FilledIconButtonTokens.ToggleSelectedHover == nil {
+			theme.FilledIconButtonTokens.ToggleSelectedHover = &FilledIconButtonToggleSelectedHoverOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.ToggleSelectedHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.toggle.selected.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.toggle.selected.icon.color"]; ok {
+		if theme.FilledIconButtonTokens.ToggleSelected == nil {
+			theme.FilledIconButtonTokens.ToggleSelected = &FilledIconButtonToggleSelectedOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.ToggleSelected.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.toggle.selected.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.toggle.selected.pressed.icon.color"]; ok {
+		if theme.FilledIconButtonTokens.ToggleSelectedPressed == nil {
+			theme.FilledIconButtonTokens.ToggleSelectedPressed = &FilledIconButtonToggleSelectedPressedOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.ToggleSelectedPressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.toggle.selected.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.toggle.selected.pressed.state.layer.color"]; ok {
+		if theme.FilledIconButtonTokens.ToggleSelectedPressed == nil {
+			theme.FilledIconButtonTokens.ToggleSelectedPressed = &FilledIconButtonToggleSelectedPressedOverlay{}
+		}
+		v := val
+		theme.FilledIconButtonTokens.ToggleSelectedPressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.toggle.selected.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.icon.button.unselected.container.color"]; ok {
+		theme.FilledIconButtonTokens.Unselected.ContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.icon.button.unselected.container.color")
+	}
 	theme.FilledSelectTokens = &FilledSelectTokens{}
+	if val, ok := tokens["md.comp.filled.select.text.field.active.indicator.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldActiveIndicatorColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.active.indicator.height"]; ok {
+		theme.FilledSelectTokens.Text.FieldActiveIndicatorHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.container.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.container.shape"]; ok {
+		theme.FilledSelectTokens.Text.FieldContainerShape = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.container.shape")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.container.shape.end.end"]; ok {
+		theme.FilledSelectTokens.Text.FieldContainerShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.container.shape.end.start"]; ok {
+		theme.FilledSelectTokens.Text.FieldContainerShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.container.shape.start.end"]; ok {
+		theme.FilledSelectTokens.Text.FieldContainerShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.container.shape.start.start"]; ok {
+		theme.FilledSelectTokens.Text.FieldContainerShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.active.indicator.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledActiveIndicatorColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.active.indicator.height"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledActiveIndicatorHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.active.indicator.opacity"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledActiveIndicatorOpacity = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.active.indicator.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.container.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.container.opacity"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledContainerOpacity = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.container.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.input.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.input.text.opacity"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledInputTextOpacity = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.input.text.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.label.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.label.text.opacity"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledLabelTextOpacity = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.leading.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.leading.icon.opacity"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledLeadingIconOpacity = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.leading.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.supporting.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.supporting.text.opacity"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledSupportingTextOpacity = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.supporting.text.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.trailing.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.disabled.trailing.icon.opacity"]; ok {
+		theme.FilledSelectTokens.Text.FieldDisabledTrailingIconOpacity = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.disabled.trailing.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.active.indicator.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorActiveIndicatorColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.focus.active.indicator.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorFocusActiveIndicatorColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.focus.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.focus.input.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorFocusInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.focus.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.focus.label.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorFocusLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.focus.leading.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorFocusLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.focus.supporting.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorFocusSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.focus.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.focus.trailing.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorFocusTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.focus.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.hover.active.indicator.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorHoverActiveIndicatorColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.hover.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.hover.input.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorHoverInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.hover.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.hover.label.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorHoverLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.hover.leading.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorHoverLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.hover.state.layer.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorHoverStateLayerColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.hover.state.layer.opacity"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorHoverStateLayerOpacity = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.hover.supporting.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorHoverSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.hover.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.hover.trailing.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorHoverTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.hover.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.input.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.label.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.leading.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.supporting.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.error.trailing.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldErrorTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.error.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.focus.active.indicator.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldFocusActiveIndicatorColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.focus.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.focus.active.indicator.height"]; ok {
+		theme.FilledSelectTokens.Text.FieldFocusActiveIndicatorHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.focus.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.focus.input.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldFocusInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.focus.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.focus.label.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldFocusLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.focus.leading.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldFocusLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.focus.supporting.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldFocusSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.focus.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.focus.trailing.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldFocusTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.focus.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.hover.active.indicator.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldHoverActiveIndicatorColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.hover.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.hover.active.indicator.height"]; ok {
+		theme.FilledSelectTokens.Text.FieldHoverActiveIndicatorHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.hover.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.hover.input.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldHoverInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.hover.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.hover.label.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldHoverLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.hover.leading.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldHoverLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.hover.state.layer.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldHoverStateLayerColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.hover.state.layer.opacity"]; ok {
+		theme.FilledSelectTokens.Text.FieldHoverStateLayerOpacity = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.hover.supporting.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldHoverSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.hover.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.hover.trailing.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldHoverTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.hover.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.input.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.input.text.font"]; ok {
+		theme.FilledSelectTokens.Text.FieldInputTextFont = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.input.text.font")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.input.text.line.height"]; ok {
+		theme.FilledSelectTokens.Text.FieldInputTextLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.input.text.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.input.text.size"]; ok {
+		theme.FilledSelectTokens.Text.FieldInputTextSize = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.input.text.size")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.input.text.weight"]; ok {
+		theme.FilledSelectTokens.Text.FieldInputTextWeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.input.text.weight")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.label.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.label.text.font"]; ok {
+		theme.FilledSelectTokens.Text.FieldLabelTextFont = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.label.text.font")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.label.text.line.height"]; ok {
+		theme.FilledSelectTokens.Text.FieldLabelTextLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.label.text.populated.line.height"]; ok {
+		theme.FilledSelectTokens.Text.FieldLabelTextPopulatedLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.label.text.populated.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.label.text.populated.size"]; ok {
+		theme.FilledSelectTokens.Text.FieldLabelTextPopulatedSize = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.label.text.populated.size")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.label.text.size"]; ok {
+		theme.FilledSelectTokens.Text.FieldLabelTextSize = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.label.text.size")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.label.text.weight"]; ok {
+		theme.FilledSelectTokens.Text.FieldLabelTextWeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.leading.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.leading.icon.size"]; ok {
+		theme.FilledSelectTokens.Text.FieldLeadingIconSize = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.leading.icon.size")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.supporting.text.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.supporting.text.font"]; ok {
+		theme.FilledSelectTokens.Text.FieldSupportingTextFont = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.supporting.text.font")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.supporting.text.line.height"]; ok {
+		theme.FilledSelectTokens.Text.FieldSupportingTextLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.supporting.text.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.supporting.text.size"]; ok {
+		theme.FilledSelectTokens.Text.FieldSupportingTextSize = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.supporting.text.size")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.supporting.text.weight"]; ok {
+		theme.FilledSelectTokens.Text.FieldSupportingTextWeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.supporting.text.weight")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.trailing.icon.color"]; ok {
+		theme.FilledSelectTokens.Text.FieldTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.select.text.field.trailing.icon.size"]; ok {
+		theme.FilledSelectTokens.Text.FieldTrailingIconSize = val
+	} else {
+		missing = append(missing, "md.comp.filled.select.text.field.trailing.icon.size")
+	}
 	theme.FilledTextFieldTokens = &FilledTextFieldTokens{}
+	if val, ok := tokens["md.comp.filled.text.field.active.indicator.color"]; ok {
+		if theme.FilledTextFieldTokens.Active == nil {
+			theme.FilledTextFieldTokens.Active = &FilledTextFieldActiveOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Active.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.active.indicator.height"]; ok {
+		if theme.FilledTextFieldTokens.Active == nil {
+			theme.FilledTextFieldTokens.Active = &FilledTextFieldActiveOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Active.IndicatorHeight = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.bottom.space"]; ok {
+		theme.FilledTextFieldTokens.Bottom.Space = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.bottom.space")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.caret.color"]; ok {
+		theme.FilledTextFieldTokens.Caret.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.caret.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.container.color"]; ok {
+		theme.FilledTextFieldTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.container.shape"]; ok {
+		theme.FilledTextFieldTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.container.shape")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.container.shape.end.end"]; ok {
+		theme.FilledTextFieldTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.container.shape.end.start"]; ok {
+		theme.FilledTextFieldTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.container.shape.start.end"]; ok {
+		theme.FilledTextFieldTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.container.shape.start.start"]; ok {
+		theme.FilledTextFieldTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.active.indicator.color"]; ok {
+		if theme.FilledTextFieldTokens.DisabledActive == nil {
+			theme.FilledTextFieldTokens.DisabledActive = &FilledTextFieldDisabledActiveOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.DisabledActive.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.active.indicator.height"]; ok {
+		if theme.FilledTextFieldTokens.DisabledActive == nil {
+			theme.FilledTextFieldTokens.DisabledActive = &FilledTextFieldDisabledActiveOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.DisabledActive.IndicatorHeight = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.active.indicator.opacity"]; ok {
+		if theme.FilledTextFieldTokens.DisabledActive == nil {
+			theme.FilledTextFieldTokens.DisabledActive = &FilledTextFieldDisabledActiveOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.DisabledActive.IndicatorOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.active.indicator.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.container.color"]; ok {
+		if theme.FilledTextFieldTokens.Disabled == nil {
+			theme.FilledTextFieldTokens.Disabled = &FilledTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Disabled.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.container.opacity"]; ok {
+		if theme.FilledTextFieldTokens.Disabled == nil {
+			theme.FilledTextFieldTokens.Disabled = &FilledTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Disabled.ContainerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.container.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.input.text.color"]; ok {
+		if theme.FilledTextFieldTokens.Disabled == nil {
+			theme.FilledTextFieldTokens.Disabled = &FilledTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Disabled.InputTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.input.text.opacity"]; ok {
+		if theme.FilledTextFieldTokens.Disabled == nil {
+			theme.FilledTextFieldTokens.Disabled = &FilledTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Disabled.InputTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.input.text.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.label.text.color"]; ok {
+		if theme.FilledTextFieldTokens.Disabled == nil {
+			theme.FilledTextFieldTokens.Disabled = &FilledTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.label.text.opacity"]; ok {
+		if theme.FilledTextFieldTokens.Disabled == nil {
+			theme.FilledTextFieldTokens.Disabled = &FilledTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Disabled.LabelTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.leading.icon.color"]; ok {
+		if theme.FilledTextFieldTokens.Disabled == nil {
+			theme.FilledTextFieldTokens.Disabled = &FilledTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Disabled.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.leading.icon.opacity"]; ok {
+		if theme.FilledTextFieldTokens.Disabled == nil {
+			theme.FilledTextFieldTokens.Disabled = &FilledTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Disabled.LeadingIconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.leading.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.supporting.text.color"]; ok {
+		if theme.FilledTextFieldTokens.Disabled == nil {
+			theme.FilledTextFieldTokens.Disabled = &FilledTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Disabled.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.supporting.text.opacity"]; ok {
+		if theme.FilledTextFieldTokens.Disabled == nil {
+			theme.FilledTextFieldTokens.Disabled = &FilledTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Disabled.SupportingTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.supporting.text.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.trailing.icon.color"]; ok {
+		if theme.FilledTextFieldTokens.Disabled == nil {
+			theme.FilledTextFieldTokens.Disabled = &FilledTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Disabled.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.disabled.trailing.icon.opacity"]; ok {
+		if theme.FilledTextFieldTokens.Disabled == nil {
+			theme.FilledTextFieldTokens.Disabled = &FilledTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Disabled.TrailingIconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.disabled.trailing.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.active.indicator.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorActive == nil {
+			theme.FilledTextFieldTokens.ErrorActive = &FilledTextFieldErrorActiveOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorActive.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.focus.active.indicator.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorFocusActive == nil {
+			theme.FilledTextFieldTokens.ErrorFocusActive = &FilledTextFieldErrorFocusActiveOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorFocusActive.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.focus.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.focus.caret.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorFocus == nil {
+			theme.FilledTextFieldTokens.ErrorFocus = &FilledTextFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorFocus.CaretColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.focus.caret.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.focus.input.text.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorFocus == nil {
+			theme.FilledTextFieldTokens.ErrorFocus = &FilledTextFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorFocus.InputTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.focus.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.focus.label.text.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorFocus == nil {
+			theme.FilledTextFieldTokens.ErrorFocus = &FilledTextFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorFocus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.focus.leading.icon.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorFocus == nil {
+			theme.FilledTextFieldTokens.ErrorFocus = &FilledTextFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorFocus.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.focus.supporting.text.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorFocus == nil {
+			theme.FilledTextFieldTokens.ErrorFocus = &FilledTextFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorFocus.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.focus.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.focus.trailing.icon.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorFocus == nil {
+			theme.FilledTextFieldTokens.ErrorFocus = &FilledTextFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorFocus.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.focus.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.hover.active.indicator.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorHoverActive == nil {
+			theme.FilledTextFieldTokens.ErrorHoverActive = &FilledTextFieldErrorHoverActiveOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorHoverActive.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.hover.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.hover.input.text.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorHover == nil {
+			theme.FilledTextFieldTokens.ErrorHover = &FilledTextFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorHover.InputTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.hover.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.hover.label.text.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorHover == nil {
+			theme.FilledTextFieldTokens.ErrorHover = &FilledTextFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorHover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.hover.leading.icon.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorHover == nil {
+			theme.FilledTextFieldTokens.ErrorHover = &FilledTextFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorHover.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.hover.state.layer.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorHover == nil {
+			theme.FilledTextFieldTokens.ErrorHover = &FilledTextFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.hover.state.layer.opacity"]; ok {
+		if theme.FilledTextFieldTokens.ErrorHover == nil {
+			theme.FilledTextFieldTokens.ErrorHover = &FilledTextFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorHover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.hover.supporting.text.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorHover == nil {
+			theme.FilledTextFieldTokens.ErrorHover = &FilledTextFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorHover.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.hover.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.hover.trailing.icon.color"]; ok {
+		if theme.FilledTextFieldTokens.ErrorHover == nil {
+			theme.FilledTextFieldTokens.ErrorHover = &FilledTextFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.ErrorHover.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.hover.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.input.text.color"]; ok {
+		if theme.FilledTextFieldTokens.Error == nil {
+			theme.FilledTextFieldTokens.Error = &FilledTextFieldErrorOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Error.InputTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.label.text.color"]; ok {
+		if theme.FilledTextFieldTokens.Error == nil {
+			theme.FilledTextFieldTokens.Error = &FilledTextFieldErrorOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Error.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.leading.icon.color"]; ok {
+		if theme.FilledTextFieldTokens.Error == nil {
+			theme.FilledTextFieldTokens.Error = &FilledTextFieldErrorOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Error.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.supporting.text.color"]; ok {
+		if theme.FilledTextFieldTokens.Error == nil {
+			theme.FilledTextFieldTokens.Error = &FilledTextFieldErrorOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Error.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.error.trailing.icon.color"]; ok {
+		if theme.FilledTextFieldTokens.Error == nil {
+			theme.FilledTextFieldTokens.Error = &FilledTextFieldErrorOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Error.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.error.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.focus.active.indicator.color"]; ok {
+		if theme.FilledTextFieldTokens.FocusActive == nil {
+			theme.FilledTextFieldTokens.FocusActive = &FilledTextFieldFocusActiveOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.FocusActive.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.focus.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.focus.active.indicator.height"]; ok {
+		if theme.FilledTextFieldTokens.FocusActive == nil {
+			theme.FilledTextFieldTokens.FocusActive = &FilledTextFieldFocusActiveOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.FocusActive.IndicatorHeight = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.focus.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.focus.caret.color"]; ok {
+		if theme.FilledTextFieldTokens.Focus == nil {
+			theme.FilledTextFieldTokens.Focus = &FilledTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Focus.CaretColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.focus.caret.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.focus.input.text.color"]; ok {
+		if theme.FilledTextFieldTokens.Focus == nil {
+			theme.FilledTextFieldTokens.Focus = &FilledTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Focus.InputTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.focus.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.focus.label.text.color"]; ok {
+		if theme.FilledTextFieldTokens.Focus == nil {
+			theme.FilledTextFieldTokens.Focus = &FilledTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.focus.leading.icon.color"]; ok {
+		if theme.FilledTextFieldTokens.Focus == nil {
+			theme.FilledTextFieldTokens.Focus = &FilledTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Focus.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.focus.supporting.text.color"]; ok {
+		if theme.FilledTextFieldTokens.Focus == nil {
+			theme.FilledTextFieldTokens.Focus = &FilledTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Focus.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.focus.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.focus.trailing.icon.color"]; ok {
+		if theme.FilledTextFieldTokens.Focus == nil {
+			theme.FilledTextFieldTokens.Focus = &FilledTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Focus.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.focus.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.hover.active.indicator.color"]; ok {
+		if theme.FilledTextFieldTokens.HoverActive == nil {
+			theme.FilledTextFieldTokens.HoverActive = &FilledTextFieldHoverActiveOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.HoverActive.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.hover.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.hover.active.indicator.height"]; ok {
+		if theme.FilledTextFieldTokens.HoverActive == nil {
+			theme.FilledTextFieldTokens.HoverActive = &FilledTextFieldHoverActiveOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.HoverActive.IndicatorHeight = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.hover.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.hover.input.text.color"]; ok {
+		if theme.FilledTextFieldTokens.Hover == nil {
+			theme.FilledTextFieldTokens.Hover = &FilledTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Hover.InputTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.hover.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.hover.label.text.color"]; ok {
+		if theme.FilledTextFieldTokens.Hover == nil {
+			theme.FilledTextFieldTokens.Hover = &FilledTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.hover.leading.icon.color"]; ok {
+		if theme.FilledTextFieldTokens.Hover == nil {
+			theme.FilledTextFieldTokens.Hover = &FilledTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Hover.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.hover.state.layer.color"]; ok {
+		if theme.FilledTextFieldTokens.Hover == nil {
+			theme.FilledTextFieldTokens.Hover = &FilledTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.hover.state.layer.opacity"]; ok {
+		if theme.FilledTextFieldTokens.Hover == nil {
+			theme.FilledTextFieldTokens.Hover = &FilledTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.hover.supporting.text.color"]; ok {
+		if theme.FilledTextFieldTokens.Hover == nil {
+			theme.FilledTextFieldTokens.Hover = &FilledTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Hover.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.hover.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.hover.trailing.icon.color"]; ok {
+		if theme.FilledTextFieldTokens.Hover == nil {
+			theme.FilledTextFieldTokens.Hover = &FilledTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.FilledTextFieldTokens.Hover.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.hover.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.icon.input.space"]; ok {
+		theme.FilledTextFieldTokens.Icon.InputSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.icon.input.space")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.input.text.color"]; ok {
+		theme.FilledTextFieldTokens.Input.TextColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.input.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.input.text.font"]; ok {
+		theme.FilledTextFieldTokens.Input.TextFont = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.input.text.font")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.input.text.line.height"]; ok {
+		theme.FilledTextFieldTokens.Input.TextLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.input.text.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.input.text.placeholder.color"]; ok {
+		theme.FilledTextFieldTokens.Input.TextPlaceholderColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.input.text.placeholder.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.input.text.prefix.color"]; ok {
+		theme.FilledTextFieldTokens.Input.TextPrefixColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.input.text.prefix.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.input.text.prefix.trailing.space"]; ok {
+		theme.FilledTextFieldTokens.Input.TextPrefixTrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.input.text.prefix.trailing.space")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.input.text.size"]; ok {
+		theme.FilledTextFieldTokens.Input.TextSize = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.input.text.size")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.input.text.suffix.color"]; ok {
+		theme.FilledTextFieldTokens.Input.TextSuffixColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.input.text.suffix.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.input.text.suffix.leading.space"]; ok {
+		theme.FilledTextFieldTokens.Input.TextSuffixLeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.input.text.suffix.leading.space")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.input.text.weight"]; ok {
+		theme.FilledTextFieldTokens.Input.TextWeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.input.text.weight")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.label.text.color"]; ok {
+		theme.FilledTextFieldTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.label.text.font"]; ok {
+		theme.FilledTextFieldTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.label.text.font")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.label.text.line.height"]; ok {
+		theme.FilledTextFieldTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.label.text.populated.line.height"]; ok {
+		theme.FilledTextFieldTokens.LabelText.PopulatedLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.label.text.populated.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.label.text.populated.size"]; ok {
+		theme.FilledTextFieldTokens.LabelText.PopulatedSize = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.label.text.populated.size")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.label.text.size"]; ok {
+		theme.FilledTextFieldTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.label.text.size")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.label.text.weight"]; ok {
+		theme.FilledTextFieldTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.leading.icon.color"]; ok {
+		theme.FilledTextFieldTokens.LeadingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.leading.icon.size"]; ok {
+		theme.FilledTextFieldTokens.LeadingIcon.Size = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.leading.icon.size")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.leading.space"]; ok {
+		theme.FilledTextFieldTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.leading.space")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.supporting.text.color"]; ok {
+		theme.FilledTextFieldTokens.SupportingText.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.supporting.text.font"]; ok {
+		theme.FilledTextFieldTokens.SupportingText.Font = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.supporting.text.font")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.supporting.text.line.height"]; ok {
+		theme.FilledTextFieldTokens.SupportingText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.supporting.text.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.supporting.text.size"]; ok {
+		theme.FilledTextFieldTokens.SupportingText.Size = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.supporting.text.size")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.supporting.text.weight"]; ok {
+		theme.FilledTextFieldTokens.SupportingText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.supporting.text.weight")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.top.space"]; ok {
+		theme.FilledTextFieldTokens.Top.Space = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.top.space")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.trailing.icon.color"]; ok {
+		theme.FilledTextFieldTokens.TrailingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.trailing.icon.size"]; ok {
+		theme.FilledTextFieldTokens.TrailingIcon.Size = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.trailing.icon.size")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.trailing.space"]; ok {
+		theme.FilledTextFieldTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.trailing.space")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.with.label.bottom.space"]; ok {
+		theme.FilledTextFieldTokens.WithLabel.BottomSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.with.label.bottom.space")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.with.label.top.space"]; ok {
+		theme.FilledTextFieldTokens.WithLabel.TopSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.with.label.top.space")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.with.leading.icon.leading.space"]; ok {
+		theme.FilledTextFieldTokens.WithLeadingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.with.leading.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.filled.text.field.with.trailing.icon.trailing.space"]; ok {
+		theme.FilledTextFieldTokens.WithTrailingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.text.field.with.trailing.icon.trailing.space")
+	}
 	theme.FilledTonalButtonTokens = &FilledTonalButtonTokens{}
+	if val, ok := tokens["md.comp.filled.tonal.button.container.color"]; ok {
+		theme.FilledTonalButtonTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.container.elevation"]; ok {
+		theme.FilledTonalButtonTokens.Container.Elevation = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.container.height"]; ok {
+		theme.FilledTonalButtonTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.container.height")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.container.shadow.color"]; ok {
+		theme.FilledTonalButtonTokens.Container.ShadowColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.container.shadow.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.container.shape"]; ok {
+		theme.FilledTonalButtonTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.container.shape")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.container.shape.end.end"]; ok {
+		theme.FilledTonalButtonTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.container.shape.end.start"]; ok {
+		theme.FilledTonalButtonTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.container.shape.start.end"]; ok {
+		theme.FilledTonalButtonTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.container.shape.start.start"]; ok {
+		theme.FilledTonalButtonTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.disabled.container.color"]; ok {
+		if theme.FilledTonalButtonTokens.Disabled == nil {
+			theme.FilledTonalButtonTokens.Disabled = &FilledTonalButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Disabled.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.disabled.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.disabled.container.elevation"]; ok {
+		if theme.FilledTonalButtonTokens.Disabled == nil {
+			theme.FilledTonalButtonTokens.Disabled = &FilledTonalButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Disabled.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.disabled.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.disabled.container.opacity"]; ok {
+		if theme.FilledTonalButtonTokens.Disabled == nil {
+			theme.FilledTonalButtonTokens.Disabled = &FilledTonalButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Disabled.ContainerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.disabled.container.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.disabled.icon.color"]; ok {
+		if theme.FilledTonalButtonTokens.Disabled == nil {
+			theme.FilledTonalButtonTokens.Disabled = &FilledTonalButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Disabled.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.disabled.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.disabled.icon.opacity"]; ok {
+		if theme.FilledTonalButtonTokens.Disabled == nil {
+			theme.FilledTonalButtonTokens.Disabled = &FilledTonalButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Disabled.IconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.disabled.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.disabled.label.text.color"]; ok {
+		if theme.FilledTonalButtonTokens.Disabled == nil {
+			theme.FilledTonalButtonTokens.Disabled = &FilledTonalButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.disabled.label.text.opacity"]; ok {
+		if theme.FilledTonalButtonTokens.Disabled == nil {
+			theme.FilledTonalButtonTokens.Disabled = &FilledTonalButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Disabled.LabelTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.focus.container.elevation"]; ok {
+		if theme.FilledTonalButtonTokens.Focus == nil {
+			theme.FilledTonalButtonTokens.Focus = &FilledTonalButtonFocusOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Focus.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.focus.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.focus.icon.color"]; ok {
+		if theme.FilledTonalButtonTokens.Focus == nil {
+			theme.FilledTonalButtonTokens.Focus = &FilledTonalButtonFocusOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.focus.label.text.color"]; ok {
+		if theme.FilledTonalButtonTokens.Focus == nil {
+			theme.FilledTonalButtonTokens.Focus = &FilledTonalButtonFocusOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.hover.container.elevation"]; ok {
+		if theme.FilledTonalButtonTokens.Hover == nil {
+			theme.FilledTonalButtonTokens.Hover = &FilledTonalButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Hover.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.hover.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.hover.icon.color"]; ok {
+		if theme.FilledTonalButtonTokens.Hover == nil {
+			theme.FilledTonalButtonTokens.Hover = &FilledTonalButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.hover.label.text.color"]; ok {
+		if theme.FilledTonalButtonTokens.Hover == nil {
+			theme.FilledTonalButtonTokens.Hover = &FilledTonalButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.hover.state.layer.color"]; ok {
+		if theme.FilledTonalButtonTokens.Hover == nil {
+			theme.FilledTonalButtonTokens.Hover = &FilledTonalButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.hover.state.layer.opacity"]; ok {
+		if theme.FilledTonalButtonTokens.Hover == nil {
+			theme.FilledTonalButtonTokens.Hover = &FilledTonalButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.icon.color"]; ok {
+		theme.FilledTonalButtonTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.icon.size"]; ok {
+		theme.FilledTonalButtonTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.icon.size")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.label.text.color"]; ok {
+		theme.FilledTonalButtonTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.label.text.font"]; ok {
+		theme.FilledTonalButtonTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.label.text.font")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.label.text.line.height"]; ok {
+		theme.FilledTonalButtonTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.label.text.size"]; ok {
+		theme.FilledTonalButtonTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.label.text.size")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.label.text.weight"]; ok {
+		theme.FilledTonalButtonTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.leading.space"]; ok {
+		theme.FilledTonalButtonTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.leading.space")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.pressed.container.elevation"]; ok {
+		if theme.FilledTonalButtonTokens.Pressed == nil {
+			theme.FilledTonalButtonTokens.Pressed = &FilledTonalButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Pressed.ContainerElevation = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.pressed.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.pressed.icon.color"]; ok {
+		if theme.FilledTonalButtonTokens.Pressed == nil {
+			theme.FilledTonalButtonTokens.Pressed = &FilledTonalButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.pressed.label.text.color"]; ok {
+		if theme.FilledTonalButtonTokens.Pressed == nil {
+			theme.FilledTonalButtonTokens.Pressed = &FilledTonalButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Pressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.pressed.state.layer.color"]; ok {
+		if theme.FilledTonalButtonTokens.Pressed == nil {
+			theme.FilledTonalButtonTokens.Pressed = &FilledTonalButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.pressed.state.layer.opacity"]; ok {
+		if theme.FilledTonalButtonTokens.Pressed == nil {
+			theme.FilledTonalButtonTokens.Pressed = &FilledTonalButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledTonalButtonTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.trailing.space"]; ok {
+		theme.FilledTonalButtonTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.trailing.space")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.with.leading.icon.leading.space"]; ok {
+		theme.FilledTonalButtonTokens.WithLeadingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.with.leading.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.with.leading.icon.trailing.space"]; ok {
+		theme.FilledTonalButtonTokens.WithLeadingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.with.leading.icon.trailing.space")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.with.trailing.icon.leading.space"]; ok {
+		theme.FilledTonalButtonTokens.WithTrailingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.with.trailing.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.button.with.trailing.icon.trailing.space"]; ok {
+		theme.FilledTonalButtonTokens.WithTrailingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.button.with.trailing.icon.trailing.space")
+	}
 	theme.FilledTonalIconButtonTokens = &FilledTonalIconButtonTokens{}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.container.color"]; ok {
+		theme.FilledTonalIconButtonTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.container.height"]; ok {
+		theme.FilledTonalIconButtonTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.container.height")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.container.shape"]; ok {
+		theme.FilledTonalIconButtonTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.container.shape")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.container.shape.end.end"]; ok {
+		theme.FilledTonalIconButtonTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.container.shape.end.start"]; ok {
+		theme.FilledTonalIconButtonTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.container.shape.start.end"]; ok {
+		theme.FilledTonalIconButtonTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.container.shape.start.start"]; ok {
+		theme.FilledTonalIconButtonTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.container.width"]; ok {
+		theme.FilledTonalIconButtonTokens.Container.Width = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.container.width")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.disabled.container.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.Disabled == nil {
+			theme.FilledTonalIconButtonTokens.Disabled = &FilledTonalIconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.Disabled.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.disabled.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.disabled.container.opacity"]; ok {
+		if theme.FilledTonalIconButtonTokens.Disabled == nil {
+			theme.FilledTonalIconButtonTokens.Disabled = &FilledTonalIconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.Disabled.ContainerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.disabled.container.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.disabled.icon.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.Disabled == nil {
+			theme.FilledTonalIconButtonTokens.Disabled = &FilledTonalIconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.Disabled.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.disabled.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.disabled.icon.opacity"]; ok {
+		if theme.FilledTonalIconButtonTokens.Disabled == nil {
+			theme.FilledTonalIconButtonTokens.Disabled = &FilledTonalIconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.Disabled.IconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.disabled.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.focus.icon.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.Focus == nil {
+			theme.FilledTonalIconButtonTokens.Focus = &FilledTonalIconButtonFocusOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.hover.icon.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.Hover == nil {
+			theme.FilledTonalIconButtonTokens.Hover = &FilledTonalIconButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.hover.state.layer.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.Hover == nil {
+			theme.FilledTonalIconButtonTokens.Hover = &FilledTonalIconButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.hover.state.layer.opacity"]; ok {
+		if theme.FilledTonalIconButtonTokens.Hover == nil {
+			theme.FilledTonalIconButtonTokens.Hover = &FilledTonalIconButtonHoverOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.icon.color"]; ok {
+		theme.FilledTonalIconButtonTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.icon.size"]; ok {
+		theme.FilledTonalIconButtonTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.icon.size")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.pressed.icon.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.Pressed == nil {
+			theme.FilledTonalIconButtonTokens.Pressed = &FilledTonalIconButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.pressed.state.layer.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.Pressed == nil {
+			theme.FilledTonalIconButtonTokens.Pressed = &FilledTonalIconButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.pressed.state.layer.opacity"]; ok {
+		if theme.FilledTonalIconButtonTokens.Pressed == nil {
+			theme.FilledTonalIconButtonTokens.Pressed = &FilledTonalIconButtonPressedOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.selected.container.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.Selected == nil {
+			theme.FilledTonalIconButtonTokens.Selected = &FilledTonalIconButtonSelectedOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.Selected.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.selected.container.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.toggle.focus.icon.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.ToggleFocus == nil {
+			theme.FilledTonalIconButtonTokens.ToggleFocus = &FilledTonalIconButtonToggleFocusOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.ToggleFocus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.toggle.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.toggle.hover.icon.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.ToggleHover == nil {
+			theme.FilledTonalIconButtonTokens.ToggleHover = &FilledTonalIconButtonToggleHoverOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.ToggleHover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.toggle.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.toggle.hover.state.layer.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.ToggleHover == nil {
+			theme.FilledTonalIconButtonTokens.ToggleHover = &FilledTonalIconButtonToggleHoverOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.ToggleHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.toggle.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.toggle.icon.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.Toggle == nil {
+			theme.FilledTonalIconButtonTokens.Toggle = &FilledTonalIconButtonToggleOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.Toggle.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.toggle.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.toggle.pressed.icon.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.TogglePressed == nil {
+			theme.FilledTonalIconButtonTokens.TogglePressed = &FilledTonalIconButtonTogglePressedOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.TogglePressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.toggle.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.toggle.pressed.state.layer.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.TogglePressed == nil {
+			theme.FilledTonalIconButtonTokens.TogglePressed = &FilledTonalIconButtonTogglePressedOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.TogglePressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.toggle.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.toggle.selected.focus.icon.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.ToggleSelectedFocus == nil {
+			theme.FilledTonalIconButtonTokens.ToggleSelectedFocus = &FilledTonalIconButtonToggleSelectedFocusOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.ToggleSelectedFocus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.toggle.selected.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.toggle.selected.hover.icon.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.ToggleSelectedHover == nil {
+			theme.FilledTonalIconButtonTokens.ToggleSelectedHover = &FilledTonalIconButtonToggleSelectedHoverOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.ToggleSelectedHover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.toggle.selected.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.toggle.selected.hover.state.layer.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.ToggleSelectedHover == nil {
+			theme.FilledTonalIconButtonTokens.ToggleSelectedHover = &FilledTonalIconButtonToggleSelectedHoverOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.ToggleSelectedHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.toggle.selected.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.toggle.selected.icon.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.ToggleSelected == nil {
+			theme.FilledTonalIconButtonTokens.ToggleSelected = &FilledTonalIconButtonToggleSelectedOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.ToggleSelected.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.toggle.selected.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.toggle.selected.pressed.icon.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.ToggleSelectedPressed == nil {
+			theme.FilledTonalIconButtonTokens.ToggleSelectedPressed = &FilledTonalIconButtonToggleSelectedPressedOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.ToggleSelectedPressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.toggle.selected.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.toggle.selected.pressed.state.layer.color"]; ok {
+		if theme.FilledTonalIconButtonTokens.ToggleSelectedPressed == nil {
+			theme.FilledTonalIconButtonTokens.ToggleSelectedPressed = &FilledTonalIconButtonToggleSelectedPressedOverlay{}
+		}
+		v := val
+		theme.FilledTonalIconButtonTokens.ToggleSelectedPressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.toggle.selected.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filled.tonal.icon.button.unselected.container.color"]; ok {
+		theme.FilledTonalIconButtonTokens.Unselected.ContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.filled.tonal.icon.button.unselected.container.color")
+	}
 	theme.FilterChipTokens = &FilterChipTokens{}
+	if val, ok := tokens["md.comp.filter.chip.container.height"]; ok {
+		theme.FilterChipTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.container.height")
+	}
+	if val, ok := tokens["md.comp.filter.chip.container.shape"]; ok {
+		theme.FilterChipTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.container.shape")
+	}
+	if val, ok := tokens["md.comp.filter.chip.container.shape.end.end"]; ok {
+		theme.FilterChipTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.filter.chip.container.shape.end.start"]; ok {
+		theme.FilterChipTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.filter.chip.container.shape.start.end"]; ok {
+		theme.FilterChipTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.filter.chip.container.shape.start.start"]; ok {
+		theme.FilterChipTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.filter.chip.disabled.label.text.color"]; ok {
+		if theme.FilterChipTokens.Disabled == nil {
+			theme.FilterChipTokens.Disabled = &FilterChipDisabledOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.disabled.label.text.opacity"]; ok {
+		if theme.FilterChipTokens.Disabled == nil {
+			theme.FilterChipTokens.Disabled = &FilterChipDisabledOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Disabled.LabelTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.filter.chip.disabled.leading.icon.color"]; ok {
+		if theme.FilterChipTokens.Disabled == nil {
+			theme.FilterChipTokens.Disabled = &FilterChipDisabledOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Disabled.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.disabled.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.disabled.leading.icon.opacity"]; ok {
+		if theme.FilterChipTokens.Disabled == nil {
+			theme.FilterChipTokens.Disabled = &FilterChipDisabledOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Disabled.LeadingIconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.disabled.leading.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.filter.chip.disabled.outline.color"]; ok {
+		if theme.FilterChipTokens.Disabled == nil {
+			theme.FilterChipTokens.Disabled = &FilterChipDisabledOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Disabled.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.disabled.outline.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.disabled.outline.opacity"]; ok {
+		if theme.FilterChipTokens.Disabled == nil {
+			theme.FilterChipTokens.Disabled = &FilterChipDisabledOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Disabled.OutlineOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.disabled.outline.opacity")
+	}
+	if val, ok := tokens["md.comp.filter.chip.disabled.selected.container.color"]; ok {
+		if theme.FilterChipTokens.DisabledSelected == nil {
+			theme.FilterChipTokens.DisabledSelected = &FilterChipDisabledSelectedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.DisabledSelected.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.disabled.selected.container.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.disabled.selected.container.opacity"]; ok {
+		if theme.FilterChipTokens.DisabledSelected == nil {
+			theme.FilterChipTokens.DisabledSelected = &FilterChipDisabledSelectedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.DisabledSelected.ContainerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.disabled.selected.container.opacity")
+	}
+	if val, ok := tokens["md.comp.filter.chip.disabled.trailing.icon.color"]; ok {
+		if theme.FilterChipTokens.Disabled == nil {
+			theme.FilterChipTokens.Disabled = &FilterChipDisabledOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Disabled.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.disabled.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.disabled.trailing.icon.opacity"]; ok {
+		if theme.FilterChipTokens.Disabled == nil {
+			theme.FilterChipTokens.Disabled = &FilterChipDisabledOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Disabled.TrailingIconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.disabled.trailing.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.filter.chip.elevated.container.color"]; ok {
+		theme.FilterChipTokens.Elevated.ContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.elevated.container.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.elevated.container.elevation"]; ok {
+		theme.FilterChipTokens.Elevated.ContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.elevated.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filter.chip.elevated.container.shadow.color"]; ok {
+		theme.FilterChipTokens.Elevated.ContainerShadowColor = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.elevated.container.shadow.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.elevated.disabled.container.color"]; ok {
+		theme.FilterChipTokens.Elevated.DisabledContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.elevated.disabled.container.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.elevated.disabled.container.elevation"]; ok {
+		theme.FilterChipTokens.Elevated.DisabledContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.elevated.disabled.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filter.chip.elevated.disabled.container.opacity"]; ok {
+		theme.FilterChipTokens.Elevated.DisabledContainerOpacity = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.elevated.disabled.container.opacity")
+	}
+	if val, ok := tokens["md.comp.filter.chip.elevated.focus.container.elevation"]; ok {
+		theme.FilterChipTokens.Elevated.FocusContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.elevated.focus.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filter.chip.elevated.hover.container.elevation"]; ok {
+		theme.FilterChipTokens.Elevated.HoverContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.elevated.hover.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filter.chip.elevated.pressed.container.elevation"]; ok {
+		theme.FilterChipTokens.Elevated.PressedContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.elevated.pressed.container.elevation")
+	}
+	if val, ok := tokens["md.comp.filter.chip.elevated.selected.container.color"]; ok {
+		theme.FilterChipTokens.Elevated.SelectedContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.elevated.selected.container.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.focus.label.text.color"]; ok {
+		if theme.FilterChipTokens.Focus == nil {
+			theme.FilterChipTokens.Focus = &FilterChipFocusOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.focus.leading.icon.color"]; ok {
+		if theme.FilterChipTokens.Focus == nil {
+			theme.FilterChipTokens.Focus = &FilterChipFocusOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Focus.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.focus.outline.color"]; ok {
+		if theme.FilterChipTokens.Focus == nil {
+			theme.FilterChipTokens.Focus = &FilterChipFocusOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Focus.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.focus.outline.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.focus.trailing.icon.color"]; ok {
+		if theme.FilterChipTokens.Focus == nil {
+			theme.FilterChipTokens.Focus = &FilterChipFocusOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Focus.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.focus.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.hover.label.text.color"]; ok {
+		if theme.FilterChipTokens.Hover == nil {
+			theme.FilterChipTokens.Hover = &FilterChipHoverOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.hover.leading.icon.color"]; ok {
+		if theme.FilterChipTokens.Hover == nil {
+			theme.FilterChipTokens.Hover = &FilterChipHoverOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Hover.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.hover.state.layer.color"]; ok {
+		if theme.FilterChipTokens.Hover == nil {
+			theme.FilterChipTokens.Hover = &FilterChipHoverOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.hover.state.layer.opacity"]; ok {
+		if theme.FilterChipTokens.Hover == nil {
+			theme.FilterChipTokens.Hover = &FilterChipHoverOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filter.chip.hover.trailing.icon.color"]; ok {
+		if theme.FilterChipTokens.Hover == nil {
+			theme.FilterChipTokens.Hover = &FilterChipHoverOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Hover.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.hover.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.icon.label.space"]; ok {
+		theme.FilterChipTokens.Icon.LabelSpace = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.icon.label.space")
+	}
+	if val, ok := tokens["md.comp.filter.chip.icon.size"]; ok {
+		theme.FilterChipTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.icon.size")
+	}
+	if val, ok := tokens["md.comp.filter.chip.label.text.color"]; ok {
+		theme.FilterChipTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.label.text.font"]; ok {
+		theme.FilterChipTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.label.text.font")
+	}
+	if val, ok := tokens["md.comp.filter.chip.label.text.line.height"]; ok {
+		theme.FilterChipTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.filter.chip.label.text.size"]; ok {
+		theme.FilterChipTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.label.text.size")
+	}
+	if val, ok := tokens["md.comp.filter.chip.label.text.weight"]; ok {
+		theme.FilterChipTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.filter.chip.leading.icon.color"]; ok {
+		theme.FilterChipTokens.LeadingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.leading.space"]; ok {
+		theme.FilterChipTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.leading.space")
+	}
+	if val, ok := tokens["md.comp.filter.chip.outline.color"]; ok {
+		theme.FilterChipTokens.Outline.Color = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.outline.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.outline.width"]; ok {
+		theme.FilterChipTokens.Outline.Width = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.outline.width")
+	}
+	if val, ok := tokens["md.comp.filter.chip.pressed.label.text.color"]; ok {
+		if theme.FilterChipTokens.Pressed == nil {
+			theme.FilterChipTokens.Pressed = &FilterChipPressedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Pressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.pressed.leading.icon.color"]; ok {
+		if theme.FilterChipTokens.Pressed == nil {
+			theme.FilterChipTokens.Pressed = &FilterChipPressedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Pressed.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.pressed.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.pressed.state.layer.color"]; ok {
+		if theme.FilterChipTokens.Pressed == nil {
+			theme.FilterChipTokens.Pressed = &FilterChipPressedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.pressed.state.layer.opacity"]; ok {
+		if theme.FilterChipTokens.Pressed == nil {
+			theme.FilterChipTokens.Pressed = &FilterChipPressedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filter.chip.pressed.trailing.icon.color"]; ok {
+		if theme.FilterChipTokens.Pressed == nil {
+			theme.FilterChipTokens.Pressed = &FilterChipPressedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Pressed.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.pressed.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.container.color"]; ok {
+		if theme.FilterChipTokens.Selected == nil {
+			theme.FilterChipTokens.Selected = &FilterChipSelectedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Selected.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.container.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.focus.label.text.color"]; ok {
+		if theme.FilterChipTokens.SelectedFocus == nil {
+			theme.FilterChipTokens.SelectedFocus = &FilterChipSelectedFocusOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.SelectedFocus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.focus.leading.icon.color"]; ok {
+		if theme.FilterChipTokens.SelectedFocus == nil {
+			theme.FilterChipTokens.SelectedFocus = &FilterChipSelectedFocusOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.SelectedFocus.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.focus.trailing.icon.color"]; ok {
+		if theme.FilterChipTokens.SelectedFocus == nil {
+			theme.FilterChipTokens.SelectedFocus = &FilterChipSelectedFocusOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.SelectedFocus.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.focus.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.hover.label.text.color"]; ok {
+		if theme.FilterChipTokens.SelectedHover == nil {
+			theme.FilterChipTokens.SelectedHover = &FilterChipSelectedHoverOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.SelectedHover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.hover.leading.icon.color"]; ok {
+		if theme.FilterChipTokens.SelectedHover == nil {
+			theme.FilterChipTokens.SelectedHover = &FilterChipSelectedHoverOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.SelectedHover.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.hover.state.layer.color"]; ok {
+		if theme.FilterChipTokens.SelectedHover == nil {
+			theme.FilterChipTokens.SelectedHover = &FilterChipSelectedHoverOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.SelectedHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.hover.state.layer.opacity"]; ok {
+		if theme.FilterChipTokens.SelectedHover == nil {
+			theme.FilterChipTokens.SelectedHover = &FilterChipSelectedHoverOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.SelectedHover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.hover.trailing.icon.color"]; ok {
+		if theme.FilterChipTokens.SelectedHover == nil {
+			theme.FilterChipTokens.SelectedHover = &FilterChipSelectedHoverOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.SelectedHover.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.hover.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.label.text.color"]; ok {
+		if theme.FilterChipTokens.Selected == nil {
+			theme.FilterChipTokens.Selected = &FilterChipSelectedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Selected.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.leading.icon.color"]; ok {
+		if theme.FilterChipTokens.Selected == nil {
+			theme.FilterChipTokens.Selected = &FilterChipSelectedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Selected.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.outline.width"]; ok {
+		if theme.FilterChipTokens.Selected == nil {
+			theme.FilterChipTokens.Selected = &FilterChipSelectedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Selected.OutlineWidth = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.outline.width")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.pressed.label.text.color"]; ok {
+		if theme.FilterChipTokens.SelectedPressed == nil {
+			theme.FilterChipTokens.SelectedPressed = &FilterChipSelectedPressedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.SelectedPressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.pressed.leading.icon.color"]; ok {
+		if theme.FilterChipTokens.SelectedPressed == nil {
+			theme.FilterChipTokens.SelectedPressed = &FilterChipSelectedPressedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.SelectedPressed.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.pressed.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.pressed.state.layer.color"]; ok {
+		if theme.FilterChipTokens.SelectedPressed == nil {
+			theme.FilterChipTokens.SelectedPressed = &FilterChipSelectedPressedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.SelectedPressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.pressed.state.layer.opacity"]; ok {
+		if theme.FilterChipTokens.SelectedPressed == nil {
+			theme.FilterChipTokens.SelectedPressed = &FilterChipSelectedPressedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.SelectedPressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.pressed.trailing.icon.color"]; ok {
+		if theme.FilterChipTokens.SelectedPressed == nil {
+			theme.FilterChipTokens.SelectedPressed = &FilterChipSelectedPressedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.SelectedPressed.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.pressed.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.selected.trailing.icon.color"]; ok {
+		if theme.FilterChipTokens.Selected == nil {
+			theme.FilterChipTokens.Selected = &FilterChipSelectedOverlay{}
+		}
+		v := val
+		theme.FilterChipTokens.Selected.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.filter.chip.selected.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.trailing.icon.color"]; ok {
+		theme.FilterChipTokens.TrailingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.filter.chip.trailing.space"]; ok {
+		theme.FilterChipTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.trailing.space")
+	}
+	if val, ok := tokens["md.comp.filter.chip.with.leading.icon.leading.space"]; ok {
+		theme.FilterChipTokens.WithLeadingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.with.leading.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.filter.chip.with.trailing.icon.trailing.space"]; ok {
+		theme.FilterChipTokens.WithTrailingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.filter.chip.with.trailing.icon.trailing.space")
+	}
 	theme.FocusRingTokens = &FocusRingTokens{}
+	if val, ok := tokens["md.comp.focus.ring.active.width"]; ok {
+		if theme.FocusRingTokens.Active == nil {
+			theme.FocusRingTokens.Active = &FocusRingActiveOverlay{}
+		}
+		v := val
+		theme.FocusRingTokens.Active.WidthValue = &v
+	} else {
+		missing = append(missing, "md.comp.focus.ring.active.width")
+	}
+	if val, ok := tokens["md.comp.focus.ring.color"]; ok {
+		theme.FocusRingTokens.Color.Value = val
+	} else {
+		missing = append(missing, "md.comp.focus.ring.color")
+	}
+	if val, ok := tokens["md.comp.focus.ring.duration"]; ok {
+		theme.FocusRingTokens.Duration.Value = val
+	} else {
+		missing = append(missing, "md.comp.focus.ring.duration")
+	}
+	if val, ok := tokens["md.comp.focus.ring.inward.offset"]; ok {
+		theme.FocusRingTokens.Inward.Offset = val
+	} else {
+		missing = append(missing, "md.comp.focus.ring.inward.offset")
+	}
+	if val, ok := tokens["md.comp.focus.ring.outward.offset"]; ok {
+		theme.FocusRingTokens.Outward.Offset = val
+	} else {
+		missing = append(missing, "md.comp.focus.ring.outward.offset")
+	}
+	if val, ok := tokens["md.comp.focus.ring.shape"]; ok {
+		theme.FocusRingTokens.Shape.Value = val
+	} else {
+		missing = append(missing, "md.comp.focus.ring.shape")
+	}
+	if val, ok := tokens["md.comp.focus.ring.shape.end.end"]; ok {
+		theme.FocusRingTokens.Shape.EndEnd = val
+	} else {
+		missing = append(missing, "md.comp.focus.ring.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.focus.ring.shape.end.start"]; ok {
+		theme.FocusRingTokens.Shape.EndStart = val
+	} else {
+		missing = append(missing, "md.comp.focus.ring.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.focus.ring.shape.start.end"]; ok {
+		theme.FocusRingTokens.Shape.StartEnd = val
+	} else {
+		missing = append(missing, "md.comp.focus.ring.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.focus.ring.shape.start.start"]; ok {
+		theme.FocusRingTokens.Shape.StartStart = val
+	} else {
+		missing = append(missing, "md.comp.focus.ring.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.focus.ring.width"]; ok {
+		theme.FocusRingTokens.Width.Value = val
+	} else {
+		missing = append(missing, "md.comp.focus.ring.width")
+	}
 	theme.IconButtonTokens = &IconButtonTokens{}
+	if val, ok := tokens["md.comp.icon.button.disabled.icon.color"]; ok {
+		if theme.IconButtonTokens.Disabled == nil {
+			theme.IconButtonTokens.Disabled = &IconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.Disabled.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.disabled.icon.color")
+	}
+	if val, ok := tokens["md.comp.icon.button.disabled.icon.opacity"]; ok {
+		if theme.IconButtonTokens.Disabled == nil {
+			theme.IconButtonTokens.Disabled = &IconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.Disabled.IconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.disabled.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.icon.button.focus.icon.color"]; ok {
+		if theme.IconButtonTokens.Focus == nil {
+			theme.IconButtonTokens.Focus = &IconButtonFocusOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.icon.button.hover.icon.color"]; ok {
+		if theme.IconButtonTokens.Hover == nil {
+			theme.IconButtonTokens.Hover = &IconButtonHoverOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.icon.button.hover.state.layer.color"]; ok {
+		if theme.IconButtonTokens.Hover == nil {
+			theme.IconButtonTokens.Hover = &IconButtonHoverOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.icon.button.hover.state.layer.opacity"]; ok {
+		if theme.IconButtonTokens.Hover == nil {
+			theme.IconButtonTokens.Hover = &IconButtonHoverOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.icon.button.icon.color"]; ok {
+		theme.IconButtonTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.icon.button.icon.color")
+	}
+	if val, ok := tokens["md.comp.icon.button.icon.size"]; ok {
+		theme.IconButtonTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.icon.button.icon.size")
+	}
+	if val, ok := tokens["md.comp.icon.button.pressed.icon.color"]; ok {
+		if theme.IconButtonTokens.Pressed == nil {
+			theme.IconButtonTokens.Pressed = &IconButtonPressedOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.icon.button.pressed.state.layer.color"]; ok {
+		if theme.IconButtonTokens.Pressed == nil {
+			theme.IconButtonTokens.Pressed = &IconButtonPressedOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.icon.button.pressed.state.layer.opacity"]; ok {
+		if theme.IconButtonTokens.Pressed == nil {
+			theme.IconButtonTokens.Pressed = &IconButtonPressedOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.icon.button.selected.focus.icon.color"]; ok {
+		if theme.IconButtonTokens.SelectedFocus == nil {
+			theme.IconButtonTokens.SelectedFocus = &IconButtonSelectedFocusOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.SelectedFocus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.selected.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.icon.button.selected.hover.icon.color"]; ok {
+		if theme.IconButtonTokens.SelectedHover == nil {
+			theme.IconButtonTokens.SelectedHover = &IconButtonSelectedHoverOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.SelectedHover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.selected.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.icon.button.selected.hover.state.layer.color"]; ok {
+		if theme.IconButtonTokens.SelectedHover == nil {
+			theme.IconButtonTokens.SelectedHover = &IconButtonSelectedHoverOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.SelectedHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.selected.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.icon.button.selected.hover.state.layer.opacity"]; ok {
+		if theme.IconButtonTokens.SelectedHover == nil {
+			theme.IconButtonTokens.SelectedHover = &IconButtonSelectedHoverOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.SelectedHover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.selected.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.icon.button.selected.icon.color"]; ok {
+		if theme.IconButtonTokens.Selected == nil {
+			theme.IconButtonTokens.Selected = &IconButtonSelectedOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.Selected.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.selected.icon.color")
+	}
+	if val, ok := tokens["md.comp.icon.button.selected.pressed.icon.color"]; ok {
+		if theme.IconButtonTokens.SelectedPressed == nil {
+			theme.IconButtonTokens.SelectedPressed = &IconButtonSelectedPressedOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.SelectedPressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.selected.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.icon.button.selected.pressed.state.layer.color"]; ok {
+		if theme.IconButtonTokens.SelectedPressed == nil {
+			theme.IconButtonTokens.SelectedPressed = &IconButtonSelectedPressedOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.SelectedPressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.selected.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.icon.button.selected.pressed.state.layer.opacity"]; ok {
+		if theme.IconButtonTokens.SelectedPressed == nil {
+			theme.IconButtonTokens.SelectedPressed = &IconButtonSelectedPressedOverlay{}
+		}
+		v := val
+		theme.IconButtonTokens.SelectedPressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.icon.button.selected.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.icon.button.state.layer.height"]; ok {
+		theme.IconButtonTokens.StateLayer.Height = val
+	} else {
+		missing = append(missing, "md.comp.icon.button.state.layer.height")
+	}
+	if val, ok := tokens["md.comp.icon.button.state.layer.shape"]; ok {
+		theme.IconButtonTokens.StateLayer.Shape = val
+	} else {
+		missing = append(missing, "md.comp.icon.button.state.layer.shape")
+	}
+	if val, ok := tokens["md.comp.icon.button.state.layer.width"]; ok {
+		theme.IconButtonTokens.StateLayer.Width = val
+	} else {
+		missing = append(missing, "md.comp.icon.button.state.layer.width")
+	}
 	theme.IconTokens = &IconTokens{}
+	if val, ok := tokens["md.comp.icon.font"]; ok {
+		theme.IconTokens.Font.Value = val
+	} else {
+		missing = append(missing, "md.comp.icon.font")
+	}
+	if val, ok := tokens["md.comp.icon.size"]; ok {
+		theme.IconTokens.Size.Value = val
+	} else {
+		missing = append(missing, "md.comp.icon.size")
+	}
 	theme.InputChipTokens = &InputChipTokens{}
+	if val, ok := tokens["md.comp.input.chip.avatar.shape"]; ok {
+		theme.InputChipTokens.Avatar.Shape = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.avatar.shape")
+	}
+	if val, ok := tokens["md.comp.input.chip.avatar.size"]; ok {
+		theme.InputChipTokens.Avatar.Size = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.avatar.size")
+	}
+	if val, ok := tokens["md.comp.input.chip.container.height"]; ok {
+		theme.InputChipTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.container.height")
+	}
+	if val, ok := tokens["md.comp.input.chip.container.shape"]; ok {
+		theme.InputChipTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.container.shape")
+	}
+	if val, ok := tokens["md.comp.input.chip.container.shape.end.end"]; ok {
+		theme.InputChipTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.input.chip.container.shape.end.start"]; ok {
+		theme.InputChipTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.input.chip.container.shape.start.end"]; ok {
+		theme.InputChipTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.input.chip.container.shape.start.start"]; ok {
+		theme.InputChipTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.input.chip.disabled.avatar.opacity"]; ok {
+		if theme.InputChipTokens.Disabled == nil {
+			theme.InputChipTokens.Disabled = &InputChipDisabledOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Disabled.AvatarOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.disabled.avatar.opacity")
+	}
+	if val, ok := tokens["md.comp.input.chip.disabled.label.text.color"]; ok {
+		if theme.InputChipTokens.Disabled == nil {
+			theme.InputChipTokens.Disabled = &InputChipDisabledOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.disabled.label.text.opacity"]; ok {
+		if theme.InputChipTokens.Disabled == nil {
+			theme.InputChipTokens.Disabled = &InputChipDisabledOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Disabled.LabelTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.input.chip.disabled.leading.icon.color"]; ok {
+		if theme.InputChipTokens.Disabled == nil {
+			theme.InputChipTokens.Disabled = &InputChipDisabledOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Disabled.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.disabled.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.disabled.leading.icon.opacity"]; ok {
+		if theme.InputChipTokens.Disabled == nil {
+			theme.InputChipTokens.Disabled = &InputChipDisabledOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Disabled.LeadingIconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.disabled.leading.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.input.chip.disabled.outline.color"]; ok {
+		if theme.InputChipTokens.Disabled == nil {
+			theme.InputChipTokens.Disabled = &InputChipDisabledOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Disabled.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.disabled.outline.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.disabled.outline.opacity"]; ok {
+		if theme.InputChipTokens.Disabled == nil {
+			theme.InputChipTokens.Disabled = &InputChipDisabledOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Disabled.OutlineOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.disabled.outline.opacity")
+	}
+	if val, ok := tokens["md.comp.input.chip.disabled.selected.container.color"]; ok {
+		if theme.InputChipTokens.DisabledSelected == nil {
+			theme.InputChipTokens.DisabledSelected = &InputChipDisabledSelectedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.DisabledSelected.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.disabled.selected.container.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.disabled.selected.container.opacity"]; ok {
+		if theme.InputChipTokens.DisabledSelected == nil {
+			theme.InputChipTokens.DisabledSelected = &InputChipDisabledSelectedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.DisabledSelected.ContainerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.disabled.selected.container.opacity")
+	}
+	if val, ok := tokens["md.comp.input.chip.disabled.trailing.icon.color"]; ok {
+		if theme.InputChipTokens.Disabled == nil {
+			theme.InputChipTokens.Disabled = &InputChipDisabledOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Disabled.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.disabled.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.disabled.trailing.icon.opacity"]; ok {
+		if theme.InputChipTokens.Disabled == nil {
+			theme.InputChipTokens.Disabled = &InputChipDisabledOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Disabled.TrailingIconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.disabled.trailing.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.input.chip.focus.label.text.color"]; ok {
+		if theme.InputChipTokens.Focus == nil {
+			theme.InputChipTokens.Focus = &InputChipFocusOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.focus.leading.icon.color"]; ok {
+		if theme.InputChipTokens.Focus == nil {
+			theme.InputChipTokens.Focus = &InputChipFocusOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Focus.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.focus.outline.color"]; ok {
+		if theme.InputChipTokens.Focus == nil {
+			theme.InputChipTokens.Focus = &InputChipFocusOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Focus.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.focus.outline.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.focus.trailing.icon.color"]; ok {
+		if theme.InputChipTokens.Focus == nil {
+			theme.InputChipTokens.Focus = &InputChipFocusOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Focus.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.focus.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.hover.label.text.color"]; ok {
+		if theme.InputChipTokens.Hover == nil {
+			theme.InputChipTokens.Hover = &InputChipHoverOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.hover.leading.icon.color"]; ok {
+		if theme.InputChipTokens.Hover == nil {
+			theme.InputChipTokens.Hover = &InputChipHoverOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Hover.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.hover.state.layer.color"]; ok {
+		if theme.InputChipTokens.Hover == nil {
+			theme.InputChipTokens.Hover = &InputChipHoverOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.hover.state.layer.opacity"]; ok {
+		if theme.InputChipTokens.Hover == nil {
+			theme.InputChipTokens.Hover = &InputChipHoverOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.input.chip.hover.trailing.icon.color"]; ok {
+		if theme.InputChipTokens.Hover == nil {
+			theme.InputChipTokens.Hover = &InputChipHoverOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Hover.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.hover.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.icon.label.space"]; ok {
+		theme.InputChipTokens.Icon.LabelSpace = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.icon.label.space")
+	}
+	if val, ok := tokens["md.comp.input.chip.icon.size"]; ok {
+		theme.InputChipTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.icon.size")
+	}
+	if val, ok := tokens["md.comp.input.chip.label.text.color"]; ok {
+		theme.InputChipTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.label.text.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.label.text.font"]; ok {
+		theme.InputChipTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.label.text.font")
+	}
+	if val, ok := tokens["md.comp.input.chip.label.text.line.height"]; ok {
+		theme.InputChipTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.input.chip.label.text.size"]; ok {
+		theme.InputChipTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.label.text.size")
+	}
+	if val, ok := tokens["md.comp.input.chip.label.text.weight"]; ok {
+		theme.InputChipTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.input.chip.leading.icon.color"]; ok {
+		theme.InputChipTokens.LeadingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.leading.space"]; ok {
+		theme.InputChipTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.leading.space")
+	}
+	if val, ok := tokens["md.comp.input.chip.outline.color"]; ok {
+		theme.InputChipTokens.Outline.Color = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.outline.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.outline.width"]; ok {
+		theme.InputChipTokens.Outline.Width = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.outline.width")
+	}
+	if val, ok := tokens["md.comp.input.chip.pressed.label.text.color"]; ok {
+		if theme.InputChipTokens.Pressed == nil {
+			theme.InputChipTokens.Pressed = &InputChipPressedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Pressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.pressed.leading.icon.color"]; ok {
+		if theme.InputChipTokens.Pressed == nil {
+			theme.InputChipTokens.Pressed = &InputChipPressedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Pressed.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.pressed.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.pressed.state.layer.color"]; ok {
+		if theme.InputChipTokens.Pressed == nil {
+			theme.InputChipTokens.Pressed = &InputChipPressedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.pressed.state.layer.opacity"]; ok {
+		if theme.InputChipTokens.Pressed == nil {
+			theme.InputChipTokens.Pressed = &InputChipPressedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.input.chip.pressed.trailing.icon.color"]; ok {
+		if theme.InputChipTokens.Pressed == nil {
+			theme.InputChipTokens.Pressed = &InputChipPressedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Pressed.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.pressed.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.container.color"]; ok {
+		if theme.InputChipTokens.Selected == nil {
+			theme.InputChipTokens.Selected = &InputChipSelectedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Selected.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.container.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.focus.label.text.color"]; ok {
+		if theme.InputChipTokens.SelectedFocus == nil {
+			theme.InputChipTokens.SelectedFocus = &InputChipSelectedFocusOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.SelectedFocus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.focus.leading.icon.color"]; ok {
+		if theme.InputChipTokens.SelectedFocus == nil {
+			theme.InputChipTokens.SelectedFocus = &InputChipSelectedFocusOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.SelectedFocus.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.focus.trailing.icon.color"]; ok {
+		if theme.InputChipTokens.SelectedFocus == nil {
+			theme.InputChipTokens.SelectedFocus = &InputChipSelectedFocusOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.SelectedFocus.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.focus.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.hover.label.text.color"]; ok {
+		if theme.InputChipTokens.SelectedHover == nil {
+			theme.InputChipTokens.SelectedHover = &InputChipSelectedHoverOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.SelectedHover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.hover.leading.icon.color"]; ok {
+		if theme.InputChipTokens.SelectedHover == nil {
+			theme.InputChipTokens.SelectedHover = &InputChipSelectedHoverOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.SelectedHover.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.hover.state.layer.color"]; ok {
+		if theme.InputChipTokens.SelectedHover == nil {
+			theme.InputChipTokens.SelectedHover = &InputChipSelectedHoverOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.SelectedHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.hover.state.layer.opacity"]; ok {
+		if theme.InputChipTokens.SelectedHover == nil {
+			theme.InputChipTokens.SelectedHover = &InputChipSelectedHoverOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.SelectedHover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.hover.trailing.icon.color"]; ok {
+		if theme.InputChipTokens.SelectedHover == nil {
+			theme.InputChipTokens.SelectedHover = &InputChipSelectedHoverOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.SelectedHover.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.hover.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.label.text.color"]; ok {
+		if theme.InputChipTokens.Selected == nil {
+			theme.InputChipTokens.Selected = &InputChipSelectedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Selected.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.label.text.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.leading.icon.color"]; ok {
+		if theme.InputChipTokens.Selected == nil {
+			theme.InputChipTokens.Selected = &InputChipSelectedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Selected.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.outline.width"]; ok {
+		if theme.InputChipTokens.Selected == nil {
+			theme.InputChipTokens.Selected = &InputChipSelectedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Selected.OutlineWidth = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.outline.width")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.pressed.label.text.color"]; ok {
+		if theme.InputChipTokens.SelectedPressed == nil {
+			theme.InputChipTokens.SelectedPressed = &InputChipSelectedPressedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.SelectedPressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.pressed.leading.icon.color"]; ok {
+		if theme.InputChipTokens.SelectedPressed == nil {
+			theme.InputChipTokens.SelectedPressed = &InputChipSelectedPressedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.SelectedPressed.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.pressed.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.pressed.state.layer.color"]; ok {
+		if theme.InputChipTokens.SelectedPressed == nil {
+			theme.InputChipTokens.SelectedPressed = &InputChipSelectedPressedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.SelectedPressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.pressed.state.layer.opacity"]; ok {
+		if theme.InputChipTokens.SelectedPressed == nil {
+			theme.InputChipTokens.SelectedPressed = &InputChipSelectedPressedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.SelectedPressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.pressed.trailing.icon.color"]; ok {
+		if theme.InputChipTokens.SelectedPressed == nil {
+			theme.InputChipTokens.SelectedPressed = &InputChipSelectedPressedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.SelectedPressed.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.pressed.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.selected.trailing.icon.color"]; ok {
+		if theme.InputChipTokens.Selected == nil {
+			theme.InputChipTokens.Selected = &InputChipSelectedOverlay{}
+		}
+		v := val
+		theme.InputChipTokens.Selected.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.input.chip.selected.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.trailing.icon.color"]; ok {
+		theme.InputChipTokens.TrailingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.input.chip.trailing.space"]; ok {
+		theme.InputChipTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.trailing.space")
+	}
+	if val, ok := tokens["md.comp.input.chip.with.leading.icon.leading.space"]; ok {
+		theme.InputChipTokens.WithLeadingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.with.leading.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.input.chip.with.trailing.icon.trailing.space"]; ok {
+		theme.InputChipTokens.WithTrailingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.input.chip.with.trailing.icon.trailing.space")
+	}
 	theme.ItemTokens = &ItemTokens{}
+	if val, ok := tokens["md.comp.item.label.text.color"]; ok {
+		theme.ItemTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.item.label.text.color")
+	}
+	if val, ok := tokens["md.comp.item.label.text.font"]; ok {
+		theme.ItemTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.item.label.text.font")
+	}
+	if val, ok := tokens["md.comp.item.label.text.line.height"]; ok {
+		theme.ItemTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.item.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.item.label.text.size"]; ok {
+		theme.ItemTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.item.label.text.size")
+	}
+	if val, ok := tokens["md.comp.item.label.text.weight"]; ok {
+		theme.ItemTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.item.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.item.overline.color"]; ok {
+		theme.ItemTokens.Overline.Color = val
+	} else {
+		missing = append(missing, "md.comp.item.overline.color")
+	}
+	if val, ok := tokens["md.comp.item.overline.font"]; ok {
+		theme.ItemTokens.Overline.Font = val
+	} else {
+		missing = append(missing, "md.comp.item.overline.font")
+	}
+	if val, ok := tokens["md.comp.item.overline.line.height"]; ok {
+		theme.ItemTokens.Overline.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.item.overline.line.height")
+	}
+	if val, ok := tokens["md.comp.item.overline.size"]; ok {
+		theme.ItemTokens.Overline.Size = val
+	} else {
+		missing = append(missing, "md.comp.item.overline.size")
+	}
+	if val, ok := tokens["md.comp.item.overline.weight"]; ok {
+		theme.ItemTokens.Overline.Weight = val
+	} else {
+		missing = append(missing, "md.comp.item.overline.weight")
+	}
+	if val, ok := tokens["md.comp.item.supporting.text.color"]; ok {
+		theme.ItemTokens.SupportingText.Color = val
+	} else {
+		missing = append(missing, "md.comp.item.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.item.supporting.text.font"]; ok {
+		theme.ItemTokens.SupportingText.Font = val
+	} else {
+		missing = append(missing, "md.comp.item.supporting.text.font")
+	}
+	if val, ok := tokens["md.comp.item.supporting.text.line.height"]; ok {
+		theme.ItemTokens.SupportingText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.item.supporting.text.line.height")
+	}
+	if val, ok := tokens["md.comp.item.supporting.text.size"]; ok {
+		theme.ItemTokens.SupportingText.Size = val
+	} else {
+		missing = append(missing, "md.comp.item.supporting.text.size")
+	}
+	if val, ok := tokens["md.comp.item.supporting.text.weight"]; ok {
+		theme.ItemTokens.SupportingText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.item.supporting.text.weight")
+	}
+	if val, ok := tokens["md.comp.item.trailing.supporting.text.color"]; ok {
+		theme.ItemTokens.Trailing.SupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.item.trailing.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.item.trailing.supporting.text.font"]; ok {
+		theme.ItemTokens.Trailing.SupportingTextFont = val
+	} else {
+		missing = append(missing, "md.comp.item.trailing.supporting.text.font")
+	}
+	if val, ok := tokens["md.comp.item.trailing.supporting.text.line.height"]; ok {
+		theme.ItemTokens.Trailing.SupportingTextLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.item.trailing.supporting.text.line.height")
+	}
+	if val, ok := tokens["md.comp.item.trailing.supporting.text.size"]; ok {
+		theme.ItemTokens.Trailing.SupportingTextSize = val
+	} else {
+		missing = append(missing, "md.comp.item.trailing.supporting.text.size")
+	}
+	if val, ok := tokens["md.comp.item.trailing.supporting.text.weight"]; ok {
+		theme.ItemTokens.Trailing.SupportingTextWeight = val
+	} else {
+		missing = append(missing, "md.comp.item.trailing.supporting.text.weight")
+	}
 	theme.LinearProgressTokens = &LinearProgressTokens{}
+	if val, ok := tokens["md.comp.linear.progress.active.indicator.color"]; ok {
+		if theme.LinearProgressTokens.Active == nil {
+			theme.LinearProgressTokens.Active = &LinearProgressActiveOverlay{}
+		}
+		v := val
+		theme.LinearProgressTokens.Active.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.linear.progress.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.linear.progress.active.indicator.height"]; ok {
+		if theme.LinearProgressTokens.Active == nil {
+			theme.LinearProgressTokens.Active = &LinearProgressActiveOverlay{}
+		}
+		v := val
+		theme.LinearProgressTokens.Active.IndicatorHeight = &v
+	} else {
+		missing = append(missing, "md.comp.linear.progress.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.linear.progress.four.color.active.indicator.four.color"]; ok {
+		theme.LinearProgressTokens.FourColor.ActiveIndicatorFourColor = val
+	} else {
+		missing = append(missing, "md.comp.linear.progress.four.color.active.indicator.four.color")
+	}
+	if val, ok := tokens["md.comp.linear.progress.four.color.active.indicator.one.color"]; ok {
+		theme.LinearProgressTokens.FourColor.ActiveIndicatorOneColor = val
+	} else {
+		missing = append(missing, "md.comp.linear.progress.four.color.active.indicator.one.color")
+	}
+	if val, ok := tokens["md.comp.linear.progress.four.color.active.indicator.three.color"]; ok {
+		theme.LinearProgressTokens.FourColor.ActiveIndicatorThreeColor = val
+	} else {
+		missing = append(missing, "md.comp.linear.progress.four.color.active.indicator.three.color")
+	}
+	if val, ok := tokens["md.comp.linear.progress.four.color.active.indicator.two.color"]; ok {
+		theme.LinearProgressTokens.FourColor.ActiveIndicatorTwoColor = val
+	} else {
+		missing = append(missing, "md.comp.linear.progress.four.color.active.indicator.two.color")
+	}
+	if val, ok := tokens["md.comp.linear.progress.track.color"]; ok {
+		theme.LinearProgressTokens.Track.Color = val
+	} else {
+		missing = append(missing, "md.comp.linear.progress.track.color")
+	}
+	if val, ok := tokens["md.comp.linear.progress.track.height"]; ok {
+		theme.LinearProgressTokens.Track.Height = val
+	} else {
+		missing = append(missing, "md.comp.linear.progress.track.height")
+	}
+	if val, ok := tokens["md.comp.linear.progress.track.shape"]; ok {
+		theme.LinearProgressTokens.Track.Shape = val
+	} else {
+		missing = append(missing, "md.comp.linear.progress.track.shape")
+	}
 	theme.ListItemTokens = &ListItemTokens{}
+	if val, ok := tokens["md.comp.list.item.bottom.space"]; ok {
+		theme.ListItemTokens.Bottom.Space = val
+	} else {
+		missing = append(missing, "md.comp.list.item.bottom.space")
+	}
+	if val, ok := tokens["md.comp.list.item.disabled.opacity"]; ok {
+		if theme.ListItemTokens.Disabled == nil {
+			theme.ListItemTokens.Disabled = &ListItemDisabledOverlay{}
+		}
+		v := val
+		theme.ListItemTokens.Disabled.OpacityValue = &v
+	} else {
+		missing = append(missing, "md.comp.list.item.disabled.opacity")
+	}
+	if val, ok := tokens["md.comp.list.item.hover.state.layer.color"]; ok {
+		if theme.ListItemTokens.Hover == nil {
+			theme.ListItemTokens.Hover = &ListItemHoverOverlay{}
+		}
+		v := val
+		theme.ListItemTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.list.item.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.list.item.hover.state.layer.opacity"]; ok {
+		if theme.ListItemTokens.Hover == nil {
+			theme.ListItemTokens.Hover = &ListItemHoverOverlay{}
+		}
+		v := val
+		theme.ListItemTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.list.item.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.list.item.label.text.color"]; ok {
+		theme.ListItemTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.list.item.label.text.color")
+	}
+	if val, ok := tokens["md.comp.list.item.label.text.font"]; ok {
+		theme.ListItemTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.list.item.label.text.font")
+	}
+	if val, ok := tokens["md.comp.list.item.label.text.line.height"]; ok {
+		theme.ListItemTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.list.item.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.list.item.label.text.size"]; ok {
+		theme.ListItemTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.list.item.label.text.size")
+	}
+	if val, ok := tokens["md.comp.list.item.label.text.weight"]; ok {
+		theme.ListItemTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.list.item.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.list.item.leading.icon.color"]; ok {
+		theme.ListItemTokens.LeadingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.list.item.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.list.item.leading.space"]; ok {
+		theme.ListItemTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.list.item.leading.space")
+	}
+	if val, ok := tokens["md.comp.list.item.one.line.container.height"]; ok {
+		theme.ListItemTokens.One.LineContainerHeight = val
+	} else {
+		missing = append(missing, "md.comp.list.item.one.line.container.height")
+	}
+	if val, ok := tokens["md.comp.list.item.pressed.state.layer.color"]; ok {
+		if theme.ListItemTokens.Pressed == nil {
+			theme.ListItemTokens.Pressed = &ListItemPressedOverlay{}
+		}
+		v := val
+		theme.ListItemTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.list.item.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.list.item.pressed.state.layer.opacity"]; ok {
+		if theme.ListItemTokens.Pressed == nil {
+			theme.ListItemTokens.Pressed = &ListItemPressedOverlay{}
+		}
+		v := val
+		theme.ListItemTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.list.item.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.list.item.supporting.text.color"]; ok {
+		theme.ListItemTokens.SupportingText.Color = val
+	} else {
+		missing = append(missing, "md.comp.list.item.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.list.item.supporting.text.font"]; ok {
+		theme.ListItemTokens.SupportingText.Font = val
+	} else {
+		missing = append(missing, "md.comp.list.item.supporting.text.font")
+	}
+	if val, ok := tokens["md.comp.list.item.supporting.text.line.height"]; ok {
+		theme.ListItemTokens.SupportingText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.list.item.supporting.text.line.height")
+	}
+	if val, ok := tokens["md.comp.list.item.supporting.text.size"]; ok {
+		theme.ListItemTokens.SupportingText.Size = val
+	} else {
+		missing = append(missing, "md.comp.list.item.supporting.text.size")
+	}
+	if val, ok := tokens["md.comp.list.item.supporting.text.weight"]; ok {
+		theme.ListItemTokens.SupportingText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.list.item.supporting.text.weight")
+	}
+	if val, ok := tokens["md.comp.list.item.top.space"]; ok {
+		theme.ListItemTokens.Top.Space = val
+	} else {
+		missing = append(missing, "md.comp.list.item.top.space")
+	}
+	if val, ok := tokens["md.comp.list.item.trailing.icon.color"]; ok {
+		theme.ListItemTokens.TrailingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.list.item.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.list.item.trailing.space"]; ok {
+		theme.ListItemTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.list.item.trailing.space")
+	}
+	if val, ok := tokens["md.comp.list.item.trailing.supporting.text.color"]; ok {
+		theme.ListItemTokens.Trailing.SupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.list.item.trailing.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.list.item.trailing.supporting.text.font"]; ok {
+		theme.ListItemTokens.Trailing.SupportingTextFont = val
+	} else {
+		missing = append(missing, "md.comp.list.item.trailing.supporting.text.font")
+	}
+	if val, ok := tokens["md.comp.list.item.trailing.supporting.text.line.height"]; ok {
+		theme.ListItemTokens.Trailing.SupportingTextLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.list.item.trailing.supporting.text.line.height")
+	}
+	if val, ok := tokens["md.comp.list.item.trailing.supporting.text.size"]; ok {
+		theme.ListItemTokens.Trailing.SupportingTextSize = val
+	} else {
+		missing = append(missing, "md.comp.list.item.trailing.supporting.text.size")
+	}
+	if val, ok := tokens["md.comp.list.item.trailing.supporting.text.weight"]; ok {
+		theme.ListItemTokens.Trailing.SupportingTextWeight = val
+	} else {
+		missing = append(missing, "md.comp.list.item.trailing.supporting.text.weight")
+	}
+	if val, ok := tokens["md.comp.list.item.two.line.container.height"]; ok {
+		theme.ListItemTokens.Two.LineContainerHeight = val
+	} else {
+		missing = append(missing, "md.comp.list.item.two.line.container.height")
+	}
 	theme.ListTokens = &ListTokens{}
+	if val, ok := tokens["md.comp.list.container.color"]; ok {
+		theme.ListTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.list.container.color")
+	}
 	theme.MenuItemTokens = &MenuItemTokens{}
+	if val, ok := tokens["md.comp.menu.item.bottom.space"]; ok {
+		theme.MenuItemTokens.Bottom.Space = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.bottom.space")
+	}
+	if val, ok := tokens["md.comp.menu.item.container.color"]; ok {
+		theme.MenuItemTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.container.color")
+	}
+	if val, ok := tokens["md.comp.menu.item.disabled.opacity"]; ok {
+		if theme.MenuItemTokens.Disabled == nil {
+			theme.MenuItemTokens.Disabled = &MenuItemDisabledOverlay{}
+		}
+		v := val
+		theme.MenuItemTokens.Disabled.OpacityValue = &v
+	} else {
+		missing = append(missing, "md.comp.menu.item.disabled.opacity")
+	}
+	if val, ok := tokens["md.comp.menu.item.hover.state.layer.color"]; ok {
+		if theme.MenuItemTokens.Hover == nil {
+			theme.MenuItemTokens.Hover = &MenuItemHoverOverlay{}
+		}
+		v := val
+		theme.MenuItemTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.menu.item.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.menu.item.hover.state.layer.opacity"]; ok {
+		if theme.MenuItemTokens.Hover == nil {
+			theme.MenuItemTokens.Hover = &MenuItemHoverOverlay{}
+		}
+		v := val
+		theme.MenuItemTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.menu.item.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.menu.item.label.text.color"]; ok {
+		theme.MenuItemTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.label.text.color")
+	}
+	if val, ok := tokens["md.comp.menu.item.label.text.font"]; ok {
+		theme.MenuItemTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.label.text.font")
+	}
+	if val, ok := tokens["md.comp.menu.item.label.text.line.height"]; ok {
+		theme.MenuItemTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.menu.item.label.text.size"]; ok {
+		theme.MenuItemTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.label.text.size")
+	}
+	if val, ok := tokens["md.comp.menu.item.label.text.weight"]; ok {
+		theme.MenuItemTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.menu.item.leading.icon.color"]; ok {
+		theme.MenuItemTokens.LeadingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.menu.item.leading.space"]; ok {
+		theme.MenuItemTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.leading.space")
+	}
+	if val, ok := tokens["md.comp.menu.item.one.line.container.height"]; ok {
+		theme.MenuItemTokens.One.LineContainerHeight = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.one.line.container.height")
+	}
+	if val, ok := tokens["md.comp.menu.item.pressed.state.layer.color"]; ok {
+		if theme.MenuItemTokens.Pressed == nil {
+			theme.MenuItemTokens.Pressed = &MenuItemPressedOverlay{}
+		}
+		v := val
+		theme.MenuItemTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.menu.item.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.menu.item.pressed.state.layer.opacity"]; ok {
+		if theme.MenuItemTokens.Pressed == nil {
+			theme.MenuItemTokens.Pressed = &MenuItemPressedOverlay{}
+		}
+		v := val
+		theme.MenuItemTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.menu.item.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.menu.item.selected.container.color"]; ok {
+		if theme.MenuItemTokens.Selected == nil {
+			theme.MenuItemTokens.Selected = &MenuItemSelectedOverlay{}
+		}
+		v := val
+		theme.MenuItemTokens.Selected.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.menu.item.selected.container.color")
+	}
+	if val, ok := tokens["md.comp.menu.item.selected.label.text.color"]; ok {
+		if theme.MenuItemTokens.Selected == nil {
+			theme.MenuItemTokens.Selected = &MenuItemSelectedOverlay{}
+		}
+		v := val
+		theme.MenuItemTokens.Selected.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.menu.item.selected.label.text.color")
+	}
+	if val, ok := tokens["md.comp.menu.item.supporting.text.color"]; ok {
+		theme.MenuItemTokens.SupportingText.Color = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.menu.item.supporting.text.font"]; ok {
+		theme.MenuItemTokens.SupportingText.Font = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.supporting.text.font")
+	}
+	if val, ok := tokens["md.comp.menu.item.supporting.text.line.height"]; ok {
+		theme.MenuItemTokens.SupportingText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.supporting.text.line.height")
+	}
+	if val, ok := tokens["md.comp.menu.item.supporting.text.size"]; ok {
+		theme.MenuItemTokens.SupportingText.Size = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.supporting.text.size")
+	}
+	if val, ok := tokens["md.comp.menu.item.supporting.text.weight"]; ok {
+		theme.MenuItemTokens.SupportingText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.supporting.text.weight")
+	}
+	if val, ok := tokens["md.comp.menu.item.top.space"]; ok {
+		theme.MenuItemTokens.Top.Space = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.top.space")
+	}
+	if val, ok := tokens["md.comp.menu.item.trailing.icon.color"]; ok {
+		theme.MenuItemTokens.TrailingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.menu.item.trailing.space"]; ok {
+		theme.MenuItemTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.trailing.space")
+	}
+	if val, ok := tokens["md.comp.menu.item.trailing.supporting.text.color"]; ok {
+		theme.MenuItemTokens.Trailing.SupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.trailing.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.menu.item.trailing.supporting.text.font"]; ok {
+		theme.MenuItemTokens.Trailing.SupportingTextFont = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.trailing.supporting.text.font")
+	}
+	if val, ok := tokens["md.comp.menu.item.trailing.supporting.text.line.height"]; ok {
+		theme.MenuItemTokens.Trailing.SupportingTextLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.trailing.supporting.text.line.height")
+	}
+	if val, ok := tokens["md.comp.menu.item.trailing.supporting.text.size"]; ok {
+		theme.MenuItemTokens.Trailing.SupportingTextSize = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.trailing.supporting.text.size")
+	}
+	if val, ok := tokens["md.comp.menu.item.trailing.supporting.text.weight"]; ok {
+		theme.MenuItemTokens.Trailing.SupportingTextWeight = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.trailing.supporting.text.weight")
+	}
+	if val, ok := tokens["md.comp.menu.item.two.line.container.height"]; ok {
+		theme.MenuItemTokens.Two.LineContainerHeight = val
+	} else {
+		missing = append(missing, "md.comp.menu.item.two.line.container.height")
+	}
 	theme.MenuTokens = &MenuTokens{}
+	if val, ok := tokens["md.comp.menu.bottom.space"]; ok {
+		theme.MenuTokens.Bottom.Space = val
+	} else {
+		missing = append(missing, "md.comp.menu.bottom.space")
+	}
+	if val, ok := tokens["md.comp.menu.container.color"]; ok {
+		theme.MenuTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.menu.container.color")
+	}
+	if val, ok := tokens["md.comp.menu.container.elevation"]; ok {
+		theme.MenuTokens.Container.Elevation = val
+	} else {
+		missing = append(missing, "md.comp.menu.container.elevation")
+	}
+	if val, ok := tokens["md.comp.menu.container.shadow.color"]; ok {
+		theme.MenuTokens.Container.ShadowColor = val
+	} else {
+		missing = append(missing, "md.comp.menu.container.shadow.color")
+	}
+	if val, ok := tokens["md.comp.menu.container.shape"]; ok {
+		theme.MenuTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.menu.container.shape")
+	}
+	if val, ok := tokens["md.comp.menu.top.space"]; ok {
+		theme.MenuTokens.Top.Space = val
+	} else {
+		missing = append(missing, "md.comp.menu.top.space")
+	}
 	theme.OutlinedButtonTokens = &OutlinedButtonTokens{}
+	if val, ok := tokens["md.comp.outlined.button.container.height"]; ok {
+		theme.OutlinedButtonTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.container.height")
+	}
+	if val, ok := tokens["md.comp.outlined.button.container.shape"]; ok {
+		theme.OutlinedButtonTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.container.shape")
+	}
+	if val, ok := tokens["md.comp.outlined.button.container.shape.end.end"]; ok {
+		theme.OutlinedButtonTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.outlined.button.container.shape.end.start"]; ok {
+		theme.OutlinedButtonTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.outlined.button.container.shape.start.end"]; ok {
+		theme.OutlinedButtonTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.outlined.button.container.shape.start.start"]; ok {
+		theme.OutlinedButtonTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.outlined.button.disabled.icon.color"]; ok {
+		if theme.OutlinedButtonTokens.Disabled == nil {
+			theme.OutlinedButtonTokens.Disabled = &OutlinedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Disabled.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.disabled.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.disabled.icon.opacity"]; ok {
+		if theme.OutlinedButtonTokens.Disabled == nil {
+			theme.OutlinedButtonTokens.Disabled = &OutlinedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Disabled.IconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.disabled.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.button.disabled.label.text.color"]; ok {
+		if theme.OutlinedButtonTokens.Disabled == nil {
+			theme.OutlinedButtonTokens.Disabled = &OutlinedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.disabled.label.text.opacity"]; ok {
+		if theme.OutlinedButtonTokens.Disabled == nil {
+			theme.OutlinedButtonTokens.Disabled = &OutlinedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Disabled.LabelTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.button.disabled.outline.color"]; ok {
+		if theme.OutlinedButtonTokens.Disabled == nil {
+			theme.OutlinedButtonTokens.Disabled = &OutlinedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Disabled.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.disabled.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.disabled.outline.opacity"]; ok {
+		if theme.OutlinedButtonTokens.Disabled == nil {
+			theme.OutlinedButtonTokens.Disabled = &OutlinedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Disabled.OutlineOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.disabled.outline.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.button.focus.icon.color"]; ok {
+		if theme.OutlinedButtonTokens.Focus == nil {
+			theme.OutlinedButtonTokens.Focus = &OutlinedButtonFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.focus.label.text.color"]; ok {
+		if theme.OutlinedButtonTokens.Focus == nil {
+			theme.OutlinedButtonTokens.Focus = &OutlinedButtonFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.hover.icon.color"]; ok {
+		if theme.OutlinedButtonTokens.Hover == nil {
+			theme.OutlinedButtonTokens.Hover = &OutlinedButtonHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.hover.label.text.color"]; ok {
+		if theme.OutlinedButtonTokens.Hover == nil {
+			theme.OutlinedButtonTokens.Hover = &OutlinedButtonHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.hover.state.layer.color"]; ok {
+		if theme.OutlinedButtonTokens.Hover == nil {
+			theme.OutlinedButtonTokens.Hover = &OutlinedButtonHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.hover.state.layer.opacity"]; ok {
+		if theme.OutlinedButtonTokens.Hover == nil {
+			theme.OutlinedButtonTokens.Hover = &OutlinedButtonHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.button.icon.color"]; ok {
+		theme.OutlinedButtonTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.icon.size"]; ok {
+		theme.OutlinedButtonTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.icon.size")
+	}
+	if val, ok := tokens["md.comp.outlined.button.label.text.color"]; ok {
+		theme.OutlinedButtonTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.label.text.font"]; ok {
+		theme.OutlinedButtonTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.label.text.font")
+	}
+	if val, ok := tokens["md.comp.outlined.button.label.text.line.height"]; ok {
+		theme.OutlinedButtonTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.button.label.text.size"]; ok {
+		theme.OutlinedButtonTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.label.text.size")
+	}
+	if val, ok := tokens["md.comp.outlined.button.label.text.weight"]; ok {
+		theme.OutlinedButtonTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.outlined.button.leading.space"]; ok {
+		theme.OutlinedButtonTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.leading.space")
+	}
+	if val, ok := tokens["md.comp.outlined.button.outline.color"]; ok {
+		theme.OutlinedButtonTokens.Outline.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.outline.width"]; ok {
+		theme.OutlinedButtonTokens.Outline.Width = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.button.pressed.icon.color"]; ok {
+		if theme.OutlinedButtonTokens.Pressed == nil {
+			theme.OutlinedButtonTokens.Pressed = &OutlinedButtonPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.pressed.label.text.color"]; ok {
+		if theme.OutlinedButtonTokens.Pressed == nil {
+			theme.OutlinedButtonTokens.Pressed = &OutlinedButtonPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Pressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.pressed.outline.color"]; ok {
+		if theme.OutlinedButtonTokens.Pressed == nil {
+			theme.OutlinedButtonTokens.Pressed = &OutlinedButtonPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Pressed.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.pressed.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.pressed.state.layer.color"]; ok {
+		if theme.OutlinedButtonTokens.Pressed == nil {
+			theme.OutlinedButtonTokens.Pressed = &OutlinedButtonPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.outlined.button.pressed.state.layer.opacity"]; ok {
+		if theme.OutlinedButtonTokens.Pressed == nil {
+			theme.OutlinedButtonTokens.Pressed = &OutlinedButtonPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedButtonTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.button.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.button.trailing.space"]; ok {
+		theme.OutlinedButtonTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.trailing.space")
+	}
+	if val, ok := tokens["md.comp.outlined.button.with.leading.icon.leading.space"]; ok {
+		theme.OutlinedButtonTokens.WithLeadingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.with.leading.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.outlined.button.with.leading.icon.trailing.space"]; ok {
+		theme.OutlinedButtonTokens.WithLeadingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.with.leading.icon.trailing.space")
+	}
+	if val, ok := tokens["md.comp.outlined.button.with.trailing.icon.leading.space"]; ok {
+		theme.OutlinedButtonTokens.WithTrailingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.with.trailing.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.outlined.button.with.trailing.icon.trailing.space"]; ok {
+		theme.OutlinedButtonTokens.WithTrailingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.button.with.trailing.icon.trailing.space")
+	}
 	theme.OutlinedCardTokens = &OutlinedCardTokens{}
+	if val, ok := tokens["md.comp.outlined.card.container.color"]; ok {
+		theme.OutlinedCardTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.card.container.color")
+	}
+	if val, ok := tokens["md.comp.outlined.card.container.elevation"]; ok {
+		theme.OutlinedCardTokens.Container.Elevation = val
+	} else {
+		missing = append(missing, "md.comp.outlined.card.container.elevation")
+	}
+	if val, ok := tokens["md.comp.outlined.card.container.shadow.color"]; ok {
+		theme.OutlinedCardTokens.Container.ShadowColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.card.container.shadow.color")
+	}
+	if val, ok := tokens["md.comp.outlined.card.container.shape"]; ok {
+		theme.OutlinedCardTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.outlined.card.container.shape")
+	}
+	if val, ok := tokens["md.comp.outlined.card.outline.color"]; ok {
+		theme.OutlinedCardTokens.Outline.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.card.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.card.outline.width"]; ok {
+		theme.OutlinedCardTokens.Outline.Width = val
+	} else {
+		missing = append(missing, "md.comp.outlined.card.outline.width")
+	}
 	theme.OutlinedFieldTokens = &OutlinedFieldTokens{}
+	if val, ok := tokens["md.comp.outlined.field.bottom.space"]; ok {
+		theme.OutlinedFieldTokens.Bottom.Space = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.bottom.space")
+	}
+	if val, ok := tokens["md.comp.outlined.field.container.shape"]; ok {
+		theme.OutlinedFieldTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.container.shape")
+	}
+	if val, ok := tokens["md.comp.outlined.field.container.shape.end.end"]; ok {
+		theme.OutlinedFieldTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.outlined.field.container.shape.end.start"]; ok {
+		theme.OutlinedFieldTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.outlined.field.container.shape.start.end"]; ok {
+		theme.OutlinedFieldTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.outlined.field.container.shape.start.start"]; ok {
+		theme.OutlinedFieldTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.outlined.field.content.color"]; ok {
+		theme.OutlinedFieldTokens.Content.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.content.font"]; ok {
+		theme.OutlinedFieldTokens.Content.Font = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.content.font")
+	}
+	if val, ok := tokens["md.comp.outlined.field.content.line.height"]; ok {
+		theme.OutlinedFieldTokens.Content.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.content.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.field.content.size"]; ok {
+		theme.OutlinedFieldTokens.Content.Size = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.content.size")
+	}
+	if val, ok := tokens["md.comp.outlined.field.content.space"]; ok {
+		theme.OutlinedFieldTokens.Content.Space = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.content.space")
+	}
+	if val, ok := tokens["md.comp.outlined.field.content.weight"]; ok {
+		theme.OutlinedFieldTokens.Content.Weight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.content.weight")
+	}
+	if val, ok := tokens["md.comp.outlined.field.disabled.content.color"]; ok {
+		if theme.OutlinedFieldTokens.Disabled == nil {
+			theme.OutlinedFieldTokens.Disabled = &OutlinedFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Disabled.ContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.disabled.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.disabled.content.opacity"]; ok {
+		if theme.OutlinedFieldTokens.Disabled == nil {
+			theme.OutlinedFieldTokens.Disabled = &OutlinedFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Disabled.ContentOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.disabled.content.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.field.disabled.label.text.color"]; ok {
+		if theme.OutlinedFieldTokens.Disabled == nil {
+			theme.OutlinedFieldTokens.Disabled = &OutlinedFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.disabled.label.text.opacity"]; ok {
+		if theme.OutlinedFieldTokens.Disabled == nil {
+			theme.OutlinedFieldTokens.Disabled = &OutlinedFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Disabled.LabelTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.field.disabled.leading.content.color"]; ok {
+		if theme.OutlinedFieldTokens.Disabled == nil {
+			theme.OutlinedFieldTokens.Disabled = &OutlinedFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Disabled.LeadingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.disabled.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.disabled.leading.content.opacity"]; ok {
+		if theme.OutlinedFieldTokens.Disabled == nil {
+			theme.OutlinedFieldTokens.Disabled = &OutlinedFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Disabled.LeadingContentOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.disabled.leading.content.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.field.disabled.outline.color"]; ok {
+		if theme.OutlinedFieldTokens.Disabled == nil {
+			theme.OutlinedFieldTokens.Disabled = &OutlinedFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Disabled.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.disabled.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.disabled.outline.opacity"]; ok {
+		if theme.OutlinedFieldTokens.Disabled == nil {
+			theme.OutlinedFieldTokens.Disabled = &OutlinedFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Disabled.OutlineOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.disabled.outline.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.field.disabled.outline.width"]; ok {
+		if theme.OutlinedFieldTokens.Disabled == nil {
+			theme.OutlinedFieldTokens.Disabled = &OutlinedFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Disabled.OutlineWidth = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.disabled.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.field.disabled.supporting.text.color"]; ok {
+		if theme.OutlinedFieldTokens.Disabled == nil {
+			theme.OutlinedFieldTokens.Disabled = &OutlinedFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Disabled.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.disabled.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.disabled.supporting.text.opacity"]; ok {
+		if theme.OutlinedFieldTokens.Disabled == nil {
+			theme.OutlinedFieldTokens.Disabled = &OutlinedFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Disabled.SupportingTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.disabled.supporting.text.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.field.disabled.trailing.content.color"]; ok {
+		if theme.OutlinedFieldTokens.Disabled == nil {
+			theme.OutlinedFieldTokens.Disabled = &OutlinedFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Disabled.TrailingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.disabled.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.disabled.trailing.content.opacity"]; ok {
+		if theme.OutlinedFieldTokens.Disabled == nil {
+			theme.OutlinedFieldTokens.Disabled = &OutlinedFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Disabled.TrailingContentOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.disabled.trailing.content.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.content.color"]; ok {
+		if theme.OutlinedFieldTokens.Error == nil {
+			theme.OutlinedFieldTokens.Error = &OutlinedFieldErrorOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Error.ContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.focus.content.color"]; ok {
+		if theme.OutlinedFieldTokens.ErrorFocus == nil {
+			theme.OutlinedFieldTokens.ErrorFocus = &OutlinedFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.ErrorFocus.ContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.focus.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.focus.label.text.color"]; ok {
+		if theme.OutlinedFieldTokens.ErrorFocus == nil {
+			theme.OutlinedFieldTokens.ErrorFocus = &OutlinedFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.ErrorFocus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.focus.leading.content.color"]; ok {
+		if theme.OutlinedFieldTokens.ErrorFocus == nil {
+			theme.OutlinedFieldTokens.ErrorFocus = &OutlinedFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.ErrorFocus.LeadingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.focus.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.focus.outline.color"]; ok {
+		if theme.OutlinedFieldTokens.ErrorFocus == nil {
+			theme.OutlinedFieldTokens.ErrorFocus = &OutlinedFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.ErrorFocus.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.focus.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.focus.supporting.text.color"]; ok {
+		if theme.OutlinedFieldTokens.ErrorFocus == nil {
+			theme.OutlinedFieldTokens.ErrorFocus = &OutlinedFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.ErrorFocus.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.focus.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.focus.trailing.content.color"]; ok {
+		if theme.OutlinedFieldTokens.ErrorFocus == nil {
+			theme.OutlinedFieldTokens.ErrorFocus = &OutlinedFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.ErrorFocus.TrailingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.focus.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.hover.content.color"]; ok {
+		if theme.OutlinedFieldTokens.ErrorHover == nil {
+			theme.OutlinedFieldTokens.ErrorHover = &OutlinedFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.ErrorHover.ContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.hover.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.hover.label.text.color"]; ok {
+		if theme.OutlinedFieldTokens.ErrorHover == nil {
+			theme.OutlinedFieldTokens.ErrorHover = &OutlinedFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.ErrorHover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.hover.leading.content.color"]; ok {
+		if theme.OutlinedFieldTokens.ErrorHover == nil {
+			theme.OutlinedFieldTokens.ErrorHover = &OutlinedFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.ErrorHover.LeadingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.hover.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.hover.outline.color"]; ok {
+		if theme.OutlinedFieldTokens.ErrorHover == nil {
+			theme.OutlinedFieldTokens.ErrorHover = &OutlinedFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.ErrorHover.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.hover.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.hover.supporting.text.color"]; ok {
+		if theme.OutlinedFieldTokens.ErrorHover == nil {
+			theme.OutlinedFieldTokens.ErrorHover = &OutlinedFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.ErrorHover.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.hover.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.hover.trailing.content.color"]; ok {
+		if theme.OutlinedFieldTokens.ErrorHover == nil {
+			theme.OutlinedFieldTokens.ErrorHover = &OutlinedFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.ErrorHover.TrailingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.hover.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.label.text.color"]; ok {
+		if theme.OutlinedFieldTokens.Error == nil {
+			theme.OutlinedFieldTokens.Error = &OutlinedFieldErrorOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Error.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.leading.content.color"]; ok {
+		if theme.OutlinedFieldTokens.Error == nil {
+			theme.OutlinedFieldTokens.Error = &OutlinedFieldErrorOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Error.LeadingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.outline.color"]; ok {
+		if theme.OutlinedFieldTokens.Error == nil {
+			theme.OutlinedFieldTokens.Error = &OutlinedFieldErrorOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Error.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.supporting.text.color"]; ok {
+		if theme.OutlinedFieldTokens.Error == nil {
+			theme.OutlinedFieldTokens.Error = &OutlinedFieldErrorOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Error.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.error.trailing.content.color"]; ok {
+		if theme.OutlinedFieldTokens.Error == nil {
+			theme.OutlinedFieldTokens.Error = &OutlinedFieldErrorOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Error.TrailingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.error.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.focus.content.color"]; ok {
+		if theme.OutlinedFieldTokens.Focus == nil {
+			theme.OutlinedFieldTokens.Focus = &OutlinedFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Focus.ContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.focus.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.focus.label.text.color"]; ok {
+		if theme.OutlinedFieldTokens.Focus == nil {
+			theme.OutlinedFieldTokens.Focus = &OutlinedFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.focus.leading.content.color"]; ok {
+		if theme.OutlinedFieldTokens.Focus == nil {
+			theme.OutlinedFieldTokens.Focus = &OutlinedFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Focus.LeadingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.focus.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.focus.outline.color"]; ok {
+		if theme.OutlinedFieldTokens.Focus == nil {
+			theme.OutlinedFieldTokens.Focus = &OutlinedFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Focus.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.focus.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.focus.outline.width"]; ok {
+		if theme.OutlinedFieldTokens.Focus == nil {
+			theme.OutlinedFieldTokens.Focus = &OutlinedFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Focus.OutlineWidth = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.focus.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.field.focus.supporting.text.color"]; ok {
+		if theme.OutlinedFieldTokens.Focus == nil {
+			theme.OutlinedFieldTokens.Focus = &OutlinedFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Focus.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.focus.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.focus.trailing.content.color"]; ok {
+		if theme.OutlinedFieldTokens.Focus == nil {
+			theme.OutlinedFieldTokens.Focus = &OutlinedFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Focus.TrailingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.focus.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.hover.content.color"]; ok {
+		if theme.OutlinedFieldTokens.Hover == nil {
+			theme.OutlinedFieldTokens.Hover = &OutlinedFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Hover.ContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.hover.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.hover.label.text.color"]; ok {
+		if theme.OutlinedFieldTokens.Hover == nil {
+			theme.OutlinedFieldTokens.Hover = &OutlinedFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.hover.leading.content.color"]; ok {
+		if theme.OutlinedFieldTokens.Hover == nil {
+			theme.OutlinedFieldTokens.Hover = &OutlinedFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Hover.LeadingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.hover.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.hover.outline.color"]; ok {
+		if theme.OutlinedFieldTokens.Hover == nil {
+			theme.OutlinedFieldTokens.Hover = &OutlinedFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Hover.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.hover.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.hover.outline.width"]; ok {
+		if theme.OutlinedFieldTokens.Hover == nil {
+			theme.OutlinedFieldTokens.Hover = &OutlinedFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Hover.OutlineWidth = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.hover.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.field.hover.supporting.text.color"]; ok {
+		if theme.OutlinedFieldTokens.Hover == nil {
+			theme.OutlinedFieldTokens.Hover = &OutlinedFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Hover.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.hover.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.hover.trailing.content.color"]; ok {
+		if theme.OutlinedFieldTokens.Hover == nil {
+			theme.OutlinedFieldTokens.Hover = &OutlinedFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedFieldTokens.Hover.TrailingContentColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.field.hover.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.label.text.color"]; ok {
+		theme.OutlinedFieldTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.label.text.font"]; ok {
+		theme.OutlinedFieldTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.label.text.font")
+	}
+	if val, ok := tokens["md.comp.outlined.field.label.text.line.height"]; ok {
+		theme.OutlinedFieldTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.field.label.text.padding.bottom"]; ok {
+		theme.OutlinedFieldTokens.LabelText.PaddingBottom = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.label.text.padding.bottom")
+	}
+	if val, ok := tokens["md.comp.outlined.field.label.text.populated.line.height"]; ok {
+		theme.OutlinedFieldTokens.LabelText.PopulatedLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.label.text.populated.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.field.label.text.populated.size"]; ok {
+		theme.OutlinedFieldTokens.LabelText.PopulatedSize = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.label.text.populated.size")
+	}
+	if val, ok := tokens["md.comp.outlined.field.label.text.size"]; ok {
+		theme.OutlinedFieldTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.label.text.size")
+	}
+	if val, ok := tokens["md.comp.outlined.field.label.text.weight"]; ok {
+		theme.OutlinedFieldTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.outlined.field.leading.content.color"]; ok {
+		theme.OutlinedFieldTokens.LeadingContent.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.leading.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.leading.space"]; ok {
+		theme.OutlinedFieldTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.leading.space")
+	}
+	if val, ok := tokens["md.comp.outlined.field.outline.color"]; ok {
+		theme.OutlinedFieldTokens.Outline.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.outline.label.padding"]; ok {
+		theme.OutlinedFieldTokens.Outline.LabelPadding = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.outline.label.padding")
+	}
+	if val, ok := tokens["md.comp.outlined.field.outline.width"]; ok {
+		theme.OutlinedFieldTokens.Outline.Width = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.field.supporting.text.color"]; ok {
+		theme.OutlinedFieldTokens.SupportingText.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.supporting.text.font"]; ok {
+		theme.OutlinedFieldTokens.SupportingText.Font = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.supporting.text.font")
+	}
+	if val, ok := tokens["md.comp.outlined.field.supporting.text.leading.space"]; ok {
+		theme.OutlinedFieldTokens.SupportingText.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.supporting.text.leading.space")
+	}
+	if val, ok := tokens["md.comp.outlined.field.supporting.text.line.height"]; ok {
+		theme.OutlinedFieldTokens.SupportingText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.supporting.text.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.field.supporting.text.size"]; ok {
+		theme.OutlinedFieldTokens.SupportingText.Size = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.supporting.text.size")
+	}
+	if val, ok := tokens["md.comp.outlined.field.supporting.text.top.space"]; ok {
+		theme.OutlinedFieldTokens.SupportingText.TopSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.supporting.text.top.space")
+	}
+	if val, ok := tokens["md.comp.outlined.field.supporting.text.trailing.space"]; ok {
+		theme.OutlinedFieldTokens.SupportingText.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.supporting.text.trailing.space")
+	}
+	if val, ok := tokens["md.comp.outlined.field.supporting.text.weight"]; ok {
+		theme.OutlinedFieldTokens.SupportingText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.supporting.text.weight")
+	}
+	if val, ok := tokens["md.comp.outlined.field.top.space"]; ok {
+		theme.OutlinedFieldTokens.Top.Space = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.top.space")
+	}
+	if val, ok := tokens["md.comp.outlined.field.trailing.content.color"]; ok {
+		theme.OutlinedFieldTokens.TrailingContent.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.trailing.content.color")
+	}
+	if val, ok := tokens["md.comp.outlined.field.trailing.space"]; ok {
+		theme.OutlinedFieldTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.trailing.space")
+	}
+	if val, ok := tokens["md.comp.outlined.field.with.leading.content.leading.space"]; ok {
+		theme.OutlinedFieldTokens.WithLeadingContent.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.with.leading.content.leading.space")
+	}
+	if val, ok := tokens["md.comp.outlined.field.with.trailing.content.trailing.space"]; ok {
+		theme.OutlinedFieldTokens.WithTrailingContent.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.field.with.trailing.content.trailing.space")
+	}
 	theme.OutlinedIconButtonTokens = &OutlinedIconButtonTokens{}
+	if val, ok := tokens["md.comp.outlined.icon.button.container.height"]; ok {
+		theme.OutlinedIconButtonTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.container.height")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.container.shape"]; ok {
+		theme.OutlinedIconButtonTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.container.shape")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.container.shape.end.end"]; ok {
+		theme.OutlinedIconButtonTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.container.shape.end.start"]; ok {
+		theme.OutlinedIconButtonTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.container.shape.start.end"]; ok {
+		theme.OutlinedIconButtonTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.container.shape.start.start"]; ok {
+		theme.OutlinedIconButtonTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.container.width"]; ok {
+		theme.OutlinedIconButtonTokens.Container.Width = val
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.container.width")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.disabled.icon.color"]; ok {
+		if theme.OutlinedIconButtonTokens.Disabled == nil {
+			theme.OutlinedIconButtonTokens.Disabled = &OutlinedIconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.Disabled.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.disabled.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.disabled.icon.opacity"]; ok {
+		if theme.OutlinedIconButtonTokens.Disabled == nil {
+			theme.OutlinedIconButtonTokens.Disabled = &OutlinedIconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.Disabled.IconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.disabled.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.disabled.outline.color"]; ok {
+		if theme.OutlinedIconButtonTokens.Disabled == nil {
+			theme.OutlinedIconButtonTokens.Disabled = &OutlinedIconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.Disabled.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.disabled.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.disabled.outline.opacity"]; ok {
+		if theme.OutlinedIconButtonTokens.Disabled == nil {
+			theme.OutlinedIconButtonTokens.Disabled = &OutlinedIconButtonDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.Disabled.OutlineOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.disabled.outline.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.disabled.selected.container.color"]; ok {
+		if theme.OutlinedIconButtonTokens.DisabledSelected == nil {
+			theme.OutlinedIconButtonTokens.DisabledSelected = &OutlinedIconButtonDisabledSelectedOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.DisabledSelected.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.disabled.selected.container.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.disabled.selected.container.opacity"]; ok {
+		if theme.OutlinedIconButtonTokens.DisabledSelected == nil {
+			theme.OutlinedIconButtonTokens.DisabledSelected = &OutlinedIconButtonDisabledSelectedOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.DisabledSelected.ContainerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.disabled.selected.container.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.focus.icon.color"]; ok {
+		if theme.OutlinedIconButtonTokens.Focus == nil {
+			theme.OutlinedIconButtonTokens.Focus = &OutlinedIconButtonFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.hover.icon.color"]; ok {
+		if theme.OutlinedIconButtonTokens.Hover == nil {
+			theme.OutlinedIconButtonTokens.Hover = &OutlinedIconButtonHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.hover.state.layer.color"]; ok {
+		if theme.OutlinedIconButtonTokens.Hover == nil {
+			theme.OutlinedIconButtonTokens.Hover = &OutlinedIconButtonHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.hover.state.layer.opacity"]; ok {
+		if theme.OutlinedIconButtonTokens.Hover == nil {
+			theme.OutlinedIconButtonTokens.Hover = &OutlinedIconButtonHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.icon.color"]; ok {
+		theme.OutlinedIconButtonTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.icon.size"]; ok {
+		theme.OutlinedIconButtonTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.icon.size")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.outline.color"]; ok {
+		theme.OutlinedIconButtonTokens.Outline.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.outline.width"]; ok {
+		theme.OutlinedIconButtonTokens.Outline.Width = val
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.pressed.icon.color"]; ok {
+		if theme.OutlinedIconButtonTokens.Pressed == nil {
+			theme.OutlinedIconButtonTokens.Pressed = &OutlinedIconButtonPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.pressed.state.layer.color"]; ok {
+		if theme.OutlinedIconButtonTokens.Pressed == nil {
+			theme.OutlinedIconButtonTokens.Pressed = &OutlinedIconButtonPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.pressed.state.layer.opacity"]; ok {
+		if theme.OutlinedIconButtonTokens.Pressed == nil {
+			theme.OutlinedIconButtonTokens.Pressed = &OutlinedIconButtonPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.selected.container.color"]; ok {
+		if theme.OutlinedIconButtonTokens.Selected == nil {
+			theme.OutlinedIconButtonTokens.Selected = &OutlinedIconButtonSelectedOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.Selected.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.selected.container.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.selected.focus.icon.color"]; ok {
+		if theme.OutlinedIconButtonTokens.SelectedFocus == nil {
+			theme.OutlinedIconButtonTokens.SelectedFocus = &OutlinedIconButtonSelectedFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.SelectedFocus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.selected.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.selected.hover.icon.color"]; ok {
+		if theme.OutlinedIconButtonTokens.SelectedHover == nil {
+			theme.OutlinedIconButtonTokens.SelectedHover = &OutlinedIconButtonSelectedHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.SelectedHover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.selected.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.selected.hover.state.layer.color"]; ok {
+		if theme.OutlinedIconButtonTokens.SelectedHover == nil {
+			theme.OutlinedIconButtonTokens.SelectedHover = &OutlinedIconButtonSelectedHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.SelectedHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.selected.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.selected.icon.color"]; ok {
+		if theme.OutlinedIconButtonTokens.Selected == nil {
+			theme.OutlinedIconButtonTokens.Selected = &OutlinedIconButtonSelectedOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.Selected.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.selected.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.selected.pressed.icon.color"]; ok {
+		if theme.OutlinedIconButtonTokens.SelectedPressed == nil {
+			theme.OutlinedIconButtonTokens.SelectedPressed = &OutlinedIconButtonSelectedPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.SelectedPressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.selected.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.icon.button.selected.pressed.state.layer.color"]; ok {
+		if theme.OutlinedIconButtonTokens.SelectedPressed == nil {
+			theme.OutlinedIconButtonTokens.SelectedPressed = &OutlinedIconButtonSelectedPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedIconButtonTokens.SelectedPressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.icon.button.selected.pressed.state.layer.color")
+	}
 	theme.OutlinedSegmentedButtonTokens = &OutlinedSegmentedButtonTokens{}
+	if val, ok := tokens["md.comp.outlined.segmented.button.container.height"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.container.height")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.disabled.icon.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.Disabled == nil {
+			theme.OutlinedSegmentedButtonTokens.Disabled = &OutlinedSegmentedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.Disabled.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.disabled.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.disabled.label.text.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.Disabled == nil {
+			theme.OutlinedSegmentedButtonTokens.Disabled = &OutlinedSegmentedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.disabled.outline.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.Disabled == nil {
+			theme.OutlinedSegmentedButtonTokens.Disabled = &OutlinedSegmentedButtonDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.Disabled.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.disabled.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.hover.state.layer.opacity"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.Hover == nil {
+			theme.OutlinedSegmentedButtonTokens.Hover = &OutlinedSegmentedButtonHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.icon.size"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.icon.size")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.label.text.font"]; ok {
+		theme.OutlinedSegmentedButtonTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.label.text.font")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.label.text.line.height"]; ok {
+		theme.OutlinedSegmentedButtonTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.label.text.size"]; ok {
+		theme.OutlinedSegmentedButtonTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.label.text.size")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.label.text.weight"]; ok {
+		theme.OutlinedSegmentedButtonTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.outline.color"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Outline.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.pressed.state.layer.opacity"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.Pressed == nil {
+			theme.OutlinedSegmentedButtonTokens.Pressed = &OutlinedSegmentedButtonPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.selected.container.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.Selected == nil {
+			theme.OutlinedSegmentedButtonTokens.Selected = &OutlinedSegmentedButtonSelectedOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.Selected.ContainerColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.selected.container.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.selected.focus.icon.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.SelectedFocus == nil {
+			theme.OutlinedSegmentedButtonTokens.SelectedFocus = &OutlinedSegmentedButtonSelectedFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.SelectedFocus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.selected.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.selected.focus.label.text.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.SelectedFocus == nil {
+			theme.OutlinedSegmentedButtonTokens.SelectedFocus = &OutlinedSegmentedButtonSelectedFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.SelectedFocus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.selected.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.selected.hover.icon.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.SelectedHover == nil {
+			theme.OutlinedSegmentedButtonTokens.SelectedHover = &OutlinedSegmentedButtonSelectedHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.SelectedHover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.selected.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.selected.hover.label.text.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.SelectedHover == nil {
+			theme.OutlinedSegmentedButtonTokens.SelectedHover = &OutlinedSegmentedButtonSelectedHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.SelectedHover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.selected.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.selected.hover.state.layer.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.SelectedHover == nil {
+			theme.OutlinedSegmentedButtonTokens.SelectedHover = &OutlinedSegmentedButtonSelectedHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.SelectedHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.selected.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.selected.icon.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.Selected == nil {
+			theme.OutlinedSegmentedButtonTokens.Selected = &OutlinedSegmentedButtonSelectedOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.Selected.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.selected.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.selected.label.text.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.Selected == nil {
+			theme.OutlinedSegmentedButtonTokens.Selected = &OutlinedSegmentedButtonSelectedOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.Selected.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.selected.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.selected.pressed.icon.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.SelectedPressed == nil {
+			theme.OutlinedSegmentedButtonTokens.SelectedPressed = &OutlinedSegmentedButtonSelectedPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.SelectedPressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.selected.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.selected.pressed.label.text.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.SelectedPressed == nil {
+			theme.OutlinedSegmentedButtonTokens.SelectedPressed = &OutlinedSegmentedButtonSelectedPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.SelectedPressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.selected.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.selected.pressed.state.layer.color"]; ok {
+		if theme.OutlinedSegmentedButtonTokens.SelectedPressed == nil {
+			theme.OutlinedSegmentedButtonTokens.SelectedPressed = &OutlinedSegmentedButtonSelectedPressedOverlay{}
+		}
+		v := val
+		theme.OutlinedSegmentedButtonTokens.SelectedPressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.selected.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.shape"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Shape.Value = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.shape")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.shape.end.end"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Shape.EndEnd = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.shape.end.start"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Shape.EndStart = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.shape.start.end"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Shape.StartEnd = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.shape.start.start"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Shape.StartStart = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.unselected.focus.icon.color"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Unselected.FocusIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.unselected.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.unselected.focus.label.text.color"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Unselected.FocusLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.unselected.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.unselected.hover.icon.color"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Unselected.HoverIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.unselected.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.unselected.hover.label.text.color"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Unselected.HoverLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.unselected.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.unselected.hover.state.layer.color"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Unselected.HoverStateLayerColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.unselected.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.unselected.icon.color"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Unselected.IconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.unselected.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.unselected.label.text.color"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Unselected.LabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.unselected.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.unselected.pressed.icon.color"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Unselected.PressedIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.unselected.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.unselected.pressed.label.text.color"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Unselected.PressedLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.unselected.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.segmented.button.unselected.pressed.state.layer.color"]; ok {
+		theme.OutlinedSegmentedButtonTokens.Unselected.PressedStateLayerColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.segmented.button.unselected.pressed.state.layer.color")
+	}
 	theme.OutlinedSelectTokens = &OutlinedSelectTokens{}
+	if val, ok := tokens["md.comp.outlined.select.text.field.container.shape"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldContainerShape = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.container.shape")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.container.shape.end.end"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldContainerShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.container.shape.end.start"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldContainerShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.container.shape.start.end"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldContainerShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.container.shape.start.start"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldContainerShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.disabled.input.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldDisabledInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.disabled.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.disabled.input.text.opacity"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldDisabledInputTextOpacity = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.disabled.input.text.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.disabled.label.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldDisabledLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.disabled.label.text.opacity"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldDisabledLabelTextOpacity = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.disabled.leading.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldDisabledLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.disabled.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.disabled.leading.icon.opacity"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldDisabledLeadingIconOpacity = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.disabled.leading.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.disabled.outline.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldDisabledOutlineColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.disabled.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.disabled.outline.opacity"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldDisabledOutlineOpacity = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.disabled.outline.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.disabled.outline.width"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldDisabledOutlineWidth = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.disabled.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.disabled.supporting.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldDisabledSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.disabled.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.disabled.supporting.text.opacity"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldDisabledSupportingTextOpacity = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.disabled.supporting.text.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.disabled.trailing.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldDisabledTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.disabled.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.disabled.trailing.icon.opacity"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldDisabledTrailingIconOpacity = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.disabled.trailing.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.focus.input.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorFocusInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.focus.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.focus.label.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorFocusLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.focus.leading.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorFocusLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.focus.outline.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorFocusOutlineColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.focus.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.focus.supporting.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorFocusSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.focus.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.focus.trailing.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorFocusTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.focus.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.hover.input.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorHoverInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.hover.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.hover.label.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorHoverLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.hover.leading.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorHoverLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.hover.outline.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorHoverOutlineColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.hover.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.hover.supporting.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorHoverSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.hover.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.hover.trailing.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorHoverTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.hover.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.input.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.label.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.leading.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.outline.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorOutlineColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.supporting.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.error.trailing.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldErrorTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.error.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.focus.input.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldFocusInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.focus.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.focus.label.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldFocusLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.focus.leading.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldFocusLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.focus.outline.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldFocusOutlineColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.focus.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.focus.outline.width"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldFocusOutlineWidth = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.focus.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.focus.supporting.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldFocusSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.focus.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.focus.trailing.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldFocusTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.focus.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.hover.input.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldHoverInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.hover.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.hover.label.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldHoverLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.hover.leading.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldHoverLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.hover.outline.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldHoverOutlineColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.hover.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.hover.outline.width"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldHoverOutlineWidth = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.hover.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.hover.supporting.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldHoverSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.hover.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.hover.trailing.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldHoverTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.hover.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.input.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldInputTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.input.text.font"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldInputTextFont = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.input.text.font")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.input.text.line.height"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldInputTextLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.input.text.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.input.text.size"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldInputTextSize = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.input.text.size")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.input.text.weight"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldInputTextWeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.input.text.weight")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.label.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldLabelTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.label.text.font"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldLabelTextFont = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.label.text.font")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.label.text.line.height"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldLabelTextLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.label.text.populated.line.height"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldLabelTextPopulatedLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.label.text.populated.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.label.text.populated.size"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldLabelTextPopulatedSize = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.label.text.populated.size")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.label.text.size"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldLabelTextSize = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.label.text.size")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.label.text.weight"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldLabelTextWeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.leading.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldLeadingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.leading.icon.size"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldLeadingIconSize = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.leading.icon.size")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.outline.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldOutlineColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.outline.width"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldOutlineWidth = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.supporting.text.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldSupportingTextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.supporting.text.font"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldSupportingTextFont = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.supporting.text.font")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.supporting.text.line.height"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldSupportingTextLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.supporting.text.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.supporting.text.size"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldSupportingTextSize = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.supporting.text.size")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.supporting.text.weight"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldSupportingTextWeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.supporting.text.weight")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.trailing.icon.color"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldTrailingIconColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.select.text.field.trailing.icon.size"]; ok {
+		theme.OutlinedSelectTokens.Text.FieldTrailingIconSize = val
+	} else {
+		missing = append(missing, "md.comp.outlined.select.text.field.trailing.icon.size")
+	}
 	theme.OutlinedTextFieldTokens = &OutlinedTextFieldTokens{}
+	if val, ok := tokens["md.comp.outlined.text.field.bottom.space"]; ok {
+		theme.OutlinedTextFieldTokens.Bottom.Space = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.bottom.space")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.caret.color"]; ok {
+		theme.OutlinedTextFieldTokens.Caret.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.caret.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.container.shape"]; ok {
+		theme.OutlinedTextFieldTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.container.shape")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.container.shape.end.end"]; ok {
+		theme.OutlinedTextFieldTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.container.shape.end.start"]; ok {
+		theme.OutlinedTextFieldTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.container.shape.start.end"]; ok {
+		theme.OutlinedTextFieldTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.container.shape.start.start"]; ok {
+		theme.OutlinedTextFieldTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.disabled.input.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Disabled == nil {
+			theme.OutlinedTextFieldTokens.Disabled = &OutlinedTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Disabled.InputTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.disabled.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.disabled.input.text.opacity"]; ok {
+		if theme.OutlinedTextFieldTokens.Disabled == nil {
+			theme.OutlinedTextFieldTokens.Disabled = &OutlinedTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Disabled.InputTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.disabled.input.text.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.disabled.label.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Disabled == nil {
+			theme.OutlinedTextFieldTokens.Disabled = &OutlinedTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.disabled.label.text.opacity"]; ok {
+		if theme.OutlinedTextFieldTokens.Disabled == nil {
+			theme.OutlinedTextFieldTokens.Disabled = &OutlinedTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Disabled.LabelTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.disabled.leading.icon.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Disabled == nil {
+			theme.OutlinedTextFieldTokens.Disabled = &OutlinedTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Disabled.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.disabled.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.disabled.leading.icon.opacity"]; ok {
+		if theme.OutlinedTextFieldTokens.Disabled == nil {
+			theme.OutlinedTextFieldTokens.Disabled = &OutlinedTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Disabled.LeadingIconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.disabled.leading.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.disabled.outline.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Disabled == nil {
+			theme.OutlinedTextFieldTokens.Disabled = &OutlinedTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Disabled.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.disabled.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.disabled.outline.opacity"]; ok {
+		if theme.OutlinedTextFieldTokens.Disabled == nil {
+			theme.OutlinedTextFieldTokens.Disabled = &OutlinedTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Disabled.OutlineOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.disabled.outline.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.disabled.outline.width"]; ok {
+		if theme.OutlinedTextFieldTokens.Disabled == nil {
+			theme.OutlinedTextFieldTokens.Disabled = &OutlinedTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Disabled.OutlineWidth = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.disabled.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.disabled.supporting.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Disabled == nil {
+			theme.OutlinedTextFieldTokens.Disabled = &OutlinedTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Disabled.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.disabled.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.disabled.supporting.text.opacity"]; ok {
+		if theme.OutlinedTextFieldTokens.Disabled == nil {
+			theme.OutlinedTextFieldTokens.Disabled = &OutlinedTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Disabled.SupportingTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.disabled.supporting.text.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.disabled.trailing.icon.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Disabled == nil {
+			theme.OutlinedTextFieldTokens.Disabled = &OutlinedTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Disabled.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.disabled.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.disabled.trailing.icon.opacity"]; ok {
+		if theme.OutlinedTextFieldTokens.Disabled == nil {
+			theme.OutlinedTextFieldTokens.Disabled = &OutlinedTextFieldDisabledOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Disabled.TrailingIconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.disabled.trailing.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.focus.caret.color"]; ok {
+		if theme.OutlinedTextFieldTokens.ErrorFocus == nil {
+			theme.OutlinedTextFieldTokens.ErrorFocus = &OutlinedTextFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.ErrorFocus.CaretColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.focus.caret.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.focus.input.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.ErrorFocus == nil {
+			theme.OutlinedTextFieldTokens.ErrorFocus = &OutlinedTextFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.ErrorFocus.InputTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.focus.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.focus.label.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.ErrorFocus == nil {
+			theme.OutlinedTextFieldTokens.ErrorFocus = &OutlinedTextFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.ErrorFocus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.focus.leading.icon.color"]; ok {
+		if theme.OutlinedTextFieldTokens.ErrorFocus == nil {
+			theme.OutlinedTextFieldTokens.ErrorFocus = &OutlinedTextFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.ErrorFocus.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.focus.outline.color"]; ok {
+		if theme.OutlinedTextFieldTokens.ErrorFocus == nil {
+			theme.OutlinedTextFieldTokens.ErrorFocus = &OutlinedTextFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.ErrorFocus.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.focus.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.focus.supporting.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.ErrorFocus == nil {
+			theme.OutlinedTextFieldTokens.ErrorFocus = &OutlinedTextFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.ErrorFocus.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.focus.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.focus.trailing.icon.color"]; ok {
+		if theme.OutlinedTextFieldTokens.ErrorFocus == nil {
+			theme.OutlinedTextFieldTokens.ErrorFocus = &OutlinedTextFieldErrorFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.ErrorFocus.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.focus.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.hover.input.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.ErrorHover == nil {
+			theme.OutlinedTextFieldTokens.ErrorHover = &OutlinedTextFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.ErrorHover.InputTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.hover.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.hover.label.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.ErrorHover == nil {
+			theme.OutlinedTextFieldTokens.ErrorHover = &OutlinedTextFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.ErrorHover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.hover.leading.icon.color"]; ok {
+		if theme.OutlinedTextFieldTokens.ErrorHover == nil {
+			theme.OutlinedTextFieldTokens.ErrorHover = &OutlinedTextFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.ErrorHover.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.hover.outline.color"]; ok {
+		if theme.OutlinedTextFieldTokens.ErrorHover == nil {
+			theme.OutlinedTextFieldTokens.ErrorHover = &OutlinedTextFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.ErrorHover.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.hover.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.hover.supporting.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.ErrorHover == nil {
+			theme.OutlinedTextFieldTokens.ErrorHover = &OutlinedTextFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.ErrorHover.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.hover.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.hover.trailing.icon.color"]; ok {
+		if theme.OutlinedTextFieldTokens.ErrorHover == nil {
+			theme.OutlinedTextFieldTokens.ErrorHover = &OutlinedTextFieldErrorHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.ErrorHover.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.hover.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.input.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Error == nil {
+			theme.OutlinedTextFieldTokens.Error = &OutlinedTextFieldErrorOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Error.InputTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.label.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Error == nil {
+			theme.OutlinedTextFieldTokens.Error = &OutlinedTextFieldErrorOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Error.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.leading.icon.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Error == nil {
+			theme.OutlinedTextFieldTokens.Error = &OutlinedTextFieldErrorOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Error.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.outline.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Error == nil {
+			theme.OutlinedTextFieldTokens.Error = &OutlinedTextFieldErrorOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Error.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.supporting.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Error == nil {
+			theme.OutlinedTextFieldTokens.Error = &OutlinedTextFieldErrorOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Error.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.error.trailing.icon.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Error == nil {
+			theme.OutlinedTextFieldTokens.Error = &OutlinedTextFieldErrorOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Error.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.error.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.focus.caret.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Focus == nil {
+			theme.OutlinedTextFieldTokens.Focus = &OutlinedTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Focus.CaretColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.focus.caret.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.focus.input.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Focus == nil {
+			theme.OutlinedTextFieldTokens.Focus = &OutlinedTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Focus.InputTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.focus.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.focus.label.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Focus == nil {
+			theme.OutlinedTextFieldTokens.Focus = &OutlinedTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.focus.leading.icon.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Focus == nil {
+			theme.OutlinedTextFieldTokens.Focus = &OutlinedTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Focus.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.focus.outline.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Focus == nil {
+			theme.OutlinedTextFieldTokens.Focus = &OutlinedTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Focus.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.focus.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.focus.outline.width"]; ok {
+		if theme.OutlinedTextFieldTokens.Focus == nil {
+			theme.OutlinedTextFieldTokens.Focus = &OutlinedTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Focus.OutlineWidth = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.focus.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.focus.supporting.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Focus == nil {
+			theme.OutlinedTextFieldTokens.Focus = &OutlinedTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Focus.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.focus.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.focus.trailing.icon.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Focus == nil {
+			theme.OutlinedTextFieldTokens.Focus = &OutlinedTextFieldFocusOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Focus.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.focus.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.hover.input.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Hover == nil {
+			theme.OutlinedTextFieldTokens.Hover = &OutlinedTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Hover.InputTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.hover.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.hover.label.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Hover == nil {
+			theme.OutlinedTextFieldTokens.Hover = &OutlinedTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.hover.leading.icon.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Hover == nil {
+			theme.OutlinedTextFieldTokens.Hover = &OutlinedTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Hover.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.hover.outline.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Hover == nil {
+			theme.OutlinedTextFieldTokens.Hover = &OutlinedTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Hover.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.hover.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.hover.outline.width"]; ok {
+		if theme.OutlinedTextFieldTokens.Hover == nil {
+			theme.OutlinedTextFieldTokens.Hover = &OutlinedTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Hover.OutlineWidth = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.hover.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.hover.supporting.text.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Hover == nil {
+			theme.OutlinedTextFieldTokens.Hover = &OutlinedTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Hover.SupportingTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.hover.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.hover.trailing.icon.color"]; ok {
+		if theme.OutlinedTextFieldTokens.Hover == nil {
+			theme.OutlinedTextFieldTokens.Hover = &OutlinedTextFieldHoverOverlay{}
+		}
+		v := val
+		theme.OutlinedTextFieldTokens.Hover.TrailingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.hover.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.icon.input.space"]; ok {
+		theme.OutlinedTextFieldTokens.Icon.InputSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.icon.input.space")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.input.text.color"]; ok {
+		theme.OutlinedTextFieldTokens.Input.TextColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.input.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.input.text.font"]; ok {
+		theme.OutlinedTextFieldTokens.Input.TextFont = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.input.text.font")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.input.text.line.height"]; ok {
+		theme.OutlinedTextFieldTokens.Input.TextLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.input.text.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.input.text.placeholder.color"]; ok {
+		theme.OutlinedTextFieldTokens.Input.TextPlaceholderColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.input.text.placeholder.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.input.text.prefix.color"]; ok {
+		theme.OutlinedTextFieldTokens.Input.TextPrefixColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.input.text.prefix.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.input.text.prefix.trailing.space"]; ok {
+		theme.OutlinedTextFieldTokens.Input.TextPrefixTrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.input.text.prefix.trailing.space")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.input.text.size"]; ok {
+		theme.OutlinedTextFieldTokens.Input.TextSize = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.input.text.size")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.input.text.suffix.color"]; ok {
+		theme.OutlinedTextFieldTokens.Input.TextSuffixColor = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.input.text.suffix.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.input.text.suffix.leading.space"]; ok {
+		theme.OutlinedTextFieldTokens.Input.TextSuffixLeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.input.text.suffix.leading.space")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.input.text.weight"]; ok {
+		theme.OutlinedTextFieldTokens.Input.TextWeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.input.text.weight")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.label.text.color"]; ok {
+		theme.OutlinedTextFieldTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.label.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.label.text.font"]; ok {
+		theme.OutlinedTextFieldTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.label.text.font")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.label.text.line.height"]; ok {
+		theme.OutlinedTextFieldTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.label.text.populated.line.height"]; ok {
+		theme.OutlinedTextFieldTokens.LabelText.PopulatedLineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.label.text.populated.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.label.text.populated.size"]; ok {
+		theme.OutlinedTextFieldTokens.LabelText.PopulatedSize = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.label.text.populated.size")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.label.text.size"]; ok {
+		theme.OutlinedTextFieldTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.label.text.size")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.label.text.weight"]; ok {
+		theme.OutlinedTextFieldTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.leading.icon.color"]; ok {
+		theme.OutlinedTextFieldTokens.LeadingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.leading.icon.size"]; ok {
+		theme.OutlinedTextFieldTokens.LeadingIcon.Size = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.leading.icon.size")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.leading.space"]; ok {
+		theme.OutlinedTextFieldTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.leading.space")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.outline.color"]; ok {
+		theme.OutlinedTextFieldTokens.Outline.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.outline.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.outline.width"]; ok {
+		theme.OutlinedTextFieldTokens.Outline.Width = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.outline.width")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.supporting.text.color"]; ok {
+		theme.OutlinedTextFieldTokens.SupportingText.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.supporting.text.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.supporting.text.font"]; ok {
+		theme.OutlinedTextFieldTokens.SupportingText.Font = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.supporting.text.font")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.supporting.text.line.height"]; ok {
+		theme.OutlinedTextFieldTokens.SupportingText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.supporting.text.line.height")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.supporting.text.size"]; ok {
+		theme.OutlinedTextFieldTokens.SupportingText.Size = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.supporting.text.size")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.supporting.text.weight"]; ok {
+		theme.OutlinedTextFieldTokens.SupportingText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.supporting.text.weight")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.top.space"]; ok {
+		theme.OutlinedTextFieldTokens.Top.Space = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.top.space")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.trailing.icon.color"]; ok {
+		theme.OutlinedTextFieldTokens.TrailingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.trailing.icon.color")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.trailing.icon.size"]; ok {
+		theme.OutlinedTextFieldTokens.TrailingIcon.Size = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.trailing.icon.size")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.trailing.space"]; ok {
+		theme.OutlinedTextFieldTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.trailing.space")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.with.leading.icon.leading.space"]; ok {
+		theme.OutlinedTextFieldTokens.WithLeadingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.with.leading.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.outlined.text.field.with.trailing.icon.trailing.space"]; ok {
+		theme.OutlinedTextFieldTokens.WithTrailingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.outlined.text.field.with.trailing.icon.trailing.space")
+	}
 	theme.PrimaryTabTokens = &PrimaryTabTokens{}
+	if val, ok := tokens["md.comp.primary.tab.active.focus.icon.color"]; ok {
+		if theme.PrimaryTabTokens.ActiveFocus == nil {
+			theme.PrimaryTabTokens.ActiveFocus = &PrimaryTabActiveFocusOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.ActiveFocus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.focus.label.text.color"]; ok {
+		if theme.PrimaryTabTokens.ActiveFocus == nil {
+			theme.PrimaryTabTokens.ActiveFocus = &PrimaryTabActiveFocusOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.ActiveFocus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.hover.icon.color"]; ok {
+		if theme.PrimaryTabTokens.ActiveHover == nil {
+			theme.PrimaryTabTokens.ActiveHover = &PrimaryTabActiveHoverOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.ActiveHover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.hover.label.text.color"]; ok {
+		if theme.PrimaryTabTokens.ActiveHover == nil {
+			theme.PrimaryTabTokens.ActiveHover = &PrimaryTabActiveHoverOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.ActiveHover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.hover.state.layer.color"]; ok {
+		if theme.PrimaryTabTokens.ActiveHover == nil {
+			theme.PrimaryTabTokens.ActiveHover = &PrimaryTabActiveHoverOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.ActiveHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.hover.state.layer.opacity"]; ok {
+		if theme.PrimaryTabTokens.ActiveHover == nil {
+			theme.PrimaryTabTokens.ActiveHover = &PrimaryTabActiveHoverOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.ActiveHover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.icon.color"]; ok {
+		if theme.PrimaryTabTokens.Active == nil {
+			theme.PrimaryTabTokens.Active = &PrimaryTabActiveOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Active.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.icon.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.indicator.color"]; ok {
+		if theme.PrimaryTabTokens.Active == nil {
+			theme.PrimaryTabTokens.Active = &PrimaryTabActiveOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Active.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.indicator.height"]; ok {
+		if theme.PrimaryTabTokens.Active == nil {
+			theme.PrimaryTabTokens.Active = &PrimaryTabActiveOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Active.IndicatorHeight = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.indicator.shape"]; ok {
+		if theme.PrimaryTabTokens.Active == nil {
+			theme.PrimaryTabTokens.Active = &PrimaryTabActiveOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Active.IndicatorShape = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.indicator.shape")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.label.text.color"]; ok {
+		if theme.PrimaryTabTokens.Active == nil {
+			theme.PrimaryTabTokens.Active = &PrimaryTabActiveOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Active.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.label.text.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.pressed.icon.color"]; ok {
+		if theme.PrimaryTabTokens.ActivePressed == nil {
+			theme.PrimaryTabTokens.ActivePressed = &PrimaryTabActivePressedOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.ActivePressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.pressed.label.text.color"]; ok {
+		if theme.PrimaryTabTokens.ActivePressed == nil {
+			theme.PrimaryTabTokens.ActivePressed = &PrimaryTabActivePressedOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.ActivePressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.pressed.state.layer.color"]; ok {
+		if theme.PrimaryTabTokens.ActivePressed == nil {
+			theme.PrimaryTabTokens.ActivePressed = &PrimaryTabActivePressedOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.ActivePressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.active.pressed.state.layer.opacity"]; ok {
+		if theme.PrimaryTabTokens.ActivePressed == nil {
+			theme.PrimaryTabTokens.ActivePressed = &PrimaryTabActivePressedOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.ActivePressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.active.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.primary.tab.container.color"]; ok {
+		theme.PrimaryTabTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.container.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.container.elevation"]; ok {
+		theme.PrimaryTabTokens.Container.Elevation = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.container.elevation")
+	}
+	if val, ok := tokens["md.comp.primary.tab.container.height"]; ok {
+		theme.PrimaryTabTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.container.height")
+	}
+	if val, ok := tokens["md.comp.primary.tab.container.shape"]; ok {
+		theme.PrimaryTabTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.container.shape")
+	}
+	if val, ok := tokens["md.comp.primary.tab.container.shape.end.end"]; ok {
+		theme.PrimaryTabTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.primary.tab.container.shape.end.start"]; ok {
+		theme.PrimaryTabTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.primary.tab.container.shape.start.end"]; ok {
+		theme.PrimaryTabTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.primary.tab.container.shape.start.start"]; ok {
+		theme.PrimaryTabTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.primary.tab.focus.icon.color"]; ok {
+		if theme.PrimaryTabTokens.Focus == nil {
+			theme.PrimaryTabTokens.Focus = &PrimaryTabFocusOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.focus.label.text.color"]; ok {
+		if theme.PrimaryTabTokens.Focus == nil {
+			theme.PrimaryTabTokens.Focus = &PrimaryTabFocusOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.hover.icon.color"]; ok {
+		if theme.PrimaryTabTokens.Hover == nil {
+			theme.PrimaryTabTokens.Hover = &PrimaryTabHoverOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.hover.label.text.color"]; ok {
+		if theme.PrimaryTabTokens.Hover == nil {
+			theme.PrimaryTabTokens.Hover = &PrimaryTabHoverOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.hover.state.layer.color"]; ok {
+		if theme.PrimaryTabTokens.Hover == nil {
+			theme.PrimaryTabTokens.Hover = &PrimaryTabHoverOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.hover.state.layer.opacity"]; ok {
+		if theme.PrimaryTabTokens.Hover == nil {
+			theme.PrimaryTabTokens.Hover = &PrimaryTabHoverOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.primary.tab.icon.color"]; ok {
+		theme.PrimaryTabTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.icon.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.icon.size"]; ok {
+		theme.PrimaryTabTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.icon.size")
+	}
+	if val, ok := tokens["md.comp.primary.tab.label.text.color"]; ok {
+		theme.PrimaryTabTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.label.text.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.label.text.font"]; ok {
+		theme.PrimaryTabTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.label.text.font")
+	}
+	if val, ok := tokens["md.comp.primary.tab.label.text.line.height"]; ok {
+		theme.PrimaryTabTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.primary.tab.label.text.size"]; ok {
+		theme.PrimaryTabTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.label.text.size")
+	}
+	if val, ok := tokens["md.comp.primary.tab.label.text.weight"]; ok {
+		theme.PrimaryTabTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.primary.tab.pressed.icon.color"]; ok {
+		if theme.PrimaryTabTokens.Pressed == nil {
+			theme.PrimaryTabTokens.Pressed = &PrimaryTabPressedOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.pressed.label.text.color"]; ok {
+		if theme.PrimaryTabTokens.Pressed == nil {
+			theme.PrimaryTabTokens.Pressed = &PrimaryTabPressedOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Pressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.pressed.state.layer.color"]; ok {
+		if theme.PrimaryTabTokens.Pressed == nil {
+			theme.PrimaryTabTokens.Pressed = &PrimaryTabPressedOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.primary.tab.pressed.state.layer.opacity"]; ok {
+		if theme.PrimaryTabTokens.Pressed == nil {
+			theme.PrimaryTabTokens.Pressed = &PrimaryTabPressedOverlay{}
+		}
+		v := val
+		theme.PrimaryTabTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.primary.tab.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.primary.tab.with.icon.and.label.text.container.height"]; ok {
+		theme.PrimaryTabTokens.With.IconAndLabelTextContainerHeight = val
+	} else {
+		missing = append(missing, "md.comp.primary.tab.with.icon.and.label.text.container.height")
+	}
 	theme.RadioTokens = &RadioTokens{}
+	if val, ok := tokens["md.comp.radio.disabled.selected.icon.color"]; ok {
+		if theme.RadioTokens.DisabledSelected == nil {
+			theme.RadioTokens.DisabledSelected = &RadioDisabledSelectedOverlay{}
+		}
+		v := val
+		theme.RadioTokens.DisabledSelected.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.radio.disabled.selected.icon.color")
+	}
+	if val, ok := tokens["md.comp.radio.disabled.selected.icon.opacity"]; ok {
+		if theme.RadioTokens.DisabledSelected == nil {
+			theme.RadioTokens.DisabledSelected = &RadioDisabledSelectedOverlay{}
+		}
+		v := val
+		theme.RadioTokens.DisabledSelected.IconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.radio.disabled.selected.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.radio.disabled.unselected.icon.color"]; ok {
+		if theme.RadioTokens.Disabled == nil {
+			theme.RadioTokens.Disabled = &RadioDisabledOverlay{}
+		}
+		v := val
+		theme.RadioTokens.Disabled.UnselectedIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.radio.disabled.unselected.icon.color")
+	}
+	if val, ok := tokens["md.comp.radio.disabled.unselected.icon.opacity"]; ok {
+		if theme.RadioTokens.Disabled == nil {
+			theme.RadioTokens.Disabled = &RadioDisabledOverlay{}
+		}
+		v := val
+		theme.RadioTokens.Disabled.UnselectedIconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.radio.disabled.unselected.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.radio.focus.icon.color"]; ok {
+		if theme.RadioTokens.Focus == nil {
+			theme.RadioTokens.Focus = &RadioFocusOverlay{}
+		}
+		v := val
+		theme.RadioTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.radio.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.radio.hover.icon.color"]; ok {
+		if theme.RadioTokens.Hover == nil {
+			theme.RadioTokens.Hover = &RadioHoverOverlay{}
+		}
+		v := val
+		theme.RadioTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.radio.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.radio.hover.state.layer.color"]; ok {
+		if theme.RadioTokens.Hover == nil {
+			theme.RadioTokens.Hover = &RadioHoverOverlay{}
+		}
+		v := val
+		theme.RadioTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.radio.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.radio.hover.state.layer.opacity"]; ok {
+		if theme.RadioTokens.Hover == nil {
+			theme.RadioTokens.Hover = &RadioHoverOverlay{}
+		}
+		v := val
+		theme.RadioTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.radio.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.radio.icon.color"]; ok {
+		theme.RadioTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.radio.icon.color")
+	}
+	if val, ok := tokens["md.comp.radio.icon.size"]; ok {
+		theme.RadioTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.radio.icon.size")
+	}
+	if val, ok := tokens["md.comp.radio.pressed.icon.color"]; ok {
+		if theme.RadioTokens.Pressed == nil {
+			theme.RadioTokens.Pressed = &RadioPressedOverlay{}
+		}
+		v := val
+		theme.RadioTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.radio.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.radio.pressed.state.layer.color"]; ok {
+		if theme.RadioTokens.Pressed == nil {
+			theme.RadioTokens.Pressed = &RadioPressedOverlay{}
+		}
+		v := val
+		theme.RadioTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.radio.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.radio.pressed.state.layer.opacity"]; ok {
+		if theme.RadioTokens.Pressed == nil {
+			theme.RadioTokens.Pressed = &RadioPressedOverlay{}
+		}
+		v := val
+		theme.RadioTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.radio.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.radio.selected.focus.icon.color"]; ok {
+		if theme.RadioTokens.SelectedFocus == nil {
+			theme.RadioTokens.SelectedFocus = &RadioSelectedFocusOverlay{}
+		}
+		v := val
+		theme.RadioTokens.SelectedFocus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.radio.selected.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.radio.selected.hover.icon.color"]; ok {
+		if theme.RadioTokens.SelectedHover == nil {
+			theme.RadioTokens.SelectedHover = &RadioSelectedHoverOverlay{}
+		}
+		v := val
+		theme.RadioTokens.SelectedHover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.radio.selected.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.radio.selected.hover.state.layer.color"]; ok {
+		if theme.RadioTokens.SelectedHover == nil {
+			theme.RadioTokens.SelectedHover = &RadioSelectedHoverOverlay{}
+		}
+		v := val
+		theme.RadioTokens.SelectedHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.radio.selected.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.radio.selected.hover.state.layer.opacity"]; ok {
+		if theme.RadioTokens.SelectedHover == nil {
+			theme.RadioTokens.SelectedHover = &RadioSelectedHoverOverlay{}
+		}
+		v := val
+		theme.RadioTokens.SelectedHover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.radio.selected.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.radio.selected.icon.color"]; ok {
+		if theme.RadioTokens.Selected == nil {
+			theme.RadioTokens.Selected = &RadioSelectedOverlay{}
+		}
+		v := val
+		theme.RadioTokens.Selected.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.radio.selected.icon.color")
+	}
+	if val, ok := tokens["md.comp.radio.selected.pressed.icon.color"]; ok {
+		if theme.RadioTokens.SelectedPressed == nil {
+			theme.RadioTokens.SelectedPressed = &RadioSelectedPressedOverlay{}
+		}
+		v := val
+		theme.RadioTokens.SelectedPressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.radio.selected.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.radio.selected.pressed.state.layer.color"]; ok {
+		if theme.RadioTokens.SelectedPressed == nil {
+			theme.RadioTokens.SelectedPressed = &RadioSelectedPressedOverlay{}
+		}
+		v := val
+		theme.RadioTokens.SelectedPressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.radio.selected.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.radio.selected.pressed.state.layer.opacity"]; ok {
+		if theme.RadioTokens.SelectedPressed == nil {
+			theme.RadioTokens.SelectedPressed = &RadioSelectedPressedOverlay{}
+		}
+		v := val
+		theme.RadioTokens.SelectedPressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.radio.selected.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.radio.state.layer.size"]; ok {
+		theme.RadioTokens.StateLayer.Size = val
+	} else {
+		missing = append(missing, "md.comp.radio.state.layer.size")
+	}
 	theme.RippleTokens = &RippleTokens{}
+	if val, ok := tokens["md.comp.ripple.hover.color"]; ok {
+		if theme.RippleTokens.Hover == nil {
+			theme.RippleTokens.Hover = &RippleHoverOverlay{}
+		}
+		v := val
+		theme.RippleTokens.Hover.ColorValue = &v
+	} else {
+		missing = append(missing, "md.comp.ripple.hover.color")
+	}
+	if val, ok := tokens["md.comp.ripple.hover.opacity"]; ok {
+		if theme.RippleTokens.Hover == nil {
+			theme.RippleTokens.Hover = &RippleHoverOverlay{}
+		}
+		v := val
+		theme.RippleTokens.Hover.OpacityValue = &v
+	} else {
+		missing = append(missing, "md.comp.ripple.hover.opacity")
+	}
+	if val, ok := tokens["md.comp.ripple.pressed.color"]; ok {
+		if theme.RippleTokens.Pressed == nil {
+			theme.RippleTokens.Pressed = &RipplePressedOverlay{}
+		}
+		v := val
+		theme.RippleTokens.Pressed.ColorValue = &v
+	} else {
+		missing = append(missing, "md.comp.ripple.pressed.color")
+	}
+	if val, ok := tokens["md.comp.ripple.pressed.opacity"]; ok {
+		if theme.RippleTokens.Pressed == nil {
+			theme.RippleTokens.Pressed = &RipplePressedOverlay{}
+		}
+		v := val
+		theme.RippleTokens.Pressed.OpacityValue = &v
+	} else {
+		missing = append(missing, "md.comp.ripple.pressed.opacity")
+	}
 	theme.SecondaryTabTokens = &SecondaryTabTokens{}
+	if val, ok := tokens["md.comp.secondary.tab.active.focus.icon.color"]; ok {
+		if theme.SecondaryTabTokens.ActiveFocus == nil {
+			theme.SecondaryTabTokens.ActiveFocus = &SecondaryTabActiveFocusOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.ActiveFocus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.focus.label.text.color"]; ok {
+		if theme.SecondaryTabTokens.ActiveFocus == nil {
+			theme.SecondaryTabTokens.ActiveFocus = &SecondaryTabActiveFocusOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.ActiveFocus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.hover.icon.color"]; ok {
+		if theme.SecondaryTabTokens.ActiveHover == nil {
+			theme.SecondaryTabTokens.ActiveHover = &SecondaryTabActiveHoverOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.ActiveHover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.hover.label.text.color"]; ok {
+		if theme.SecondaryTabTokens.ActiveHover == nil {
+			theme.SecondaryTabTokens.ActiveHover = &SecondaryTabActiveHoverOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.ActiveHover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.hover.state.layer.color"]; ok {
+		if theme.SecondaryTabTokens.ActiveHover == nil {
+			theme.SecondaryTabTokens.ActiveHover = &SecondaryTabActiveHoverOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.ActiveHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.hover.state.layer.opacity"]; ok {
+		if theme.SecondaryTabTokens.ActiveHover == nil {
+			theme.SecondaryTabTokens.ActiveHover = &SecondaryTabActiveHoverOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.ActiveHover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.icon.color"]; ok {
+		if theme.SecondaryTabTokens.Active == nil {
+			theme.SecondaryTabTokens.Active = &SecondaryTabActiveOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Active.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.icon.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.indicator.color"]; ok {
+		if theme.SecondaryTabTokens.Active == nil {
+			theme.SecondaryTabTokens.Active = &SecondaryTabActiveOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Active.IndicatorColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.indicator.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.indicator.height"]; ok {
+		if theme.SecondaryTabTokens.Active == nil {
+			theme.SecondaryTabTokens.Active = &SecondaryTabActiveOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Active.IndicatorHeight = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.indicator.height")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.indicator.shape"]; ok {
+		if theme.SecondaryTabTokens.Active == nil {
+			theme.SecondaryTabTokens.Active = &SecondaryTabActiveOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Active.IndicatorShape = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.indicator.shape")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.label.text.color"]; ok {
+		if theme.SecondaryTabTokens.Active == nil {
+			theme.SecondaryTabTokens.Active = &SecondaryTabActiveOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Active.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.label.text.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.pressed.icon.color"]; ok {
+		if theme.SecondaryTabTokens.ActivePressed == nil {
+			theme.SecondaryTabTokens.ActivePressed = &SecondaryTabActivePressedOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.ActivePressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.pressed.label.text.color"]; ok {
+		if theme.SecondaryTabTokens.ActivePressed == nil {
+			theme.SecondaryTabTokens.ActivePressed = &SecondaryTabActivePressedOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.ActivePressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.pressed.state.layer.color"]; ok {
+		if theme.SecondaryTabTokens.ActivePressed == nil {
+			theme.SecondaryTabTokens.ActivePressed = &SecondaryTabActivePressedOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.ActivePressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.active.pressed.state.layer.opacity"]; ok {
+		if theme.SecondaryTabTokens.ActivePressed == nil {
+			theme.SecondaryTabTokens.ActivePressed = &SecondaryTabActivePressedOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.ActivePressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.active.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.container.color"]; ok {
+		theme.SecondaryTabTokens.Container.Color = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.container.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.container.elevation"]; ok {
+		theme.SecondaryTabTokens.Container.Elevation = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.container.elevation")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.container.height"]; ok {
+		theme.SecondaryTabTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.container.height")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.container.shape"]; ok {
+		theme.SecondaryTabTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.container.shape")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.container.shape.end.end"]; ok {
+		theme.SecondaryTabTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.container.shape.end.start"]; ok {
+		theme.SecondaryTabTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.container.shape.start.end"]; ok {
+		theme.SecondaryTabTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.container.shape.start.start"]; ok {
+		theme.SecondaryTabTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.focus.icon.color"]; ok {
+		if theme.SecondaryTabTokens.Focus == nil {
+			theme.SecondaryTabTokens.Focus = &SecondaryTabFocusOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.focus.label.text.color"]; ok {
+		if theme.SecondaryTabTokens.Focus == nil {
+			theme.SecondaryTabTokens.Focus = &SecondaryTabFocusOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.hover.icon.color"]; ok {
+		if theme.SecondaryTabTokens.Hover == nil {
+			theme.SecondaryTabTokens.Hover = &SecondaryTabHoverOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.hover.label.text.color"]; ok {
+		if theme.SecondaryTabTokens.Hover == nil {
+			theme.SecondaryTabTokens.Hover = &SecondaryTabHoverOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.hover.state.layer.color"]; ok {
+		if theme.SecondaryTabTokens.Hover == nil {
+			theme.SecondaryTabTokens.Hover = &SecondaryTabHoverOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.hover.state.layer.opacity"]; ok {
+		if theme.SecondaryTabTokens.Hover == nil {
+			theme.SecondaryTabTokens.Hover = &SecondaryTabHoverOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.icon.color"]; ok {
+		theme.SecondaryTabTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.icon.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.icon.size"]; ok {
+		theme.SecondaryTabTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.icon.size")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.label.text.color"]; ok {
+		theme.SecondaryTabTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.label.text.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.label.text.font"]; ok {
+		theme.SecondaryTabTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.label.text.font")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.label.text.line.height"]; ok {
+		theme.SecondaryTabTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.label.text.size"]; ok {
+		theme.SecondaryTabTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.label.text.size")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.label.text.weight"]; ok {
+		theme.SecondaryTabTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.pressed.icon.color"]; ok {
+		if theme.SecondaryTabTokens.Pressed == nil {
+			theme.SecondaryTabTokens.Pressed = &SecondaryTabPressedOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.pressed.label.text.color"]; ok {
+		if theme.SecondaryTabTokens.Pressed == nil {
+			theme.SecondaryTabTokens.Pressed = &SecondaryTabPressedOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Pressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.pressed.state.layer.color"]; ok {
+		if theme.SecondaryTabTokens.Pressed == nil {
+			theme.SecondaryTabTokens.Pressed = &SecondaryTabPressedOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.secondary.tab.pressed.state.layer.opacity"]; ok {
+		if theme.SecondaryTabTokens.Pressed == nil {
+			theme.SecondaryTabTokens.Pressed = &SecondaryTabPressedOverlay{}
+		}
+		v := val
+		theme.SecondaryTabTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.secondary.tab.pressed.state.layer.opacity")
+	}
 	theme.SliderTokens = &SliderTokens{}
+	if val, ok := tokens["md.comp.slider.active.track.color"]; ok {
+		if theme.SliderTokens.Active == nil {
+			theme.SliderTokens.Active = &SliderActiveOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Active.TrackColor = &v
+	} else {
+		missing = append(missing, "md.comp.slider.active.track.color")
+	}
+	if val, ok := tokens["md.comp.slider.active.track.height"]; ok {
+		if theme.SliderTokens.Active == nil {
+			theme.SliderTokens.Active = &SliderActiveOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Active.TrackHeight = &v
+	} else {
+		missing = append(missing, "md.comp.slider.active.track.height")
+	}
+	if val, ok := tokens["md.comp.slider.active.track.shape"]; ok {
+		if theme.SliderTokens.Active == nil {
+			theme.SliderTokens.Active = &SliderActiveOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Active.TrackShape = &v
+	} else {
+		missing = append(missing, "md.comp.slider.active.track.shape")
+	}
+	if val, ok := tokens["md.comp.slider.disabled.active.track.color"]; ok {
+		if theme.SliderTokens.DisabledActive == nil {
+			theme.SliderTokens.DisabledActive = &SliderDisabledActiveOverlay{}
+		}
+		v := val
+		theme.SliderTokens.DisabledActive.TrackColor = &v
+	} else {
+		missing = append(missing, "md.comp.slider.disabled.active.track.color")
+	}
+	if val, ok := tokens["md.comp.slider.disabled.active.track.opacity"]; ok {
+		if theme.SliderTokens.DisabledActive == nil {
+			theme.SliderTokens.DisabledActive = &SliderDisabledActiveOverlay{}
+		}
+		v := val
+		theme.SliderTokens.DisabledActive.TrackOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.slider.disabled.active.track.opacity")
+	}
+	if val, ok := tokens["md.comp.slider.disabled.handle.color"]; ok {
+		if theme.SliderTokens.Disabled == nil {
+			theme.SliderTokens.Disabled = &SliderDisabledOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Disabled.HandleColor = &v
+	} else {
+		missing = append(missing, "md.comp.slider.disabled.handle.color")
+	}
+	if val, ok := tokens["md.comp.slider.disabled.handle.elevation"]; ok {
+		if theme.SliderTokens.Disabled == nil {
+			theme.SliderTokens.Disabled = &SliderDisabledOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Disabled.HandleElevation = &v
+	} else {
+		missing = append(missing, "md.comp.slider.disabled.handle.elevation")
+	}
+	if val, ok := tokens["md.comp.slider.disabled.inactive.track.color"]; ok {
+		if theme.SliderTokens.Disabled == nil {
+			theme.SliderTokens.Disabled = &SliderDisabledOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Disabled.InactiveTrackColor = &v
+	} else {
+		missing = append(missing, "md.comp.slider.disabled.inactive.track.color")
+	}
+	if val, ok := tokens["md.comp.slider.disabled.inactive.track.opacity"]; ok {
+		if theme.SliderTokens.Disabled == nil {
+			theme.SliderTokens.Disabled = &SliderDisabledOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Disabled.InactiveTrackOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.slider.disabled.inactive.track.opacity")
+	}
+	if val, ok := tokens["md.comp.slider.focus.handle.color"]; ok {
+		if theme.SliderTokens.Focus == nil {
+			theme.SliderTokens.Focus = &SliderFocusOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Focus.HandleColor = &v
+	} else {
+		missing = append(missing, "md.comp.slider.focus.handle.color")
+	}
+	if val, ok := tokens["md.comp.slider.handle.color"]; ok {
+		theme.SliderTokens.Handle.Color = val
+	} else {
+		missing = append(missing, "md.comp.slider.handle.color")
+	}
+	if val, ok := tokens["md.comp.slider.handle.elevation"]; ok {
+		theme.SliderTokens.Handle.Elevation = val
+	} else {
+		missing = append(missing, "md.comp.slider.handle.elevation")
+	}
+	if val, ok := tokens["md.comp.slider.handle.height"]; ok {
+		theme.SliderTokens.Handle.Height = val
+	} else {
+		missing = append(missing, "md.comp.slider.handle.height")
+	}
+	if val, ok := tokens["md.comp.slider.handle.shadow.color"]; ok {
+		theme.SliderTokens.Handle.ShadowColor = val
+	} else {
+		missing = append(missing, "md.comp.slider.handle.shadow.color")
+	}
+	if val, ok := tokens["md.comp.slider.handle.shape"]; ok {
+		theme.SliderTokens.Handle.Shape = val
+	} else {
+		missing = append(missing, "md.comp.slider.handle.shape")
+	}
+	if val, ok := tokens["md.comp.slider.handle.width"]; ok {
+		theme.SliderTokens.Handle.Width = val
+	} else {
+		missing = append(missing, "md.comp.slider.handle.width")
+	}
+	if val, ok := tokens["md.comp.slider.hover.handle.color"]; ok {
+		if theme.SliderTokens.Hover == nil {
+			theme.SliderTokens.Hover = &SliderHoverOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Hover.HandleColor = &v
+	} else {
+		missing = append(missing, "md.comp.slider.hover.handle.color")
+	}
+	if val, ok := tokens["md.comp.slider.hover.state.layer.color"]; ok {
+		if theme.SliderTokens.Hover == nil {
+			theme.SliderTokens.Hover = &SliderHoverOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.slider.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.slider.hover.state.layer.opacity"]; ok {
+		if theme.SliderTokens.Hover == nil {
+			theme.SliderTokens.Hover = &SliderHoverOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.slider.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.slider.inactive.track.color"]; ok {
+		theme.SliderTokens.Inactive.TrackColor = val
+	} else {
+		missing = append(missing, "md.comp.slider.inactive.track.color")
+	}
+	if val, ok := tokens["md.comp.slider.inactive.track.height"]; ok {
+		theme.SliderTokens.Inactive.TrackHeight = val
+	} else {
+		missing = append(missing, "md.comp.slider.inactive.track.height")
+	}
+	if val, ok := tokens["md.comp.slider.inactive.track.shape"]; ok {
+		theme.SliderTokens.Inactive.TrackShape = val
+	} else {
+		missing = append(missing, "md.comp.slider.inactive.track.shape")
+	}
+	if val, ok := tokens["md.comp.slider.label.container.color"]; ok {
+		theme.SliderTokens.Label.ContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.slider.label.container.color")
+	}
+	if val, ok := tokens["md.comp.slider.label.container.height"]; ok {
+		theme.SliderTokens.Label.ContainerHeight = val
+	} else {
+		missing = append(missing, "md.comp.slider.label.container.height")
+	}
+	if val, ok := tokens["md.comp.slider.label.text.color"]; ok {
+		theme.SliderTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.slider.label.text.color")
+	}
+	if val, ok := tokens["md.comp.slider.label.text.font"]; ok {
+		theme.SliderTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.slider.label.text.font")
+	}
+	if val, ok := tokens["md.comp.slider.label.text.line.height"]; ok {
+		theme.SliderTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.slider.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.slider.label.text.size"]; ok {
+		theme.SliderTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.slider.label.text.size")
+	}
+	if val, ok := tokens["md.comp.slider.label.text.weight"]; ok {
+		theme.SliderTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.slider.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.slider.pressed.handle.color"]; ok {
+		if theme.SliderTokens.Pressed == nil {
+			theme.SliderTokens.Pressed = &SliderPressedOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Pressed.HandleColor = &v
+	} else {
+		missing = append(missing, "md.comp.slider.pressed.handle.color")
+	}
+	if val, ok := tokens["md.comp.slider.pressed.state.layer.color"]; ok {
+		if theme.SliderTokens.Pressed == nil {
+			theme.SliderTokens.Pressed = &SliderPressedOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.slider.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.slider.pressed.state.layer.opacity"]; ok {
+		if theme.SliderTokens.Pressed == nil {
+			theme.SliderTokens.Pressed = &SliderPressedOverlay{}
+		}
+		v := val
+		theme.SliderTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.slider.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.slider.state.layer.size"]; ok {
+		theme.SliderTokens.StateLayer.Size = val
+	} else {
+		missing = append(missing, "md.comp.slider.state.layer.size")
+	}
+	if val, ok := tokens["md.comp.slider.with.overlap.handle.outline.color"]; ok {
+		theme.SliderTokens.With.OverlapHandleOutlineColor = val
+	} else {
+		missing = append(missing, "md.comp.slider.with.overlap.handle.outline.color")
+	}
+	if val, ok := tokens["md.comp.slider.with.overlap.handle.outline.width"]; ok {
+		theme.SliderTokens.With.OverlapHandleOutlineWidth = val
+	} else {
+		missing = append(missing, "md.comp.slider.with.overlap.handle.outline.width")
+	}
+	if val, ok := tokens["md.comp.slider.with.tick.marks.active.container.color"]; ok {
+		theme.SliderTokens.With.TickMarksActiveContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.slider.with.tick.marks.active.container.color")
+	}
+	if val, ok := tokens["md.comp.slider.with.tick.marks.container.size"]; ok {
+		theme.SliderTokens.With.TickMarksContainerSize = val
+	} else {
+		missing = append(missing, "md.comp.slider.with.tick.marks.container.size")
+	}
+	if val, ok := tokens["md.comp.slider.with.tick.marks.disabled.container.color"]; ok {
+		theme.SliderTokens.With.TickMarksDisabledContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.slider.with.tick.marks.disabled.container.color")
+	}
+	if val, ok := tokens["md.comp.slider.with.tick.marks.inactive.container.color"]; ok {
+		theme.SliderTokens.With.TickMarksInactiveContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.slider.with.tick.marks.inactive.container.color")
+	}
 	theme.SuggestionChipTokens = &SuggestionChipTokens{}
+	if val, ok := tokens["md.comp.suggestion.chip.container.height"]; ok {
+		theme.SuggestionChipTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.container.height")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.container.shape"]; ok {
+		theme.SuggestionChipTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.container.shape")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.container.shape.end.end"]; ok {
+		theme.SuggestionChipTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.container.shape.end.start"]; ok {
+		theme.SuggestionChipTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.container.shape.start.end"]; ok {
+		theme.SuggestionChipTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.container.shape.start.start"]; ok {
+		theme.SuggestionChipTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.disabled.label.text.color"]; ok {
+		if theme.SuggestionChipTokens.Disabled == nil {
+			theme.SuggestionChipTokens.Disabled = &SuggestionChipDisabledOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.disabled.label.text.opacity"]; ok {
+		if theme.SuggestionChipTokens.Disabled == nil {
+			theme.SuggestionChipTokens.Disabled = &SuggestionChipDisabledOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Disabled.LabelTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.disabled.leading.icon.color"]; ok {
+		if theme.SuggestionChipTokens.Disabled == nil {
+			theme.SuggestionChipTokens.Disabled = &SuggestionChipDisabledOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Disabled.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.disabled.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.disabled.leading.icon.opacity"]; ok {
+		if theme.SuggestionChipTokens.Disabled == nil {
+			theme.SuggestionChipTokens.Disabled = &SuggestionChipDisabledOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Disabled.LeadingIconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.disabled.leading.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.disabled.outline.color"]; ok {
+		if theme.SuggestionChipTokens.Disabled == nil {
+			theme.SuggestionChipTokens.Disabled = &SuggestionChipDisabledOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Disabled.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.disabled.outline.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.disabled.outline.opacity"]; ok {
+		if theme.SuggestionChipTokens.Disabled == nil {
+			theme.SuggestionChipTokens.Disabled = &SuggestionChipDisabledOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Disabled.OutlineOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.disabled.outline.opacity")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.elevated.container.color"]; ok {
+		theme.SuggestionChipTokens.Elevated.ContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.elevated.container.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.elevated.container.elevation"]; ok {
+		theme.SuggestionChipTokens.Elevated.ContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.elevated.container.elevation")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.elevated.container.shadow.color"]; ok {
+		theme.SuggestionChipTokens.Elevated.ContainerShadowColor = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.elevated.container.shadow.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.elevated.disabled.container.color"]; ok {
+		theme.SuggestionChipTokens.Elevated.DisabledContainerColor = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.elevated.disabled.container.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.elevated.disabled.container.elevation"]; ok {
+		theme.SuggestionChipTokens.Elevated.DisabledContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.elevated.disabled.container.elevation")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.elevated.disabled.container.opacity"]; ok {
+		theme.SuggestionChipTokens.Elevated.DisabledContainerOpacity = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.elevated.disabled.container.opacity")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.elevated.focus.container.elevation"]; ok {
+		theme.SuggestionChipTokens.Elevated.FocusContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.elevated.focus.container.elevation")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.elevated.hover.container.elevation"]; ok {
+		theme.SuggestionChipTokens.Elevated.HoverContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.elevated.hover.container.elevation")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.elevated.pressed.container.elevation"]; ok {
+		theme.SuggestionChipTokens.Elevated.PressedContainerElevation = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.elevated.pressed.container.elevation")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.focus.label.text.color"]; ok {
+		if theme.SuggestionChipTokens.Focus == nil {
+			theme.SuggestionChipTokens.Focus = &SuggestionChipFocusOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.focus.leading.icon.color"]; ok {
+		if theme.SuggestionChipTokens.Focus == nil {
+			theme.SuggestionChipTokens.Focus = &SuggestionChipFocusOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Focus.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.focus.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.focus.outline.color"]; ok {
+		if theme.SuggestionChipTokens.Focus == nil {
+			theme.SuggestionChipTokens.Focus = &SuggestionChipFocusOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Focus.OutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.focus.outline.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.hover.label.text.color"]; ok {
+		if theme.SuggestionChipTokens.Hover == nil {
+			theme.SuggestionChipTokens.Hover = &SuggestionChipHoverOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.hover.leading.icon.color"]; ok {
+		if theme.SuggestionChipTokens.Hover == nil {
+			theme.SuggestionChipTokens.Hover = &SuggestionChipHoverOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Hover.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.hover.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.hover.state.layer.color"]; ok {
+		if theme.SuggestionChipTokens.Hover == nil {
+			theme.SuggestionChipTokens.Hover = &SuggestionChipHoverOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.hover.state.layer.opacity"]; ok {
+		if theme.SuggestionChipTokens.Hover == nil {
+			theme.SuggestionChipTokens.Hover = &SuggestionChipHoverOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.icon.label.space"]; ok {
+		theme.SuggestionChipTokens.Icon.LabelSpace = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.icon.label.space")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.icon.size"]; ok {
+		theme.SuggestionChipTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.icon.size")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.label.text.color"]; ok {
+		theme.SuggestionChipTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.label.text.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.label.text.font"]; ok {
+		theme.SuggestionChipTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.label.text.font")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.label.text.line.height"]; ok {
+		theme.SuggestionChipTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.label.text.size"]; ok {
+		theme.SuggestionChipTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.label.text.size")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.label.text.weight"]; ok {
+		theme.SuggestionChipTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.leading.icon.color"]; ok {
+		theme.SuggestionChipTokens.LeadingIcon.Color = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.leading.space"]; ok {
+		theme.SuggestionChipTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.leading.space")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.outline.color"]; ok {
+		theme.SuggestionChipTokens.Outline.Color = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.outline.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.outline.width"]; ok {
+		theme.SuggestionChipTokens.Outline.Width = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.outline.width")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.pressed.label.text.color"]; ok {
+		if theme.SuggestionChipTokens.Pressed == nil {
+			theme.SuggestionChipTokens.Pressed = &SuggestionChipPressedOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Pressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.pressed.leading.icon.color"]; ok {
+		if theme.SuggestionChipTokens.Pressed == nil {
+			theme.SuggestionChipTokens.Pressed = &SuggestionChipPressedOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Pressed.LeadingIconColor = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.pressed.leading.icon.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.pressed.state.layer.color"]; ok {
+		if theme.SuggestionChipTokens.Pressed == nil {
+			theme.SuggestionChipTokens.Pressed = &SuggestionChipPressedOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.pressed.state.layer.opacity"]; ok {
+		if theme.SuggestionChipTokens.Pressed == nil {
+			theme.SuggestionChipTokens.Pressed = &SuggestionChipPressedOverlay{}
+		}
+		v := val
+		theme.SuggestionChipTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.trailing.space"]; ok {
+		theme.SuggestionChipTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.trailing.space")
+	}
+	if val, ok := tokens["md.comp.suggestion.chip.with.leading.icon.leading.space"]; ok {
+		theme.SuggestionChipTokens.WithLeadingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.suggestion.chip.with.leading.icon.leading.space")
+	}
 	theme.SwitchTokens = &SwitchTokens{}
+	if val, ok := tokens["md.comp.switch.disabled.handle.color"]; ok {
+		if theme.SwitchTokens.Disabled == nil {
+			theme.SwitchTokens.Disabled = &SwitchDisabledOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Disabled.HandleColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.disabled.handle.color")
+	}
+	if val, ok := tokens["md.comp.switch.disabled.handle.opacity"]; ok {
+		if theme.SwitchTokens.Disabled == nil {
+			theme.SwitchTokens.Disabled = &SwitchDisabledOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Disabled.HandleOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.switch.disabled.handle.opacity")
+	}
+	if val, ok := tokens["md.comp.switch.disabled.icon.color"]; ok {
+		if theme.SwitchTokens.Disabled == nil {
+			theme.SwitchTokens.Disabled = &SwitchDisabledOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Disabled.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.disabled.icon.color")
+	}
+	if val, ok := tokens["md.comp.switch.disabled.icon.opacity"]; ok {
+		if theme.SwitchTokens.Disabled == nil {
+			theme.SwitchTokens.Disabled = &SwitchDisabledOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Disabled.IconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.switch.disabled.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.switch.disabled.selected.handle.color"]; ok {
+		if theme.SwitchTokens.DisabledSelected == nil {
+			theme.SwitchTokens.DisabledSelected = &SwitchDisabledSelectedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.DisabledSelected.HandleColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.disabled.selected.handle.color")
+	}
+	if val, ok := tokens["md.comp.switch.disabled.selected.handle.opacity"]; ok {
+		if theme.SwitchTokens.DisabledSelected == nil {
+			theme.SwitchTokens.DisabledSelected = &SwitchDisabledSelectedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.DisabledSelected.HandleOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.switch.disabled.selected.handle.opacity")
+	}
+	if val, ok := tokens["md.comp.switch.disabled.selected.icon.color"]; ok {
+		if theme.SwitchTokens.DisabledSelected == nil {
+			theme.SwitchTokens.DisabledSelected = &SwitchDisabledSelectedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.DisabledSelected.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.disabled.selected.icon.color")
+	}
+	if val, ok := tokens["md.comp.switch.disabled.selected.icon.opacity"]; ok {
+		if theme.SwitchTokens.DisabledSelected == nil {
+			theme.SwitchTokens.DisabledSelected = &SwitchDisabledSelectedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.DisabledSelected.IconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.switch.disabled.selected.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.switch.disabled.selected.track.color"]; ok {
+		if theme.SwitchTokens.DisabledSelected == nil {
+			theme.SwitchTokens.DisabledSelected = &SwitchDisabledSelectedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.DisabledSelected.TrackColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.disabled.selected.track.color")
+	}
+	if val, ok := tokens["md.comp.switch.disabled.track.color"]; ok {
+		if theme.SwitchTokens.Disabled == nil {
+			theme.SwitchTokens.Disabled = &SwitchDisabledOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Disabled.TrackColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.disabled.track.color")
+	}
+	if val, ok := tokens["md.comp.switch.disabled.track.opacity"]; ok {
+		if theme.SwitchTokens.Disabled == nil {
+			theme.SwitchTokens.Disabled = &SwitchDisabledOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Disabled.TrackOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.switch.disabled.track.opacity")
+	}
+	if val, ok := tokens["md.comp.switch.disabled.track.outline.color"]; ok {
+		if theme.SwitchTokens.Disabled == nil {
+			theme.SwitchTokens.Disabled = &SwitchDisabledOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Disabled.TrackOutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.disabled.track.outline.color")
+	}
+	if val, ok := tokens["md.comp.switch.focus.handle.color"]; ok {
+		if theme.SwitchTokens.Focus == nil {
+			theme.SwitchTokens.Focus = &SwitchFocusOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Focus.HandleColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.focus.handle.color")
+	}
+	if val, ok := tokens["md.comp.switch.focus.icon.color"]; ok {
+		if theme.SwitchTokens.Focus == nil {
+			theme.SwitchTokens.Focus = &SwitchFocusOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.switch.focus.track.color"]; ok {
+		if theme.SwitchTokens.Focus == nil {
+			theme.SwitchTokens.Focus = &SwitchFocusOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Focus.TrackColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.focus.track.color")
+	}
+	if val, ok := tokens["md.comp.switch.focus.track.outline.color"]; ok {
+		if theme.SwitchTokens.Focus == nil {
+			theme.SwitchTokens.Focus = &SwitchFocusOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Focus.TrackOutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.focus.track.outline.color")
+	}
+	if val, ok := tokens["md.comp.switch.handle.color"]; ok {
+		theme.SwitchTokens.Handle.Color = val
+	} else {
+		missing = append(missing, "md.comp.switch.handle.color")
+	}
+	if val, ok := tokens["md.comp.switch.handle.height"]; ok {
+		theme.SwitchTokens.Handle.Height = val
+	} else {
+		missing = append(missing, "md.comp.switch.handle.height")
+	}
+	if val, ok := tokens["md.comp.switch.handle.shape"]; ok {
+		theme.SwitchTokens.Handle.Shape = val
+	} else {
+		missing = append(missing, "md.comp.switch.handle.shape")
+	}
+	if val, ok := tokens["md.comp.switch.handle.shape.end.end"]; ok {
+		theme.SwitchTokens.Handle.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.switch.handle.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.switch.handle.shape.end.start"]; ok {
+		theme.SwitchTokens.Handle.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.switch.handle.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.switch.handle.shape.start.end"]; ok {
+		theme.SwitchTokens.Handle.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.switch.handle.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.switch.handle.shape.start.start"]; ok {
+		theme.SwitchTokens.Handle.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.switch.handle.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.switch.handle.width"]; ok {
+		theme.SwitchTokens.Handle.Width = val
+	} else {
+		missing = append(missing, "md.comp.switch.handle.width")
+	}
+	if val, ok := tokens["md.comp.switch.hover.handle.color"]; ok {
+		if theme.SwitchTokens.Hover == nil {
+			theme.SwitchTokens.Hover = &SwitchHoverOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Hover.HandleColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.hover.handle.color")
+	}
+	if val, ok := tokens["md.comp.switch.hover.icon.color"]; ok {
+		if theme.SwitchTokens.Hover == nil {
+			theme.SwitchTokens.Hover = &SwitchHoverOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.switch.hover.state.layer.color"]; ok {
+		if theme.SwitchTokens.Hover == nil {
+			theme.SwitchTokens.Hover = &SwitchHoverOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.switch.hover.state.layer.opacity"]; ok {
+		if theme.SwitchTokens.Hover == nil {
+			theme.SwitchTokens.Hover = &SwitchHoverOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.switch.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.switch.hover.track.color"]; ok {
+		if theme.SwitchTokens.Hover == nil {
+			theme.SwitchTokens.Hover = &SwitchHoverOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Hover.TrackColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.hover.track.color")
+	}
+	if val, ok := tokens["md.comp.switch.hover.track.outline.color"]; ok {
+		if theme.SwitchTokens.Hover == nil {
+			theme.SwitchTokens.Hover = &SwitchHoverOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Hover.TrackOutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.hover.track.outline.color")
+	}
+	if val, ok := tokens["md.comp.switch.icon.color"]; ok {
+		theme.SwitchTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.switch.icon.color")
+	}
+	if val, ok := tokens["md.comp.switch.icon.size"]; ok {
+		theme.SwitchTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.switch.icon.size")
+	}
+	if val, ok := tokens["md.comp.switch.pressed.handle.color"]; ok {
+		if theme.SwitchTokens.Pressed == nil {
+			theme.SwitchTokens.Pressed = &SwitchPressedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Pressed.HandleColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.pressed.handle.color")
+	}
+	if val, ok := tokens["md.comp.switch.pressed.handle.height"]; ok {
+		if theme.SwitchTokens.Pressed == nil {
+			theme.SwitchTokens.Pressed = &SwitchPressedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Pressed.HandleHeight = &v
+	} else {
+		missing = append(missing, "md.comp.switch.pressed.handle.height")
+	}
+	if val, ok := tokens["md.comp.switch.pressed.handle.width"]; ok {
+		if theme.SwitchTokens.Pressed == nil {
+			theme.SwitchTokens.Pressed = &SwitchPressedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Pressed.HandleWidth = &v
+	} else {
+		missing = append(missing, "md.comp.switch.pressed.handle.width")
+	}
+	if val, ok := tokens["md.comp.switch.pressed.icon.color"]; ok {
+		if theme.SwitchTokens.Pressed == nil {
+			theme.SwitchTokens.Pressed = &SwitchPressedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.switch.pressed.state.layer.color"]; ok {
+		if theme.SwitchTokens.Pressed == nil {
+			theme.SwitchTokens.Pressed = &SwitchPressedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.switch.pressed.state.layer.opacity"]; ok {
+		if theme.SwitchTokens.Pressed == nil {
+			theme.SwitchTokens.Pressed = &SwitchPressedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.switch.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.switch.pressed.track.color"]; ok {
+		if theme.SwitchTokens.Pressed == nil {
+			theme.SwitchTokens.Pressed = &SwitchPressedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Pressed.TrackColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.pressed.track.color")
+	}
+	if val, ok := tokens["md.comp.switch.pressed.track.outline.color"]; ok {
+		if theme.SwitchTokens.Pressed == nil {
+			theme.SwitchTokens.Pressed = &SwitchPressedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Pressed.TrackOutlineColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.pressed.track.outline.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.focus.handle.color"]; ok {
+		if theme.SwitchTokens.SelectedFocus == nil {
+			theme.SwitchTokens.SelectedFocus = &SwitchSelectedFocusOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.SelectedFocus.HandleColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.focus.handle.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.focus.icon.color"]; ok {
+		if theme.SwitchTokens.SelectedFocus == nil {
+			theme.SwitchTokens.SelectedFocus = &SwitchSelectedFocusOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.SelectedFocus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.focus.track.color"]; ok {
+		if theme.SwitchTokens.SelectedFocus == nil {
+			theme.SwitchTokens.SelectedFocus = &SwitchSelectedFocusOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.SelectedFocus.TrackColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.focus.track.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.handle.color"]; ok {
+		if theme.SwitchTokens.Selected == nil {
+			theme.SwitchTokens.Selected = &SwitchSelectedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Selected.HandleColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.handle.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.handle.height"]; ok {
+		if theme.SwitchTokens.Selected == nil {
+			theme.SwitchTokens.Selected = &SwitchSelectedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Selected.HandleHeight = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.handle.height")
+	}
+	if val, ok := tokens["md.comp.switch.selected.handle.width"]; ok {
+		if theme.SwitchTokens.Selected == nil {
+			theme.SwitchTokens.Selected = &SwitchSelectedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Selected.HandleWidth = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.handle.width")
+	}
+	if val, ok := tokens["md.comp.switch.selected.hover.handle.color"]; ok {
+		if theme.SwitchTokens.SelectedHover == nil {
+			theme.SwitchTokens.SelectedHover = &SwitchSelectedHoverOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.SelectedHover.HandleColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.hover.handle.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.hover.icon.color"]; ok {
+		if theme.SwitchTokens.SelectedHover == nil {
+			theme.SwitchTokens.SelectedHover = &SwitchSelectedHoverOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.SelectedHover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.hover.state.layer.color"]; ok {
+		if theme.SwitchTokens.SelectedHover == nil {
+			theme.SwitchTokens.SelectedHover = &SwitchSelectedHoverOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.SelectedHover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.hover.state.layer.opacity"]; ok {
+		if theme.SwitchTokens.SelectedHover == nil {
+			theme.SwitchTokens.SelectedHover = &SwitchSelectedHoverOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.SelectedHover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.switch.selected.hover.track.color"]; ok {
+		if theme.SwitchTokens.SelectedHover == nil {
+			theme.SwitchTokens.SelectedHover = &SwitchSelectedHoverOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.SelectedHover.TrackColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.hover.track.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.icon.color"]; ok {
+		if theme.SwitchTokens.Selected == nil {
+			theme.SwitchTokens.Selected = &SwitchSelectedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Selected.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.icon.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.icon.size"]; ok {
+		if theme.SwitchTokens.Selected == nil {
+			theme.SwitchTokens.Selected = &SwitchSelectedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Selected.IconSize = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.icon.size")
+	}
+	if val, ok := tokens["md.comp.switch.selected.pressed.handle.color"]; ok {
+		if theme.SwitchTokens.SelectedPressed == nil {
+			theme.SwitchTokens.SelectedPressed = &SwitchSelectedPressedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.SelectedPressed.HandleColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.pressed.handle.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.pressed.icon.color"]; ok {
+		if theme.SwitchTokens.SelectedPressed == nil {
+			theme.SwitchTokens.SelectedPressed = &SwitchSelectedPressedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.SelectedPressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.pressed.state.layer.color"]; ok {
+		if theme.SwitchTokens.SelectedPressed == nil {
+			theme.SwitchTokens.SelectedPressed = &SwitchSelectedPressedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.SelectedPressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.pressed.state.layer.opacity"]; ok {
+		if theme.SwitchTokens.SelectedPressed == nil {
+			theme.SwitchTokens.SelectedPressed = &SwitchSelectedPressedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.SelectedPressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.switch.selected.pressed.track.color"]; ok {
+		if theme.SwitchTokens.SelectedPressed == nil {
+			theme.SwitchTokens.SelectedPressed = &SwitchSelectedPressedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.SelectedPressed.TrackColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.pressed.track.color")
+	}
+	if val, ok := tokens["md.comp.switch.selected.track.color"]; ok {
+		if theme.SwitchTokens.Selected == nil {
+			theme.SwitchTokens.Selected = &SwitchSelectedOverlay{}
+		}
+		v := val
+		theme.SwitchTokens.Selected.TrackColor = &v
+	} else {
+		missing = append(missing, "md.comp.switch.selected.track.color")
+	}
+	if val, ok := tokens["md.comp.switch.state.layer.shape"]; ok {
+		theme.SwitchTokens.StateLayer.Shape = val
+	} else {
+		missing = append(missing, "md.comp.switch.state.layer.shape")
+	}
+	if val, ok := tokens["md.comp.switch.state.layer.size"]; ok {
+		theme.SwitchTokens.StateLayer.Size = val
+	} else {
+		missing = append(missing, "md.comp.switch.state.layer.size")
+	}
+	if val, ok := tokens["md.comp.switch.touch.target.size"]; ok {
+		theme.SwitchTokens.Touch.TargetSize = val
+	} else {
+		missing = append(missing, "md.comp.switch.touch.target.size")
+	}
+	if val, ok := tokens["md.comp.switch.track.color"]; ok {
+		theme.SwitchTokens.Track.Color = val
+	} else {
+		missing = append(missing, "md.comp.switch.track.color")
+	}
+	if val, ok := tokens["md.comp.switch.track.height"]; ok {
+		theme.SwitchTokens.Track.Height = val
+	} else {
+		missing = append(missing, "md.comp.switch.track.height")
+	}
+	if val, ok := tokens["md.comp.switch.track.outline.color"]; ok {
+		theme.SwitchTokens.Track.OutlineColor = val
+	} else {
+		missing = append(missing, "md.comp.switch.track.outline.color")
+	}
+	if val, ok := tokens["md.comp.switch.track.outline.width"]; ok {
+		theme.SwitchTokens.Track.OutlineWidth = val
+	} else {
+		missing = append(missing, "md.comp.switch.track.outline.width")
+	}
+	if val, ok := tokens["md.comp.switch.track.shape"]; ok {
+		theme.SwitchTokens.Track.Shape = val
+	} else {
+		missing = append(missing, "md.comp.switch.track.shape")
+	}
+	if val, ok := tokens["md.comp.switch.track.shape.end.end"]; ok {
+		theme.SwitchTokens.Track.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.switch.track.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.switch.track.shape.end.start"]; ok {
+		theme.SwitchTokens.Track.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.switch.track.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.switch.track.shape.start.end"]; ok {
+		theme.SwitchTokens.Track.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.switch.track.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.switch.track.shape.start.start"]; ok {
+		theme.SwitchTokens.Track.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.switch.track.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.switch.track.width"]; ok {
+		theme.SwitchTokens.Track.Width = val
+	} else {
+		missing = append(missing, "md.comp.switch.track.width")
+	}
+	if val, ok := tokens["md.comp.switch.with.icon.handle.height"]; ok {
+		theme.SwitchTokens.With.IconHandleHeight = val
+	} else {
+		missing = append(missing, "md.comp.switch.with.icon.handle.height")
+	}
+	if val, ok := tokens["md.comp.switch.with.icon.handle.width"]; ok {
+		theme.SwitchTokens.With.IconHandleWidth = val
+	} else {
+		missing = append(missing, "md.comp.switch.with.icon.handle.width")
+	}
 	theme.TextButtonTokens = &TextButtonTokens{}
-	return theme
+	if val, ok := tokens["md.comp.text.button.container.height"]; ok {
+		theme.TextButtonTokens.Container.Height = val
+	} else {
+		missing = append(missing, "md.comp.text.button.container.height")
+	}
+	if val, ok := tokens["md.comp.text.button.container.shape"]; ok {
+		theme.TextButtonTokens.Container.Shape = val
+	} else {
+		missing = append(missing, "md.comp.text.button.container.shape")
+	}
+	if val, ok := tokens["md.comp.text.button.container.shape.end.end"]; ok {
+		theme.TextButtonTokens.Container.ShapeEndEnd = val
+	} else {
+		missing = append(missing, "md.comp.text.button.container.shape.end.end")
+	}
+	if val, ok := tokens["md.comp.text.button.container.shape.end.start"]; ok {
+		theme.TextButtonTokens.Container.ShapeEndStart = val
+	} else {
+		missing = append(missing, "md.comp.text.button.container.shape.end.start")
+	}
+	if val, ok := tokens["md.comp.text.button.container.shape.start.end"]; ok {
+		theme.TextButtonTokens.Container.ShapeStartEnd = val
+	} else {
+		missing = append(missing, "md.comp.text.button.container.shape.start.end")
+	}
+	if val, ok := tokens["md.comp.text.button.container.shape.start.start"]; ok {
+		theme.TextButtonTokens.Container.ShapeStartStart = val
+	} else {
+		missing = append(missing, "md.comp.text.button.container.shape.start.start")
+	}
+	if val, ok := tokens["md.comp.text.button.disabled.icon.color"]; ok {
+		if theme.TextButtonTokens.Disabled == nil {
+			theme.TextButtonTokens.Disabled = &TextButtonDisabledOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Disabled.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.disabled.icon.color")
+	}
+	if val, ok := tokens["md.comp.text.button.disabled.icon.opacity"]; ok {
+		if theme.TextButtonTokens.Disabled == nil {
+			theme.TextButtonTokens.Disabled = &TextButtonDisabledOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Disabled.IconOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.disabled.icon.opacity")
+	}
+	if val, ok := tokens["md.comp.text.button.disabled.label.text.color"]; ok {
+		if theme.TextButtonTokens.Disabled == nil {
+			theme.TextButtonTokens.Disabled = &TextButtonDisabledOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Disabled.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.disabled.label.text.color")
+	}
+	if val, ok := tokens["md.comp.text.button.disabled.label.text.opacity"]; ok {
+		if theme.TextButtonTokens.Disabled == nil {
+			theme.TextButtonTokens.Disabled = &TextButtonDisabledOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Disabled.LabelTextOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.disabled.label.text.opacity")
+	}
+	if val, ok := tokens["md.comp.text.button.focus.icon.color"]; ok {
+		if theme.TextButtonTokens.Focus == nil {
+			theme.TextButtonTokens.Focus = &TextButtonFocusOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Focus.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.focus.icon.color")
+	}
+	if val, ok := tokens["md.comp.text.button.focus.label.text.color"]; ok {
+		if theme.TextButtonTokens.Focus == nil {
+			theme.TextButtonTokens.Focus = &TextButtonFocusOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Focus.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.focus.label.text.color")
+	}
+	if val, ok := tokens["md.comp.text.button.hover.icon.color"]; ok {
+		if theme.TextButtonTokens.Hover == nil {
+			theme.TextButtonTokens.Hover = &TextButtonHoverOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Hover.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.hover.icon.color")
+	}
+	if val, ok := tokens["md.comp.text.button.hover.label.text.color"]; ok {
+		if theme.TextButtonTokens.Hover == nil {
+			theme.TextButtonTokens.Hover = &TextButtonHoverOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Hover.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.hover.label.text.color")
+	}
+	if val, ok := tokens["md.comp.text.button.hover.state.layer.color"]; ok {
+		if theme.TextButtonTokens.Hover == nil {
+			theme.TextButtonTokens.Hover = &TextButtonHoverOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Hover.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.hover.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.text.button.hover.state.layer.opacity"]; ok {
+		if theme.TextButtonTokens.Hover == nil {
+			theme.TextButtonTokens.Hover = &TextButtonHoverOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Hover.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.hover.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.text.button.icon.color"]; ok {
+		theme.TextButtonTokens.Icon.Color = val
+	} else {
+		missing = append(missing, "md.comp.text.button.icon.color")
+	}
+	if val, ok := tokens["md.comp.text.button.icon.size"]; ok {
+		theme.TextButtonTokens.Icon.Size = val
+	} else {
+		missing = append(missing, "md.comp.text.button.icon.size")
+	}
+	if val, ok := tokens["md.comp.text.button.label.text.color"]; ok {
+		theme.TextButtonTokens.LabelText.Color = val
+	} else {
+		missing = append(missing, "md.comp.text.button.label.text.color")
+	}
+	if val, ok := tokens["md.comp.text.button.label.text.font"]; ok {
+		theme.TextButtonTokens.LabelText.Font = val
+	} else {
+		missing = append(missing, "md.comp.text.button.label.text.font")
+	}
+	if val, ok := tokens["md.comp.text.button.label.text.line.height"]; ok {
+		theme.TextButtonTokens.LabelText.LineHeight = val
+	} else {
+		missing = append(missing, "md.comp.text.button.label.text.line.height")
+	}
+	if val, ok := tokens["md.comp.text.button.label.text.size"]; ok {
+		theme.TextButtonTokens.LabelText.Size = val
+	} else {
+		missing = append(missing, "md.comp.text.button.label.text.size")
+	}
+	if val, ok := tokens["md.comp.text.button.label.text.weight"]; ok {
+		theme.TextButtonTokens.LabelText.Weight = val
+	} else {
+		missing = append(missing, "md.comp.text.button.label.text.weight")
+	}
+	if val, ok := tokens["md.comp.text.button.leading.space"]; ok {
+		theme.TextButtonTokens.Leading.Space = val
+	} else {
+		missing = append(missing, "md.comp.text.button.leading.space")
+	}
+	if val, ok := tokens["md.comp.text.button.pressed.icon.color"]; ok {
+		if theme.TextButtonTokens.Pressed == nil {
+			theme.TextButtonTokens.Pressed = &TextButtonPressedOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Pressed.IconColor = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.pressed.icon.color")
+	}
+	if val, ok := tokens["md.comp.text.button.pressed.label.text.color"]; ok {
+		if theme.TextButtonTokens.Pressed == nil {
+			theme.TextButtonTokens.Pressed = &TextButtonPressedOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Pressed.LabelTextColor = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.pressed.label.text.color")
+	}
+	if val, ok := tokens["md.comp.text.button.pressed.state.layer.color"]; ok {
+		if theme.TextButtonTokens.Pressed == nil {
+			theme.TextButtonTokens.Pressed = &TextButtonPressedOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Pressed.StateLayerColor = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.pressed.state.layer.color")
+	}
+	if val, ok := tokens["md.comp.text.button.pressed.state.layer.opacity"]; ok {
+		if theme.TextButtonTokens.Pressed == nil {
+			theme.TextButtonTokens.Pressed = &TextButtonPressedOverlay{}
+		}
+		v := val
+		theme.TextButtonTokens.Pressed.StateLayerOpacity = &v
+	} else {
+		missing = append(missing, "md.comp.text.button.pressed.state.layer.opacity")
+	}
+	if val, ok := tokens["md.comp.text.button.trailing.space"]; ok {
+		theme.TextButtonTokens.Trailing.Space = val
+	} else {
+		missing = append(missing, "md.comp.text.button.trailing.space")
+	}
+	if val, ok := tokens["md.comp.text.button.with.leading.icon.leading.space"]; ok {
+		theme.TextButtonTokens.WithLeadingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.text.button.with.leading.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.text.button.with.leading.icon.trailing.space"]; ok {
+		theme.TextButtonTokens.WithLeadingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.text.button.with.leading.icon.trailing.space")
+	}
+	if val, ok := tokens["md.comp.text.button.with.trailing.icon.leading.space"]; ok {
+		theme.TextButtonTokens.WithTrailingIcon.LeadingSpace = val
+	} else {
+		missing = append(missing, "md.comp.text.button.with.trailing.icon.leading.space")
+	}
+	if val, ok := tokens["md.comp.text.button.with.trailing.icon.trailing.space"]; ok {
+		theme.TextButtonTokens.WithTrailingIcon.TrailingSpace = val
+	} else {
+		missing = append(missing, "md.comp.text.button.with.trailing.icon.trailing.space")
+	}
+	if len(missing) > 0 {
+		return nil, fmt.Errorf("missing required tokens: %s", strings.Join(missing, ", "))
+	}
+	return theme, nil
 }
 
 func (t *Theme) RegisterCustomComponent(name string, tokens map[string]string) {
